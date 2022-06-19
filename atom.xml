@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🎶AriesSK</title>
-    <updated>2022-06-19T12:40:41.852Z</updated>
+    <updated>2022-06-19T13:06:42.078Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,22 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🎶AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[00.模板]]></title>
+        <id>https://AriesSK.github.io/post/00mo-ban/</id>
+        <link href="https://AriesSK.github.io/post/00mo-ban/">
+        </link>
+        <updated>2022-06-17T12:59:25.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="知识点">知识点</h1>
+<hr>
+<h2 id="javascript-中-map-对象的方法">JavaScript 中 map 对象的方法</h2>
+<pre><code class="language-js">set(key, value)
+get(key)
+has(key)
+delete(key)
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://AriesSK.github.io/post/hello-gridea/</id>
