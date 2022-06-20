@@ -196,64 +196,167 @@
     </script>
     
             <div class="main">
-                <div class="post-wrap archive">
-                    
-                        
-                            <h3>
-                                2022
-                            </h3>
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                10 - I. 斐波那契数列
+                            </h1>
                             
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_10_i/">
-                                            10 - I. 斐波那契数列
-                                        </a><span class="archive-item-date">2022-06-16 </span></article>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-16</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">2.3
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">550</a></span>
                                     
-                                        
+                                        <span class="post-category">
+                                Category:
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_04/">
-                                            04. 二维数组中的查找
-                                        </a><span class="archive-item-date">2022-06-13 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/mHlERrHpb/">递归</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_03/">
-                                            03. 数组中重复的数字
-                                        </a><span class="archive-item-date">2022-06-12 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/tMnqncTHL/">动态规划</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_05/">
-                                            05. 替换空格
-                                        </a><span class="archive-item-date">2022-06-11 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                            06. 从头到尾打印链表
-                                        </a><span class="archive-item-date">2022-06-10 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_09/">
-                                            09. 用两个栈实现队列
-                                        </a><span class="archive-item-date">2022-06-09 </span></article>
-                                    
+                            </span>
                                         
-                                            
-                </div>
-                <div class="pagination-container">
-                    
-                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="动态规划总结">动态规划总结</h3>
+<p><em>Those who cannot remember the past are condemned to repeat it.</em><br>
+<em>那些不记得过去的人注定要重蹈覆辙。</em></p>
+<p>动态规划(Dynamic Programming, DP)通过记住求过的解来节省时间，对每一个子问题只求解一次，并将结果存下来。</p>
+<ul>
+<li>无后效性：如果给定某一阶段的状态，则在这一阶段以后过程的发展不受这阶段以前各段状态的影响</li>
+<li>最优子结构性质：大的问题的最优解可以由小问题的最优解推出</li>
+</ul>
+<p>判断能否使用 DP 解决：是否能够将大问题拆成几个小问题，且满足无后效性、最优子结构性质。<br>
+步骤：</p>
+<ol>
+<li>状态定义：定义一个状态，这是一个最优解的结构特征；</li>
+<li>转移方程：进行状态递推，得到递推公式；</li>
+<li>初始状态：进行初始化；</li>
+<li>返回结果。</li>
+</ol>
+<p>其中最重要的是<strong>状态转移方程</strong>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一递归">法一：递归</h3>
+<p>我第一时间想到的思路，且代码简单，但递归过程中重复的计算过多，导致超出了时间限制，无法通过：</p>
+<pre><code class="language-js">var fib = function(n) {
+    if (n === 0) return 0;
+    if (n === 1) return 1;
+    return (fib(n - 1) + fib(n - 2)) % (1e9+7);
+};
+</code></pre>
+<h3 id="法二递归-哈希表">法二：递归 + 哈希表</h3>
+<p>法一的优化，将每次计算后的结果存在哈希表中，即可避免重复计算，但需要额外<code>O(n)</code>的空间：</p>
+<pre><code class="language-js">var fib = function(n, hash = new Map()) {
+    if (n &lt;= 1) return n;
+    if (hash.has(n)) return hash.get(n);
+    // 注意给 1e9+7 加括号 否则会出错
+    else hash.set(n, (fib(n - 1, hash) + fib(n - 2, hash)) % (1e9+7));
+    return hash.get(n);
+};
+</code></pre>
+<h3 id="法三动态规划">法三：动态规划</h3>
+<p>状态转移方程：F(n) = F(n - 1) + F(n - 2)<br>
+由于只涉及到三个值，因此可以用滚动数组法使得空间复杂度为<code>O(1)</code>：</p>
+<ol>
+<li>状态定义：F(n) 表示第 n 个斐波那契数；</li>
+<li>转移方程：F(n) = F(n - 1) + F(n - 2)；</li>
+<li>初始状态：F(0) = 0; F(1) = 1; F(2) = 1；</li>
+<li>返回结果：F(n)。</li>
+</ol>
+<pre><code class="language-js">var fib = function(n) {
+    const MOD = 1e9+7;
+    if (n &lt; 2) return n;
+    let p = 0, q = 0, r = 1;
+    for (let i = 2; i &lt;= n; ++i) {
+        p = q; 
+        q = r; 
+        r = (p + q) % MOD;
+    }
+    return r;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
                                                     
-                                                            
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_10_i/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_10_i/&sharesource=qzone&title=10 - I. 斐波那契数列&pics=https://AriesSK.github.io/images/avatar.png?v=1655737731054&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_10_i/&sharesource=weibo&title=10 - I. 斐波那契数列 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655737731054 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/mHlERrHpb/">#
+                                                递归
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/tMnqncTHL/">#
+                                                动态规划
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_04/">
+                                                                                                    04. 二维数组中的查找
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -340,5 +443,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

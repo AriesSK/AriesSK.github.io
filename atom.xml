@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-06-20T14:05:30.142Z</updated>
+    <updated>2022-06-20T15:09:01.655Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,73 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[10 - I. 斐波那契数列]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_10_i/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_10_i/">
+        </link>
+        <updated>2022-06-16T14:47:36.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="动态规划总结">动态规划总结</h3>
+<p><em>Those who cannot remember the past are condemned to repeat it.</em><br>
+<em>那些不记得过去的人注定要重蹈覆辙。</em></p>
+<p>动态规划(Dynamic Programming, DP)通过记住求过的解来节省时间，对每一个子问题只求解一次，并将结果存下来。</p>
+<ul>
+<li>无后效性：如果给定某一阶段的状态，则在这一阶段以后过程的发展不受这阶段以前各段状态的影响</li>
+<li>最优子结构性质：大的问题的最优解可以由小问题的最优解推出</li>
+</ul>
+<p>判断能否使用 DP 解决：是否能够将大问题拆成几个小问题，且满足无后效性、最优子结构性质。<br>
+步骤：</p>
+<ol>
+<li>状态定义：定义一个状态，这是一个最优解的结构特征；</li>
+<li>转移方程：进行状态递推，得到递推公式；</li>
+<li>初始状态：进行初始化；</li>
+<li>返回结果。</li>
+</ol>
+<p>其中最重要的是<strong>状态转移方程</strong>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一递归">法一：递归</h3>
+<p>我第一时间想到的思路，且代码简单，但递归过程中重复的计算过多，导致超出了时间限制，无法通过：</p>
+<pre><code class="language-js">var fib = function(n) {
+    if (n === 0) return 0;
+    if (n === 1) return 1;
+    return (fib(n - 1) + fib(n - 2)) % (1e9+7);
+};
+</code></pre>
+<h3 id="法二递归-哈希表">法二：递归 + 哈希表</h3>
+<p>法一的优化，将每次计算后的结果存在哈希表中，即可避免重复计算，但需要额外<code>O(n)</code>的空间：</p>
+<pre><code class="language-js">var fib = function(n, hash = new Map()) {
+    if (n &lt;= 1) return n;
+    if (hash.has(n)) return hash.get(n);
+    // 注意给 1e9+7 加括号 否则会出错
+    else hash.set(n, (fib(n - 1, hash) + fib(n - 2, hash)) % (1e9+7));
+    return hash.get(n);
+};
+</code></pre>
+<h3 id="法三动态规划">法三：动态规划</h3>
+<p>状态转移方程：F(n) = F(n - 1) + F(n - 2)<br>
+由于只涉及到三个值，因此可以用滚动数组法使得空间复杂度为<code>O(1)</code>：</p>
+<ol>
+<li>状态定义：F(n) 表示第 n 个斐波那契数；</li>
+<li>转移方程：F(n) = F(n - 1) + F(n - 2)；</li>
+<li>初始状态：F(0) = 0; F(1) = 1; F(2) = 1；</li>
+<li>返回结果：F(n)。</li>
+</ol>
+<pre><code class="language-js">var fib = function(n) {
+    const MOD = 1e9+7;
+    if (n &lt; 2) return n;
+    let p = 0, q = 0, r = 1;
+    for (let i = 2; i &lt;= n; ++i) {
+        p = q; 
+        q = r; 
+        r = (p + q) % MOD;
+    }
+    return r;
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[04. 二维数组中的查找]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_04/</id>
@@ -115,9 +182,9 @@ size()
 <ul>
 <li>若<code>nums[i] = i</code>：说明此数字已在对应索引位置，无需交换，因此跳过；</li>
 <li>若<code>nums[nums[i]] = nums[i]</code>：代表索引<code>nums[i]</code>处和索引<code>i</code>处的元素值都为<code>nums[i]</code>，即找到一组重复值，返回此值<code>nums[i]</code>；</li>
-<li>否则：交换索引为<code>i</code>和<code>nums[i]</code>的元素值，将此数字交换至对应索引位置。<br>
-若遍历完毕尚未返回，则返回 -1。</li>
+<li>否则：交换索引为<code>i</code>和<code>nums[i]</code>的元素值，将此数字交换至对应索引位置。</li>
 </ul>
+<p>若遍历完毕尚未返回，则返回 -1。</p>
 <pre><code class="language-js">var findRepeatNumber = function(nums) {
     let i = 0;
     while (i &lt; nums.length) {
@@ -133,6 +200,153 @@ size()
         nums[tmp] = tmp;
     }
     return -1;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[05. 替换空格]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_05/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_05/">
+        </link>
+        <updated>2022-06-11T14:11:29.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的字符赋值">JavaScript 中的字符赋值</h3>
+<p>在 js 中不能直接对字符串中字符赋值：</p>
+<pre><code class="language-js">var replaceSpace = function(s) {
+    for (let i = 0; i &lt; s.length; ++i) {
+        if (s[i] === &quot; &quot;) s[i] = &quot;%20&quot;;
+    }
+    return s;
+};
+</code></pre>
+<p>正确的做法是使用<code>replace()</code>操作。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>不使用字符串方法的解法：</p>
+<pre><code class="language-js">var replaceSpace = function(s) {
+  let res = ''
+  for(let i = 0;i &lt; s.length; i++) {
+    if (s[i] === &quot; &quot;) res += &quot;%20&quot;;
+    else res += s[i];
+  }
+  return res;
+}
+</code></pre>
+<p>可以使用<code>split()</code>将字符串转化为数组：</p>
+<pre><code class="language-js">var replaceSpace = function(s) {
+    arr = s.split(&quot; &quot;);
+    let res = &quot;&quot;;
+    for (let i = 0; i &lt; arr.length; ++i) {
+        if (i === arr.length - 1) res += arr[i]; 
+        else res += arr[i] + &quot;%20&quot;;
+    }
+    return res;
+};
+</code></pre>
+<p>可以使用字符串的自带函数，注意<code>replace()</code>只替换第一个，而<code>replaceAll()</code>替换全部：</p>
+<pre><code class="language-js">var replaceSpace = function(s) {
+    return s.replaceAll(&quot; &quot;, &quot;%20&quot;);
+};
+</code></pre>
+<p><code>split()</code>以特定分隔符将字符串拆分为数组，<code>join()</code>则以特定分隔符将数组中元素连接成字符串：</p>
+<pre><code class="language-js">var replaceSpace = function(s) {
+    return s.split(&quot; &quot;).join(&quot;%20&quot;);
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[06. 从头到尾打印链表]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_06/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_06/">
+        </link>
+        <updated>2022-06-10T14:30:22.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的栈">JavaScript 中的栈</h3>
+<p>js 中并不存在<code>Stack</code>这个数据结构的API，是使用数组中的两种操作模拟形成的：</p>
+<pre><code class="language-js">push() // 向数组末添加元素
+pop() // 弹出并返回数组末元素，会改变数组的长度
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<p>使用栈倒着打印链表：</p>
+<pre><code class="language-js">var reversePrint = function(head) {
+    let ptr = head;
+    let stack = [];
+    while (ptr != null) {
+        stack.push(ptr.val);
+        ptr = ptr.next;
+    }
+    let number = [];
+    // 下面这行是错误的写法，因为 pop() 改变了 stack.length，导致出错
+    // for (let i = 0; i &lt; stack.length; ++i) number[i] = stack.pop();
+    let length = stack.length;
+    for (let i = 0; i &lt; length; ++i) number[i] = stack.pop();
+    return number;
+};
+</code></pre>
+<p>使用<code>unshift()</code>能够直接向数组开头添加元素并返回新长度：</p>
+<pre><code class="language-js">var reversePrint = function(head) {
+    let ptr = head;
+    let stack = [];
+    while (ptr != null) {
+        stack.unshift(ptr.val)
+        ptr = ptr.next;
+    }
+    return stack
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[09. 用两个栈实现队列]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_09/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_09/">
+        </link>
+        <updated>2022-06-09T14:40:30.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的prototype">JavaScript 中的<code>prototype</code></h3>
+<p>js 中使用 prototype 属性给对象的构造函数添加新的属性。</p>
+<h3 id="判空">判空</h3>
+<p>js 中通过长度判空</p>
+<pre><code class="language-js">if(!stack.length) // 如果栈为空
+</code></pre>
+<p>java 中使用<code>isEmpty()</code>判空</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>使用两个栈实现队列，一个入栈一个出栈，在入栈与出栈中的元素转移时，入栈弹出的是后入元素，应当先压入出栈，从而保证先入先出：</p>
+<pre><code class="language-js">// 构造函数
+var CQueue = function() {
+    this.inStack = [];
+    this.outStack = [];
+};
+
+/** 
+ * @param {number} value
+ * @return {void}
+ */
+ // 使用 prototype 给构造函数添加新的属性
+ // 入队 压入进栈
+CQueue.prototype.appendTail = function(value) {
+    this.inStack.push(value);
+};
+
+/**
+ * @return {number}
+ */
+ // 出队
+CQueue.prototype.deleteHead = function() {
+    if (!this.outStack.length) {
+        // 入栈出栈均为空 队列中没有元素
+        if (!this.inStack.length) return -1;
+        // 出栈为空 进栈有元素 将进栈元素全部压入出栈 先入先出
+        while (this.inStack.length) {
+            this.outStack.push(this.inStack.pop())
+        }
+    }
+    // 出栈有元素 直接弹出
+    return this.outStack.pop();
 };
 </code></pre>
 ]]></content>

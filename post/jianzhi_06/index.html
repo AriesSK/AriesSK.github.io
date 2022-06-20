@@ -196,64 +196,147 @@
     </script>
     
             <div class="main">
-                <div class="post-wrap archive">
-                    
-                        
-                            <h3>
-                                2022
-                            </h3>
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                06. 从头到尾打印链表
+                            </h1>
                             
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_10_i/">
-                                            10 - I. 斐波那契数列
-                                        </a><span class="archive-item-date">2022-06-16 </span></article>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-10</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">0.9
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">193</a></span>
                                     
-                                        
+                                        <span class="post-category">
+                                Category:
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_04/">
-                                            04. 二维数组中的查找
-                                        </a><span class="archive-item-date">2022-06-13 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/2UcFUw72z/">链表</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_03/">
-                                            03. 数组中重复的数字
-                                        </a><span class="archive-item-date">2022-06-12 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">栈</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_05/">
-                                            05. 替换空格
-                                        </a><span class="archive-item-date">2022-06-11 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                            06. 从头到尾打印链表
-                                        </a><span class="archive-item-date">2022-06-10 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_09/">
-                                            09. 用两个栈实现队列
-                                        </a><span class="archive-item-date">2022-06-09 </span></article>
-                                    
+                            </span>
                                         
-                                            
-                </div>
-                <div class="pagination-container">
-                    
-                                            
+                                </div>
+                                
+                        </header>
+                        
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的栈">JavaScript 中的栈</h3>
+<p>js 中并不存在<code>Stack</code>这个数据结构的API，是使用数组中的两种操作模拟形成的：</p>
+<pre><code class="language-js">push() // 向数组末添加元素
+pop() // 弹出并返回数组末元素，会改变数组的长度
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<p>使用栈倒着打印链表：</p>
+<pre><code class="language-js">var reversePrint = function(head) {
+    let ptr = head;
+    let stack = [];
+    while (ptr != null) {
+        stack.push(ptr.val);
+        ptr = ptr.next;
+    }
+    let number = [];
+    // 下面这行是错误的写法，因为 pop() 改变了 stack.length，导致出错
+    // for (let i = 0; i &lt; stack.length; ++i) number[i] = stack.pop();
+    let length = stack.length;
+    for (let i = 0; i &lt; length; ++i) number[i] = stack.pop();
+    return number;
+};
+</code></pre>
+<p>使用<code>unshift()</code>能够直接向数组开头添加元素并返回新长度：</p>
+<pre><code class="language-js">var reversePrint = function(head) {
+    let ptr = head;
+    let stack = [];
+    while (ptr != null) {
+        stack.unshift(ptr.val)
+        ptr = ptr.next;
+    }
+    return stack
+};
+</code></pre>
+
+                        </div>
+                        
+                                
                                                     
-                                                            
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_06/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_06/&sharesource=qzone&title=06. 从头到尾打印链表&pics=https://AriesSK.github.io/images/avatar.png?v=1655737731054&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_06/&sharesource=weibo&title=06. 从头到尾打印链表 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655737731054 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/2UcFUw72z/">#
+                                                链表
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">#
+                                                栈
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_05/">
+                                                                                            05. 替换空格
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_09/">
+                                                                                                    09. 用两个栈实现队列
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -340,5 +423,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
