@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 
 <head>
-    
-                <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <title>
-    Posts | 🐧AriesSK
+    🐧AriesSK
 </title>
 <!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -49,7 +48,6 @@
                                 })();
                             </script>
                             
-                    
 </head>
 
 <body>
@@ -197,145 +195,156 @@
         })
     </script>
     
-            <div class="post-main">
-                <div class="post-list">
-                    
-    
-                    
-    
-        
-                
-                    
-    
-        
-                
-                    
-    
-                    
-    
-                    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                04. 二维数组中的查找
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-13</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.6
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">357</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/BEhmc0Yrg/">二分查找</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
+                                        
+                                </div>
+                                
+                        </header>
                         
-                            
-                                            
-                            
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<p>本题中的二维数组虽然每一行和每一列都是递增的，但整体是无序的，因此不适用二分查找。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>注意题目中提示了输入可能是空数组，这种情况需要特别考虑：</p>
+<pre><code class="language-js">var findNumberIn2DArray = function(matrix, target) {
+    // 若 matrix 为空，则 matrix[0].length 会报错，故这种情况单独考虑
+    if (!matrix.length) return false;
+    let n = matrix.length, m = matrix[0].length;
+    for (let i = 0; i &lt; n; ++i) {
+        for (let j = 0; j &lt; m; ++j) {
+            if (matrix[i][j] === target) return true;
+        }
+    }
+    return false;
+};
+</code></pre>
+<h3 id="法二标志数">法二：标志数</h3>
+<p>将矩阵逆时针旋转 45°，能够发现其结构类似<strong>二叉搜索树</strong>，左分支更小，右分支更大；<br>
+因此从根节点，也就是右上角开始搜索，比<code>target</code>大就向左，否则向右；<br>
+矩阵的左下角和右上角元素均可以作为根节点，这就是标志数。<br>
+<img src="https://AriesSK.github.io/post-images/1655732925766.png" alt="" loading="lazy"></p>
+<pre><code class="language-js">// 右上角开始
+var findNumberIn2DArray = function(matrix, target) {
+    if (!matrix.length) return false;
+    let i = 0, j = matrix[0].length - 1;
+    while (i &lt; matrix.length &amp;&amp; j &gt;= 0) {
+        if (matrix[i][j] === target) return true;
+        else if (matrix[i][j] &lt; target) ++i;
+        else --j;
+    }    
+    return false;
+};
+
+// 左下角开始
+var findNumberIn2DArray = function(matrix, target) {
+    let i = matrix.length - 1, j = 0;
+    // 空数组的情况下，由于 i &gt;= 0 没有满足，因此没有执行到 matrix[0].length 所以不会报错
+    while (i &gt;= 0 &amp;&amp; j &lt; matrix[0].length) {
+        if (matrix[i][j] === target) return true;
+        else if (matrix[i][j] &gt; target) --i;
+        else ++j;
+    }    
+    return false;
+};
+</code></pre>
+
+                        </div>
+                        
                                 
-                                    <section class="post-item">
-                                        <div class="content">
-                                            <a href="https://AriesSK.github.io/post/jianzhi_04/">
-                                                <h2 class="post-title">
-                                                    04. 二维数组中的查找
-                                                </h2>
-                                            </a>
-                                            <div class="post-abstract">
-                                                
-                                            </div>
-                                            <div class="post-info">
-                                                <span><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-13</span>
-                                                
-                                                    <span>
-        <i class="fa fa-tags" aria-hidden="true"></i>
-        
-        <a href="https://AriesSK.github.io/tag/BEhmc0Yrg/">
-          二分查找
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">
-          算法
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">
-          数组
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">
-          剑指offer
-          
-        </a>
-        
-      </span>
                                                     
-                                            </div>
-                                        </div>
-                                        
-                                    </section>
-                                    
-                                        
-                                            
-                            
-                                
-                                    <section class="post-item">
-                                        <div class="content">
-                                            <a href="https://AriesSK.github.io/post/jianzhi_03/">
-                                                <h2 class="post-title">
-                                                    03. 数组中重复的数字
-                                                </h2>
-                                            </a>
-                                            <div class="post-abstract">
-                                                
-                                            </div>
-                                            <div class="post-info">
-                                                <span><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-12</span>
-                                                
-                                                    <span>
-        <i class="fa fa-tags" aria-hidden="true"></i>
-        
-        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">
-          算法
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">
-          数组
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">
-          哈希表
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/o97gtgaiy/">
-          排序
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">
-          剑指offer
-          
-        </a>
-        
-      </span>
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_04/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_04/&sharesource=qzone&title=04. 二维数组中的查找&pics=https://AriesSK.github.io/images/avatar.png?v=1655732944968&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_04/&sharesource=weibo&title=04. 二维数组中的查找 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655732944968 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/BEhmc0Yrg/">#
+                                                二分查找
+                                                    </a>
                                                     
-                                            </div>
-                                        </div>
-                                        
-                                    </section>
-                                    
-                                        
-                                            
-                            
-                                            
-                            
-                                            
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
+                                                数组
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_03/">
+                                                                                                    03. 数组中重复的数字
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -420,6 +429,10 @@
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
+        </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

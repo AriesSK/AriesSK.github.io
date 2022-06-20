@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 
 <head>
-    
-                <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <title>
-    Posts | 🐧AriesSK
+    🐧AriesSK
 </title>
 <!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -49,7 +48,6 @@
                                 })();
                             </script>
                             
-                    
 </head>
 
 <body>
@@ -197,145 +195,179 @@
         })
     </script>
     
-            <div class="post-main">
-                <div class="post-list">
-                    
-    
-                    
-    
-        
-                
-                    
-    
-        
-                
-                    
-    
-                    
-    
-                    
+            <div class="main">
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                03. 数组中重复的数字
+                            </h1>
+                            
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-12</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">2.0
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">460</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">哈希表</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/o97gtgaiy/">排序</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
+                                        
+                                </div>
+                                
+                        </header>
                         
-                            
-                                            
-                            
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的map对象与set对象">JavaScript 中的<code>Map</code>对象与<code>Set</code>对象</h3>
+<p><code>Map</code>对象存储键值对，一些常用的方法如下：</p>
+<pre><code class="language-js">set(key, value)
+get(key)
+has(key)
+delete(key)
+</code></pre>
+<p><code>Set</code>对象是唯一值的集合，一些常用的方法如下：</p>
+<pre><code class="language-js">add(key)
+clear() // 删除所有
+delete(key)
+entries() keys() values() // 返回值的数组，分别返回键值对、键名、键值，在 Set 中结果相同
+has(key)
+size()
+</code></pre>
+<p><code>Map</code>和<code>Set</code>的 key 可以是任何数据类型。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一哈希表">法一：哈希表</h3>
+<p>我一开始想到的是使用<code>Map</code>：</p>
+<pre><code class="language-js">var findRepeatNumber = function(nums) {
+    let hash = new Map();
+    for (let i = 0; i &lt; nums.length; ++i) {
+        // 这里需要使用 has()，而不是 get()，防止 get() 取到 0 导致判断出错
+        if (!hash.has(nums[i])) hash.set(nums[i], i);
+        else return nums[i];
+    }
+};
+</code></pre>
+<p>后来发现<code>Map</code>存储的是键值对，但在这题中只需要存 key，不需要存 value，因此用<code>Set</code>更好：</p>
+<pre><code class="language-js">var findRepeatNumber = function(nums) {
+    let set = new Set();
+    for (let i = 0; i &lt; nums.length; ++i) {
+        if (!set.has(nums[i])) set.add(nums[i]);
+        else return nums[i];
+    }
+};
+</code></pre>
+<h3 id="法二原地算法">法二：原地算法</h3>
+<p>遍历数组<code>nums</code>，设索引初始值为<code>i = 0</code>：</p>
+<ul>
+<li>若<code>nums[i] = i</code>：说明此数字已在对应索引位置，无需交换，因此跳过；</li>
+<li>若<code>nums[nums[i]] = nums[i]</code>：代表索引<code>nums[i]</code>处和索引<code>i</code>处的元素值都为<code>nums[i]</code>，即找到一组重复值，返回此值<code>nums[i]</code>；</li>
+<li>否则：交换索引为<code>i</code>和<code>nums[i]</code>的元素值，将此数字交换至对应索引位置。<br>
+若遍历完毕尚未返回，则返回 -1。</li>
+</ul>
+<pre><code class="language-js">var findRepeatNumber = function(nums) {
+    let i = 0;
+    while (i &lt; nums.length) {
+        if (nums[i] === i) {
+            // 直到该位置已放置正确数字再处理下一个位置，以保证数组被完全遍历
+            ++i;
+            continue;
+        }
+        if (nums[nums[i]] === nums[i]) return nums[i];
+        let tmp = nums[i];
+        nums[i] = nums[nums[i]];
+        // 注意这里 num[i] 已经被修改了值，因此不能用 nums[nums[i]]
+        nums[tmp] = tmp;
+    }
+    return -1;
+};
+</code></pre>
+
+                        </div>
+                        
                                 
-                                    <section class="post-item">
-                                        <div class="content">
-                                            <a href="https://AriesSK.github.io/post/jianzhi_04/">
-                                                <h2 class="post-title">
-                                                    04. 二维数组中的查找
-                                                </h2>
-                                            </a>
-                                            <div class="post-abstract">
-                                                
-                                            </div>
-                                            <div class="post-info">
-                                                <span><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-13</span>
-                                                
-                                                    <span>
-        <i class="fa fa-tags" aria-hidden="true"></i>
-        
-        <a href="https://AriesSK.github.io/tag/BEhmc0Yrg/">
-          二分查找
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">
-          算法
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">
-          数组
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">
-          剑指offer
-          
-        </a>
-        
-      </span>
                                                     
-                                            </div>
-                                        </div>
-                                        
-                                    </section>
-                                    
-                                        
-                                            
-                            
-                                
-                                    <section class="post-item">
-                                        <div class="content">
-                                            <a href="https://AriesSK.github.io/post/jianzhi_03/">
-                                                <h2 class="post-title">
-                                                    03. 数组中重复的数字
-                                                </h2>
-                                            </a>
-                                            <div class="post-abstract">
-                                                
-                                            </div>
-                                            <div class="post-info">
-                                                <span><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-12</span>
-                                                
-                                                    <span>
-        <i class="fa fa-tags" aria-hidden="true"></i>
-        
-        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">
-          算法
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">
-          数组
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">
-          哈希表
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/o97gtgaiy/">
-          排序
-          
-          ,
-          
-        </a>
-        
-        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">
-          剑指offer
-          
-        </a>
-        
-      </span>
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_03/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_03/&sharesource=qzone&title=03. 数组中重复的数字&pics=https://AriesSK.github.io/images/avatar.png?v=1655732944968&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_03/&sharesource=weibo&title=03. 数组中重复的数字 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655732944968 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
                                                     
-                                            </div>
-                                        </div>
-                                        
-                                    </section>
-                                    
-                                        
-                                            
-                            
-                                            
-                            
-                                            
+                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
+                                                数组
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">#
+                                                哈希表
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/o97gtgaiy/">#
+                                                排序
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_04/">
+                                                                                            04. 二维数组中的查找
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -420,6 +452,10 @@
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
+        </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
