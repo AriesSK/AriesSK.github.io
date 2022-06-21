@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                Hello Gridea
+                                58 - I. 翻转字符单词顺序
                             </h1>
                             
                                 <!--en-->
@@ -210,41 +210,182 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2018-12-12</a>
+                                Date: <a href="#">2022-06-21</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.0
+                                    href="#">2.8
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">298</a></span>
+                                    <span class="post-words">words:<a href="#">655</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/uepLNcTpN/">双指针</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/g8zS_VaN8/">字符串</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
                         
-                            <img class="post-feature-image" src="https://AriesSK.github.io/post-images/hello-gridea.png" alt="">
-                          
                         <div class="post-content">
-                            <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-的正则表达式">JavaScript 的正则表达式</h3>
+<p>语法：<br>
+<code>/正则表达式主体/修饰符(可选)</code><br>
+修饰符不区分大小写：</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>执行对大小写不敏感的匹配</td>
+</tr>
+<tr>
+<td>g</td>
+<td>执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）</td>
+</tr>
+<tr>
+<td>m</td>
+<td>执行多行匹配</td>
+</tr>
+</tbody>
+</table>
+<p>方括号用于查找某个范围内的字符：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[abc]</td>
+<td>查找方括号之间的任何字符</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>查找任何从 0 至 9 的数字</td>
+</tr>
+<tr>
+<td>(x|y)</td>
+<td>查找任何以 | 分隔的选项</td>
+</tr>
+</tbody>
+</table>
+<p>元字符是拥有特殊含义的字符：</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td>查找数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>查找空白字符</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词边界</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td>查找以十六进制数 xxxx 规定的 Unicode 字符</td>
+</tr>
+</tbody>
+</table>
+<p>量词:</p>
+<table>
+<thead>
+<tr>
+<th>量词</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n+</td>
+<td>匹配任何包含至少一个 n 的字符串</td>
+</tr>
+<tr>
+<td>n*</td>
+<td>匹配任何包含零个或多个 n 的字符串</td>
+</tr>
+<tr>
+<td>n?</td>
+<td>匹配任何包含零个或一个 n 的字符串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="javascript-的字符串函数">JavaScript 的字符串函数</h3>
+<p>本题中使用的一些字符串函数及它们的时间复杂度：</p>
+<pre><code class="language-js">trim() // 去除字符串头尾的空格 O(n)
+split() // 拆分成数组 O(n)
+reverse() // 反转数组 O(n)
+join() // 使用特定分隔符将数组连接成字符串 O(n)
+</code></pre>
+<p>其中需要重点说明<code>split()</code>举例如下：</p>
+<pre><code class="language-js">let s = &quot;a  b c&quot;
+s.split() // [&quot;a  b c&quot;] // 直接返回数组
+s.split(&quot;&quot;) // [&quot;a&quot;, &quot; &quot;, &quot; &quot;, &quot;b&quot;, &quot; &quot;, &quot;c&quot;] // 每个字符都拆开
+s.split(&quot; &quot;) // [&quot;a&quot;, &quot;&quot;, &quot;b&quot;, &quot;c&quot;] // 按空格拆，不存在的以 &quot;&quot; 占数组一个元素
+s.split(&quot;&quot;, 2) // [&quot;a&quot;, &quot; &quot;] // 可以设定返回的数组元素个数
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一字符串函数">法一：字符串函数</h3>
+<p>首先想到使用<code>tirm()</code>删除头尾空格，<code>split(&quot; &quot;)</code>拆分成数组，从数组末尾开始拼接：</p>
+<pre><code class="language-js">var reverseWords = function(s) {
+    const arr = s.trim().split(&quot; &quot;);
+    let res = &quot;&quot;;
+    for (let i = arr.length - 1; i &gt;= 0; --i) {
+        if (arr[i] === &quot;&quot;) continue;
+        res += i ? arr[i] + &quot; &quot; : arr[i];
+    }
+    return res;
+};
+</code></pre>
+<p>事实上使用字符串函数代码可以更加简洁：</p>
+<pre><code class="language-js">var reverseWords = function(s) {
+    return s.trim().split(/\s+/).reverse().join(' ');
+};
+</code></pre>
+<h3 id="法二双指针">法二：双指针</h3>
+<pre><code class="language-js">var reverseWords = function(s) {
+    s = s.trim();
+    let left = s.length - 1, right = left;
+    let res = &quot;&quot;;
+    // 保证 left 能够取到 0
+    while (left &gt;= 0) {
+        // 找到第一个空格
+        while (left &gt;= 0 &amp;&amp; s.charAt(left) !== &quot; &quot;) --left;
+        res += s.substring(left + 1, right + 1) + &quot; &quot;;
+        // 忽略空格找到第一个字符
+        while (left &gt;= 0 &amp;&amp; s.charAt(left) == &quot; &quot;) --left;
+        right = left;
+    }
+    // 删去最后末尾多余的一个空格
+    return res.trim();
+};
+</code></pre>
 
                         </div>
                         
@@ -254,13 +395,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/hello-gridea/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=qzone&title=Hello Gridea&pics=https://AriesSK.github.io/images/avatar.png?v=1655822269876&summary=&lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-"><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=weibo&title=Hello Gridea + " - " + &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-&pic="https://AriesSK.github.io/images/avatar.png?v=1655822269876 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_58_i/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_58_i/&sharesource=qzone&title=58 - I. 翻转字符单词顺序&pics=https://AriesSK.github.io/images/avatar.png?v=1655822269876&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_58_i/&sharesource=weibo&title=58 - I. 翻转字符单词顺序 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655822269876 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -269,6 +406,24 @@
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
+                        
+                        <a href="https://AriesSK.github.io/tag/uepLNcTpN/">#
+                                                双指针
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/g8zS_VaN8/">#
+                                                字符串
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -282,6 +437,10 @@
                                                                                 <section class="post-nav">
                                                                                     
                                                                                             
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_57/">
+                                                                                                    57. 和为s的两个数字
+                                                                                                </a>
+                                                                                                
                                                                                 </section>
                     </article>
                 </div>

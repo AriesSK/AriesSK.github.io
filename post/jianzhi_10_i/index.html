@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1655737731054" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1655822269876" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1655737731054" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1655822269876" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-06-16</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.3
+                                    href="#">2.6
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">550</a></span>
+                                    <span class="post-words">words:<a href="#">602</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -274,14 +274,16 @@
 };
 </code></pre>
 <h3 id="法三动态规划">法三：动态规划</h3>
-<p>状态转移方程：F(n) = F(n - 1) + F(n - 2)<br>
+<p>状态转移方程：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n - 1) + F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span><br>
 由于只涉及到三个值，因此可以用滚动数组法使得空间复杂度为<code>O(1)</code>：</p>
 <ol>
-<li>状态定义：F(n) 表示第 n 个斐波那契数；</li>
-<li>转移方程：F(n) = F(n - 1) + F(n - 2)；</li>
-<li>初始状态：F(0) = 0; F(1) = 1; F(2) = 1；</li>
-<li>返回结果：F(n)。</li>
+<li>状态定义：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 表示第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个斐波那契数；</li>
+<li>转移方程：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n - 1) + F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span>；</li>
+<li>初始状态：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>0</mn><mo>)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F(0) = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>1</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(1) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>2</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(2) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>；</li>
+<li>返回结果：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</li>
 </ol>
+<p><img src="https://AriesSK.github.io/post-images/1655808465832.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655808471264.png" alt="" loading="lazy"></p>
 <pre><code class="language-js">var fib = function(n) {
     const MOD = 1e9+7;
     if (n &lt; 2) return n;
@@ -304,8 +306,8 @@
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_10_i/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_10_i/&sharesource=qzone&title=10 - I. 斐波那契数列&pics=https://AriesSK.github.io/images/avatar.png?v=1655737731054&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_10_i/&sharesource=weibo&title=10 - I. 斐波那契数列 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655737731054 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_10_i/&sharesource=qzone&title=10 - I. 斐波那契数列&pics=https://AriesSK.github.io/images/avatar.png?v=1655822269876&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_10_i/&sharesource=weibo&title=10 - I. 斐波那契数列 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655822269876 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -344,9 +346,13 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_21/">
+                                                                                            21. 调整数组顺序使奇数位于偶数前面
+                                                                                        </a>
+                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_04/">
-                                                                                                    04. 二维数组中的查找
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_10_ii/">
+                                                                                                    10 - II. 青蛙跳台阶问题
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
@@ -437,7 +443,7 @@
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1655737731054);
+                    newDate.setTime(1655822269876);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

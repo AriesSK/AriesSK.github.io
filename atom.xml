@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-06-20T15:09:01.655Z</updated>
+    <updated>2022-06-21T14:38:02.822Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,231 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[58 - I. 翻转字符单词顺序]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_58_i/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_58_i/">
+        </link>
+        <updated>2022-06-21T12:29:48.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-的正则表达式">JavaScript 的正则表达式</h3>
+<p>语法：<br>
+<code>/正则表达式主体/修饰符(可选)</code><br>
+修饰符不区分大小写：</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>执行对大小写不敏感的匹配</td>
+</tr>
+<tr>
+<td>g</td>
+<td>执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）</td>
+</tr>
+<tr>
+<td>m</td>
+<td>执行多行匹配</td>
+</tr>
+</tbody>
+</table>
+<p>方括号用于查找某个范围内的字符：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[abc]</td>
+<td>查找方括号之间的任何字符</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>查找任何从 0 至 9 的数字</td>
+</tr>
+<tr>
+<td>(x|y)</td>
+<td>查找任何以 | 分隔的选项</td>
+</tr>
+</tbody>
+</table>
+<p>元字符是拥有特殊含义的字符：</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td>查找数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>查找空白字符</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词边界</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td>查找以十六进制数 xxxx 规定的 Unicode 字符</td>
+</tr>
+</tbody>
+</table>
+<p>量词:</p>
+<table>
+<thead>
+<tr>
+<th>量词</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n+</td>
+<td>匹配任何包含至少一个 n 的字符串</td>
+</tr>
+<tr>
+<td>n*</td>
+<td>匹配任何包含零个或多个 n 的字符串</td>
+</tr>
+<tr>
+<td>n?</td>
+<td>匹配任何包含零个或一个 n 的字符串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="javascript-的字符串函数">JavaScript 的字符串函数</h3>
+<p>本题中使用的一些字符串函数及它们的时间复杂度：</p>
+<pre><code class="language-js">trim() // 去除字符串头尾的空格 O(n)
+split() // 拆分成数组 O(n)
+reverse() // 反转数组 O(n)
+join() // 使用特定分隔符将数组连接成字符串 O(n)
+</code></pre>
+<p>其中需要重点说明<code>split()</code>举例如下：</p>
+<pre><code class="language-js">let s = &quot;a  b c&quot;
+s.split() // [&quot;a  b c&quot;] // 直接返回数组
+s.split(&quot;&quot;) // [&quot;a&quot;, &quot; &quot;, &quot; &quot;, &quot;b&quot;, &quot; &quot;, &quot;c&quot;] // 每个字符都拆开
+s.split(&quot; &quot;) // [&quot;a&quot;, &quot;&quot;, &quot;b&quot;, &quot;c&quot;] // 按空格拆，不存在的以 &quot;&quot; 占数组一个元素
+s.split(&quot;&quot;, 2) // [&quot;a&quot;, &quot; &quot;] // 可以设定返回的数组元素个数
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一字符串函数">法一：字符串函数</h3>
+<p>首先想到使用<code>tirm()</code>删除头尾空格，<code>split(&quot; &quot;)</code>拆分成数组，从数组末尾开始拼接：</p>
+<pre><code class="language-js">var reverseWords = function(s) {
+    const arr = s.trim().split(&quot; &quot;);
+    let res = &quot;&quot;;
+    for (let i = arr.length - 1; i &gt;= 0; --i) {
+        if (arr[i] === &quot;&quot;) continue;
+        res += i ? arr[i] + &quot; &quot; : arr[i];
+    }
+    return res;
+};
+</code></pre>
+<p>事实上使用字符串函数代码可以更加简洁：</p>
+<pre><code class="language-js">var reverseWords = function(s) {
+    return s.trim().split(/\s+/).reverse().join(' ');
+};
+</code></pre>
+<h3 id="法二双指针">法二：双指针</h3>
+<pre><code class="language-js">var reverseWords = function(s) {
+    s = s.trim();
+    let left = s.length - 1, right = left;
+    let res = &quot;&quot;;
+    // 保证 left 能够取到 0
+    while (left &gt;= 0) {
+        // 找到第一个空格
+        while (left &gt;= 0 &amp;&amp; s.charAt(left) !== &quot; &quot;) --left;
+        res += s.substring(left + 1, right + 1) + &quot; &quot;;
+        // 忽略空格找到第一个字符
+        while (left &gt;= 0 &amp;&amp; s.charAt(left) == &quot; &quot;) --left;
+        right = left;
+    }
+    // 删去最后末尾多余的一个空格
+    return res.trim();
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[57. 和为s的两个数字]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_57/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_57/">
+        </link>
+        <updated>2022-06-21T11:46:52.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-的const">JavaScript 的<code>const</code></h3>
+<p>在允许的情况下，推荐使用<code>const</code>进行声明，<code>const</code>声明后无法重新赋值，但可以修改其属性值。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>双指针的简单应用：</p>
+<pre><code class="language-js">var twoSum = function(nums, target) {
+    let left = 0, right = nums.length - 1;
+    const res = [];
+    // 若允许同一个数自己加自己则取 =
+    while (left &lt; right) {
+        // 在值是正数的情况下，改加为减能够有效防止值溢出
+        if (nums[left] &gt; target - nums[right]) --right;
+        else if (nums[left] &lt; target - nums[right]) ++left;
+        else {
+            res.push(nums[left]);
+            res.push(nums[right]);
+            // 不适用 break 会导致无限循环入栈至溢出
+            break;
+        }
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[21. 调整数组顺序使奇数位于偶数前面]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_21/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_21/">
+        </link>
+        <updated>2022-06-21T10:56:30.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的运算符优先级">JavaScript 中的运算符优先级</h3>
+<p><img src="https://AriesSK.github.io/post-images/1655809695939.png" alt="" loading="lazy"><br>
+在写代码时需要注意运算符的优先级，如下由于<code>!</code>的运算优先级高于<code>%</code>，因此加不加<code>()</code>是两种结果：</p>
+<pre><code class="language-js">let num = 2;
+console.log(!num % 2); // 0
+console.log(!(num % 2)); // true
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<p>简单的双指针运用：</p>
+<pre><code class="language-js">var exchange = function(nums) {
+    let left = 0, right = nums.length - 1;
+    // while 中是否取等号均可
+    while (left &lt; right) {
+        if (nums[left] % 2) ++left;
+        else if (!(nums[right] % 2)) --right;
+        else {
+            let temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        } 
+    }
+    return nums;
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[10 - I. 斐波那契数列]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_10_i/</id>
@@ -55,14 +280,16 @@
 };
 </code></pre>
 <h3 id="法三动态规划">法三：动态规划</h3>
-<p>状态转移方程：F(n) = F(n - 1) + F(n - 2)<br>
+<p>状态转移方程：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n - 1) + F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span><br>
 由于只涉及到三个值，因此可以用滚动数组法使得空间复杂度为<code>O(1)</code>：</p>
 <ol>
-<li>状态定义：F(n) 表示第 n 个斐波那契数；</li>
-<li>转移方程：F(n) = F(n - 1) + F(n - 2)；</li>
-<li>初始状态：F(0) = 0; F(1) = 1; F(2) = 1；</li>
-<li>返回结果：F(n)。</li>
+<li>状态定义：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 表示第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个斐波那契数；</li>
+<li>转移方程：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n - 1) + F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span>；</li>
+<li>初始状态：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>0</mn><mo>)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">F(0) = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>1</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(1) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>2</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(2) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>；</li>
+<li>返回结果：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</li>
 </ol>
+<p><img src="https://AriesSK.github.io/post-images/1655808465832.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655808471264.png" alt="" loading="lazy"></p>
 <pre><code class="language-js">var fib = function(n) {
     const MOD = 1e9+7;
     if (n &lt; 2) return n;
@@ -73,6 +300,85 @@
         r = (p + q) % MOD;
     }
     return r;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[10 - II. 青蛙跳台阶问题]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_10_ii/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_10_ii/">
+        </link>
+        <updated>2022-06-16T13:50:08.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>类似斐波那契数列的问题，使用动态规划解决，需要注意初始状态的区别。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>动态规划：<br>
+跳上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 级台阶有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 种跳法，在所有跳法中，最后一步只有两种情况：</p>
+<ul>
+<li>跳 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 级，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n - 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 种；</li>
+<li>跳 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 级，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 种。</li>
+</ul>
+<p>所以步骤如下：</p>
+<ol>
+<li>状态定义：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 表示跳上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 级台阶的跳法总数；</li>
+<li>转移方程：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n) = F(n - 1) + F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span>；</li>
+<li>初始状态：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>0</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(0) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>1</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F(1) = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mn>2</mn><mo>)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F(2) = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>；</li>
+<li>返回结果：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</li>
+</ol>
+<pre><code class="language-js">var numWays = function(n) {
+    if (n &lt; 2) return 1;
+    let p = 0, q = 1, r = 1;
+    for (let i = 2; i &lt;= n; ++i) {
+        p = q;
+        q = r;
+        r = (p + q) % (1e9+7);
+    }
+    return r;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[11. 旋转数组的最小数字]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_11/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_11/">
+        </link>
+        <updated>2022-06-13T14:00:12.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>这一题的二分法很特别，因为在<code>numbers[m] = numbers[r]</code>的情况下，无法判断旋转点在哪个半区，因此无法通过常规方法缩小区间，而需要使用<code>--r</code>来缩小区间，而<code>--r</code>的终止条件应当是<code>l === r</code>时，因此本题需要使用模板二，二分法具体模板见<a href="https://ariessk.github.io/post/jianzhi_53_i/">53 - I. 在排序数组中查找数字 I</a>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>找到第一个变小的数字：</p>
+<pre><code class="language-js">var minArray = function(numbers) {
+    for (let i = 1; i &lt; numbers.length; ++i) {
+        if (numbers[i] &lt; numbers[i - 1]) return numbers[i];
+    }
+    // 旋转0个数的情况
+    return numbers[0];
+};
+</code></pre>
+<h3 id="法二二分法">法二：二分法</h3>
+<p>要保证每次缩小区间后最小值仍在区间内。<br>
+二分会有三种情况：</p>
+<ul>
+<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>m</mi><mo>]</mo><mo>&gt;</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[m] &gt; nums[r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 时： <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 一定在左排序数组中，即旋转点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 一定在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[m + 1, r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 闭区间内，因此执行 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>=</mo><mi>m</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r = m + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>；</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>m</mi><mo>]</mo><mo>&lt;</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[m] &lt; nums[r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 时： <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 一定在右排序数组中，即旋转点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 一定在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>m</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l, m]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">]</span></span></span></span> 闭区间内，因此执行 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>=</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">r = m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>；</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>m</mi><mo>]</mo><mo>=</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[m] = nums[r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 时： 无法判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 在哪个排序数组中，即无法判断旋转点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>m</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l, m]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">]</span></span></span></span> 还是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[m + 1, r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 区间中，但由于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>m</mi><mo>]</mo><mo>=</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[m] = nums[r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 并且 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 一定在区间内，因此即使 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">num[r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 是最小值，也可以执行 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>=</mo><mi>r</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r = r - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 缩小范围。</li>
+</ul>
+<p>为什么本题二分法不用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>m</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[m]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mclose">]</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>l</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[l]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span></span></span></span> 作比较？ 避免了旋转 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 个数出现的问题。<br>
+二分目的是判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 在哪个排序数组中，从而缩小区间。而在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>m</mi><mo>]</mo><mo>&gt;</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo>[</mo><mi>l</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">nums[m] &gt; nums[l]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">m</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span></span></span></span> 情况下，无法判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 在哪个排序数组中。本质上是由于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 初始值肯定在右排序数组中；但 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 初始值无法确定在哪个排序数组中。</p>
+<pre><code class="language-js">var minArray = function(numbers) {
+    let l = 0, r = numbers.length;
+    while (l &lt; r) {
+        const m = l + Math.floor((r - l) / 2);
+        if (numbers[m] &gt; numbers[r]) l = m + 1;
+        else if (numbers[m] &lt; numbers[r]) r = m;
+        else --r;
+    }
+    return numbers[l];
 };
 </code></pre>
 ]]></content>
@@ -129,6 +435,132 @@ var findNumberIn2DArray = function(matrix, target) {
     }    
     return false;
 };
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[53 - I. 在排序数组中查找数字 I]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_53_i/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_53_i/">
+        </link>
+        <updated>2022-06-12T14:17:13.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="二分法总结">二分法总结</h3>
+<p>有序的序列查找，优先考虑二分法。</p>
+<h4 id="无重复元素">无重复元素</h4>
+<p>查找<code>target</code>在序列中是否出现：</p>
+<pre><code class="language-js">const binarySearch(nums, target) {
+    let left = 0, right = nums.length;
+    while (left &lt;= right) {
+        // 能够防止溢出
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+        else if (nums[mid] &lt; target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+};
+</code></pre>
+<h4 id="有重复元素">有重复元素</h4>
+<ul>
+<li>查找首个大于<code>target</code>的元素序号；</li>
+<li>查找首个大于等于<code>target</code>的元素序号（等同于查找首个大于<code>target - 1</code>的元素序号）。</li>
+</ul>
+<pre><code class="language-js">const binarySearch(nums, target) {
+    let left = 0, right = num.length;
+    while (left &lt;= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] &lt;= target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return i;
+}
+</code></pre>
+<h4 id="循环条件写left-right和left-right的区别">循环条件写<code>left &lt;= right</code>和<code>left &lt; right</code>的区别</h4>
+<p>区别在于是否包含最右边的边界值，因为当<code>left==right</code>时，不会再进入循环体，所以<code>right</code>初始化时就取值为<code>len(nums)</code>，这样在<code>for</code>循环中就能保证是在这样一个左闭右开的区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo separator="true">,</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">[left,right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mclose">)</span></span></span></span>，且<code>right</code>赋值应该为<code>right = mid</code>而非<code>right = mid-1</code>，因为右半边是开区间，取<code>mid-1</code>就无法验证到<code>mid-1</code>是否是目标值。简单来说区别是<code>right</code>所代表的位置是否参与计算。</p>
+<h4 id="两种写法模板">两种写法模板</h4>
+<pre><code class="language-js">// 模板一
+// 若 target === nums[nums.length - 1]
+// 在循环条件是 left &lt;= right 的情况下 right = nums.length - 1 以保证 mid 能够取到
+const binarySearch = function(nums, target) {
+    let left = 0, right = nums.length - 1;
+    while (left &lt;= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+        else if (nums[mid] &lt; target) left = mid + 1;
+        else right = mid - 1; 
+    }
+    return left;
+}
+// 模板二
+// 若 target === nums[nums.length - 1]
+// 在循环条件是 left &lt; right 的情况下 right = nums.length 因为 mid 最多取到 right - 1
+const binarySearch = function(nums, target) {
+    let left = 0, right = nums.length;
+    while (left &lt; right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+        else if (nums[mid] &lt; target) left = mid + 1;
+        else right = mid; 
+    }
+    return left;
+}
+</code></pre>
+<h3 id="javascript-中的数组越界">JavaScript 中的数组越界</h3>
+<p>js 数组<strong>允许</strong>越界，越界返回的是<code>undefined</code>。<br>
+js 在非严格模式的情况下变量允许不声明直接赋值。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>逐个遍历：</p>
+<pre><code class="language-js">var search = function(nums, target) {
+    let start = -1, end = -1;
+    for (let i = 0; i &lt; nums.length; ++i) {
+        if (nums[i] === target) {
+            start = i;
+            break;
+        }
+    }
+    if (start === -1) return 0;
+    // 这里只有在 js 中才行 因为允许数组越界 正常 i = nums.length 时 若nums[i] === target 则 end = nums.length
+    for (let i = start;; ++i) {
+        if (nums[i] !== target) {
+            end = i;
+            break;
+        }
+    }
+    return end - start;
+};
+</code></pre>
+<h3 id="法二二分法">法二：二分法</h3>
+<p>这里的<code>binarySearch()</code>方法目的实际上是寻找<code>tar</code>值能够插入的最右的位置，因此答案为<code>target</code>的右边界减去<code>(target - 1)</code>的右边界。</p>
+<pre><code class="language-js">var search = function(nums, target) {
+    return binarySearch(nums, target) - binarySearch(nums, target - 1);
+}
+
+const binarySearch = function(nums, tar) {
+    let i = 0, j = nums.length - 1;
+    // 用 &lt;= 保证 tar 能够插入最右的位置 而不是 最右的前一位
+    while (i &lt;= j) {
+        // 不像 java 在 js 中需要手动取整
+        const m = Math.floor((i + j) / 2);
+        // 由于找最右插入位置 因此即使nums[m] = tar 插入位置也在 m + 1 及之后
+        if (nums[m] &lt;= tar) i = m + 1;
+        else j = m - 1; 
+    }
+    // i 永远比 j 大1 只能返回 i
+    return i;
+};
+// while 中 &lt;= 换为 &lt; 后 改变 j 的初始值 和 j 每次的缩小值
+const binarySearch = function(nums, target) {
+    let i = 0, j = nums.length;
+    while (i &lt; j) {
+        const m = i + Math.floor((j - i) / 2);
+        if (nums[m] &lt;= target) i = m + 1;
+        else j = m; 
+    }
+    return i;
+}
 </code></pre>
 ]]></content>
     </entry>
@@ -252,101 +684,6 @@ size()
 <p><code>split()</code>以特定分隔符将字符串拆分为数组，<code>join()</code>则以特定分隔符将数组中元素连接成字符串：</p>
 <pre><code class="language-js">var replaceSpace = function(s) {
     return s.split(&quot; &quot;).join(&quot;%20&quot;);
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[06. 从头到尾打印链表]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_06/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_06/">
-        </link>
-        <updated>2022-06-10T14:30:22.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的栈">JavaScript 中的栈</h3>
-<p>js 中并不存在<code>Stack</code>这个数据结构的API，是使用数组中的两种操作模拟形成的：</p>
-<pre><code class="language-js">push() // 向数组末添加元素
-pop() // 弹出并返回数组末元素，会改变数组的长度
-</code></pre>
-<hr>
-<h2 id="题解">题解</h2>
-<p>使用栈倒着打印链表：</p>
-<pre><code class="language-js">var reversePrint = function(head) {
-    let ptr = head;
-    let stack = [];
-    while (ptr != null) {
-        stack.push(ptr.val);
-        ptr = ptr.next;
-    }
-    let number = [];
-    // 下面这行是错误的写法，因为 pop() 改变了 stack.length，导致出错
-    // for (let i = 0; i &lt; stack.length; ++i) number[i] = stack.pop();
-    let length = stack.length;
-    for (let i = 0; i &lt; length; ++i) number[i] = stack.pop();
-    return number;
-};
-</code></pre>
-<p>使用<code>unshift()</code>能够直接向数组开头添加元素并返回新长度：</p>
-<pre><code class="language-js">var reversePrint = function(head) {
-    let ptr = head;
-    let stack = [];
-    while (ptr != null) {
-        stack.unshift(ptr.val)
-        ptr = ptr.next;
-    }
-    return stack
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[09. 用两个栈实现队列]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_09/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_09/">
-        </link>
-        <updated>2022-06-09T14:40:30.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的prototype">JavaScript 中的<code>prototype</code></h3>
-<p>js 中使用 prototype 属性给对象的构造函数添加新的属性。</p>
-<h3 id="判空">判空</h3>
-<p>js 中通过长度判空</p>
-<pre><code class="language-js">if(!stack.length) // 如果栈为空
-</code></pre>
-<p>java 中使用<code>isEmpty()</code>判空</p>
-<hr>
-<h2 id="题解">题解</h2>
-<p>使用两个栈实现队列，一个入栈一个出栈，在入栈与出栈中的元素转移时，入栈弹出的是后入元素，应当先压入出栈，从而保证先入先出：</p>
-<pre><code class="language-js">// 构造函数
-var CQueue = function() {
-    this.inStack = [];
-    this.outStack = [];
-};
-
-/** 
- * @param {number} value
- * @return {void}
- */
- // 使用 prototype 给构造函数添加新的属性
- // 入队 压入进栈
-CQueue.prototype.appendTail = function(value) {
-    this.inStack.push(value);
-};
-
-/**
- * @return {number}
- */
- // 出队
-CQueue.prototype.deleteHead = function() {
-    if (!this.outStack.length) {
-        // 入栈出栈均为空 队列中没有元素
-        if (!this.inStack.length) return -1;
-        // 出栈为空 进栈有元素 将进栈元素全部压入出栈 先入先出
-        while (this.inStack.length) {
-            this.outStack.push(this.inStack.pop())
-        }
-    }
-    // 出栈有元素 直接弹出
-    return this.outStack.pop();
 };
 </code></pre>
 ]]></content>

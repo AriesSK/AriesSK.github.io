@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                Hello Gridea
+                                53 - I. 在排序数组中查找数字 I
                             </h1>
                             
                                 <!--en-->
@@ -210,41 +210,149 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2018-12-12</a>
+                                Date: <a href="#">2022-06-12</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.0
+                                    href="#">3.9
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">298</a></span>
+                                    <span class="post-words">words:<a href="#">835</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/BEhmc0Yrg/">二分查找</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
                         
-                            <img class="post-feature-image" src="https://AriesSK.github.io/post-images/hello-gridea.png" alt="">
-                          
                         <div class="post-content">
-                            <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+                            <h2 id="知识点">知识点</h2>
+<h3 id="二分法总结">二分法总结</h3>
+<p>有序的序列查找，优先考虑二分法。</p>
+<h4 id="无重复元素">无重复元素</h4>
+<p>查找<code>target</code>在序列中是否出现：</p>
+<pre><code class="language-js">const binarySearch(nums, target) {
+    let left = 0, right = nums.length;
+    while (left &lt;= right) {
+        // 能够防止溢出
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+        else if (nums[mid] &lt; target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+};
+</code></pre>
+<h4 id="有重复元素">有重复元素</h4>
+<ul>
+<li>查找首个大于<code>target</code>的元素序号；</li>
+<li>查找首个大于等于<code>target</code>的元素序号（等同于查找首个大于<code>target - 1</code>的元素序号）。</li>
+</ul>
+<pre><code class="language-js">const binarySearch(nums, target) {
+    let left = 0, right = num.length;
+    while (left &lt;= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] &lt;= target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return i;
+}
+</code></pre>
+<h4 id="循环条件写left-right和left-right的区别">循环条件写<code>left &lt;= right</code>和<code>left &lt; right</code>的区别</h4>
+<p>区别在于是否包含最右边的边界值，因为当<code>left==right</code>时，不会再进入循环体，所以<code>right</code>初始化时就取值为<code>len(nums)</code>，这样在<code>for</code>循环中就能保证是在这样一个左闭右开的区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo separator="true">,</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">[left,right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mclose">)</span></span></span></span>，且<code>right</code>赋值应该为<code>right = mid</code>而非<code>right = mid-1</code>，因为右半边是开区间，取<code>mid-1</code>就无法验证到<code>mid-1</code>是否是目标值。简单来说区别是<code>right</code>所代表的位置是否参与计算。</p>
+<h4 id="两种写法模板">两种写法模板</h4>
+<pre><code class="language-js">// 模板一
+// 若 target === nums[nums.length - 1]
+// 在循环条件是 left &lt;= right 的情况下 right = nums.length - 1 以保证 mid 能够取到
+const binarySearch = function(nums, target) {
+    let left = 0, right = nums.length - 1;
+    while (left &lt;= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+        else if (nums[mid] &lt; target) left = mid + 1;
+        else right = mid - 1; 
+    }
+    return left;
+}
+// 模板二
+// 若 target === nums[nums.length - 1]
+// 在循环条件是 left &lt; right 的情况下 right = nums.length 因为 mid 最多取到 right - 1
+const binarySearch = function(nums, target) {
+    let left = 0, right = nums.length;
+    while (left &lt; right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+        else if (nums[mid] &lt; target) left = mid + 1;
+        else right = mid; 
+    }
+    return left;
+}
+</code></pre>
+<h3 id="javascript-中的数组越界">JavaScript 中的数组越界</h3>
+<p>js 数组<strong>允许</strong>越界，越界返回的是<code>undefined</code>。<br>
+js 在非严格模式的情况下变量允许不声明直接赋值。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>逐个遍历：</p>
+<pre><code class="language-js">var search = function(nums, target) {
+    let start = -1, end = -1;
+    for (let i = 0; i &lt; nums.length; ++i) {
+        if (nums[i] === target) {
+            start = i;
+            break;
+        }
+    }
+    if (start === -1) return 0;
+    // 这里只有在 js 中才行 因为允许数组越界 正常 i = nums.length 时 若nums[i] === target 则 end = nums.length
+    for (let i = start;; ++i) {
+        if (nums[i] !== target) {
+            end = i;
+            break;
+        }
+    }
+    return end - start;
+};
+</code></pre>
+<h3 id="法二二分法">法二：二分法</h3>
+<p>这里的<code>binarySearch()</code>方法目的实际上是寻找<code>tar</code>值能够插入的最右的位置，因此答案为<code>target</code>的右边界减去<code>(target - 1)</code>的右边界。</p>
+<pre><code class="language-js">var search = function(nums, target) {
+    return binarySearch(nums, target) - binarySearch(nums, target - 1);
+}
+
+const binarySearch = function(nums, tar) {
+    let i = 0, j = nums.length - 1;
+    // 用 &lt;= 保证 tar 能够插入最右的位置 而不是 最右的前一位
+    while (i &lt;= j) {
+        // 不像 java 在 js 中需要手动取整
+        const m = Math.floor((i + j) / 2);
+        // 由于找最右插入位置 因此即使nums[m] = tar 插入位置也在 m + 1 及之后
+        if (nums[m] &lt;= tar) i = m + 1;
+        else j = m - 1; 
+    }
+    // i 永远比 j 大1 只能返回 i
+    return i;
+};
+// while 中 &lt;= 换为 &lt; 后 改变 j 的初始值 和 j 每次的缩小值
+const binarySearch = function(nums, target) {
+    let i = 0, j = nums.length;
+    while (i &lt; j) {
+        const m = i + Math.floor((j - i) / 2);
+        if (nums[m] &lt;= target) i = m + 1;
+        else j = m; 
+    }
+    return i;
+}
+</code></pre>
 
                         </div>
                         
@@ -254,13 +362,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/hello-gridea/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=qzone&title=Hello Gridea&pics=https://AriesSK.github.io/images/avatar.png?v=1655822269876&summary=&lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-"><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=weibo&title=Hello Gridea + " - " + &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-&pic="https://AriesSK.github.io/images/avatar.png?v=1655822269876 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_53_i/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_53_i/&sharesource=qzone&title=53 - I. 在排序数组中查找数字 I&pics=https://AriesSK.github.io/images/avatar.png?v=1655822269876&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_53_i/&sharesource=weibo&title=53 - I. 在排序数组中查找数字 I + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655822269876 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -269,6 +373,24 @@
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
+                        
+                        <a href="https://AriesSK.github.io/tag/BEhmc0Yrg/">#
+                                                二分查找
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
+                                                数组
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -281,7 +403,15 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_04/">
+                                                                                            04. 二维数组中的查找
+                                                                                        </a>
+                                                                                        
                                                                                             
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_03/">
+                                                                                                    03. 数组中重复的数字
+                                                                                                </a>
+                                                                                                
                                                                                 </section>
                     </article>
                 </div>
