@@ -197,33 +197,147 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                24. 反转链表
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
-                                
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-10</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">0.9
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">238</a></span>
                                     
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_13/">
-                                                13. 机器人的运动范围
-                                            </a>
-                                            <span class="archive-item-date">2022-06-22 </span>
-                                        </article>
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/mHlERrHpb/">递归</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/2UcFUw72z/">链表</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
                                         
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="递归总结">递归总结</h3>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">递</mi><mi mathvariant="normal">归</mi><mo>=</mo><mi mathvariant="normal">递</mi><mi mathvariant="normal">归</mi><mi mathvariant="normal">公</mi><mi mathvariant="normal">式</mi><mo>+</mo><mi mathvariant="normal">终</mi><mi mathvariant="normal">止</mi><mi mathvariant="normal">条</mi><mi mathvariant="normal">件</mi></mrow><annotation encoding="application/x-tex">递归 = 递归公式 + 终止条件</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">递</span><span class="mord cjk_fallback">归</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">递</span><span class="mord cjk_fallback">归</span><span class="mord cjk_fallback">公</span><span class="mord cjk_fallback">式</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">终</span><span class="mord cjk_fallback">止</span><span class="mord cjk_fallback">条</span><span class="mord cjk_fallback">件</span></span></span></span><br>
+先写出公式，再转换代码。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>涉及链表操作的题，建议先把过程画出来，再写成代码。</p>
+<h3 id="法一迭代双指针">法一：迭代（双指针）</h3>
+<p>每次推进一个节点，需要注意提前存<code>next</code>节点，防止断链后找不到后续节点：</p>
+<pre><code class="language-js">var reverseList = function(head) {
+    // 从 null 开始 考虑单节点情况
+    let prev = null;
+    let curr = head;
+    while (curr) {
+        let next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+};
+</code></pre>
+<h3 id="法二递归">法二：递归</h3>
+<p>递归方法需要注意的是<strong>递归函数</strong>和<strong>终止条件</strong>：</p>
+<pre><code class="language-js">var reverseList = function(head) {
+    // 终止条件： 空链表 或 最后一个节点
+    if (head == null || head.next == null) return head;
+    // 递归函数：反转 head.next + 处理 head
+    // 反转 head.next
+    let res = reverseList(head.next);
+    // 处理 head，下一个节点指向自己，自己指空
+    head.next.next = head;
+    head.next = null;
+    return res;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_24/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_24/&sharesource=qzone&title=24. 反转链表&pics=https://AriesSK.github.io/images/avatar.png?v=1655905438684&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_24/&sharesource=weibo&title=24. 反转链表 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655905438684 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/mHlERrHpb/">#
+                                                递归
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/2UcFUw72z/">#
+                                                链表
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_35/">
+                                                                                            35. 复杂链表的复制
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_06/">
+                                                                                                    06. 从头到尾打印链表
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -310,5 +424,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

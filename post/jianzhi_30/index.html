@@ -197,33 +197,151 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                30. 包含min函数的栈
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
-                                
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-09</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.0
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">229</a></span>
                                     
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_13/">
-                                                13. 机器人的运动范围
-                                            </a>
-                                            <span class="archive-item-date">2022-06-22 </span>
-                                        </article>
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">栈</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
                                         
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-的栈">JavaScript 的栈</h3>
+<p>js 中没有栈的API，是使用数组模拟的，因此可以直接通过下标访问栈中任意元素。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>利用辅助栈，在主栈与辅助栈同时压入元素。主栈正常，辅助栈比较栈顶与将与将压入元素，选取较小的入栈，保证辅助栈的栈顶元素是就是主栈的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">min</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span></span></span></span>：</p>
+<pre><code class="language-js">var MinStack = function() {
+    this.stack = [];
+    this.min_stack = [];
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MinStack.prototype.push = function(x) {
+    this.stack.push(x);
+    // 避免 min_stack 为空时 push 时出错
+    if (!this.min_stack.length) this.min_stack.push(x);
+    else this.min_stack.push(Math.min(this.min_stack[this.min_stack.length - 1], x));
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    this.stack.pop();
+    this.min_stack.pop();
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    // java 中 peek() 返回栈顶元素 ，pop()取出并返回栈顶元素
+    // js 中只有pop() 没有 peek()，访问栈顶元素使用下标
+    return this.stack[this.stack.length - 1];
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.min = function() {
+    return this.min_stack[this.min_stack.length - 1];
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_30/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_30/&sharesource=qzone&title=30. 包含min函数的栈&pics=https://AriesSK.github.io/images/avatar.png?v=1655905438684&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_30/&sharesource=weibo&title=30. 包含min函数的栈 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655905438684 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">#
+                                                栈
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_06/">
+                                                                                            06. 从头到尾打印链表
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_09/">
+                                                                                                    09. 用两个栈实现队列
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -310,5 +428,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

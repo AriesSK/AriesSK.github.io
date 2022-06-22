@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1655902418623" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1655905438684" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1655902418623" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1655905438684" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -205,7 +205,7 @@
                             
                                 <!--en-->
                                 <div class="post-meta en">
-                                    Author111:
+                                    Author:
                                     <a itemprop="author" rel="author" href="/">
                                         🐧AriesSK
                                     </a>
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-06-19</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">0.1
+                                    href="#">0.6
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">15</a></span>
+                                    <span class="post-words">words:<a href="#">145</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -234,15 +234,27 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<h3 id="javascript-中">JavaScript 中</h3>
-<p>方法如下：</p>
-<pre><code class="language-js">
-</code></pre>
+<p>在链表前设置一个指向头节点的头指针能够使算法不用单独考虑头节点的处理。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="法一">法一：</h3>
-<p>法一：</p>
-<pre><code class="language-js">
+<h3 id="双指针">双指针</h3>
+<p>使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>x</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">next</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">t</span></span></span></span> 遍历目标节点，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>u</mi><mi>r</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">curr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 记录目标节点的前一节点，以实现断链<br>
+推荐设置一个值为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>l</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">null</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 的头节点（头指针）<code>newHead</code>，能够有效避免删除头节点或链表为空的情况：</p>
+<pre><code class="language-js">var deleteNode = function(head, val) {
+    const newHead = new ListNode();
+    newHead.next = head;
+    let curr = newHead, next = curr.next;
+    while (next) {
+        if (next.val === val) {
+            curr.next = next.next;
+            next.next = null;
+            break;
+        }
+        curr = curr.next;
+        next = next.next;
+    }
+    return newHead.next;
+};
 </code></pre>
 
                         </div>
@@ -254,8 +266,8 @@
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_18/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_18/&sharesource=qzone&title=18. 删除链表的节点&pics=https://AriesSK.github.io/images/avatar.png?v=1655902418623&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_18/&sharesource=weibo&title=18. 删除链表的节点 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655902418623 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_18/&sharesource=qzone&title=18. 删除链表的节点&pics=https://AriesSK.github.io/images/avatar.png?v=1655905438684&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_18/&sharesource=weibo&title=18. 删除链表的节点 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655905438684 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -290,8 +302,8 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_21/">
-                                                                                            21. 调整数组顺序使奇数位于偶数前面
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_22/">
+                                                                                            22. 链表中的倒数第k个节点
                                                                                         </a>
                                                                                         
                                                                                             
@@ -387,7 +399,7 @@
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1655902418623);
+                    newDate.setTime(1655905438684);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

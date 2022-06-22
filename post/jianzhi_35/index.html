@@ -197,33 +197,194 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                35. 复杂链表的复制
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
-                                
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-10</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">2.2
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">463</a></span>
                                     
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_13/">
-                                                13. 机器人的运动范围
-                                            </a>
-                                            <span class="archive-item-date">2022-06-22 </span>
-                                        </article>
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/2UcFUw72z/">链表</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">哈希表</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
                                         
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-链表">JavaScript 链表</h3>
+<p>js 中不提供链表API，是使用对象模拟的，因此解法特殊些。<br>
+一个包含三个节点的单链表如下表示（data, next都是对象的属性）：</p>
+<pre><code class="language-js">list = {
+    data: 1,
+    next: {
+        data: 2,
+        next: {
+            data: 3,
+            next: null,
+        },
+    },
+};
+</code></pre>
+<p>题目中的复杂链表实现如下：</p>
+<pre><code class="language-js">functuon Node(val, next, random) {
+    this.val = val;
+    this.next = next;
+    this.random = random;
+}
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一回溯-哈希表">法一：回溯 + 哈希表</h3>
+<p>用于将所有<code>b</code>中可枚举属性复制到<code>a</code>中，重名属性则后者覆盖前者：</p>
+<pre><code class="language-js">Object.assign(a, b1, b2, ...);
+</code></pre>
+<p>哈希表存值：</p>
+<pre><code class="language-js">hashmap.set(key, value);
+</code></pre>
+<p>注意<strong>空链表</strong>的特殊情况：</p>
+<pre><code class="language-js">var copyRandomList = function(head, hash = new Map()) {
+    if (head === null) return null;
+    if (!hash.has(head)) {
+        // 只设置val属性
+        hash.set(head, {val: head.val});
+        // 递归复制 next 和 random 属性
+        Object.assign(hash.get(head), {next: copyRandomList(head.next, hash), random: copyRandomList(head.random, hash)});
+    }
+    return hash.get(head);
+};
+</code></pre>
+<p>也可以在存节点时设置所有的属性，后续递归修改<code>next</code>和<code>random</code>属性的值即可:</p>
+<pre><code class="language-js">var copyRandomList = function(head, hash = new Map()) {
+    if (head === null) return null;
+    if (!hash.has(head)) {
+        hash.set(head, {val: head.val, next: head.next, random: head.random});
+        hash.get(head).next = copyRandomList(head.next, hash);
+        hash.get(head).random = copyRandomList(head.random, hash);
+    }
+    return hash.get(head);
+};
+</code></pre>
+<h3 id="法二迭代-节点拆分">法二：迭代 + 节点拆分</h3>
+<p><strong>先画图后写代码</strong>不需要使用哈希表，空间复杂度低：<br>
+<img src="https://AriesSK.github.io/post-images/1655905378848.jpg" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655905387433.jpg" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655905394276.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655905400308.jpg" alt="" loading="lazy"></p>
+<pre><code class="language-js">var copyRandomList = function(head) {
+    if (head === null) return null;
+    // 复制节点
+    for (let node = head; node !== null; node = node.next.next) {
+        const newNode = new Node(node.val, node.next, null);
+        node.next = newNode;
+    }
+    // 复制 random 属性，注意 node.random 指空的情况
+    for (let node = head; node !== null; node = node.next.next) {
+        const newNode = node.next;
+        newNode.random = (node.random !== null) ? node.random.next : null;
+    }
+    // 创建新的头节点，防止后面断开后找不到新链表的头节点
+    const newHead = head.next;
+    // 断开新旧链表，注意最后一个节点的 next 指空的情况
+    for (let node = head; node !== null; node = node.next) {
+        const newNode = node.next;
+        node.next = node.next.next;
+        newNode.next = (newNode.next !== null) ? newNode.next.next : null;
+    }
+    return newHead;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_35/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_35/&sharesource=qzone&title=35. 复杂链表的复制&pics=https://AriesSK.github.io/images/avatar.png?v=1655905438684&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_35/&sharesource=weibo&title=35. 复杂链表的复制 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655905438684 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/2UcFUw72z/">#
+                                                链表
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">#
+                                                哈希表
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_05/">
+                                                                                            05. 替换空格
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_24/">
+                                                                                                    24. 反转链表
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -310,5 +471,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
