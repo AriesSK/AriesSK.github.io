@@ -197,43 +197,180 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                53 - II. 0~n-1中缺失的数字
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-12</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.7
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">356</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_10_i/">
-                                                10 - I. 斐波那契数列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-16 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">哈希表</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_24/">
-                                                24. 反转链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-的排序函数">JavaScript 的排序函数</h3>
+<p><code>sort()</code>函数：</p>
+<pre><code class="language-js">sort() // 默认按字母升序，40 在 5 前面，是先调用 toString() 再比较
+sort(function(a, b){return a - b}) // 按数字升序
+sort((a, b) =&gt; a - b) // 按数字升序的简写
+sort(function(a, b){return b - a}) // 按数字降序
+sort((a, b) =&gt; b - a) // 按数字降序的简写
+</code></pre>
+<h3 id="javascript-的箭头函数">JavaScript 的箭头函数</h3>
+<pre><code class="language-js">// 下面三个等同
+var sum = function(a, b) {
+	return a + b;
+};
+var sum = (a, b) =&gt; {
+	return a + b;
+};
+var sum = (a, b) =&gt; a + b;
+
+// 一个参数可不用括号
+var sum = x =&gt; {
+    retrun x;
+};
+
+// 没有或多个参数均需要括号
+var sum = () =&gt; {
+    return 1;
+};
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一二分法">法一：二分法</h3>
+<p>数组下标与值不同说明已经发生了数字缺失：</p>
+<pre><code class="language-js">var missingNumber = function(nums) {
+    let left = 0, right = nums.length;
+    while (left &lt;= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === mid) left = mid + 1;
+        else right = mid - 1;
+    }
+    return left;
+};
+</code></pre>
+<h3 id="法二数学">法二：数学</h3>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">高</mi><mi mathvariant="normal">斯</mi><mi mathvariant="normal">求</mi><mi mathvariant="normal">和</mi><mi mathvariant="normal">公</mi><mi mathvariant="normal">式</mi><mo>−</mo><mi mathvariant="normal">目</mi><mi mathvariant="normal">前</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">和</mi><mo>=</mo><mi mathvariant="normal">缺</mi><mi mathvariant="normal">失</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi></mrow><annotation encoding="application/x-tex">高斯求和公式 - 目前的和 = 缺失的数字</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">高</span><span class="mord cjk_fallback">斯</span><span class="mord cjk_fallback">求</span><span class="mord cjk_fallback">和</span><span class="mord cjk_fallback">公</span><span class="mord cjk_fallback">式</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">前</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">和</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">缺</span><span class="mord cjk_fallback">失</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span></span></span></span>：</p>
+<pre><code class="language-js">var missingNumber = function(nums) {
+    const n = nums.length + 1;
+    let total = Math.floor(n * (n - 1) / 2);
+    let arrSum = 0;
+    for (let i = 0; i &lt; n - 1; i++) {
+        arrSum += nums[i];
+    }
+    return total - arrSum;
+};
+</code></pre>
+<h3 id="法三暴力">法三：暴力</h3>
+<p>找第一个下标与值不同的位置：</p>
+<pre><code class="language-js">var missingNumber = function(nums) {
+    // 如果乱序则先排序
+    nums.sort((a, b) =&gt; a - b);
+    const n = nums.length + 1;
+    for (let i = 0; i &lt; n - 1; i++) {
+        if (nums[i] !== i) {
+            return i;
+        }
+    }
+    return n - 1;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_53_ii/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_53_ii/&sharesource=qzone&title=53 - II. 0~n-1中缺失的数字&pics=https://AriesSK.github.io/images/avatar.png?v=1655906945847&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_53_ii/&sharesource=weibo&title=53 - II. 0~n-1中缺失的数字 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655906945847 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
+                                                数组
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">#
+                                                哈希表
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_04/">
+                                                                                            04. 二维数组中的查找
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_53_i/">
+                                                                                                    53 - I. 在排序数组中查找数字 I
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -320,5 +457,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
