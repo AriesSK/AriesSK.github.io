@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-06-21T14:38:02.822Z</updated>
+    <updated>2022-06-22T07:08:46.185Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,156 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[13. 机器人的运动范围]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_13/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_13/">
+        </link>
+        <updated>2022-06-22T05:30:09.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的函数传值">JavaScript 中的函数传值</h3>
+<p>js 中的所有函数的参数都是按值传递的，这意味着函数外的值会被复制到函数内部的参数中，如果是原始值，就跟原始值变量的复制一样，如果是引用值，就和引用值变量的复制一样。</p>
+<ul>
+<li><strong>按值传递参数：</strong> 外部的值被复制到函数的一个局部变量中，这两个值相互独立，互不干扰；</li>
+<li><strong>按引用传递参数：</strong> 外部的值在内存中的位置会被保存到函数的一个局部变量中，意味着对局部变量的修改会反应到函数外部，这在 js 中是<strong>不可能的</strong>。<br>
+<img src="https://AriesSK.github.io/post-images/1655878734447.png" alt="" loading="lazy"><br>
+原始值的按值传递举例，可以看到传入参数与外部值相互独立，互不干扰：</li>
+</ul>
+<pre><code class="language-js">function addOne (num) {
+    num += 1;
+    return num;
+}
+let count = 20;
+let res = addOne(count); // count === 20, res === 30
+</code></pre>
+<p>引用值的按值传递举例，如果是按引用传递，那么在新建<code>obj</code>对象的时候，<code>person</code>应该自动将指针改为指向&quot;Aries&quot;的对象，但事实上并没有。这证明了是按值传递的，传递了引用值，而引用的对象是保存在全局作用域，因此可以通过<code>obj</code>访问引用对象修改属性：</p>
+<pre><code class="language-js">function setName(obj) {
+    obj.name = &quot;AriesSK&quot;;
+    obj = new Object();
+    obj.name = &quot;Aries&quot;
+    return num;
+}
+let person = new Object();
+setName(person); // person.name === &quot;AriesSK&quot;
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一深度优先搜索">法一：深度优先搜索</h3>
+<p>我的解法：</p>
+<pre><code class="language-js">var movingCount = function(m, n, k) {
+    let res = 0;
+    const visit = new Array(m);
+    for (let i = 0; i &lt; m; ++i) visit[i] = new Array(n).fill(0);
+    return dfs(visit, 0, 0, k, res);
+};
+
+var dfs = function(visit, i, j, k, res) {
+    let s = &quot;&quot; + i + j, sum = 0;
+    for (let i = 0; i &lt; s.length; ++i) sum += Number(s[i]);
+    if (i &lt; 0 || i &gt;= visit.length || j &lt; 0 || j &gt;= visit[0].length || visit[i][j] || sum &gt; k) return res;
+    visit[i][j] = 1;
+    res = dfs(visit, i + 1, j, k, res);
+    res = dfs(visit, i - 1, j, k, res);
+    res = dfs(visit, i, j + 1, k, res);
+    res = dfs(visit, i, j - 1, k, res);
+    return ++res;
+}
+</code></pre>
+<p><img src="https://AriesSK.github.io/post-images/1655879902391.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655879907533.png" alt="" loading="lazy"><br>
+dfs 解法的优化，省略了不必要的<code>res</code>，并且由于从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(0,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span> 开始，由图可以看出仅通过向右和向下两个方向即可访问所有可达解：</p>
+<pre><code class="language-js">var movingCount = function(m, n, k) {
+    const visit = new Array(m);
+    for (let i = 0; i &lt; m; ++i) visit[i] = new Array(n).fill(0);
+    return dfs(visit, 0, 0, k);
+};
+
+var dfs = function(visit, i, j, k) {
+    let s = &quot;&quot; + i + j, sum = 0;
+    for (let i = 0; i &lt; s.length; ++i) sum += Number(s[i]);
+    if ( i &gt;= visit.length || j &gt;= visit[0].length || visit[i][j] || sum &gt; k) return 0;
+    visit[i][j] = 1;
+    return 1 + dfs(visit, i + 1, j, k) + dfs(visit, i, j + 1, k);
+}
+</code></pre>
+<h3 id="法二广度优先搜索">法二：广度优先搜索</h3>
+<p>bfs 需要用到队列和循环，无需递归：</p>
+<pre><code class="language-js">var movingCount = function(m, n, k) {
+    let res = 0;
+    const visit = new Array(m);
+    for (let i = 0; i &lt; m; ++i) visit[i] = new Array(n).fill(0);
+    const queue = [];
+    queue.unshift([0, 0]);
+    while(queue.length &gt; 0) {
+        let temp = queue.pop();
+        let i = temp[0], j = temp[1], s = &quot;&quot; + i + j, sum = 0;
+        for (let i = 0; i &lt; s.length; ++i) sum += Number(s[i]);
+        if (i &gt;= visit.length || j &gt;= visit[0].length || visit[i][j] || sum &gt; k) continue;
+        visit[i][j] = 1;
+        ++res;
+        queue.unshift([i + 1, j]);
+        queue.unshift([i, j + 1]);
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[12. 矩阵中的路径]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_12/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_12/">
+        </link>
+        <updated>2022-06-22T02:25:20.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<p>通过递归的方式，先朝一个方向搜索到底，再回溯至上个节点，沿另一个方向搜索，一次类推。</p>
+<h3 id="剪枝">剪枝</h3>
+<p>在搜索过程中遇到<strong>该路径不可能与目标匹配成功</strong>的情况时，应当立即返回，这叫<strong>可行性剪枝</strong>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-剪枝">深度优先搜索 + 剪枝</h3>
+<ul>
+<li>
+<p><strong>递归终止条件：</strong></p>
+<ul>
+<li>返回 <code>false</code>：索引越界 || 当前矩阵元素与目标不匹配（包括已访问）；</li>
+<li>返回<code>true</code>：<code>k === word.length - 1</code>，即<code>word</code>已完全匹配。</li>
+</ul>
+</li>
+<li>
+<p><strong>递推工作：</strong></p>
+<ol>
+<li>标记已访问：将<code>board[i][j]</code>修改为 <code>0</code>，防止重复搜索；</li>
+<li>搜索下一元素：朝当前元素上、下、左、右四个方向进行下一层递归，使用<code>||</code>连接代表只需找到一条可行路径，记录结果至<code>res</code>；</li>
+<li>还原：将<code>board[i][j]</code>还原至初始值<code>word[k]</code>。<br>
+<img src="https://AriesSK.github.io/post-images/1655866202557.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655866209347.png" alt="" loading="lazy"></li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-js">var exist = function(board, word) {
+    for (let i = 0; i &lt; board.length; ++i) {
+        for (let j = 0; j &lt; board[0].length; ++j) {
+            if (dfs(board, word, i, j, 0)) return true;
+        }
+    }
+    return false;
+};
+
+var dfs = function(board, word, i, j, k) {
+    if (i &gt;= board.length || i &lt; 0 || j &gt; board[0].length || j &lt; 0 || board[i][j] !== word[k]) return false;
+    if (k === word.length - 1) return true;
+    // 标记已访问
+    board[i][j] = 0;
+    const res = dfs(board, word, i + 1, j, k + 1) || dfs(board, word, i - 1, j, k + 1) || dfs(board, word, i, j + 1, k + 1) || dfs(board, word, i, j - 1, k + 1);
+    // 恢复原数组
+    board[i][j] = word[k];
+    return res;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[58 - I. 翻转字符单词顺序]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_58_i/</id>
@@ -314,8 +464,8 @@ console.log(!(num % 2)); // true
 <p>类似斐波那契数列的问题，使用动态规划解决，需要注意初始状态的区别。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<p>动态规划：<br>
-跳上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 级台阶有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 种跳法，在所有跳法中，最后一步只有两种情况：</p>
+<h3 id="动态规划">动态规划</h3>
+<p>跳上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 级台阶有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 种跳法，在所有跳法中，最后一步只有两种情况：</p>
 <ul>
 <li>跳 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 级，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n - 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 种；</li>
 <li>跳 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 级，有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">F(n - 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 种。</li>
@@ -561,130 +711,6 @@ const binarySearch = function(nums, target) {
     }
     return i;
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[03. 数组中重复的数字]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_03/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_03/">
-        </link>
-        <updated>2022-06-12T12:59:25.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的map对象与set对象">JavaScript 中的<code>Map</code>对象与<code>Set</code>对象</h3>
-<p><code>Map</code>对象存储键值对，一些常用的方法如下：</p>
-<pre><code class="language-js">set(key, value)
-get(key)
-has(key)
-delete(key)
-</code></pre>
-<p><code>Set</code>对象是唯一值的集合，一些常用的方法如下：</p>
-<pre><code class="language-js">add(key)
-clear() // 删除所有
-delete(key)
-entries() keys() values() // 返回值的数组，分别返回键值对、键名、键值，在 Set 中结果相同
-has(key)
-size()
-</code></pre>
-<p><code>Map</code>和<code>Set</code>的 key 可以是任何数据类型。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一哈希表">法一：哈希表</h3>
-<p>我一开始想到的是使用<code>Map</code>：</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let hash = new Map();
-    for (let i = 0; i &lt; nums.length; ++i) {
-        // 这里需要使用 has()，而不是 get()，防止 get() 取到 0 导致判断出错
-        if (!hash.has(nums[i])) hash.set(nums[i], i);
-        else return nums[i];
-    }
-};
-</code></pre>
-<p>后来发现<code>Map</code>存储的是键值对，但在这题中只需要存 key，不需要存 value，因此用<code>Set</code>更好：</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let set = new Set();
-    for (let i = 0; i &lt; nums.length; ++i) {
-        if (!set.has(nums[i])) set.add(nums[i]);
-        else return nums[i];
-    }
-};
-</code></pre>
-<h3 id="法二原地算法">法二：原地算法</h3>
-<p>遍历数组<code>nums</code>，设索引初始值为<code>i = 0</code>：</p>
-<ul>
-<li>若<code>nums[i] = i</code>：说明此数字已在对应索引位置，无需交换，因此跳过；</li>
-<li>若<code>nums[nums[i]] = nums[i]</code>：代表索引<code>nums[i]</code>处和索引<code>i</code>处的元素值都为<code>nums[i]</code>，即找到一组重复值，返回此值<code>nums[i]</code>；</li>
-<li>否则：交换索引为<code>i</code>和<code>nums[i]</code>的元素值，将此数字交换至对应索引位置。</li>
-</ul>
-<p>若遍历完毕尚未返回，则返回 -1。</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let i = 0;
-    while (i &lt; nums.length) {
-        if (nums[i] === i) {
-            // 直到该位置已放置正确数字再处理下一个位置，以保证数组被完全遍历
-            ++i;
-            continue;
-        }
-        if (nums[nums[i]] === nums[i]) return nums[i];
-        let tmp = nums[i];
-        nums[i] = nums[nums[i]];
-        // 注意这里 num[i] 已经被修改了值，因此不能用 nums[nums[i]]
-        nums[tmp] = tmp;
-    }
-    return -1;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[05. 替换空格]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_05/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_05/">
-        </link>
-        <updated>2022-06-11T14:11:29.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的字符赋值">JavaScript 中的字符赋值</h3>
-<p>在 js 中不能直接对字符串中字符赋值：</p>
-<pre><code class="language-js">var replaceSpace = function(s) {
-    for (let i = 0; i &lt; s.length; ++i) {
-        if (s[i] === &quot; &quot;) s[i] = &quot;%20&quot;;
-    }
-    return s;
-};
-</code></pre>
-<p>正确的做法是使用<code>replace()</code>操作。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<p>不使用字符串方法的解法：</p>
-<pre><code class="language-js">var replaceSpace = function(s) {
-  let res = ''
-  for(let i = 0;i &lt; s.length; i++) {
-    if (s[i] === &quot; &quot;) res += &quot;%20&quot;;
-    else res += s[i];
-  }
-  return res;
-}
-</code></pre>
-<p>可以使用<code>split()</code>将字符串转化为数组：</p>
-<pre><code class="language-js">var replaceSpace = function(s) {
-    arr = s.split(&quot; &quot;);
-    let res = &quot;&quot;;
-    for (let i = 0; i &lt; arr.length; ++i) {
-        if (i === arr.length - 1) res += arr[i]; 
-        else res += arr[i] + &quot;%20&quot;;
-    }
-    return res;
-};
-</code></pre>
-<p>可以使用字符串的自带函数，注意<code>replace()</code>只替换第一个，而<code>replaceAll()</code>替换全部：</p>
-<pre><code class="language-js">var replaceSpace = function(s) {
-    return s.replaceAll(&quot; &quot;, &quot;%20&quot;);
-};
-</code></pre>
-<p><code>split()</code>以特定分隔符将字符串拆分为数组，<code>join()</code>则以特定分隔符将数组中元素连接成字符串：</p>
-<pre><code class="language-js">var replaceSpace = function(s) {
-    return s.split(&quot; &quot;).join(&quot;%20&quot;);
-};
 </code></pre>
 ]]></content>
     </entry>

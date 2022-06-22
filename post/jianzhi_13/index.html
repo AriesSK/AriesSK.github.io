@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                Hello Gridea
+                                13. 机器人的运动范围
                             </h1>
                             
                                 <!--en-->
@@ -210,41 +210,118 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2018-12-12</a>
+                                Date: <a href="#">2022-06-22</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.0
+                                    href="#">3.7
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">298</a></span>
+                                    <span class="post-words">words:<a href="#">779</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/g-H0tsKwo/">广度优先搜索</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">深度优先搜索</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
                         
-                            <img class="post-feature-image" src="https://AriesSK.github.io/post-images/hello-gridea.png" alt="">
-                          
                         <div class="post-content">
-                            <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+                            <h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的函数传值">JavaScript 中的函数传值</h3>
+<p>js 中的所有函数的参数都是按值传递的，这意味着函数外的值会被复制到函数内部的参数中，如果是原始值，就跟原始值变量的复制一样，如果是引用值，就和引用值变量的复制一样。</p>
+<ul>
+<li><strong>按值传递参数：</strong> 外部的值被复制到函数的一个局部变量中，这两个值相互独立，互不干扰；</li>
+<li><strong>按引用传递参数：</strong> 外部的值在内存中的位置会被保存到函数的一个局部变量中，意味着对局部变量的修改会反应到函数外部，这在 js 中是<strong>不可能的</strong>。<br>
+<img src="https://AriesSK.github.io/post-images/1655878734447.png" alt="" loading="lazy"><br>
+原始值的按值传递举例，可以看到传入参数与外部值相互独立，互不干扰：</li>
+</ul>
+<pre><code class="language-js">function addOne (num) {
+    num += 1;
+    return num;
+}
+let count = 20;
+let res = addOne(count); // count === 20, res === 30
+</code></pre>
+<p>引用值的按值传递举例，如果是按引用传递，那么在新建<code>obj</code>对象的时候，<code>person</code>应该自动将指针改为指向&quot;Aries&quot;的对象，但事实上并没有。这证明了是按值传递的，传递了引用值，而引用的对象是保存在全局作用域，因此可以通过<code>obj</code>访问引用对象修改属性：</p>
+<pre><code class="language-js">function setName(obj) {
+    obj.name = &quot;AriesSK&quot;;
+    obj = new Object();
+    obj.name = &quot;Aries&quot;
+    return num;
+}
+let person = new Object();
+setName(person); // person.name === &quot;AriesSK&quot;
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一深度优先搜索">法一：深度优先搜索</h3>
+<p>我的解法：</p>
+<pre><code class="language-js">var movingCount = function(m, n, k) {
+    let res = 0;
+    const visit = new Array(m);
+    for (let i = 0; i &lt; m; ++i) visit[i] = new Array(n).fill(0);
+    return dfs(visit, 0, 0, k, res);
+};
+
+var dfs = function(visit, i, j, k, res) {
+    let s = &quot;&quot; + i + j, sum = 0;
+    for (let i = 0; i &lt; s.length; ++i) sum += Number(s[i]);
+    if (i &lt; 0 || i &gt;= visit.length || j &lt; 0 || j &gt;= visit[0].length || visit[i][j] || sum &gt; k) return res;
+    visit[i][j] = 1;
+    res = dfs(visit, i + 1, j, k, res);
+    res = dfs(visit, i - 1, j, k, res);
+    res = dfs(visit, i, j + 1, k, res);
+    res = dfs(visit, i, j - 1, k, res);
+    return ++res;
+}
+</code></pre>
+<p><img src="https://AriesSK.github.io/post-images/1655879902391.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655879907533.png" alt="" loading="lazy"><br>
+dfs 解法的优化，省略了不必要的<code>res</code>，并且由于从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(0,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span> 开始，由图可以看出仅通过向右和向下两个方向即可访问所有可达解：</p>
+<pre><code class="language-js">var movingCount = function(m, n, k) {
+    const visit = new Array(m);
+    for (let i = 0; i &lt; m; ++i) visit[i] = new Array(n).fill(0);
+    return dfs(visit, 0, 0, k);
+};
+
+var dfs = function(visit, i, j, k) {
+    let s = &quot;&quot; + i + j, sum = 0;
+    for (let i = 0; i &lt; s.length; ++i) sum += Number(s[i]);
+    if ( i &gt;= visit.length || j &gt;= visit[0].length || visit[i][j] || sum &gt; k) return 0;
+    visit[i][j] = 1;
+    return 1 + dfs(visit, i + 1, j, k) + dfs(visit, i, j + 1, k);
+}
+</code></pre>
+<h3 id="法二广度优先搜索">法二：广度优先搜索</h3>
+<p>bfs 需要用到队列和循环，无需递归：</p>
+<pre><code class="language-js">var movingCount = function(m, n, k) {
+    let res = 0;
+    const visit = new Array(m);
+    for (let i = 0; i &lt; m; ++i) visit[i] = new Array(n).fill(0);
+    const queue = [];
+    queue.unshift([0, 0]);
+    while(queue.length &gt; 0) {
+        let temp = queue.pop();
+        let i = temp[0], j = temp[1], s = &quot;&quot; + i + j, sum = 0;
+        for (let i = 0; i &lt; s.length; ++i) sum += Number(s[i]);
+        if (i &gt;= visit.length || j &gt;= visit[0].length || visit[i][j] || sum &gt; k) continue;
+        visit[i][j] = 1;
+        ++res;
+        queue.unshift([i + 1, j]);
+        queue.unshift([i, j + 1]);
+    }
+    return res;
+};
+</code></pre>
 
                         </div>
                         
@@ -254,13 +331,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/hello-gridea/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=qzone&title=Hello Gridea&pics=https://AriesSK.github.io/images/avatar.png?v=1655881719954&summary=&lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-"><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=weibo&title=Hello Gridea + " - " + &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-&pic="https://AriesSK.github.io/images/avatar.png?v=1655881719954 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_13/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_13/&sharesource=qzone&title=13. 机器人的运动范围&pics=https://AriesSK.github.io/images/avatar.png?v=1655881719954&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_13/&sharesource=weibo&title=13. 机器人的运动范围 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655881719954 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -269,6 +342,24 @@
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
+                        
+                        <a href="https://AriesSK.github.io/tag/g-H0tsKwo/">#
+                                                广度优先搜索
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">#
+                                                深度优先搜索
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -282,6 +373,10 @@
                                                                                 <section class="post-nav">
                                                                                     
                                                                                             
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_12/">
+                                                                                                    12. 矩阵中的路径
+                                                                                                </a>
+                                                                                                
                                                                                 </section>
                     </article>
                 </div>

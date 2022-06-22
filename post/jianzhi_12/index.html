@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                Hello Gridea
+                                12. 矩阵中的路径
                             </h1>
                             
                                 <!--en-->
@@ -210,41 +210,78 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2018-12-12</a>
+                                Date: <a href="#">2022-06-22</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.0
+                                    href="#">1.6
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">298</a></span>
+                                    <span class="post-words">words:<a href="#">353</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">深度优先搜索</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
                         
-                            <img class="post-feature-image" src="https://AriesSK.github.io/post-images/hello-gridea.png" alt="">
-                          
                         <div class="post-content">
-                            <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+                            <h2 id="知识点">知识点</h2>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<p>通过递归的方式，先朝一个方向搜索到底，再回溯至上个节点，沿另一个方向搜索，一次类推。</p>
+<h3 id="剪枝">剪枝</h3>
+<p>在搜索过程中遇到<strong>该路径不可能与目标匹配成功</strong>的情况时，应当立即返回，这叫<strong>可行性剪枝</strong>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-剪枝">深度优先搜索 + 剪枝</h3>
+<ul>
+<li>
+<p><strong>递归终止条件：</strong></p>
+<ul>
+<li>返回 <code>false</code>：索引越界 || 当前矩阵元素与目标不匹配（包括已访问）；</li>
+<li>返回<code>true</code>：<code>k === word.length - 1</code>，即<code>word</code>已完全匹配。</li>
+</ul>
+</li>
+<li>
+<p><strong>递推工作：</strong></p>
+<ol>
+<li>标记已访问：将<code>board[i][j]</code>修改为 <code>0</code>，防止重复搜索；</li>
+<li>搜索下一元素：朝当前元素上、下、左、右四个方向进行下一层递归，使用<code>||</code>连接代表只需找到一条可行路径，记录结果至<code>res</code>；</li>
+<li>还原：将<code>board[i][j]</code>还原至初始值<code>word[k]</code>。<br>
+<img src="https://AriesSK.github.io/post-images/1655866202557.png" alt="" loading="lazy"><br>
+<img src="https://AriesSK.github.io/post-images/1655866209347.png" alt="" loading="lazy"></li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-js">var exist = function(board, word) {
+    for (let i = 0; i &lt; board.length; ++i) {
+        for (let j = 0; j &lt; board[0].length; ++j) {
+            if (dfs(board, word, i, j, 0)) return true;
+        }
+    }
+    return false;
+};
+
+var dfs = function(board, word, i, j, k) {
+    if (i &gt;= board.length || i &lt; 0 || j &gt; board[0].length || j &lt; 0 || board[i][j] !== word[k]) return false;
+    if (k === word.length - 1) return true;
+    // 标记已访问
+    board[i][j] = 0;
+    const res = dfs(board, word, i + 1, j, k + 1) || dfs(board, word, i - 1, j, k + 1) || dfs(board, word, i, j + 1, k + 1) || dfs(board, word, i, j - 1, k + 1);
+    // 恢复原数组
+    board[i][j] = word[k];
+    return res;
+}
+</code></pre>
 
                         </div>
                         
@@ -254,13 +291,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/hello-gridea/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=qzone&title=Hello Gridea&pics=https://AriesSK.github.io/images/avatar.png?v=1655881719954&summary=&lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-"><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/hello-gridea/&sharesource=weibo&title=Hello Gridea + " - " + &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
-✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
-&pic="https://AriesSK.github.io/images/avatar.png?v=1655881719954 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_12/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_12/&sharesource=qzone&title=12. 矩阵中的路径&pics=https://AriesSK.github.io/images/avatar.png?v=1655881719954&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_12/&sharesource=weibo&title=12. 矩阵中的路径 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655881719954 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -269,6 +302,24 @@
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
+                        
+                        <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">#
+                                                深度优先搜索
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
+                                                数组
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
+                                                    
+                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -281,7 +332,15 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_13/">
+                                                                                            13. 机器人的运动范围
+                                                                                        </a>
+                                                                                        
                                                                                             
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_58_i/">
+                                                                                                    58 - I. 翻转字符单词顺序
+                                                                                                </a>
+                                                                                                
                                                                                 </section>
                     </article>
                 </div>
