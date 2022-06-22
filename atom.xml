@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-06-22T08:41:06.447Z</updated>
+    <updated>2022-06-22T11:28:12.444Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -386,6 +386,25 @@ console.log(!(num % 2)); // true
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[18. 删除链表的节点]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_18/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_18/">
+        </link>
+        <updated>2022-06-19T11:10:54.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中">JavaScript 中</h3>
+<p>方法如下：</p>
+<pre><code class="language-js">
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一">法一：</h3>
+<p>法一：</p>
+<pre><code class="language-js">
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[10 - I. 斐波那契数列]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_10_i/</id>
         <link href="https://AriesSK.github.io/post/jianzhi_10_i/">
@@ -585,132 +604,6 @@ var findNumberIn2DArray = function(matrix, target) {
     }    
     return false;
 };
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[53 - I. 在排序数组中查找数字 I]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_53_i/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_53_i/">
-        </link>
-        <updated>2022-06-12T14:17:13.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="二分法总结">二分法总结</h3>
-<p>有序的序列查找，优先考虑二分法。</p>
-<h4 id="无重复元素">无重复元素</h4>
-<p>查找<code>target</code>在序列中是否出现：</p>
-<pre><code class="language-js">const binarySearch(nums, target) {
-    let left = 0, right = nums.length;
-    while (left &lt;= right) {
-        // 能够防止溢出
-        const mid = left + Math.floor((right - left) / 2);
-        if (nums[mid] === target) return mid;
-        else if (nums[mid] &lt; target) left = mid + 1;
-        else right = mid - 1;
-    }
-    return -1;
-};
-</code></pre>
-<h4 id="有重复元素">有重复元素</h4>
-<ul>
-<li>查找首个大于<code>target</code>的元素序号；</li>
-<li>查找首个大于等于<code>target</code>的元素序号（等同于查找首个大于<code>target - 1</code>的元素序号）。</li>
-</ul>
-<pre><code class="language-js">const binarySearch(nums, target) {
-    let left = 0, right = num.length;
-    while (left &lt;= right) {
-        const mid = left + Math.floor((right - left) / 2);
-        if (nums[mid] &lt;= target) left = mid + 1;
-        else right = mid - 1;
-    }
-    return i;
-}
-</code></pre>
-<h4 id="循环条件写left-right和left-right的区别">循环条件写<code>left &lt;= right</code>和<code>left &lt; right</code>的区别</h4>
-<p>区别在于是否包含最右边的边界值，因为当<code>left==right</code>时，不会再进入循环体，所以<code>right</code>初始化时就取值为<code>len(nums)</code>，这样在<code>for</code>循环中就能保证是在这样一个左闭右开的区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo separator="true">,</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">[left,right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mclose">)</span></span></span></span>，且<code>right</code>赋值应该为<code>right = mid</code>而非<code>right = mid-1</code>，因为右半边是开区间，取<code>mid-1</code>就无法验证到<code>mid-1</code>是否是目标值。简单来说区别是<code>right</code>所代表的位置是否参与计算。</p>
-<h4 id="两种写法模板">两种写法模板</h4>
-<pre><code class="language-js">// 模板一
-// 若 target === nums[nums.length - 1]
-// 在循环条件是 left &lt;= right 的情况下 right = nums.length - 1 以保证 mid 能够取到
-const binarySearch = function(nums, target) {
-    let left = 0, right = nums.length - 1;
-    while (left &lt;= right) {
-        const mid = left + Math.floor((right - left) / 2);
-        if (nums[mid] === target) return mid;
-        else if (nums[mid] &lt; target) left = mid + 1;
-        else right = mid - 1; 
-    }
-    return left;
-}
-// 模板二
-// 若 target === nums[nums.length - 1]
-// 在循环条件是 left &lt; right 的情况下 right = nums.length 因为 mid 最多取到 right - 1
-const binarySearch = function(nums, target) {
-    let left = 0, right = nums.length;
-    while (left &lt; right) {
-        const mid = left + Math.floor((right - left) / 2);
-        if (nums[mid] === target) return mid;
-        else if (nums[mid] &lt; target) left = mid + 1;
-        else right = mid; 
-    }
-    return left;
-}
-</code></pre>
-<h3 id="javascript-中的数组越界">JavaScript 中的数组越界</h3>
-<p>js 数组<strong>允许</strong>越界，越界返回的是<code>undefined</code>。<br>
-js 在非严格模式的情况下变量允许不声明直接赋值。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一暴力">法一：暴力</h3>
-<p>逐个遍历：</p>
-<pre><code class="language-js">var search = function(nums, target) {
-    let start = -1, end = -1;
-    for (let i = 0; i &lt; nums.length; ++i) {
-        if (nums[i] === target) {
-            start = i;
-            break;
-        }
-    }
-    if (start === -1) return 0;
-    // 这里只有在 js 中才行 因为允许数组越界 正常 i = nums.length 时 若nums[i] === target 则 end = nums.length
-    for (let i = start;; ++i) {
-        if (nums[i] !== target) {
-            end = i;
-            break;
-        }
-    }
-    return end - start;
-};
-</code></pre>
-<h3 id="法二二分法">法二：二分法</h3>
-<p>这里的<code>binarySearch()</code>方法目的实际上是寻找<code>tar</code>值能够插入的最右的位置，因此答案为<code>target</code>的右边界减去<code>(target - 1)</code>的右边界。</p>
-<pre><code class="language-js">var search = function(nums, target) {
-    return binarySearch(nums, target) - binarySearch(nums, target - 1);
-}
-
-const binarySearch = function(nums, tar) {
-    let i = 0, j = nums.length - 1;
-    // 用 &lt;= 保证 tar 能够插入最右的位置 而不是 最右的前一位
-    while (i &lt;= j) {
-        // 不像 java 在 js 中需要手动取整
-        const m = Math.floor((i + j) / 2);
-        // 由于找最右插入位置 因此即使nums[m] = tar 插入位置也在 m + 1 及之后
-        if (nums[m] &lt;= tar) i = m + 1;
-        else j = m - 1; 
-    }
-    // i 永远比 j 大1 只能返回 i
-    return i;
-};
-// while 中 &lt;= 换为 &lt; 后 改变 j 的初始值 和 j 每次的缩小值
-const binarySearch = function(nums, target) {
-    let i = 0, j = nums.length;
-    while (i &lt; j) {
-        const m = i + Math.floor((j - i) / 2);
-        if (nums[m] &lt;= target) i = m + 1;
-        else j = m; 
-    }
-    return i;
-}
 </code></pre>
 ]]></content>
     </entry>

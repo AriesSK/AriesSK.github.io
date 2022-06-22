@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                57. 和为s的两个数字
+                                18. 删除链表的节点
                             </h1>
                             
                                 <!--en-->
@@ -210,21 +210,19 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-06-21</a>
+                                Date: <a href="#">2022-06-19</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">0.7
+                                    href="#">0.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">150</a></span>
+                                    <span class="post-words">words:<a href="#">15</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
-                                <a href="https://AriesSK.github.io/tag/uepLNcTpN/">双指针</a>
+                                <a href="https://AriesSK.github.io/tag/2UcFUw72z/">链表</a>
                                 
                                 <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
                                 
                                 <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
@@ -236,28 +234,15 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<h3 id="javascript-的const">JavaScript 的<code>const</code></h3>
-<p>在允许的情况下，推荐使用<code>const</code>进行声明，<code>const</code>声明后无法重新赋值，但可以修改其属性值。</p>
+<h3 id="javascript-中">JavaScript 中</h3>
+<p>方法如下：</p>
+<pre><code class="language-js">
+</code></pre>
 <hr>
 <h2 id="题解">题解</h2>
-<p>双指针的简单应用：</p>
-<pre><code class="language-js">var twoSum = function(nums, target) {
-    let left = 0, right = nums.length - 1;
-    const res = [];
-    // 若允许同一个数自己加自己则取 =
-    while (left &lt; right) {
-        // 在值是正数的情况下，改加为减能够有效防止值溢出
-        if (nums[left] &gt; target - nums[right]) --right;
-        else if (nums[left] &lt; target - nums[right]) ++left;
-        else {
-            res.push(nums[left]);
-            res.push(nums[right]);
-            // 不适用 break 会导致无限循环入栈至溢出
-            break;
-        }
-    }
-    return res;
-};
+<h3 id="法一">法一：</h3>
+<p>法一：</p>
+<pre><code class="language-js">
 </code></pre>
 
                         </div>
@@ -268,9 +253,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_57/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_57/&sharesource=qzone&title=57. 和为s的两个数字&pics=https://AriesSK.github.io/images/avatar.png?v=1655897269190&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_57/&sharesource=weibo&title=57. 和为s的两个数字 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655897269190 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_18/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_18/&sharesource=qzone&title=18. 删除链表的节点&pics=https://AriesSK.github.io/images/avatar.png?v=1655897269190&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_18/&sharesource=weibo&title=18. 删除链表的节点 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655897269190 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -280,16 +265,12 @@
                                                                         <span class="tag ">
                         
                         
-                        <a href="https://AriesSK.github.io/tag/uepLNcTpN/">#
-                                                双指针
+                        <a href="https://AriesSK.github.io/tag/2UcFUw72z/">#
+                                                链表
                                                     </a>
                                                     
                         <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
                                                 算法
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
-                                                数组
                                                     </a>
                                                     
                         <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
@@ -309,13 +290,13 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_58_i/">
-                                                                                            58 - I. 翻转字符单词顺序
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_21/">
+                                                                                            21. 调整数组顺序使奇数位于偶数前面
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_21/">
-                                                                                                    21. 调整数组顺序使奇数位于偶数前面
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_10_i/">
+                                                                                                    10 - I. 斐波那契数列
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
