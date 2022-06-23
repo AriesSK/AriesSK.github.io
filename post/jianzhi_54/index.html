@@ -197,55 +197,158 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                54. 二叉搜索树的第k大节点
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-23</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.1
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">256</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                                06. 从头到尾打印链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/1Yw1K_nEE/">树</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">深度优先搜索</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_30/">
-                                                30. 包含min函数的栈
-                                            </a>
-                                            <span class="archive-item-date">2022-06-09 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_09/">
-                                                09. 用两个栈实现队列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-09 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
-                                                    <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> Prev</a>
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="运算符优先级">运算符优先级</h3>
+<p>关于运算符的优先级，见<a href="https://ariessk.github.io/post/jianzhi_21/">21. 调整数组顺序使奇数位于偶数前面</a><br>
+下面两种的运算结果是一样的，这题中都可以：</p>
+<pre><code class="language-js">let k = 1;
+console.log(!--k); // true
+k = 1;
+console.log(!(--k)); // true
+</code></pre>
+<p>不过这样写容易出错，还是老实写：</p>
+<pre><code class="language-js">let k = 1;
+console.log(--k == 0); // true
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<p>二叉搜索树的中序遍历就是升序数组，本题进行逆向的中序遍历，并且设置<code>isFound</code>标志找到了目标，提前结束递归（题目规定不会有空树的情况）：</p>
+<pre><code class="language-js">var kthLargest = function(root, k) {
+	let isFound = false, res;
+	dfs(root);
+    return res;
+
+    function dfs(root) {
+        if (!root) return;
+        dfs(root.right);
+		if (isFound) return;
+        if (k - 1) --k;
+        else {
+			res = root.val;
+			isFound = true;
+		}
+        dfs(root.left);
+    }
+};
+</code></pre>
+<p>后来发现<code>isFound</code>可以省略，当<code>k</code>减到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 时即代表找到了目标：</p>
+<pre><code class="language-js">var kthLargest = function(root, k) {
+	let res;
+	dfs(root);
+    return res;
+
+    function dfs(root) {
+        if (!root) return;
+        dfs(root.right);
+		if (!k) return;
+        // 先自减再判断是否为 0
+        if (!--k) res = root.val;
+        dfs(root.left);
+    }
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_54/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_54/&sharesource=qzone&title=54. 二叉搜索树的第k大节点&pics=https://AriesSK.github.io/images/avatar.png?v=1655975083525&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_54/&sharesource=weibo&title=54. 二叉搜索树的第k大节点 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655975083525 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/1Yw1K_nEE/">#
+                                                树
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">#
+                                                深度优先搜索
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
                                                     
                                                         
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_36/">
+                                                                                                    36. 二叉搜索树与双向链表
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -332,5 +435,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

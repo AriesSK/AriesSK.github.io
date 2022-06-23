@@ -197,55 +197,187 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                36. 二叉搜索树与双向链表
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-06-23</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">2.1
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">502</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                                06. 从头到尾打印链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">深度优先搜索</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_30/">
-                                                30. 包含min函数的栈
-                                            </a>
-                                            <span class="archive-item-date">2022-06-09 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_09/">
-                                                09. 用两个栈实现队列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-09 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
-                                                    <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> Prev</a>
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="二叉搜索树二叉查找树二叉排序树">二叉搜索树（二叉查找树，二叉排序树）</h3>
+<p><strong>定义：</strong> 它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；它的左、右子树也分别为二叉排序树。<br>
+二叉搜索树（Binary Search Tree, BST）的<strong>中序遍历</strong>是<strong>升序序列</strong>。</p>
+<h3 id="三种深度优先搜索">三种深度优先搜索</h3>
+<p>前中后指的是<code>root</code>节点在三个节点中的位置</p>
+<h4 id="前序遍历">前序遍历：</h4>
+<pre><code class="language-js">var dfs = function(root) {
+    if (!root) return;
+    console.log(root.val); // 操作 root 节点，比如打印其值
+    dfs(root.left);
+    dfs(root.right);
+}
+</code></pre>
+<h4 id="中序遍历">中序遍历：</h4>
+<pre><code class="language-js">var dfs = function(root) {
+    if (!root) return;
+    dfs(root.left);
+    console.log(root.val); // 操作 root 节点，比如打印其值
+    dfs(root.right);
+}
+</code></pre>
+<h4 id="后序遍历">后序遍历：</h4>
+<pre><code class="language-js">var dfs = function(root) {
+    if (!root) return;
+    dfs(root.left);
+    dfs(root.right);
+    console.log(root.val); // 操作 root 节点，比如打印其值
+}
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一使用队列">法一：使用队列</h3>
+<p>我一开始想到的方法，在中序遍历的同时使用一个队列按顺序保存每一个节点，再按顺序输出节点并连接：</p>
+<pre><code class="language-js">var treeToDoublyList = function(root) {
+    if (!root) return root;
+    const list = [];
+    dfs(root);
+    const head = list.shift();
+    let ptr = head;
+    while(list.length) {
+        ptr.right = list.shift();
+        ptr.right.left = ptr;
+        ptr = ptr.right;
+    }
+    ptr.right = head;
+    head.left = ptr;
+    return head;
+
+    function dfs(root) {
+        if (!root) return;
+        dfs(root.left);
+        list.push(root);
+	    dfs(root.right);
+    }
+};
+</code></pre>
+<h3 id="法二原地算法">法二：原地算法</h3>
+<p>事实上并不需要使用队列保存节点，使用一个``pre<code>和一个</code>curr`指针分别保存上一个节点和当前节点即可：</p>
+<pre><code class="language-js">var treeToDoublyList = function(root) {
+    let pre, curr;
+    // 空树
+    if (!root) return root;
+    dfs(root);
+    // 完成中序遍历后还需将头节点和尾节点连接起来成环
+    head.left = pre;
+    pre.right = head;
+    return head;
+
+    function dfs(curr) {
+        if (!curr) return;
+        // 先找到最左侧的叶子节点，是链表的头节点
+        dfs(curr.left);
+        if (pre) pre.right = curr;
+        else head = curr;
+        curr.left = pre;
+        // 更新 curr
+        pre = curr;
+	    dfs(curr.right);
+    }
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_36/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_36/&sharesource=qzone&title=36. 二叉搜索树与双向链表&pics=https://AriesSK.github.io/images/avatar.png?v=1655975083525&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_36/&sharesource=weibo&title=36. 二叉搜索树与双向链表 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1655975083525 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">#
+                                                深度优先搜索
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
+                                                剑指offer
+                                                    </a>
                                                     
                                                         
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_54/">
+                                                                                            54. 二叉搜索树的第k大节点
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_34/">
+                                                                                                    34. 二叉树中和为某一值的路径
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -332,5 +464,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
