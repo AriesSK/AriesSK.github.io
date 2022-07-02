@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-02T08:33:12.336Z</updated>
+    <updated>2022-07-02T08:41:42.550Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -54,7 +54,7 @@ f(n) &amp;=(f(n-1)+t) \% n \\
 <li><strong>返回结果：</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>。</li>
 </ol>
 <pre><code class="language-js">var lastRemaining = function(n, m) {
-    // x 代表解在数组中的下标
+    // x 代表最终被剩下的元素在上一级数组中的下标
     let x = 0;
     for (let i = 2; i &lt;= n; ++i) x = (x + m) % i;
     return x;
