@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-02T08:41:42.550Z</updated>
+    <updated>2022-07-04T04:29:27.007Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,203 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[67. 把字符串转换为整数]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_67/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_67/">
+        </link>
+        <updated>2022-07-04T04:17:31.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-的幂运算">JavaScript 的幂运算</h3>
+<p>js 中的<code>**</code>表示幂运算，等同于`Math.pow()。</p>
+<h3 id="判断字符是否是数字字符">判断字符是否是数字字符</h3>
+<pre><code class="language-js">if (s &lt;= '9' &amp;&amp; s &gt;= '0') return true;
+if (s &gt; '9' || s &lt; '0') return false;
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="遍历">遍历</h3>
+<p>遍历字符串的每个字符，每个字符的可能情况和处理如下：</p>
+<ul>
+<li>若是空格，继续遍历；</li>
+<li>若是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>+</mo></mrow><annotation encoding="application/x-tex">+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span></span></span></span>，记录并继续遍历；</li>
+<li>若是非数字字符，结束遍历；</li>
+<li>若是数字字符，转为数字并计入结果（js 中一元运算符的<code>+</code>能进行类型转换）。</li>
+</ul>
+<p>若最终结果超题目要求范围，按题目要求返回值即可，因为不会超过 js 的数字表示范围。</p>
+<pre><code class="language-js">var strToInt = function(str) {
+    let res = 0, i = 0, s = 1;
+    if (!str.length) return 0;
+    while (str.charAt(i) === &quot; &quot;) {
+        if (i === str.length) return 0;
+        ++i;
+    }
+    if (str.charAt(i) === '-') s = -1;
+    if (str.charAt(i) === '+' || str.charAt(i) === '-') ++i;
+    for (let j = i; j &lt; str.length; ++j) {
+        if (str.charAt(j) &gt; '9' || str.charAt(j) &lt; '0') break;
+        res = res * 10 + +str.charAt(j);
+    } 
+    return s === 1 ? Math.min(res, 2**31 - 1) : Math.max(-res, -(2**31));
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[20. 表示数值的字符串]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_20/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_20/">
+        </link>
+        <updated>2022-07-04T02:28:02.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="有限状态自动机">有限状态自动机</h3>
+<ol>
+<li>定义状态；</li>
+<li>画出状态转移图；</li>
+<li>编写代码（利用数组和哈希表存储状态转移表）。</li>
+</ol>
+<hr>
+<h2 id="题解">题解</h2>
+<p>最开始利用 js 自身的特性写了一种抖机灵的解法，仅供一乐：</p>
+<pre><code class="language-js">var isNumber = function(s) {
+    if(s.trim() === &quot;&quot;) return false;
+    return !isNaN(Number(s));
+};
+</code></pre>
+<h3 id="有限状态自动机-2">有限状态自动机</h3>
+<p>这道题的正统解法还是有限状态自动机：<br>
+<img src="https://AriesSK.github.io/post-images/1656902596313.png" alt="" loading="lazy"></p>
+<pre><code class="language-js">var isNumber = function(s) {
+    // 使用数组存储自动机的九种状态，使用哈希表存储状态转移表
+    const states = [
+        new Map([[' ', 0], ['s', 1], ['d', 2], ['.', 4]]),
+        new Map([['d', 2], ['.', 4]]),
+        new Map([['d', 2], ['.', 3], ['e', 5], [' ', 8]]),
+        new Map([['d', 3], ['e', 5], [' ', 8]]),
+        new Map([['d', 3]]),
+        new Map([['s', 6], ['d', 7]]),
+        new Map([['d', 7]]),
+        new Map([['d', 7], [' ', 8]]),
+        new Map([[' ', 8]])
+    ];
+    // p 为当前状态， t 为字符类型
+    let p = 0, t;
+    for (let c of s.split('')) {
+        if (c &gt;= '0' &amp;&amp; c &lt;= '9') t = 'd';
+        else if(c === '+' || c === '-') t = 's';
+        else if(c === 'e' || c === 'E') t = 'e';
+        else if(c === '.' || c === ' ') t = c;
+        else t = '?';
+        // 无法转移至下一个状态，返回 false
+        if (!states[p].has(t)) return false;
+        p = states[p].get(t);
+    }
+    // 四种合法的结束状态
+    return p === 2 || p === 3 || p === 7 || p === 8;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[31. 栈的压入、弹出序列]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_31/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_31/">
+        </link>
+        <updated>2022-07-03T08:58:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="快速判断出栈序列是否合法">快速判断出栈序列是否合法</h3>
+<p>对于<strong>出栈序列</strong>中的每个元素，所有在它<strong>后面出栈</strong>的但比它<strong>先入栈</strong>的元素，其出栈顺序必定与入栈顺序相反。因为比它先入栈的元素要不<strong>先于它出栈</strong>，要不<strong>还在栈中</strong>，而在栈中则必定先进后出。<br>
+这种判定方法在适用于选择题中的快速判断，特别在<strong>入栈元素是递增</strong>时，只需要判断<strong>出栈序列</strong>中每个元素后面比它<strong>小</strong>的元素有没有遵循<strong>递减</strong>排列即可，不过在算法中复杂度比较高。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="模拟">模拟</h3>
+<p>使用一个辅助栈来模拟操作，看看能否模拟成功：</p>
+<pre><code class="language-js">var validateStackSequences = function(pushed, popped) {
+    const stack = [];
+    let i = 0;
+    for (num of pushed) {
+        // 按入栈顺序入栈
+        stack.push(num);
+        // 每次入栈后判断，将符合出栈顺序的元素全部出栈
+        while (stack.length &amp;&amp; stack[stack.length - 1] === popped[i]) {
+            stack.pop();
+            ++i;
+        }
+    }
+    // 最终栈为空返回 true
+    return !stack.length;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[29. 顺时针打印矩阵]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_29/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_29/">
+        </link>
+        <updated>2022-07-03T03:04:41.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-二维数组声明的坑">JavaScript 二维数组声明的坑</h3>
+<p>如下声明数组，然后更改第一行第一列的元素，发现居然<strong>第一列的元素</strong>都被改了，这是由于第一个<code>fill()</code>创建的三个<code>Array()</code>对象<strong>指向同一个内存地址</strong>，类似浅拷贝，因此修改其中一个就会同时变更其余的：</p>
+<pre><code class="language-js">const flag = new Array(3).fill(new Array(3).fill(0));
+flag[0][0] = 1;
+console.log(flag); // [[1,0,0],[1,0,0],[1,0,0]]
+</code></pre>
+<p>所以js里声明二维数组还是老老实实用<strong>循环</strong>吧：</p>
+<pre><code class="language-js">const flag = new Array(3);
+for (let i = 0; i &lt; n; ++i) flag[i] = new Array(3).fill(0);
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="错误解法">错误解法</h3>
+<p>我的开始的<strong>错误</strong>想法是通过递归的方式，遵循右下左上的顺序遍历，但后来发现在应当<strong>向上</strong>遍历的过程中由于<strong>向右</strong>的优先级更高，会在后段遍历出现顺序的错误：</p>
+<pre><code class="language-js">var spiralOrder = function(matrix) {
+    if (!matrix.length) return matrix;
+    const m = matrix.length, n = matrix[0].length;
+    const res = [];
+    const flag = new Array(m);
+    for (let i = 0; i &lt; m; ++i) flag[i] = new Array(n).fill(0);
+    print(0, 0);
+    return res;
+    
+    function print(i, j) {
+        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || flag[i][j]) return;
+        res.push(matrix[i][j]);
+        flag[i][j] = 1;
+        print(i, j + 1);
+        print(i + 1, j);
+        print(i, j - 1);
+        print(i - 1, j);
+    };
+};
+</code></pre>
+<h3 id="模拟-设定边界">模拟 + 设定边界</h3>
+<p>顺时针打印矩阵的顺序是“从左向右、从上向下、从右向左、从下向上”循环，因此，设定矩阵的“左、上、右、下”四个边界，模拟以上矩阵遍历顺序。<br>
+对四个方向进行循环打印，每个方向步骤为：</p>
+<ol>
+<li>根据边界顺序打印元素；</li>
+<li>边界向内收缩 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，表示已被打印；</li>
+<li>判断打印是否完成，即边界是否相遇，相遇则跳出。</li>
+</ol>
+<pre><code class="language-js">var spiralOrder = function(matrix) {
+    if (!matrix.length) return matrix;
+    let l = 0, r = matrix[0].length - 1, t = 0, b = matrix.length - 1;
+    const res = [];
+    while (true) {
+        for (let i = l; i &lt;= r; ++i) res.push(matrix[t][i]);
+        if (++t &gt; b) break;
+        for (let i = t; i &lt;= b; ++i) res.push(matrix[i][r]);
+        if (--r &lt; l) break;
+        for (let i = r; i &gt;= l; --i) res.push(matrix[b][i]);
+        if (--b &lt; t) break;
+        for (let i = b; i &gt;= t; --i) res.push(matrix[i][l]);
+        if (++l &gt; r) break;
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[62. 圆圈中最后剩下的数字]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_62/</id>
@@ -400,255 +597,6 @@ for (let i = 0; i &lt; 5; ++i) arr[i] += 1; // [1, 1, 1, 1, 1]
         res |= counts[j] % 3;
     }
     return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[56 - I. 数组中数字出现的次数 I]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_56_i/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_56_i/">
-        </link>
-        <updated>2022-06-30T01:51:55.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="异或寻找只出现一次的数字">异或寻找只出现一次的数字</h3>
-<p>如果数组中只有一个数组出现了<strong>一次</strong>，其余的都出现了<strong>两次</strong>，那么解决方法就很简单，只需要<strong>对整个数组进行异或运算</strong>，成对的数字会两两抵消，剩下的最终结果就是想要找的数字。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="分组异或">分组异或</h3>
-<p>这道题的难点在于限制了时间复杂度和空间复杂度，所以暴力和哈希都不能使用，并且只出现一次的数字变成了两个，因此无法直接使用异或运算获得结果，需要进行分组，分组目标是：</p>
-<ul>
-<li>成对的数字分在同一组；</li>
-<li>只出现一次的数字分在不同组。</li>
-</ul>
-<p>因此解决方法是：</p>
-<ol>
-<li>使用<code>a</code>，<code>b</code>代表两个分组的异或结果，<code>c</code>代表整个数组的异或结果（实际上就是所求两个数字的异或结果）；</li>
-<li>使用初始为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，每次左移一位的<code>tmp</code>与<code>c</code>进行与运算，找到<code>c</code>的第一个为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>的位，这一位是两个数不同的位，以该位为标准将数组划分为两部分，达到分组目标；</li>
-<li>两组分别异或，输出结果。</li>
-</ol>
-<pre><code class="language-js">var singleNumbers = function(nums) {
-    let a = 0, b = 0, c = 0, tmp = 1;
-    for (num of nums) c ^= num;
-    // 一元运算符 ! 的优先级仅次于括号
-    while (!(c &amp; tmp)) tmp &lt;&lt;= 1;
-    for (num of nums) {
-        if (num &amp; tmp) a ^= num;
-        else b ^= num;
-    }
-    return [a, b];
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[65. 不用加减乘除做加法]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_65/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_65/">
-        </link>
-        <updated>2022-06-29T02:56:48.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="位运算替代加法">位运算替代加法</h3>
-<p>假设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>的<strong>无进位和为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span></strong>，<strong>进位为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span></strong>，则普通的加法 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">s = a + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 可以<strong>转化为</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>=</mo><mi>n</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">s = n + c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="位运算">位运算</h3>
-<p>观察 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 的无进位和与进位：</p>
-<table>
-<thead>
-<tr>
-<th>a(i)</th>
-<th>b(i)</th>
-<th>n(i)</th>
-<th>c(i + 1)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>根据上表可以发现<strong>无进位和</strong>和<strong>异或运算</strong>规律相同，<strong>进位</strong>和<strong>与运算</strong>规律相同（需左移一位），由于加上进位后可能出现新的进位，因此需要一直循环直到进位为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。<br>
-递归：</p>
-<pre><code class="language-js">var add = function(a, b) {
-    if (!b) return a;
-    return add(a ^ b, (a &amp; b) &lt;&lt; 1);
-};
-</code></pre>
-<p>循环：</p>
-<pre><code class="language-js">var add = function(a, b) {
-    while (b) {
-        let c = (a &amp; b) &lt;&lt; 1;
-        a ^= b; // a 始终保存当前和
-        b = c; // b 始终保存进位
-    }
-    return a;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[15. 二进制中1的个数]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_15/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_15/">
-        </link>
-        <updated>2022-06-29T01:44:52.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-的位运算">JavaScript 的位运算</h3>
-<table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&amp;</td>
-<td>按位与</td>
-<td>均为 1 返回 1</td>
-</tr>
-<tr>
-<td>|</td>
-<td>按位或</td>
-<td>有一个为 1 返回1</td>
-</tr>
-<tr>
-<td>^</td>
-<td>按位异或</td>
-<td>值不同返回 1</td>
-</tr>
-<tr>
-<td>~</td>
-<td>按位非</td>
-<td>反转</td>
-</tr>
-<tr>
-<td>&lt;&lt;</td>
-<td>左移</td>
-<td>左移一位，右边填充 0</td>
-</tr>
-<tr>
-<td>&gt;&gt;</td>
-<td>有符号右移</td>
-<td>右移一位，左边填充符号位的值</td>
-</tr>
-<tr>
-<td>&gt;&gt;&gt;</td>
-<td>无符号右移</td>
-<td>右移一位，左边填充 0</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="异或">异或</h3>
-<p>异或 0，常用于判断奇偶，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>k</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 为整数的位数：</p>
-<pre><code class="language-js">var hammingWeight = function(n) {
-    let count = 0;
-    for (let i = 0; i &lt; 32; ++i) { // while (n) {
-        if (n &amp; 1) ++count;
-        n &gt;&gt;&gt;= 1;
-    }
-    return count;
-};
-</code></pre>
-<p>巧用 <code>n &amp; (n - 1)</code>，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的二进制位数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">logn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span></span></span></span>：<br>
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 相对于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，最右边的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 变为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，此 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 右侧均变为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>；<br>
-因此<code>n &amp; (n - 1)</code>起到的作用就是每次消去最右边的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</p>
-<pre><code class="language-js">var hammingWeight = function(n) {
-    let count = 0;
-    while (n) {
-        n &amp;= (n - 1);
-        ++count;
-    }
-    return count;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[33. 二叉搜索树的后序遍历序列]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_33/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_33/">
-        </link>
-        <updated>2022-06-28T08:22:07.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="树的先序-中序-后序遍历">树的先序、中序、后序遍历</h3>
-<p>对于此类题目：</p>
-<ol>
-<li>首先要了解其根、左子树、右子树的在数组中的区间划分；</li>
-<li>其次根据题意找出对单个区间的操作；</li>
-<li>对每个区间递归处理。</li>
-</ol>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一递归分治">法一：递归分治</h3>
-<p>每判断一个都需要遍历数组区间，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。<br>
-判断是否是二叉搜索树的后序遍历：</p>
-<ol>
-<li>首先在数组区间中的最后一个节点是该树（子树）的根节点；</li>
-<li>随后根据根节点判断数组剩余是否分成了小于根节点和大于根节点两部分，并且小于部分位于大于部分左侧；</li>
-<li>递归判断每一子树的正确性。</li>
-</ol>
-<pre><code class="language-js">var verifyPostorder = function(postorder) {
-    return dfs(postorder, 0, postorder.length - 1);
-
-    function dfs(postorder, l, r) {
-        // 超过叶子节点，返回 true
-        if (l &gt; r) return true; 
-        // 从区间左侧开始遍历
-        let i = l; 
-        // 找到第一个大于等于根节点的数，可以保证其左侧是小于部分
-        while (postorder[i] &lt; postorder[r]) ++i;
-        let m = i;
-        // 判断其及其右侧是否是大于部分
-        while (postorder[i] &gt; postorder[r]) ++i;
-        return i === r &amp;&amp; dfs(postorder, l, m - 1) &amp;&amp; dfs(postorder, m, r - 1);
-    };
-};
-</code></pre>
-<h3 id="法二栈">法二：栈</h3>
-<p><img src="https://AriesSK.github.io/post-images/1656419512359.png" alt="" loading="lazy"><br>
-使用栈将遍历过的节点储存起来，当遇到递减的节点时，栈中最底下也是值最小的那个是它的父节点（递增才入栈，递减就出栈至空栈，栈底元素值最接近）。</p>
-<pre><code class="language-js">var verifyPostorder = function(postorder) {
-    const stack = [];
-    // 设置初始根节点，值为无限大，原根节点视作其左节点
-    let root = Number.MAX_VALUE;
-    // 将`preorder`倒序，入栈遍历的元素
-    for (let i = postorder.length - 1; i &gt;= 0; --i) {
-        // 遍历发现左子树有元素比根节点大，返回 false
-        if (postorder[i] &gt; root) return false;
-        // 发现递减元素，出栈至空，更新 root
-        while (stack.length &amp;&amp; stack[stack.length - 1] &gt; postorder[i])
-            root = stack.pop();
-        stack.push(postorder[i]);
-    }
-    // 遍历完毕，均满足规则，返回 true
-    return true;
 };
 </code></pre>
 ]]></content>
