@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1656908956233" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657179011641" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1656908956233" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657179011641" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -210,12 +210,12 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-06-27</a>
+                                Date: <a href="#">2022-12-24</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">9.1
+                                    href="#">17.7
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">2187</a></span>
+                                    <span class="post-words">words:<a href="#">4587</a></span>
                                     
                                 </div>
                                 
@@ -224,7 +224,8 @@
                         <div class="post-content">
                             <p><strong>操作快捷键</strong><br>
 Ctrl + Enter 换行，不改变光标后面代码<br>
-Alt + Shift + up/down 在上一行/下一行复制该行</p>
+Alt + Shift + up/down 在上一行/下一行复制该行<br>
+选中词后 Ctrl + D，向下一次选择相同的词</p>
 <h2 id="网页">网页</h2>
 <p><strong>C/S和B/S</strong><br>
 C/S：Client/Sever<br>
@@ -348,12 +349,12 @@ content 指定的数据的内容</p>
 &lt;a href=&quot;&quot; target=&quot;_self&quot;&gt;&lt;/a&gt;
 &lt;a href=&quot;&quot; target=&quot;_blank&quot;&gt;&lt;/a&gt;
 </code></pre>
-<p><strong>id属性</strong><br>
-通过超链接到页面中的特定位置，要使用id属性<br>
-id属性是唯一不重复的，每个标签可以添加一个id属性</p>
+<p><strong>id 属性</strong><br>
+通过超链接到页面中的特定位置，要使用 id 属性<br>
+id 属性是唯一不重复的，每个标签可以添加一个 id 属性</p>
 <pre><code class="language-html">&lt;!-- 回到顶部 --&gt;
 &lt;a href=&quot;#&quot;&gt;&lt;/a&gt;
-&lt;!-- 回到id为bottom的标签处 --&gt;
+&lt;!-- 回到 id 为bottom的标签处 --&gt;
 &lt;a href=&quot;#bottom&quot;&gt;&lt;/a&gt;
 &lt;!--未设置是可以用 javascript:; 占位 点击无反应 --&gt;
 &lt;a href=&quot;javascript:;&quot;&gt;1&lt;/a&gt;
@@ -398,7 +399,7 @@ frameborder 指定内联框架的边框，0无1有</p>
 <p><strong>使用 css 修改元素样式</strong><br>
 法一：内联样式、行内样式<br>
 在标签内部通过 style 属性来设置元素的样式，只能对一个标签生效，修改很麻烦（不推荐使用）<br>
-`<p style="color: red; font-size: 60px;"><br>
+<code>&lt;p style=&quot;color: red; font-size: 60px;&quot;&gt;</code><br>
 法二：内部样式表<br>
 将样式编写到 head 中的 style 标签里，同时设置多个标签，方便修改和复用，但只能对一个网页使用</p>
 <pre><code class="language-html">&lt;style&gt;
@@ -419,6 +420,147 @@ frameborder 指定内联框架的边框，0无1有</p>
     &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
 &lt;/head&gt;
 </code></pre>
+<p><strong>css 语法</strong><br>
+选择器，选择页面中的指定元素<br>
+声明块，为指定元素设置样式，声明是名值对结构，名和值以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>:</mo></mrow><annotation encoding="application/x-tex">:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span> 连接，以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo separator="true">;</mo></mrow><annotation encoding="application/x-tex">;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mpunct">;</span></span></span></span> 结尾</p>
+<h3 id="选择器">选择器</h3>
+<p>常用选择器：</p>
+<ul>
+<li>元素选择器，根据标签名选定元素，<code>标签名{}</code></li>
+<li>id 选择器，根据元素 id 选中元素，<code>#id属性值{}</code></li>
+<li>类选择器，根据元素 class 选中元素，<code>.class值{}</code>，class 和 id 类似，但 class 可重复使用，可以为一个元素指定多个 class，多个 class 之间使用<strong>空格</strong>分隔</li>
+<li>通配选择器，选中页面中的所有元素，<code>*{}</code></li>
+</ul>
+<p>复合选择器：</p>
+<ul>
+<li>交集选择器，选中同时复合多个条件的元素，<code>选择器1选择2选择器3{}</code>，有元素选择器则必须以<strong>元素选择器开头</strong></li>
+<li>选择器分组（并集选择器），同时选择多个选择器对于的元素，<code>选择器1,选择2,选择器3{}</code></li>
+</ul>
+<p>关系选择器：<br>
+父元素：直接包含子元素的元素<br>
+祖先元素：直接或间接包含后代元素的元素，父元素也是祖先元素<br>
+兄弟元素：拥有相同父元素的元素</p>
+<ul>
+<li>子元素选择器，选中父元素的指定子元素，<code>父元素 &gt; 子元素{}</code></li>
+<li>后代元素选择器，选中祖先元素内的指定后代元素，<code>祖先元素 后代元素{}</code></li>
+<li>兄弟选择器，选择下一个兄弟，<code>前一个 + 后一个{}</code>，需要<strong>直接相邻</strong>；选择下边所有兄弟，<code>兄 ~ 弟{}</code></li>
+</ul>
+<p>属性选择器：</p>
+<ul>
+<li>选择含有指定属性的元素，<code>[属性名]{}</code></li>
+<li>选择含有指定属性和属性值的元素，<code>[属性名=属性值]{}</code></li>
+<li>选择属性值以指定值开头的元素，<code>[属性名^=属性值]{}</code></li>
+<li>选择属性值以指定值结尾的元素，<code>[属性名$=属性值]{}</code></li>
+<li>选择属性值中含有指定值的元素，<code>[属性名*=属性值]{}</code></li>
+</ul>
+<p>伪类选择器：<br>
+伪类，特殊的类，用来描述一个元素的特殊状态，比如：第一个元素、被点击的元素、鼠标移入的元素<br>
+伪类一般用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>:</mo></mrow><annotation encoding="application/x-tex">:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span> 开头：</p>
+<ul>
+<li><code>:first-child</code>，第一个子元素</li>
+<li><code>:last-child</code>，最后一个子元素</li>
+<li><code>:nth-child()</code>，第 n 个子元素，括号内可填值表示第几个，其中有特殊值：n 表示选中所有（0~正无穷）；2n 或 even 表示选中偶数位的元素；2n+1 或 odd 表示奇数位的元素</li>
+</ul>
+<p>上述的伪类均根据<strong>所有的子元素</strong>进行排序</p>
+<ul>
+<li><code>:first-of-type</code></li>
+<li><code>:last-of-type</code></li>
+<li><code>:nth-of-type()</code></li>
+</ul>
+<p>上述这三个与前面的功能类似，但是是在<strong>相同元素</strong>中进行排序</p>
+<ul>
+<li><code>:not()</code>，否定选择器，将复合条件的元素从选择器中去除，比如``ul &gt; li:not(:nth-of-type(1)){}`是排除第一个</li>
+</ul>
+<p>超链接的伪类：<br>
+其执行顺序是 <strong>LoVeHAte</strong>，原因如下：</p>
+<ul>
+<li>未访问的链接（正常的链接），<code>a:link</code>，专属于超链接标签，无操作便具有<code>:link</code>状态</li>
+<li>访问过的链接，<code>a:visited</code>，由于隐私的原因，这个伪类只能修改颜色，专属于超链接标签，访问后具备<code>:link</code>和<code>:visited</code>两种状态</li>
+<li>鼠标移入的状态，<code>:hover</code>，鼠标移入访问过的链接，同时具备<code>:link</code>、<code>:visited</code>和<code>:hover</code>三种状态</li>
+<li>鼠标点击的状态，<code>:active</code>，点击已访问链接未松开，同时具备<code>:link</code>、<code>:visited</code>、<code>:hover</code>和<code>:active</code>四种状态</li>
+</ul>
+<p>伪元素选择器：<br>
+伪元素，表示页面中一些特殊的不真实存在的元素（特殊的位置），一般用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>:</mo><mo>:</mo></mrow><annotation encoding="application/x-tex">::</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span> 开头：</p>
+<ul>
+<li><code>::first-letter</code>，第一个字母</li>
+<li><code>::first-line</code>，第一行</li>
+<li><code>::selection</code>，选中的内容</li>
+<li><code>::before</code>，表示元素的开始，插入的内容是<strong>无法选中</strong>的，<strong>重要且常用</strong></li>
+<li><code>::after</code>，表示元素的结束，插入的内容是<strong>无法选中</strong>的，<strong>重要且常用</strong></li>
+</ul>
+<pre><code class="language-css">/* before 和 after 需要结合 content 属性使用才能看出效果 */
+/* 下面的例子是在元素的开头插入红色字符串 'abc' */
+div::before{
+    content: 'abc';
+    color: red;
+}
+</code></pre>
+<p><strong>选择器的权重</strong><br>
+样式的冲突，通过不同的选择器选中了相同的元素，并且为相同的样式设置了不同的值时，就发生了冲突<br>
+此时应用哪个样式有选择器的权重（优先级）决定，选择器越具体优先级越高<br>
+选择器的权重（数字仅是为了说明数量级）：</p>
+<ul>
+<li>内联样式 1,0,0,0</li>
+<li>id 选择器 0,1,0,0</li>
+<li>类和伪类选择器 0,0,1,0</li>
+<li>元素选择器 0,0,0,1</li>
+<li>通配选择器 0,0,0,0</li>
+<li>继承的样式 没有优先级，即优先级低于通配</li>
+</ul>
+<p>比较优先级是，需要将所有选择器的优先级相加后再比较优先级（除了<strong>分组选择器</strong>是单独计算的），而选择器的累加不会超过其最大的<strong>数量级</strong>，类选择器再多也不会超过 id 选择器<br>
+相同优先级，后面的会覆盖前面的<br>
+可以在某一个样式后边添加<code>!important</code>则会获取到最高的优先级（超过内联样式），需要<strong>慎用</strong></p>
+<pre><code class="language-css">.class{
+    background-color: red !important;
+}
+</code></pre>
+<p><strong>样式的继承</strong><br>
+继承发生在<strong>祖先与后代</strong>之间，为一个元素设置样式同时也会应用到它的<strong>后代元素</strong><br>
+继承的设计是为了方便开发，利用继承可以将一些通用的样式设置到共同的祖先元素上，这样只需设置一次<br>
+并不是<strong>所有</strong>的样式都会被继承，比如背景相关的，布局相关的样式等</p>
+<p><strong>长度单位</strong><br>
+像素（px）：不同屏幕的像素大小是不同的<br>
+百分比：能够将属性值设置为相对于其父元素属性的百分比，能够使子元素跟随父元素的改变而改变<br>
+em：相对于元素的字体大小来计算的，1em = 1font-size，会随着字体的大小改变<br>
+rem：相对于根元素的字体大小来计算</p>
+<p><strong>颜色单位</strong><br>
+颜色名：在 css 中可以直接使用颜色名来设置颜色，但不常用<br>
+RGB：通过三种颜色的不同浓度来调配出不同的颜色，每一种范围在 0 - 255(0% - 100%) 之间，是光的三原色，均为 0 则黑，均为 255 则黑</p>
+<pre><code class="language-css">.box{
+    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+</code></pre>
+<p>RGBA：在 RGB 的基础上多了一个透明度 A，1 表示不透明，0 表示全透明，.5 半透明<br>
+十六进制的 RGB 值：语法 #RGB，每种颜色用两位十六进制数表示，00 - ff<br>
+HSL：H 色相(0 - 360)，S 饱和度(0% - 100%)，L 亮度(0% - 100%)<br>
+HSLA：多一个透明度</p>
+<h3 id="布局">布局</h3>
+<p><strong>文档流</strong><br>
+网页是多层结构，最底下的一层称为文档流，是网页的基础，创建的元素默认都在文档流中进行排列<br>
+元素主要有两个状态：<strong>在文档流中</strong>和<strong>不在文档流中（脱离文档流）</strong><br>
+元素在文档流中的特点：</p>
+<ul>
+<li>块元素：在页面中独占一行（自上向下垂直排列）；默认宽度是父元素的全部（把父元素撑满）；默认高度是被内容（子元素）撑开</li>
+<li>行内元素：不会独占页面的一行，只占自身的大小；在页面中从左向右排列，如果在一行中不能容纳，则换到第二行；默认宽度和高度都被内容撑开</li>
+</ul>
+<p><strong>盒模型</strong><br>
+css 将页面中的所有元素都设置为了一个矩形的盒子，盒子的可见框大小由内容区、内边距和边框共同决定<br>
+每一个盒子都由以下击鼓部分组成：</p>
+<ul>
+<li>内容区(content)： 元素中的所有子元素和文本内容都在内容区中排列，内容区的大小由 width 和 height 两个属性来设置</li>
+<li>内边距(padding)，内容区和边框之间的距离，可以用 padding 简写，也可以用 padding-xxx (xxx 可以是 top right bottom left)，内边距的大小会影响到盒子的大小，背景颜色会延伸到内边距上</li>
+<li>边框(border)：属于盒子的边缘，需要设置三个样式
+<ol>
+<li>边框的宽度(border-width)，可以用来指定四个方向边框的宽度，四个值（上 右 下 左、顺时针），三个值（上 左右 下），两个值（上下 左右），一个值（上下左右）；或者使用 boder-xxx-width 单独指定某一个边框，默认 3px，边框的大小会直接影响盒子的大小</li>
+<li>边框的颜色(border-color)，同样可分别以指定四个边的颜色，规则同上，默认黑</li>
+<li>边框的样式(border-style)，实线(solid)，点状虚线(dotted)，虚线(dashed)，双线(double)，默认 none 表示没有边框<br>
+boder 还有简写属性，同时设置边框的所有相关样式，并且<strong>没有</strong>顺序要求<code>border: 10px red solid</code>，也可以使用<code>border-xxx</code>分别设置四个边</li>
+</ol>
+</li>
+<li>外边距(margin)，不影响可见框大小，但影响盒子的位置，有四个方向的外边距，可以用 margin 简写，也可以用 margin-xxx 设置（默认情况下设置 margin-right 不会产生效果），由于元素默认自左向右排列，因此设置左、上外边距会移动元素自身，而设置右、下外边距会移动其他元素。margin 设置负值则反向移动。margin 会影响盒子实际占用空间</li>
+</ul>
+<p><strong>盒模型的水平布局</strong></p>
 
                         </div>
                         
@@ -429,8 +571,8 @@ frameborder 指定内联框架的边框，0无1有</p>
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/html-css/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/html-css/&sharesource=qzone&title=HTML + CSS&pics=https://AriesSK.github.io/images/avatar.png?v=1656908956233&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/html-css/&sharesource=weibo&title=HTML + CSS + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1656908956233 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/html-css/&sharesource=qzone&title=HTML + CSS&pics=https://AriesSK.github.io/images/avatar.png?v=1657179011641&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/html-css/&sharesource=weibo&title=HTML + CSS + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657179011641 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -540,7 +682,7 @@ frameborder 指定内联框架的边框，0无1有</p>
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1656908956233);
+                    newDate.setTime(1657179011641);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
