@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-07T07:30:22.536Z</updated>
+    <updated>2022-07-07T13:00:44.509Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[123]]></title>
+        <id>https://AriesSK.github.io/post/123/</id>
+        <link href="https://AriesSK.github.io/post/123/">
+        </link>
+        <updated>2022-07-07T13:00:28.000Z</updated>
+        <content type="html"><![CDATA[<p>123</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[60. n个骰子的点数]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_60/</id>
@@ -650,38 +659,6 @@ if (s &gt; '9' || s &lt; '0') return false;
     }
     // 四种合法的结束状态
     return p === 2 || p === 3 || p === 7 || p === 8;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[31. 栈的压入、弹出序列]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_31/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_31/">
-        </link>
-        <updated>2022-07-03T08:58:23.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="快速判断出栈序列是否合法">快速判断出栈序列是否合法</h3>
-<p>对于<strong>出栈序列</strong>中的每个元素，所有在它<strong>后面出栈</strong>的但比它<strong>先入栈</strong>的元素，其出栈顺序必定与入栈顺序相反。因为比它先入栈的元素要不<strong>先于它出栈</strong>，要不<strong>还在栈中</strong>，而在栈中则必定先进后出。<br>
-这种判定方法在适用于选择题中的快速判断，特别在<strong>入栈元素是递增</strong>时，只需要判断<strong>出栈序列</strong>中每个元素后面比它<strong>小</strong>的元素有没有遵循<strong>递减</strong>排列即可，不过在算法中复杂度比较高。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟">模拟</h3>
-<p>使用一个辅助栈来模拟操作，看看能否模拟成功：</p>
-<pre><code class="language-js">var validateStackSequences = function(pushed, popped) {
-    const stack = [];
-    let i = 0;
-    for (num of pushed) {
-        // 按入栈顺序入栈
-        stack.push(num);
-        // 每次入栈后判断，将符合出栈顺序的元素全部出栈
-        while (stack.length &amp;&amp; stack[stack.length - 1] === popped[i]) {
-            stack.pop();
-            ++i;
-        }
-    }
-    // 最终栈为空返回 true
-    return !stack.length;
 };
 </code></pre>
 ]]></content>

@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657179011641" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657198837941" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657179011641" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657198837941" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-12-24</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">17.7
+                                    href="#">19.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">4587</a></span>
+                                    <span class="post-words">words:<a href="#">4959</a></span>
                                     
                                 </div>
                                 
@@ -558,9 +558,29 @@ css 将页面中的所有元素都设置为了一个矩形的盒子，盒子的�
 boder 还有简写属性，同时设置边框的所有相关样式，并且<strong>没有</strong>顺序要求<code>border: 10px red solid</code>，也可以使用<code>border-xxx</code>分别设置四个边</li>
 </ol>
 </li>
-<li>外边距(margin)，不影响可见框大小，但影响盒子的位置，有四个方向的外边距，可以用 margin 简写，也可以用 margin-xxx 设置（默认情况下设置 margin-right 不会产生效果），由于元素默认自左向右排列，因此设置左、上外边距会移动元素自身，而设置右、下外边距会移动其他元素。margin 设置负值则反向移动。margin 会影响盒子实际占用空间</li>
+<li>外边距(margin)，不影响可见框大小，但影响盒子的位置，有四个方向的外边距，可以用 margin 简写，也可以用 margin-xxx 设置（默认情况下设置 margin-right 不会产生效果，一般由浏览器调整），由于元素默认自左向右排列，因此设置左、上外边距会移动元素自身，而设置右、下外边距会移动其他元素。margin 设置负值则反向移动。margin 会影响盒子实际占用空间</li>
 </ul>
-<p><strong>盒模型的水平布局</strong></p>
+<p><strong>盒模型的水平布局</strong><br>
+元素在其父元素中水平方向的位置由以下几个属性共同决定：margin-left，border-left，padding-left，width，padding-right，border-right，margin-right<br>
+它们的总和<strong>必须等于</strong>父元素内容区的宽度<br>
+如果等式不成立，称为过度约束，等式自动调整：</p>
+<ul>
+<li>若七个值没有 auto 的情况，则自动调整 margin-right 使等式成立；</li>
+<li>而 width，margin-left，margin-right能够设置 auto，设置后会自动调整该属性，其中 width 的默认值就是 auto；</li>
+<li>宽度和一个外边距设置为 auto，宽度会调整到最大值，外边距为 0</li>
+<li>三个都设置为 auto，则外边距都是 0，宽度最大</li>
+<li>外边距为 auto，宽度固定，则将外边距设计为相同值（常用于在父元素中水平居中）</li>
+</ul>
+<p><strong>盒模型的垂直布局</strong><br>
+子元素在父元素的内容区中排列，若子元素的大小超过了父元素，则子元素会从父元素中溢出<br>
+使用 overflow 属性来设置父元素如何处理溢出的子元素（在父元素中设置），可选值：</p>
+<ul>
+<li>visible，默认值，使子元素溢出，在父元素外显示</li>
+<li>hidden，溢出内容将被裁剪不会显示</li>
+<li>scroll，生成两个滚动条，通过滚动条来查看完整的内容</li>
+<li>auto，根据需要生成滚动条<br>
+overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
+</ul>
 
                         </div>
                         
@@ -571,8 +591,8 @@ boder 还有简写属性，同时设置边框的所有相关样式，并且<stro
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/html-css/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/html-css/&sharesource=qzone&title=HTML + CSS&pics=https://AriesSK.github.io/images/avatar.png?v=1657179011641&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/html-css/&sharesource=weibo&title=HTML + CSS + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657179011641 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/html-css/&sharesource=qzone&title=HTML + CSS&pics=https://AriesSK.github.io/images/avatar.png?v=1657198837941&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/html-css/&sharesource=weibo&title=HTML + CSS + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657198837941 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -682,7 +702,7 @@ boder 还有简写属性，同时设置边框的所有相关样式，并且<stro
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657179011641);
+                    newDate.setTime(1657198837941);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
