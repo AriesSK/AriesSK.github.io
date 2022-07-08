@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-07T13:28:37.106Z</updated>
+    <updated>2022-07-08T04:58:06.401Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,93 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[51. 数组中的逆序对]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_51/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_51/">
+        </link>
+        <updated>2022-07-08T04:49:17.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="归并排序">归并排序</h3>
+<p>方法如下：</p>
+<pre><code class="language-js">
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="归并排序-2">归并排序</h3>
+<p>法一：<br>
+<img src="https://AriesSK.github.io/post-images/1657256249886.png" alt="" loading="lazy"></p>
+<pre><code class="language-js">var reversePairs = function(nums) {
+    let tmp = new Array(nums.length);
+    return mergeSort(0, nums.length - 1);
+
+    function mergeSort(l, r) {
+        if (l &gt;= r) return 0;
+        let m = l + r &gt;&gt; 1;
+        let res = mergeSort(l, m) + mergeSort(m + 1, r);
+        let i = l, j = m + 1;
+        for (let k = l; k &lt;= r; ++k) tmp[k] = nums[k];
+        for (let k = l; k &lt;= r; ++k) {
+            if (i === m + 1) nums[k] = tmp[j++];
+            else if (j === r + 1 || tmp[i] &lt;= tmp[j]) nums[k] = tmp[i++];
+            else {
+                nums[k] = tmp[j++];
+                res += m - i + 1;
+            }
+        }
+        return res;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[17. 打印从1到最大的n位数]]></title>
+        <id>https://AriesSK.github.io/post/jianzhi_17/</id>
+        <link href="https://AriesSK.github.io/post/jianzhi_17/">
+        </link>
+        <updated>2022-07-08T01:08:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="大数">大数</h3>
+<p>各种语言中存储数值的数据类型都是有范围的，大数指的是超过了上限所以无法被存储的数字，处理此类问题时，往往采用<strong>字符串</strong>替代的方式。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>暴力法没啥好说的，对于这道题来说，暴力是时空复杂度最优的解法：</p>
+<pre><code class="language-js">var printNumbers = function(n) {
+    const res = [];
+    for (let i = 1; i &lt; 10 ** n; ++i) res.push(i);
+    return res;
+};
+</code></pre>
+<h3 id="法二转字符串">法二：转字符串</h3>
+<p>不过这道题如果要考察不会这么简单，会涉及到大数的处理，就要转化为字符串处理，这道题的思路和<a href="https://ariessk.github.io/post/jianzhi_38/">38. 字符串的排列</a>的思路类似，也是使用深度优先搜索的方式，从低位开始逐步固定每一位的值，到最后一位则记录这种可能。<br>
+本题需要注意的是因为结果代表的是数，因此在字符串中最左侧的字符<strong>不能</strong>是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>：</p>
+<pre><code class="language-js">var printNumbers = function(n) {
+    const res = [];
+    let num = &quot;&quot;;
+    for (let len = 1; len &lt;= n; ++len) dfs(0, len);
+    return res;
+
+    // x 表示当前位，len 表示准备生成的数的长度
+    function dfs(x, len) {
+        if (x === len) {
+            res.push(num);
+            return;
+        }
+        // 如果正在考虑第一位，则第一位不能为 0
+        let start = !x ? 1 : 0;
+        for (let i = start; i &lt;= 9; ++i) {
+            num += i;
+            dfs(x + 1,len);
+            num = num.slice(0, -1);
+        }
+    }
+};
+</code></pre>
+<p>由于大数无法保存，最后以字符串数组的形式输出，不过 js 会尝试自动转换成想要的输出<code>Number</code>，所以也可以执行通过。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[60. n个骰子的点数]]></title>
         <id>https://AriesSK.github.io/post/jianzhi_60/</id>
@@ -595,93 +682,6 @@ if (s &gt; '9' || s &lt; '0') return false;
         res = res * 10 + +str.charAt(j);
     } 
     return s === 1 ? Math.min(res, 2**31 - 1) : Math.max(-res, -(2**31));
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[20. 表示数值的字符串]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_20/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_20/">
-        </link>
-        <updated>2022-07-04T02:28:02.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="有限状态自动机">有限状态自动机</h3>
-<ol>
-<li>定义状态；</li>
-<li>画出状态转移图；</li>
-<li>编写代码（利用数组和哈希表存储状态转移表）。</li>
-</ol>
-<hr>
-<h2 id="题解">题解</h2>
-<p>最开始利用 js 自身的特性写了一种抖机灵的解法，仅供一乐：</p>
-<pre><code class="language-js">var isNumber = function(s) {
-    if(s.trim() === &quot;&quot;) return false;
-    return !isNaN(Number(s));
-};
-</code></pre>
-<h3 id="有限状态自动机-2">有限状态自动机</h3>
-<p>这道题的正统解法还是有限状态自动机：<br>
-<img src="https://AriesSK.github.io/post-images/1656902596313.png" alt="" loading="lazy"></p>
-<pre><code class="language-js">var isNumber = function(s) {
-    // 使用数组存储自动机的九种状态，使用哈希表存储状态转移表
-    const states = [
-        new Map([[' ', 0], ['s', 1], ['d', 2], ['.', 4]]),
-        new Map([['d', 2], ['.', 4]]),
-        new Map([['d', 2], ['.', 3], ['e', 5], [' ', 8]]),
-        new Map([['d', 3], ['e', 5], [' ', 8]]),
-        new Map([['d', 3]]),
-        new Map([['s', 6], ['d', 7]]),
-        new Map([['d', 7]]),
-        new Map([['d', 7], [' ', 8]]),
-        new Map([[' ', 8]])
-    ];
-    // p 为当前状态， t 为字符类型
-    let p = 0, t;
-    for (let c of s.split('')) {
-        if (c &gt;= '0' &amp;&amp; c &lt;= '9') t = 'd';
-        else if(c === '+' || c === '-') t = 's';
-        else if(c === 'e' || c === 'E') t = 'e';
-        else if(c === '.' || c === ' ') t = c;
-        else t = '?';
-        // 无法转移至下一个状态，返回 false
-        if (!states[p].has(t)) return false;
-        p = states[p].get(t);
-    }
-    // 四种合法的结束状态
-    return p === 2 || p === 3 || p === 7 || p === 8;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[31. 栈的压入、弹出序列]]></title>
-        <id>https://AriesSK.github.io/post/jianzhi_31/</id>
-        <link href="https://AriesSK.github.io/post/jianzhi_31/">
-        </link>
-        <updated>2022-07-03T08:58:23.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="快速判断出栈序列是否合法">快速判断出栈序列是否合法</h3>
-<p>对于<strong>出栈序列</strong>中的每个元素，所有在它<strong>后面出栈</strong>的但比它<strong>先入栈</strong>的元素，其出栈顺序必定与入栈顺序相反。因为比它先入栈的元素要不<strong>先于它出栈</strong>，要不<strong>还在栈中</strong>，而在栈中则必定先进后出。<br>
-这种判定方法在适用于选择题中的快速判断，特别在<strong>入栈元素是递增</strong>时，只需要判断<strong>出栈序列</strong>中每个元素后面比它<strong>小</strong>的元素有没有遵循<strong>递减</strong>排列即可，不过在算法中复杂度比较高。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟">模拟</h3>
-<p>使用一个辅助栈来模拟操作，看看能否模拟成功：</p>
-<pre><code class="language-js">var validateStackSequences = function(pushed, popped) {
-    const stack = [];
-    let i = 0;
-    for (num of pushed) {
-        // 按入栈顺序入栈
-        stack.push(num);
-        // 每次入栈后判断，将符合出栈顺序的元素全部出栈
-        while (stack.length &amp;&amp; stack[stack.length - 1] === popped[i]) {
-            stack.pop();
-            ++i;
-        }
-    }
-    // 最终栈为空返回 true
-    return !stack.length;
 };
 </code></pre>
 ]]></content>
