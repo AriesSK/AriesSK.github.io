@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657256920559" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657354396553" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657256920559" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657354396553" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-07-08</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">0.7
+                                    href="#">2.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">120</a></span>
+                                    <span class="post-words">words:<a href="#">474</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -235,14 +235,40 @@
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
 <h3 id="归并排序">归并排序</h3>
-<p>方法如下：</p>
-<pre><code class="language-js">
+<p>归并排序体现了<strong>分治</strong>的思想：</p>
+<ul>
+<li>分：不断将数组对半分开，将整个数组的排序文体转化为子数组的排序问题；</li>
+<li>治：划分到子数组长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 时停止，向上进行合并，将较短排序数组合并为较长排序数组，直至合并至原数组长度，排序完成。<br>
+<img src="https://AriesSK.github.io/post-images/1657256249886.png" alt="" loading="lazy"></li>
+</ul>
+<pre><code class="language-js">var mergeSort = function(nums) {
+    // 因为会直接在 nums 中修改，因此需要一个 tmp 数组来存储原数组
+	const tmp = new Array(nums.length);
+	merge(0, nums.length - 1);
+	function merge(l, r) {
+        // 分至数组只有一个元素
+		if (l &gt;= r) return;
+		let m = l + r &gt;&gt; 1;
+		merge(l, m);
+		merge(m + 1, r);
+        // i，j 分别指向左右数组的第一个元素
+		let i = l, j = m + 1;
+        // 保存原数组
+		for (let k = l; k &lt;= r; ++k) tmp[k] = nums[k];
+		for (let k = l; k &lt;= r; ++k) {
+            // 每次选左右数组中较小的元素入 nums，一边遍历完可直接复制另一边
+			if (i === m + 1 || tmp[i] &gt; tmp[j]) nums[k] = tmp[j++];
+			else if (j === r + 1 || tmp[i] &lt;= tmp[j]) nums[k] = tmp[i++];
+		}
+	}
+	return nums;
+};
 </code></pre>
 <hr>
 <h2 id="题解">题解</h2>
 <h3 id="归并排序-2">归并排序</h3>
-<p>法一：<br>
-<img src="https://AriesSK.github.io/post-images/1657256249886.png" alt="" loading="lazy"></p>
+<p>本题所求的<strong>逆序对</strong>实际上与<strong>归并排序</strong>息息相关，可以在滚并排序的过程中顺便记录逆序对的数量：<br>
+<img src="https://AriesSK.github.io/post-images/1657258570396.png" alt="" loading="lazy"></p>
 <pre><code class="language-js">var reversePairs = function(nums) {
     let tmp = new Array(nums.length);
     return mergeSort(0, nums.length - 1);
@@ -257,6 +283,7 @@
             if (i === m + 1) nums[k] = tmp[j++];
             else if (j === r + 1 || tmp[i] &lt;= tmp[j]) nums[k] = tmp[i++];
             else {
+                // 在比较左右数组元素大小时，发现一次逆序对，则左数组中此元素及其右侧元素均可与右数组的当前元素构成逆序对
                 nums[k] = tmp[j++];
                 res += m - i + 1;
             }
@@ -275,8 +302,8 @@
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_51/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_51/&sharesource=qzone&title=51. 数组中的逆序对&pics=https://AriesSK.github.io/images/avatar.png?v=1657256920559&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_51/&sharesource=weibo&title=51. 数组中的逆序对 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657256920559 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_51/&sharesource=qzone&title=51. 数组中的逆序对&pics=https://AriesSK.github.io/images/avatar.png?v=1657354396553&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_51/&sharesource=weibo&title=51. 数组中的逆序对 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657354396553 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -311,6 +338,10 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_14_ii/">
+                                                                                            14 - II. 剪绳子 II
+                                                                                        </a>
+                                                                                        
                                                                                             
                                                                                                 <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_17/">
                                                                                                     17. 打印从1到最大的n位数
@@ -404,7 +435,7 @@
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657256920559);
+                    newDate.setTime(1657354396553);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
