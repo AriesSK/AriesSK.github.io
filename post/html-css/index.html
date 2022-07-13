@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657354396553" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657354396553" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-12-24</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">19.1
+                                    href="#">20.5
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">4959</a></span>
+                                    <span class="post-words">words:<a href="#">5371</a></span>
                                     
                                 </div>
                                 
@@ -581,6 +581,32 @@ boder 还有简写属性，同时设置边框的所有相关样式，并且<stro
 <li>auto，根据需要生成滚动条<br>
 overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
 </ul>
+<p><strong>垂直外边距的重叠(折叠)</strong><br>
+相邻的垂直方向的外边距会发生重叠现象：</p>
+<ul>
+<li>兄弟元素间的相邻垂直外边距会取两者之间的绝对值较大的（都是正或负值），如果一正一副取两者和，对开发有利，不需要处理</li>
+<li>父子元素间的相邻垂直外边距，子元素的会传递给父元素（上外边距），会影响到页面的布局，需要进行处理</li>
+</ul>
+<p><strong>行内元素的盒模型</strong><br>
+行内元素不支持设置宽度和高度<br>
+行内元素可以设置 padding，但不会影响页面的布局<br>
+行内元素可以设置 border，垂直方向的 border 不会影响页面的布局<br>
+行内元素可以设置 margin，垂直方向的 margin 不会影响页面的布局</p>
+<p>display 用来设置元素的显示类型，可选值：</p>
+<ul>
+<li>inline 将元素设置为行元素</li>
+<li>block 将元素设置为块元素</li>
+<li>inline-block 将元素设置为行内块元素，可以设置宽高又不会独占一行</li>
+<li>table 将元素设置为一个表格</li>
+<li>none 元素不在页面中显示</li>
+</ul>
+<p>visibility 用来设置元素的显示状态，可选值：</p>
+<ul>
+<li>visible 默认值，元素在页面中正常显示</li>
+<li>hidden 元素在也页面中隐藏不显示，但依然占据页面的位置</li>
+</ul>
+<p><strong>默认样式</strong><br>
+通常情况浏览器都会为元素设置一些默认样式，会影响到页面的布局，因此需要去除浏览器的默认样式（PC端），可以使用别人的<strong>重置样式表</strong>，引入 css 文件</p>
 
                         </div>
                         
@@ -591,8 +617,8 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/html-css/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/html-css/&sharesource=qzone&title=HTML + CSS&pics=https://AriesSK.github.io/images/avatar.png?v=1657354396553&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/html-css/&sharesource=weibo&title=HTML + CSS + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657354396553 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/html-css/&sharesource=qzone&title=HTML + CSS&pics=https://AriesSK.github.io/images/avatar.png?v=1657706129762&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/html-css/&sharesource=weibo&title=HTML + CSS + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657706129762 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -613,7 +639,15 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/less/">
+                                                                                            Less
+                                                                                        </a>
+                                                                                        
                                                                                             
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+                                                                                                    前端面试
+                                                                                                </a>
+                                                                                                
                                                                                 </section>
                     </article>
                 </div>
@@ -702,7 +736,7 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657354396553);
+                    newDate.setTime(1657706129762);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
