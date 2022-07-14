@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657806577046" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657806577046" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-06-17</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">3.3
+                                    href="#">3.5
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">611</a></span>
+                                    <span class="post-words">words:<a href="#">661</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -243,8 +243,11 @@
 let arr = new Array(m);
 for (let i = 0; i &lt; n; ++i) arr[i] = new Array(n);
 </code></pre>
-<p>注意在数组为空的时候不能使用<code>for in</code>:</p>
+<p>注意在数组内的值未声明(赋初值)的时候默认均为<code>undefined</code>，可以使用<code>for of</code>遍历每个<code>undefined</code>，但不能使用<code>for in</code>获取下标:</p>
 <pre><code class="language-js">let arr = new Array(5); // 数组内的值均是 undefined
+for (const i of arr) console.log(i); // undefined * 5
+
+let arr = new Array(5); // 数组内的值均是 undefined
 for (const i in arr) console.log(i); // 无输出
 
 let arr = new Array(5).fill(0);
@@ -301,8 +304,8 @@ grid(i, j) + max[dp(i - 1, j), dp(i - 1, j)]&amp; {,i \not= 0, j \not= 0}
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_47/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_47/&sharesource=qzone&title=47. 礼物的最大价值&pics=https://AriesSK.github.io/images/avatar.png?v=1657775333937&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_47/&sharesource=weibo&title=47. 礼物的最大价值 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657775333937 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_47/&sharesource=qzone&title=47. 礼物的最大价值&pics=https://AriesSK.github.io/images/avatar.png?v=1657806577046&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_47/&sharesource=weibo&title=47. 礼物的最大价值 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657806577046 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -438,7 +441,7 @@ grid(i, j) + max[dp(i - 1, j), dp(i - 1, j)]&amp; {,i \not= 0, j \not= 0}
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657775333937);
+                    newDate.setTime(1657806577046);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

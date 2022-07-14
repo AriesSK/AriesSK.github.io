@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-14T05:09:02.742Z</updated>
+    <updated>2022-07-14T13:49:42.723Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -681,6 +681,158 @@ Less 文件可以使用 @import 引入另一个 Less 文件，并且还可以使
     transform: translate(-50%, -50%);
 }
 </code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
+        <id>https://AriesSK.github.io/post/zhishidian/</id>
+        <link href="https://AriesSK.github.io/post/zhishidian/">
+        </link>
+        <updated>2022-12-25T01:55:02.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
+<p><strong>变量</strong></p>
+<ul>
+<li>const 声明变量 —— <a href="https://ariessk.github.io/post/jianzhi_57/">57. 和为s的两个数字</a></li>
+<li>全局变量的问题 —— <a href="https://ariessk.github.io/post/jianzhi_34/">34. 二叉树中和为某一值的路径</a></li>
+</ul>
+<p><strong>赋值与传值</strong></p>
+<ul>
+<li>原始值与引用值 —— <a href="https://ariessk.github.io/post/jianzhi_25/">25. 合并两个排序的链表</a></li>
+<li>函数传值 —— <a href="https://ariessk.github.io/post/jianzhi_13/">13. 机器人的运动范围</a></li>
+<li>引用对象的问题 —— <a href="https://ariessk.github.io/post/jianzhi_34/">34. 二叉树中和为某一值的路径</a></li>
+</ul>
+<p><strong>prototype</strong></p>
+<ul>
+<li>通过构造函数的 prototype 原型属性给对象添加新的方法 —— <a href="https://ariessk.github.io/post/jianzhi_09/">09. 用两个栈实现队列</a></li>
+</ul>
+<p><strong>判空</strong></p>
+<ul>
+<li>通过数组长度判空 —— <a href="https://ariessk.github.io/post/jianzhi_09/">09. 用两个栈实现队列</a></li>
+</ul>
+<p><strong>运算符</strong></p>
+<ul>
+<li>运算符优先级 —— <a href="https://ariessk.github.io/post/jianzhi_21/">21. 调整数组顺序使奇数位于偶数前面</a></li>
+<li>展开运算符 —— <a href="https://ariessk.github.io/post/jianzhi_34/">34. 二叉树中和为某一值的路径</a></li>
+<li>逻辑运算符的短路 —— <a href="https://ariessk.github.io/post/jianzhi_64/">64. 求1+2+...+n</a></li>
+<li>右移运算符向下取整 按位与取余运算 —— <a href="https://ariessk.github.io/post/jianzhi_16/">16. 数组的整数次方</a></li>
+<li>位运算 按位与消去最右的 0 —— <a href="https://ariessk.github.io/post/jianzhi_15/">15. 二进制中1的个数</a></li>
+<li>位运算替代加法 —— <a href="https://ariessk.github.io/post/jianzhi_65/">65. 不用加减乘除做加法</a></li>
+<li>按位异或找只出现一次的数字 —— <a href="https://ariessk.github.io/post/jianzhi_56_i/">56 - I. 数组中数字出现的次数 I</a></li>
+<li>位运算获取每一位 为每一位赋值 —— <a href="https://ariessk.github.io/post/jianzhi_56_ii/">56 - II. 数组中数字出现的次数 II</a></li>
+</ul>
+<p><strong>数组</strong></p>
+<ul>
+<li>二维数组创建 赋值 —— <a href="https://ariessk.github.io/post/jianzhi_32_ii/">32 - II. 从上到下打印二叉树 II</a></li>
+<li>创建指定大小的二维数组 —— <a href="https://ariessk.github.io/post/jianzhi_47/">47. 礼物的最大价值</a></li>
+<li>数字数组赋值 —— <a href="https://ariessk.github.io/post/jianzhi_56_ii/">56 - II. 数组中数字出现的次数 II</a></li>
+</ul>
+<p><strong>栈</strong></p>
+<ul>
+<li>数组模拟栈 —— <a href="https://ariessk.github.io/post/jianzhi_30/">30. 包含min函数的栈</a></li>
+<li>栈相关的数组操作 —— <a href="https://ariessk.github.io/post/jianzhi_06/">06. 从头到尾打印链表</a></li>
+</ul>
+<p><strong>队列</strong></p>
+<ul>
+<li>数组模拟队列 —— <a href="https://ariessk.github.io/post/jianzhi_32_i/">32 - I. 从上到下打印二叉树 I</a></li>
+<li>双端队列 —— <a href="https://ariessk.github.io/post/jianzhi_32_iii/">32 - III. 从上到下打印二叉树 III</a></li>
+</ul>
+<p><strong>堆</strong></p>
+<ul>
+<li>封装堆的数据结构 —— <a href="https://ariessk.github.io/post/jianzhi_41/">41. 数据流中的中位数</a></li>
+</ul>
+<p><strong>链表</strong></p>
+<ul>
+<li>对象模拟链表 —— <a href="https://ariessk.github.io/post/jianzhi_35/">35. 复杂链表的复制</a></li>
+</ul>
+<p><strong>树</strong></p>
+<ul>
+<li>对象模拟树 树的比较 —— <a href="https://ariessk.github.io/post/jianzhi_28/">28. 对称的二叉树</a></li>
+<li>二叉搜索树 —— <a href="https://ariessk.github.io/post/jianzhi_36/">36. 二叉搜索树与双向链表</a></li>
+<li>最近公共祖先 —— <a href="https://ariessk.github.io/post/jianzhi_68_ii/">68 - II. 二叉树的最近公共祖先</a></li>
+</ul>
+<p><strong>字符串</strong></p>
+<ul>
+<li>字符串中的字符赋值 —— <a href="https://ariessk.github.io/post/jianzhi_05/">05. 替换空格</a></li>
+<li>字符串操作函数 —— <a href="https://ariessk.github.io/post/jianzhi_58_ii/">58 - II. 左旋字符串</a></li>
+<li>转化为字符数组 获取 ASCII 值 —— <a href="https://ariessk.github.io/post/jianzhi_50/">50. 第一个只出现一次的字符</a></li>
+<li>substr slice 与 substring —— <a href="https://ariessk.github.io/post/jianzhi_46/">46. 把数字翻译成字符串</a></li>
+<li>slice substr 补充说明 字符 ASCII 范围 —— <a href="https://ariessk.github.io/post/jianzhi_48/">48. 最长不含重复字符的子字符串</a></li>
+<li>操作函数的时间复杂度 split 说明 —— <a href="https://ariessk.github.io/post/jianzhi_58_i/">58 - I. 翻转字符单词顺序</a></li>
+</ul>
+<p><strong>哈希表</strong></p>
+<ul>
+<li>Map 和 Set —— <a href="https://ariessk.github.io/post/jianzhi_03/">03. 数组中重复的数字</a></li>
+<li>Map 的 key 和 value —— <a href="https://ariessk.github.io/post/jianzhi_39/">39. 数组中出现次数超过一半的数字</a></li>
+</ul>
+<p><strong>排序函数</strong></p>
+<ul>
+<li>sort 函数 —— <a href="https://ariessk.github.io/post/jianzhi_53_ii/">53 - II. 0~n-1中缺失的数字</a></li>
+<li>自定义 sort 函数 —— <a href="https://ariessk.github.io/post/jianzhi_61/">61. 扑克牌中的顺子</a></li>
+</ul>
+<p><strong>箭头函数</strong></p>
+<ul>
+<li>箭头函数 —— <a href="https://ariessk.github.io/post/jianzhi_53_ii/">53 - II. 0~n-1中缺失的数字</a></li>
+</ul>
+<p><strong>循环遍历</strong></p>
+<ul>
+<li>for in 与 for of —— <a href="https://ariessk.github.io/post/jianzhi_50/">50. 第一个只出现一次的字符</a></li>
+<li>for in 与 for of 遍历未赋值数组 —— <a href="https://ariessk.github.io/post/jianzhi_47/">47. 礼物的最大价值</a></li>
+<li>for in 遍历的属性是字符串 —— <a href="https://ariessk.github.io/post/jianzhi_07/">07. 重建二叉树</a></li>
+</ul>
+<p><strong>判断语句</strong></p>
+<ul>
+<li>if 判空 —— <a href="https://ariessk.github.io/post/jianzhi_32_i/">32 - I. 从上到下打印二叉树 I</a></li>
+</ul>
+<hr>
+<h3 id="算法知识点">算法知识点</h3>
+<p><strong>递归与迭代</strong></p>
+<ul>
+<li>递归总结 —— <a href="https://ariessk.github.io/post/jianzhi_24/">24. 反转链表</a></li>
+<li>迭代与递归的空间复杂度 —— <a href="https://ariessk.github.io/post/jianzhi_68_i/">68 - I. 二叉搜索树的最近公共祖先</a></li>
+</ul>
+<p><strong>二分法</strong></p>
+<ul>
+<li>二分法总结 —— <a href="https://ariessk.github.io/post/jianzhi_53_i/">53 - I. 在排序数组中查找数字 I</a></li>
+</ul>
+<p><strong>广度优先搜索</strong></p>
+<ul>
+<li>BFS —— <a href="https://ariessk.github.io/post/jianzhi_32_i/">32 - I. 从上到下打印二叉树 I</a></li>
+</ul>
+<p><strong>深度优先搜索</strong></p>
+<ul>
+<li>DFS —— <a href="https://ariessk.github.io/post/jianzhi_26/">26. 树的子结构</a></li>
+<li>递归转迭代 —— <a href="https://ariessk.github.io/post/jianzhi_28/">28. 对称的二叉树</a></li>
+<li>剪枝 —— <a href="https://ariessk.github.io/post/jianzhi_12/">12. 矩阵中的路径</a></li>
+<li>前序 中序 后序遍历 —— <a href="https://ariessk.github.io/post/jianzhi_36/">36. 二叉搜索树与双向链表</a></li>
+<li>自顶向下与自底向上 —— <a href="https://ariessk.github.io/post/jianzhi_55_ii/">55 - II. 平衡二叉树</a></li>
+<li>前序 中序 后序遍历序列 —— <a href="https://ariessk.github.io/post/jianzhi_33/">33. 二叉搜索树的后序遍历序列</a></li>
+</ul>
+<p><strong>动态规划</strong></p>
+<ul>
+<li>动态规划总结 —— <a href="https://ariessk.github.io/post/jianzhi_10_i/">10 - I. 斐波那契数列</a></li>
+<li>二维数组的动态规划 —— <a href="https://ariessk.github.io/post/jianzhi_47/">47. 礼物的最大价值</a></li>
+</ul>
+<p><strong>排序</strong></p>
+<ul>
+<li>快速排序 —— <a href="https://ariessk.github.io/post/jianzhi_45/">45. 把数组排成最小的数</a></li>
+<li>快速选择 计数排序 —— <a href="https://ariessk.github.io/post/jianzhi_40/">40. 最小的k个数</a></li>
+</ul>
+<p><strong>TopK 问题</strong></p>
+<ul>
+<li>TopK 问题两种解法及比较 —— <a href="https://ariessk.github.io/post/jianzhi_40/">40. 最小的k个数</a></li>
+</ul>
+<p><strong>超过一半的数</strong></p>
+<ul>
+<li>摩尔投票法 —— <a href="https://ariessk.github.io/post/jianzhi_39/">39. 数组中出现次数超过一半的数字</a></li>
+</ul>
+<p><strong>剪绳子</strong></p>
+<ul>
+<li>两个推论 —— <a href="https://ariessk.github.io/post/jianzhi_14_i/">14 - I.剪绳子 I</a></li>
+</ul>
+<p><strong>滑动窗口</strong><br>
+重要性质 —— <a href="https://ariessk.github.io/post/jianzhi_57_ii/">57 - II. 和为s的连续正数序列</a></p>
+<p><strong>约瑟夫环</strong><br>
+推导 —— <a href="https://ariessk.github.io/post/jianzhi_62/">62. 圆圈中最后剩下的数字</a></p>
 ]]></content>
     </entry>
     <entry>
@@ -1441,57 +1593,6 @@ fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度
         if (mid1 &lt; mid2) return findKth(nums1, i + (k &gt;&gt; 1), nums2, j, k - (k &gt;&gt; 1));
         else return findKth(nums1, i, nums2, j + (k &gt;&gt; 1), k - (k &gt;&gt; 1));
     }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[3. 无重复字符的最长字串]]></title>
-        <id>https://AriesSK.github.io/post/top_3/</id>
-        <link href="https://AriesSK.github.io/post/top_3/">
-        </link>
-        <updated>2022-07-11T02:03:50.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题与剑指offer的48题相同，只记录一下之前方法的思路，具体请移步<a href="https://ariessk.github.io/post/jianzhi_48/">48. 最长不含重复字串的子字符串</a>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一动态规划">法一：动态规划</h3>
-<p>思路：</p>
-<ol>
-<li>状态定义：使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 记录以下标 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> <strong>结尾</strong>的最长不重复字串长度；</li>
-<li>转移方程：对于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">s[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>，未出现则记入哈希表，出现则更新，将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">s[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 和在它前面的相同字符的距离与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 比较，若大于则说明 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">s[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 使不重复长度加一，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">dp[i] = dp[i - 1] + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，否则不变；</li>
-<li>初始状态：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mn>0</mn><mo>]</mo><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mi>d</mi><mi>p</mi><mo>[</mo><mn>1</mn><mo>]</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">dp[0] = 0, dp[1] = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>；</li>
-<li>返回结果：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span> 数组中的最大值。</li>
-</ol>
-<h3 id="法二滑动窗口">法二：滑动窗口</h3>
-<ol>
-<li>使用左指针代表子串的起始位置，而右指针代表字串的结束位置；</li>
-<li>左指针每轮右移一格，将下一个字符作为起始位置，在保证窗口中没有重复字符的前提（哈希表）下不断右移右指针。在移动结束后，窗口对应以左指针开始的最长不重复子串，记录其长度；</li>
-<li><strong>容易忘记</strong>：左指针移动到最后一个字符，返回记录长度的最大值。</li>
-</ol>
-<h3 id="新增">新增</h3>
-<p>重新做了一遍想出了另一种<strong>滑动窗口</strong>的方法：<br>
-右指针右移并将字符和下标记入哈希表：</p>
-<ul>
-<li>遇重复元素，记录区间长度，更新左指针位置为哈希表中记录的重复元素的下标（<strong>注意不能左移</strong>），重复操作至右指针遍历完字符串；</li>
-<li>当右指针遍历完，更新一次区间的长度（<strong>最后一段不重复长度最长的情况</strong>）；</li>
-<li>返回最大区间长度。</li>
-</ul>
-<pre><code class="language-js">var lengthOfLongestSubstring = function(s) {
-    const map = new Map();
-    let l = 0, r = 0, res = 0;
-    while (r &lt; s.length) {
-        if (map.has(s.charAt(r))) {
-            res = Math.max(res, r - l);
-            // 取最大值保证左指针不会左移
-            l = Math.max(l, map.get(s.charAt(r)) + 1); 
-        }
-        map.set(s.charAt(r), r);
-        ++r;
-    }
-    // 遍历完后更新区间长度
-    res = Math.max(res, r - l);
-    return res;
 };
 </code></pre>
 ]]></content>
