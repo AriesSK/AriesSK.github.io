@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657806577046" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657810065437" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657806577046" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657810065437" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-12-31</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">21.5
+                                    href="#">23.0
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">4855</a></span>
+                                    <span class="post-words">words:<a href="#">5287</a></span>
                                     
                                 </div>
                                 
@@ -715,6 +715,23 @@ const routes = [
 ]
 </code></pre>
 <h2 id="vuex">Vuex</h2>
+<p>Vuex 是一个专门为 Vue 开发的状态管理模式，集中式存储管理应用的所有组件的状态<br>
+是用于管理 Vue 应用跨组件数据的工具</p>
+<p><strong>Vuex 与 localStorage、sessionStorage</strong><br>
+虽然 localStorage 存储时限长，但比较适合存一些不怎么变化的数据，在 Vue 中不同组件共用的数据，组件需要响应另一个组件对数据的修改，就需要 Vuex</p>
+<ul>
+<li>Vuex：存储在浏览器内存，集中式存储管理应用的所有组件的状态，不刷新页面则状态会一直保持，刷新网页则状态重置</li>
+<li>sessionStorage：会话型存储，用于保存同一窗口或标签页的数据，数据保存在浏览器本地，关闭窗口或标签页后删除数据，就像人之间的会话，人走了会话就结束了</li>
+<li>localStorage：持久性存储，与 sessionStorage 类似，不过可以一直存储数据在浏览器本地，直到主动清除或重装浏览器</li>
+</ul>
+<p><strong>单向数据流</strong><br>
+根据一定规则改变数据，数据触发视图的更新，通过视图中的方法触发数据的更新的闭环<br>
+<img src="https://AriesSK.github.io/post-images/1657809170855.png" alt="" loading="lazy"><br>
+但实际应用中往往有多组件共享状态，这样不同视图的行为需要变更同一个状态，这就破坏了单向数据流<br>
+这些复杂的应用场景就需要依靠 Vuex 来解决<br>
+<img src="https://AriesSK.github.io/post-images/1657809816279.png" alt="" loading="lazy"><br>
+虚线框中的部分就是 Vuex 生效的部分，Vue 组件通过 Dispatch 关键字触发 Actions，再通过 Commit 调用 Mutation 里的方法修改 State 数据，组件中如果有依赖 Store 里的数据，就触发 Render 重绘，形成了一个闭环</p>
+<p><strong>State</strong></p>
 
                         </div>
                         
@@ -725,8 +742,8 @@ const routes = [
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/vue/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1657806577046&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657806577046 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1657810065437&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657810065437 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -840,7 +857,7 @@ const routes = [
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657806577046);
+                    newDate.setTime(1657810065437);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
