@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-07-31</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.0
+                                    href="#">4.3
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">271</a></span>
+                                    <span class="post-words">words:<a href="#">1147</a></span>
                                     
                                 </div>
                                 
@@ -226,16 +226,35 @@
 <h3 id="html">HTML</h3>
 <p><strong>h5 新特性</strong></p>
 <ul>
-<li>拖拽释放 Drag and drop API</li>
 <li>媒体播放 video 和 audio</li>
 <li>本地存储 localStorge 和 sessionStorage</li>
 <li>语义化标签 header、nav、article、section、footer</li>
 <li>历史管理 history API</li>
+<li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
+<li>拖拽释放 Drag and drop API</li>
+</ul>
+<p><strong>iframe</strong><br>
+内联框架，往网页中引入另一个网页<br>
+优点：</p>
+<ul>
+<li>把嵌入的网页原封不动展现</li>
+<li>可以将网页公用的部分携程一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
+<li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
+<li>可以解决加载缓慢的第三方内容</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>阻塞主页面的 onload 事件</li>
+<li>与主页面共享连接池，会影响页面的并行加载，并且产生的多个页面不容易管理</li>
+<li>可能出现上下左右滚动条，用户体验差</li>
+<li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
+<li>许多移动端设备不兼容</li>
+<li>增加服务器的 http 请求，大型网站不可取</li>
 </ul>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
 字面量，和常量差不多，其表达的信息如字面所示</p>
-<p><strong>Object.assign(ttarget, ...sources)</strong><br>
+<p><strong>Object.assign(target, ...sources)</strong><br>
 将 source 中的可枚举属性复制给 target，重名属性后面的覆盖前面的<br>
 复制的是属性值，如果属性值是引用类型则复制引用地址，会出现引用共享的问题（修改其中的一个会影响到别的）</p>
 <p><strong>constructor</strong><br>
@@ -247,6 +266,50 @@ constructor 属性是专门为 function 设计的，存在于每一个 function 
     age:10
 };
 </code></pre>
+<p><strong>map 和 forEach</strong></p>
+<pre><code class="language-js">const arr = [1,2,3];
+// map 遍历数组并给每个数翻倍
+const arr1 = arr.map(x=&gt;x*2); //[2,4,6]
+// forEach 遍历数组，有三个参数，分别是：当前遍历的数组元素 item、当前的元素下标 index、数组本身 arr
+let sum = 0;
+arr.forEach(function(item, index, arr) {
+    if (arr[index] &gt; 0) sum += item;
+})
+</code></pre>
+<p>相同点：</p>
+<ol>
+<li>均循环遍历数组每一项</li>
+<li>只能遍历数组</li>
+<li>匿名函数都支持三个参数 item、index、arr</li>
+<li>匿名函数中的 this 指向 window</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>map 创建新数组并返回，forEach 无返回</li>
+<li>forEach 可以修改原数组，map 不会</li>
+</ol>
+<p><strong>for of</strong><br>
+es6 的新增方法，只限于迭代器(iterator)，也就是<strong>可迭代</strong>对象，比如 Array、Map、Set、String、arguments、TyoedArray 等</p>
+<p><strong>js 静态类型检查</strong><br>
+静态类型语言：变量在定义的时候有类型声明，类型的检查发生在编译时，在运行的时候无法修改变量类型，编译器可以确定运行时需要的内存总量<br>
+动态类型语言：变量在定义的时候无类型声明，类型的检查发生在运行时，在运行的时候可以修改变量类型<br>
+对比：静态类型可以尽早发现错误，减少了复杂的错误处理，将数据和行为分离，也有利于代码重构；动态类型的代码比较精简，并且不需要花时间掌握类型<br>
+js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态类型检查工具，能够找出类型错误；<strong>TypeScript</strong> 在 js 的基础上添加静态类型定义，并且会被编译成 js</p>
+<p><strong>indexOf</strong><br>
+<code>str.indexOf(searchValue[, fromIndex])</code> 找到返回第一个匹配字串的起始下标，未找到返回 0<br>
+searchValue 不设置会查找字符串 'undefined'<br>
+fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
+<strong>严格区分大小写</strong></p>
+<p><strong>Web Components</strong><br>
+提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
+包含四部分：</p>
+<ul>
+<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
+<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
+<li>HTML Templates：模板</li>
+<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
+</ul>
+<hr>
 
                         </div>
                         
@@ -257,8 +320,8 @@ constructor 属性是专门为 function 设计的，存在于每一个 function 
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/qian-duan-mian-shi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1657706129762&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657706129762 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1657775333937&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657775333937 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -284,8 +347,8 @@ constructor 属性是专门为 function 设计的，存在于每一个 function 
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_8/">
-                                                                                                    8. 字符串转换整数
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_10/">
+                                                                                                    10. 正则表达式匹配
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
@@ -376,7 +439,7 @@ constructor 属性是专门为 function 设计的，存在于每一个 function 
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657706129762);
+                    newDate.setTime(1657775333937);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

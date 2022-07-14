@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -215,7 +215,7 @@
                                     <span class="post-readtime">Reading Time:<a
                                     href="#">6.0
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">1324</a></span>
+                                    <span class="post-words">words:<a href="#">1317</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -353,8 +353,8 @@ console.log(p.test(test)); // true
 <ul>
 <li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 个字符是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> ，在匹配的过程中，本质上只会有两种情况:
 <ul>
-<li>匹配 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 末尾的一个字符，则还可以继续进行匹配；</li>
-<li>不匹配字符，将该组合视作出现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 次，不再继续匹配。<br>
+<li>匹配 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 末尾的一个字符，则还可以继续进行匹配，直到无法匹配再将该组合扔掉；</li>
+<li>不匹配字符，将该组合视作出现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 次，扔掉，不再继续匹配。<br>
 如上可以写出状态转移方程:</li>
 </ul>
 </li>
@@ -379,8 +379,7 @@ console.log(p.test(test)); // true
     for (let i = 0; i &lt;= m; ++i) {
         for (let j = 1; j &lt;= n; ++j) {
             if (p.charAt(j - 1) === &quot;*&quot;) {
-                // 即使 dp[i - 1][j] 无法匹配，但只要 dp[i][j - 2] 能够匹配，dp[i][j] 也可以匹配，因为不论 j - 1 是什么字符，都可以通过 * 归零
-                // 因此这里 dp[i][j] 的结果由两种情况共同决定，有一种能够匹配即可
+                // dp[i - 1][j] 能够匹配则会短路后面的半部分，一直匹配 s 的前一个字符直到完全匹配或无法匹配，无法匹配则扔掉 p 的最后两个字符
                 if (match(s, p, i, j - 1)) dp[i][j] = dp[i - 1][j] || dp[i][j - 2];
                 else dp[i][j] = dp[i][j - 2];
             } else {
@@ -390,7 +389,7 @@ console.log(p.test(test)); // true
     }
     return dp[m][n];
 
-    function match(s, p, i, j) {
+    function match(i, j) {
         // 需要注意下标与实际字符下标的对应关系
         if (!i) return false;
         if (p.charAt(j - 1) === &quot;.&quot;) return true;
@@ -408,8 +407,8 @@ console.log(p.test(test)); // true
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_19/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_19/&sharesource=qzone&title=19. 正则表达式匹配&pics=https://AriesSK.github.io/images/avatar.png?v=1657706129762&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_19/&sharesource=weibo&title=19. 正则表达式匹配 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657706129762 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_19/&sharesource=qzone&title=19. 正则表达式匹配&pics=https://AriesSK.github.io/images/avatar.png?v=1657775333937&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_19/&sharesource=weibo&title=19. 正则表达式匹配 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657775333937 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -545,7 +544,7 @@ console.log(p.test(test)); // true
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657706129762);
+                    newDate.setTime(1657775333937);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

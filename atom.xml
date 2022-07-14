@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-13T09:55:37.397Z</updated>
+    <updated>2022-07-14T05:09:02.742Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -32,8 +32,14 @@ Vue 实现响应式<strong>不是在数据变化后 DOM 立即变化</strong>，
 <li>一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&quot;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行</li>
 <li>主线程不断重复上面的第三步</li>
 </ol>
-<p><strong>$的作用</strong><br>
-用于区分 Vue 中自带的实例和用户自定义的属性</p>
+<p><strong>$ 的作用</strong><br>
+用于区分 Vue 中自带的实例和用户自定义的属性，有 $ 前缀的是自带的</p>
+<p><strong>this</strong><br>
+Vue 中会定义很多函数或变量，往往需要在 template 或 script 标签中使用：</p>
+<ul>
+<li>在 template 中不需要 this</li>
+<li>在 script 标签中需要 this（除了在 watch 监听中）</li>
+</ul>
 <h2 id="vue-指令">Vue 指令</h2>
 <p>** v-text 与 v-html**<br>
 相同点：均能够展示数据，单向绑定<br>
@@ -74,6 +80,13 @@ Vue 实现响应式<strong>不是在数据变化后 DOM 立即变化</strong>，
     &lt;input v-model=&quot;username&quot; v-on:keyup.enter=&quot;login&quot; /&gt;
   &lt;/div&gt;
 </code></pre>
+<p><strong>v-bind</strong><br>
+用于属性与变量的绑定</p>
+<pre><code class="language-html">&lt;!-- src 属性 imageSrc 变量 --&gt;
+&lt;img v-bind:src=&quot;imageSrc&quot;&gt;
+&lt;!-- 简写 --&gt;
+&lt;img :src=&quot;imageSrc&quot;&gt;
+</code></pre>
 <p><strong>v-model</strong><br>
 语法糖：计算机语言中添加的某种语法，这种语法对语言的功能并没有影响，但是更方便程序员使用<br>
 双向绑定，可以结合输入框、复选框、单选框等实现动态地修改数据<br>
@@ -88,12 +101,6 @@ v-model 是一个语法糖，本质上包含两个操作：</p>
 <li>v-model.trim 去除首尾空格</li>
 <li>v-model.trim 输入的字符串转化为数字</li>
 </ul>
-<p><strong>v-bind</strong><br>
-用于属性与变量的绑定</p>
-<pre><code class="language-html">&lt;img v-bind:src=&quot;imageSrc&quot;&gt;
-&lt;!-- 简写 --&gt;
-&lt;img :src=&quot;imageSrc&quot;&gt;
-</code></pre>
 <p><strong>v-cloak</strong><br>
 使用 v-cloak 设置的样式会在 vvue 实例编译完成后从绑定的 html 标签上移除<br>
 可以有效防止页面加载的时候出现 vue 的变量名</p>
@@ -296,7 +303,7 @@ Vue-Router 提供了三种路由模式：</p>
 <li>abstract 模式</li>
 </ul>
 <p><strong>Hash 模式</strong><br>
-Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生方法提供了一个监听事件 hashchange，它能监听到下面的改变：</p>
+Vue-Router 的默认模式，特点是 URL 始终带着 #，它不会发起对服务端的请求，也不会重加载页面。浏览器的原生方法提供了一个监听事件 hashchange，它能监听到下面的改变：</p>
 <ul>
 <li>点击 a 标签改变 URL 地址</li>
 <li>浏览器的前进后退行为</li>
@@ -330,13 +337,13 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
     function HashChange() {
         switch(location.hash) {
             case '#/page1':
-                routeView.innerHTML = 'page1';
+                routeView.innerHTML = '我是page1';
                 return;
             case '#/page2':
-                routeView.innerHTML = 'page2';
+                routeView.innerHTML = '我是page2';
                 return;
             default:
-                routeView.innerHTML = 'page1';
+                routeView.innerHTML = '我是page1';
                 return;
         }
     }
@@ -345,7 +352,7 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
 &lt;/html&gt;
 </code></pre>
 <p><strong>History 模式</strong><br>
-使用 History 模式是使用 html5 的 history API实现路由的模式，表现是去除了 Hash 模式中 URL 的 #。控制路由会有一些麻烦，根本原因是使用 History 模式，popstate 监听事件无法监听到 pushState、replaceState、a 标签三种形式的变化，可以监听到浏览器的前进和后退。<br>
+使用 History 模式是使用 html5 的 history API实现路由的模式，表现是去除了 Hash 模式中 URL 的 #，使 URL 比较好看。控制路由会有一些麻烦，根本原因是使用 History 模式，popstate 监听事件无法监听到 pushState、replaceState(前者新建记录，后者修改记录)、a 标签三种形式的变化，可以监听到浏览器的前进和后退。<br>
 为了实现路由，可以如下做：</p>
 <ol>
 <li>遍历页面上的所有 a 标签，阻止其默认事件，同时加上点击事件的回调函数，在回调函数中获取 a 标签的 href 属性值</li>
@@ -367,11 +374,139 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
         &lt;/ul&gt;
         &lt;div id=&quot;route-view&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;script&gt;
-
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        window.addEventListener('DOMContentLoaded', Load);
+        window.addEventListener('popstate', PopChange);
+        var routeView = null;
+        function Load() {
+            routeView = document.getElementById('route-view');
+            PopChange();
+            // 获取所有带有 href 属性的 a 标签
+            var aList = document.querySelectorAll('a[href]')
+            // 遍历标签，添加点击事件的回调函数，参数 e 代表当前事件
+            aList.forEach(aNode =&gt; aNode.addEventListener('click', function(e) {
+                // 阻止默认事件
+                e.preventDefault();
+                // 获取 href 属性值
+                var href = aNode.getAttribute('href');
+                // pushState(state, title. url)，state 对象不需要可填 null，title 表示新页面的标题，url 是新页面的网址
+                //这个方法的作用就是在 history 对象中添加记录，同时改变地址栏为新的 url
+                history.pushState(null, &quot;&quot;, href);
+                // 因为 popstate 监听不到地址栏的变化，所以需要手动执行 PopChange
+                PopChange();
+            }));
+        }
+        function PopChange() {
+            switch(location.pathname) {
+                case '/page1' :
+                    routeView.innerHTML = '我是page1';
+                    return;
+                case '/page2' :
+                    routeView.innerHTML = '我是page2';
+                    return;
+                default :
+                    routeView.innerHTML = '我是page1';
+                    return;
+            }
+        }
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
+</code></pre>
+<p>history 模式相对于 hash 模式没有 #，比较符合开发习惯，也比较好看，但由于是 html5 新出的 api，所以不想 hash 模式可以兼容低版本。并且 history 在访问二级页面的时候刷新网页会出现 404 错误，这是因为刷新网页相当于向服务端发送了一次 GET 请求，而服务端并没有定义这样的接口，所以 history 模式需要服务端配合进行路由处理，比如重定向回首页路由</p>
+<p><strong>abstract 模式</strong><br>
+针对没有浏览器环境的情况，没有浏览器的 API，就会强制切换到 abstract 模式（比如 Weex）<br>
+如果在 Vue-Router 的配置项中不填写 mode 的值，则在浏览器环境下默认 Hash 模式，移动客户端环境下使用 abstract 模式</p>
+<p><strong>引入与使用</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;!-- 引入静态资源 --&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue/2.6.11/vue.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;Vue Router&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;ul&gt;
+      &lt;!-- 使用 router-link 组件来导航. --&gt;
+      &lt;!-- 通过传入 to 属性指定链接. --&gt;
+      &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 &lt;a&gt; 标签 --&gt;
+      &lt;router-link to=&quot;/page1&quot;&gt;Go to Page1&lt;/router-link&gt;
+      &lt;br/&gt;
+      &lt;router-link to=&quot;/page2&quot;&gt;Go to Page2&lt;/router-link&gt;
+    &lt;/ul&gt;
+    &lt;!-- 路由匹配到的组件将渲染在&lt;router-view&gt; --&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    // 1. 定义 (路由) 组件
+    // 可以从其他文件 import 进来，这里简单写
+    const Page1 = { template: '&lt;div&gt;Page1&lt;/div&gt;' }
+    const Page2 = { template: '&lt;div&gt;Page2&lt;/div&gt;' }
+    // 2. 定义路由
+    // 每个路由应该映射一个组件，其中 component 可以是通过 Vue.extend() 创建的组件构造器，或者只是一个组件配置对象
+    const routes = [
+      { path: '/page1', component: Page1 },
+      { path: '/page2', component: Page2 }
+    ]
+    // 3. 创建 router 实例，然后传 routes 配置
+    const router = new VueRouter({
+      routes: routes
+    })
+    // 4. 创建和挂载根实例
+    // 要通过 router 配置参数注入路由，从而让整个应用都有路由功能
+    const app = new Vue({
+      router: router
+    }).$mount('#app')
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>获取全局路由跳转参数的变化</strong><br>
+同一在入口页面通过 watch $route 对象实现，在上面代码的基础上修改，可以拿到 to 和 from 两个参数，to 代表跳转后的页面参数，from 代表从那个页面跳转来的，通过这两个参数就能够设置一级二级页面，制作过场动画</p>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+const app = new Vue({
+      router: router,
+      watch: {
+          // $ 前缀是让让系统的属性与用户定义的属性区分开来
+        $route(to, from) {
+            console.log('to', to);
+            console.log('form', from);
+        }
+      }
+    }).$mount('#app')
+&lt;/script&gt;
+</code></pre>
+<p><strong>路由传参</strong><br>
+Page1 跳转到 Page2，Page1通过 <router-link> 传参：</p>
+<pre><code class="language-html">&lt;!-- 注意 to 前面需要加 : 即使用了 v-bind --&gt;
+&lt;router-link :to=&quot;{path: '/page1', query: { id: 123 }}&quot;&gt;Go to Page1&lt;/router-link&gt;
+</code></pre>
+<p>接收参数：</p>
+<pre><code class="language-js">const Page1 = { template: '&lt;div&gt;Page1 {{ $route.query.id }}&lt;/div&gt;'}
+</code></pre>
+<p>还有另一种方式：</p>
+<pre><code class="language-html">&lt;!-- 注意 to 前面需要加 : 即使用了 v-bind --&gt;
+&lt;router-link :to=&quot;{path: '/page1/123'}&quot;&gt;Go to Page1&lt;/router-link&gt;
+</code></pre>
+<pre><code class="language-js">// 这里不是 query 而是 params
+const Page1 = { template: '&lt;div&gt;Page1 {{ $route.params.id }}&lt;/div&gt;'}
+// 还需要修改 routes
+const routes = [
+    { path: 'page1/:id', component: Page1 },
+    { path: '/page2', component: Page2 }
+]
+</code></pre>
+<p><strong>重定向页面</strong><br>
+输入一个不存在的路由，Vue-Router 就会无法匹配到，这时候应当默认返回首页，就需要用到重定向匹配，在 * 上面的路径都没被匹配到时，重定向至 /page1 对应的组件</p>
+<pre><code class="language-js">const routes = [
+    { path: '/page1', component: Page1 },
+    { path: '/page2', component: Page2 },
+    {path: '*', redirect: '/page1'}
+]
 </code></pre>
 <h2 id="vuex">Vuex</h2>
 ]]></content>
@@ -779,7 +914,7 @@ frameborder 指定内联框架的边框，0无1有</p>
 </ul>
 <p>属性选择器：</p>
 <ul>
-<li>选择含有指定属性的元素，<code>[属性名]{}</code></li>
+<li>选择含有指定属性的元素，<code>[属性名]{}</code>，<code>*[属性名]{}</code>表示所有拥有该属性的标签(* 可省略)，<code>标签名[属性名]{}</code>表示拥有该属性的指定标签，比如<code>a[href]{}</code></li>
 <li>选择含有指定属性和属性值的元素，<code>[属性名=属性值]{}</code></li>
 <li>选择属性值以指定值开头的元素，<code>[属性名^=属性值]{}</code></li>
 <li>选择属性值以指定值结尾的元素，<code>[属性名$=属性值]{}</code></li>
@@ -951,16 +1086,35 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
 <h3 id="html">HTML</h3>
 <p><strong>h5 新特性</strong></p>
 <ul>
-<li>拖拽释放 Drag and drop API</li>
 <li>媒体播放 video 和 audio</li>
 <li>本地存储 localStorge 和 sessionStorage</li>
 <li>语义化标签 header、nav、article、section、footer</li>
 <li>历史管理 history API</li>
+<li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
+<li>拖拽释放 Drag and drop API</li>
+</ul>
+<p><strong>iframe</strong><br>
+内联框架，往网页中引入另一个网页<br>
+优点：</p>
+<ul>
+<li>把嵌入的网页原封不动展现</li>
+<li>可以将网页公用的部分携程一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
+<li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
+<li>可以解决加载缓慢的第三方内容</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>阻塞主页面的 onload 事件</li>
+<li>与主页面共享连接池，会影响页面的并行加载，并且产生的多个页面不容易管理</li>
+<li>可能出现上下左右滚动条，用户体验差</li>
+<li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
+<li>许多移动端设备不兼容</li>
+<li>增加服务器的 http 请求，大型网站不可取</li>
 </ul>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
 字面量，和常量差不多，其表达的信息如字面所示</p>
-<p><strong>Object.assign(ttarget, ...sources)</strong><br>
+<p><strong>Object.assign(target, ...sources)</strong><br>
 将 source 中的可枚举属性复制给 target，重名属性后面的覆盖前面的<br>
 复制的是属性值，如果属性值是引用类型则复制引用地址，会出现引用共享的问题（修改其中的一个会影响到别的）</p>
 <p><strong>constructor</strong><br>
@@ -970,6 +1124,88 @@ constructor 属性是专门为 function 设计的，存在于每一个 function 
 <pre><code class="language-js">var person={ 
     name:&quot;Jack&quot;, 
     age:10
+};
+</code></pre>
+<p><strong>map 和 forEach</strong></p>
+<pre><code class="language-js">const arr = [1,2,3];
+// map 遍历数组并给每个数翻倍
+const arr1 = arr.map(x=&gt;x*2); //[2,4,6]
+// forEach 遍历数组，有三个参数，分别是：当前遍历的数组元素 item、当前的元素下标 index、数组本身 arr
+let sum = 0;
+arr.forEach(function(item, index, arr) {
+    if (arr[index] &gt; 0) sum += item;
+})
+</code></pre>
+<p>相同点：</p>
+<ol>
+<li>均循环遍历数组每一项</li>
+<li>只能遍历数组</li>
+<li>匿名函数都支持三个参数 item、index、arr</li>
+<li>匿名函数中的 this 指向 window</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>map 创建新数组并返回，forEach 无返回</li>
+<li>forEach 可以修改原数组，map 不会</li>
+</ol>
+<p><strong>for of</strong><br>
+es6 的新增方法，只限于迭代器(iterator)，也就是<strong>可迭代</strong>对象，比如 Array、Map、Set、String、arguments、TyoedArray 等</p>
+<p><strong>js 静态类型检查</strong><br>
+静态类型语言：变量在定义的时候有类型声明，类型的检查发生在编译时，在运行的时候无法修改变量类型，编译器可以确定运行时需要的内存总量<br>
+动态类型语言：变量在定义的时候无类型声明，类型的检查发生在运行时，在运行的时候可以修改变量类型<br>
+对比：静态类型可以尽早发现错误，减少了复杂的错误处理，将数据和行为分离，也有利于代码重构；动态类型的代码比较精简，并且不需要花时间掌握类型<br>
+js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态类型检查工具，能够找出类型错误；<strong>TypeScript</strong> 在 js 的基础上添加静态类型定义，并且会被编译成 js</p>
+<p><strong>indexOf</strong><br>
+<code>str.indexOf(searchValue[, fromIndex])</code> 找到返回第一个匹配字串的起始下标，未找到返回 0<br>
+searchValue 不设置会查找字符串 'undefined'<br>
+fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
+<strong>严格区分大小写</strong></p>
+<p><strong>Web Components</strong><br>
+提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
+包含四部分：</p>
+<ul>
+<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
+<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
+<li>HTML Templates：模板</li>
+<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
+</ul>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[10. 正则表达式匹配]]></title>
+        <id>https://AriesSK.github.io/post/top_10/</id>
+        <link href="https://AriesSK.github.io/post/top_10/">
+        </link>
+        <updated>2022-07-14T02:29:17.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>本题与剑指offer的19题相同，具体思路请移步<a href="https://ariessk.github.io/post/jianzhi_19/">19. 正则表达式匹配</a>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="动态规划">动态规划</h3>
+<p>这道题新做了一遍，对代码进行了一些优化，并且有了些新的理解：</p>
+<pre><code class="language-js">var isMatch = function(s, p) {
+    const m = s.length, n = p.length;
+    const dp = new Array(m + 1);
+    for (let i = 0; i &lt; m + 1; ++i) dp[i] = new Array(n + 1).fill(false);
+    dp[0][0] = true;
+    // i 不能从 1 开始，因为 a 为空串可以匹配 p 的单字符和 * 的组合
+    for (let i = 0; i &lt; m + 1; ++i) {
+        // j 可以直接从 1 开始，因为 p 为空串无法匹配 a 的串
+        for (let j = 1; j &lt; n + 1; ++j) {
+            // 能够匹配的情况下尝试多匹配一个字符直到完全匹配或无法匹配，无法匹配就扔掉
+            if (p.charAt(j - 1) === &quot;*&quot;) dp[i][j] = helper(i, j - 1) ? dp[i][j] = dp[i - 1][j] || dp[i][j - 2] : dp[i][j - 2];
+            else dp[i][j] = helper(i, j) ? dp[i - 1][j - 1] : false;
+        }
+    }
+    return dp[m][n];
+
+    function helper(i, j) {
+        // 空串不能和任何字符匹配
+        if(!i) return false;
+        if (s.charAt(i - 1) === p.charAt(j - 1) || p.charAt(j - 1) === &quot;.&quot;) return true;
+        return false;
+    }
 };
 </code></pre>
 ]]></content>
@@ -1256,101 +1492,6 @@ constructor 属性是专门为 function 设计的，存在于每一个 function 
     // 遍历完后更新区间长度
     res = Math.max(res, r - l);
     return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[2. 两数相加]]></title>
-        <id>https://AriesSK.github.io/post/top_2/</id>
-        <link href="https://AriesSK.github.io/post/top_2/">
-        </link>
-        <updated>2022-07-10T07:55:55.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>仔细考虑题目，想到每种情况！<br>
-修改冗余部分，不断精简代码！</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟">模拟</h3>
-<p>遍历链表，模拟加法，注意<strong>进位</strong>，在两链表均遍历完后仍有进位的情况很容易遗漏：</p>
-<pre><code class="language-js">var addTwoNumbers = function(l1, l2) {
-    let lptr = l1, rptr =  l2, flag = false, node = new ListNode();
-    const res = node;
-    // 两链表均非空，值相加
-    while(lptr &amp;&amp; rptr) {
-        let tmp = lptr.val + rptr.val;
-        // 进位
-        if (flag) {
-            tmp += 1;
-            flag = false;
-        }
-        if (tmp &gt;= 10) {
-            tmp %= 10;
-            flag = true;
-        }
-        node.next = new ListNode(tmp);
-        node = node.next;
-        lptr = lptr.next;
-        rptr = rptr.next;
-    }
-    // 一链表为空，考虑另一链表
-    if (!lptr) {
-        while (rptr) {
-            let tmp = rptr.val;
-            if (flag) {
-                tmp += 1;
-                flag = false;
-            }
-            if (tmp &gt;= 10) {
-                tmp %= 10;
-                flag = true;
-            }
-            node.next = new ListNode(tmp);
-            node = node.next;
-            rptr = rptr.next;
-        }
-    } else {
-        while (lptr) {
-            let tmp = lptr.val;
-            if (flag) {
-                tmp += 1;
-                flag = false;
-            }
-            if (tmp &gt;= 10) {
-                tmp %= 10;
-                flag = true;
-            }
-            node.next = new ListNode(tmp);
-            node = node.next;
-            lptr = lptr.next;
-        }
-    }
-    // 两链表均空，考虑进位
-    if (flag) node.next = new ListNode(1);
-    return res.next;
-};
-</code></pre>
-<p>上面的解法思路正确但代码过于冗杂，看了题解后作出了如下的优化：</p>
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>p</mi><mi>t</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">lptr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">p</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>p</mi><mi>t</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">rptr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">p</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 并无必要，直接使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">l1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">1</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">l2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">2</span></span></span></span> 即可；</li>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>l</mi><mi>a</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">flag</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span> 表示进位也并无必要，使用两链表值之和除 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span> 向下取整即可获取进位值，进位加 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 不进加 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>；</li>
-<li>循环可以直到两链表均遍历完再停止，一个链表先遍历完后直接用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 替代其 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 即可。</li>
-</ul>
-<pre><code class="language-js">var addTwoNumbers = function(l1, l2) {
-    let carry = 0, node = new ListNode();
-    const res = node;
-    while(l1 || l2) {
-        const n1 = l1 ? l1.val : 0;
-        const n2 = l2 ? l2.val : 0;
-        let sum = n1 + n2 + carry;
-        node.next = new ListNode(sum % 10);
-        node = node.next;
-        carry = sum &gt;= 10 ? 1 : 0;
-        if (l1) l1 = l1.next;
-        if (l2) l2 = l2.next;
-    }
-    if (carry) node.next = new ListNode(1);
-    return res.next;
 };
 </code></pre>
 ]]></content>

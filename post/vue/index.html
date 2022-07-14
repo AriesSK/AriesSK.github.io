@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657706129762" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657775333937" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-12-31</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">15.7
+                                    href="#">21.5
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">3546</a></span>
+                                    <span class="post-words">words:<a href="#">4855</a></span>
                                     
                                 </div>
                                 
@@ -238,8 +238,14 @@ Vue 实现响应式<strong>不是在数据变化后 DOM 立即变化</strong>，
 <li>一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&quot;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行</li>
 <li>主线程不断重复上面的第三步</li>
 </ol>
-<p><strong>$的作用</strong><br>
-用于区分 Vue 中自带的实例和用户自定义的属性</p>
+<p><strong>$ 的作用</strong><br>
+用于区分 Vue 中自带的实例和用户自定义的属性，有 $ 前缀的是自带的</p>
+<p><strong>this</strong><br>
+Vue 中会定义很多函数或变量，往往需要在 template 或 script 标签中使用：</p>
+<ul>
+<li>在 template 中不需要 this</li>
+<li>在 script 标签中需要 this（除了在 watch 监听中）</li>
+</ul>
 <h2 id="vue-指令">Vue 指令</h2>
 <p>** v-text 与 v-html**<br>
 相同点：均能够展示数据，单向绑定<br>
@@ -280,6 +286,13 @@ Vue 实现响应式<strong>不是在数据变化后 DOM 立即变化</strong>，
     &lt;input v-model=&quot;username&quot; v-on:keyup.enter=&quot;login&quot; /&gt;
   &lt;/div&gt;
 </code></pre>
+<p><strong>v-bind</strong><br>
+用于属性与变量的绑定</p>
+<pre><code class="language-html">&lt;!-- src 属性 imageSrc 变量 --&gt;
+&lt;img v-bind:src=&quot;imageSrc&quot;&gt;
+&lt;!-- 简写 --&gt;
+&lt;img :src=&quot;imageSrc&quot;&gt;
+</code></pre>
 <p><strong>v-model</strong><br>
 语法糖：计算机语言中添加的某种语法，这种语法对语言的功能并没有影响，但是更方便程序员使用<br>
 双向绑定，可以结合输入框、复选框、单选框等实现动态地修改数据<br>
@@ -294,12 +307,6 @@ v-model 是一个语法糖，本质上包含两个操作：</p>
 <li>v-model.trim 去除首尾空格</li>
 <li>v-model.trim 输入的字符串转化为数字</li>
 </ul>
-<p><strong>v-bind</strong><br>
-用于属性与变量的绑定</p>
-<pre><code class="language-html">&lt;img v-bind:src=&quot;imageSrc&quot;&gt;
-&lt;!-- 简写 --&gt;
-&lt;img :src=&quot;imageSrc&quot;&gt;
-</code></pre>
 <p><strong>v-cloak</strong><br>
 使用 v-cloak 设置的样式会在 vvue 实例编译完成后从绑定的 html 标签上移除<br>
 可以有效防止页面加载的时候出现 vue 的变量名</p>
@@ -502,7 +509,7 @@ Vue-Router 提供了三种路由模式：</p>
 <li>abstract 模式</li>
 </ul>
 <p><strong>Hash 模式</strong><br>
-Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生方法提供了一个监听事件 hashchange，它能监听到下面的改变：</p>
+Vue-Router 的默认模式，特点是 URL 始终带着 #，它不会发起对服务端的请求，也不会重加载页面。浏览器的原生方法提供了一个监听事件 hashchange，它能监听到下面的改变：</p>
 <ul>
 <li>点击 a 标签改变 URL 地址</li>
 <li>浏览器的前进后退行为</li>
@@ -536,13 +543,13 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
     function HashChange() {
         switch(location.hash) {
             case '#/page1':
-                routeView.innerHTML = 'page1';
+                routeView.innerHTML = '我是page1';
                 return;
             case '#/page2':
-                routeView.innerHTML = 'page2';
+                routeView.innerHTML = '我是page2';
                 return;
             default:
-                routeView.innerHTML = 'page1';
+                routeView.innerHTML = '我是page1';
                 return;
         }
     }
@@ -551,7 +558,7 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
 &lt;/html&gt;
 </code></pre>
 <p><strong>History 模式</strong><br>
-使用 History 模式是使用 html5 的 history API实现路由的模式，表现是去除了 Hash 模式中 URL 的 #。控制路由会有一些麻烦，根本原因是使用 History 模式，popstate 监听事件无法监听到 pushState、replaceState、a 标签三种形式的变化，可以监听到浏览器的前进和后退。<br>
+使用 History 模式是使用 html5 的 history API实现路由的模式，表现是去除了 Hash 模式中 URL 的 #，使 URL 比较好看。控制路由会有一些麻烦，根本原因是使用 History 模式，popstate 监听事件无法监听到 pushState、replaceState(前者新建记录，后者修改记录)、a 标签三种形式的变化，可以监听到浏览器的前进和后退。<br>
 为了实现路由，可以如下做：</p>
 <ol>
 <li>遍历页面上的所有 a 标签，阻止其默认事件，同时加上点击事件的回调函数，在回调函数中获取 a 标签的 href 属性值</li>
@@ -573,11 +580,139 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
         &lt;/ul&gt;
         &lt;div id=&quot;route-view&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
-    &lt;script&gt;
-
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        window.addEventListener('DOMContentLoaded', Load);
+        window.addEventListener('popstate', PopChange);
+        var routeView = null;
+        function Load() {
+            routeView = document.getElementById('route-view');
+            PopChange();
+            // 获取所有带有 href 属性的 a 标签
+            var aList = document.querySelectorAll('a[href]')
+            // 遍历标签，添加点击事件的回调函数，参数 e 代表当前事件
+            aList.forEach(aNode =&gt; aNode.addEventListener('click', function(e) {
+                // 阻止默认事件
+                e.preventDefault();
+                // 获取 href 属性值
+                var href = aNode.getAttribute('href');
+                // pushState(state, title. url)，state 对象不需要可填 null，title 表示新页面的标题，url 是新页面的网址
+                //这个方法的作用就是在 history 对象中添加记录，同时改变地址栏为新的 url
+                history.pushState(null, &quot;&quot;, href);
+                // 因为 popstate 监听不到地址栏的变化，所以需要手动执行 PopChange
+                PopChange();
+            }));
+        }
+        function PopChange() {
+            switch(location.pathname) {
+                case '/page1' :
+                    routeView.innerHTML = '我是page1';
+                    return;
+                case '/page2' :
+                    routeView.innerHTML = '我是page2';
+                    return;
+                default :
+                    routeView.innerHTML = '我是page1';
+                    return;
+            }
+        }
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
+</code></pre>
+<p>history 模式相对于 hash 模式没有 #，比较符合开发习惯，也比较好看，但由于是 html5 新出的 api，所以不想 hash 模式可以兼容低版本。并且 history 在访问二级页面的时候刷新网页会出现 404 错误，这是因为刷新网页相当于向服务端发送了一次 GET 请求，而服务端并没有定义这样的接口，所以 history 模式需要服务端配合进行路由处理，比如重定向回首页路由</p>
+<p><strong>abstract 模式</strong><br>
+针对没有浏览器环境的情况，没有浏览器的 API，就会强制切换到 abstract 模式（比如 Weex）<br>
+如果在 Vue-Router 的配置项中不填写 mode 的值，则在浏览器环境下默认 Hash 模式，移动客户端环境下使用 abstract 模式</p>
+<p><strong>引入与使用</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;!-- 引入静态资源 --&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue/2.6.11/vue.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;Vue Router&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;ul&gt;
+      &lt;!-- 使用 router-link 组件来导航. --&gt;
+      &lt;!-- 通过传入 to 属性指定链接. --&gt;
+      &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 &lt;a&gt; 标签 --&gt;
+      &lt;router-link to=&quot;/page1&quot;&gt;Go to Page1&lt;/router-link&gt;
+      &lt;br/&gt;
+      &lt;router-link to=&quot;/page2&quot;&gt;Go to Page2&lt;/router-link&gt;
+    &lt;/ul&gt;
+    &lt;!-- 路由匹配到的组件将渲染在&lt;router-view&gt; --&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    // 1. 定义 (路由) 组件
+    // 可以从其他文件 import 进来，这里简单写
+    const Page1 = { template: '&lt;div&gt;Page1&lt;/div&gt;' }
+    const Page2 = { template: '&lt;div&gt;Page2&lt;/div&gt;' }
+    // 2. 定义路由
+    // 每个路由应该映射一个组件，其中 component 可以是通过 Vue.extend() 创建的组件构造器，或者只是一个组件配置对象
+    const routes = [
+      { path: '/page1', component: Page1 },
+      { path: '/page2', component: Page2 }
+    ]
+    // 3. 创建 router 实例，然后传 routes 配置
+    const router = new VueRouter({
+      routes: routes
+    })
+    // 4. 创建和挂载根实例
+    // 要通过 router 配置参数注入路由，从而让整个应用都有路由功能
+    const app = new Vue({
+      router: router
+    }).$mount('#app')
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>获取全局路由跳转参数的变化</strong><br>
+同一在入口页面通过 watch $route 对象实现，在上面代码的基础上修改，可以拿到 to 和 from 两个参数，to 代表跳转后的页面参数，from 代表从那个页面跳转来的，通过这两个参数就能够设置一级二级页面，制作过场动画</p>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+const app = new Vue({
+      router: router,
+      watch: {
+          // $ 前缀是让让系统的属性与用户定义的属性区分开来
+        $route(to, from) {
+            console.log('to', to);
+            console.log('form', from);
+        }
+      }
+    }).$mount('#app')
+&lt;/script&gt;
+</code></pre>
+<p><strong>路由传参</strong><br>
+Page1 跳转到 Page2，Page1通过 <router-link> 传参：</p>
+<pre><code class="language-html">&lt;!-- 注意 to 前面需要加 : 即使用了 v-bind --&gt;
+&lt;router-link :to=&quot;{path: '/page1', query: { id: 123 }}&quot;&gt;Go to Page1&lt;/router-link&gt;
+</code></pre>
+<p>接收参数：</p>
+<pre><code class="language-js">const Page1 = { template: '&lt;div&gt;Page1 {{ $route.query.id }}&lt;/div&gt;'}
+</code></pre>
+<p>还有另一种方式：</p>
+<pre><code class="language-html">&lt;!-- 注意 to 前面需要加 : 即使用了 v-bind --&gt;
+&lt;router-link :to=&quot;{path: '/page1/123'}&quot;&gt;Go to Page1&lt;/router-link&gt;
+</code></pre>
+<pre><code class="language-js">// 这里不是 query 而是 params
+const Page1 = { template: '&lt;div&gt;Page1 {{ $route.params.id }}&lt;/div&gt;'}
+// 还需要修改 routes
+const routes = [
+    { path: 'page1/:id', component: Page1 },
+    { path: '/page2', component: Page2 }
+]
+</code></pre>
+<p><strong>重定向页面</strong><br>
+输入一个不存在的路由，Vue-Router 就会无法匹配到，这时候应当默认返回首页，就需要用到重定向匹配，在 * 上面的路径都没被匹配到时，重定向至 /page1 对应的组件</p>
+<pre><code class="language-js">const routes = [
+    { path: '/page1', component: Page1 },
+    { path: '/page2', component: Page2 },
+    {path: '*', redirect: '/page1'}
+]
 </code></pre>
 <h2 id="vuex">Vuex</h2>
 
@@ -590,8 +725,8 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/vue/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1657706129762&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657706129762 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1657775333937&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657775333937 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -705,7 +840,7 @@ Vue-Router 的默认模式，特点是 URL 始终带着 #。浏览器的原生�
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657706129762);
+                    newDate.setTime(1657775333937);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
