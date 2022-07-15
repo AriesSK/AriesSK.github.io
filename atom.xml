@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-15T06:55:52.187Z</updated>
+    <updated>2022-07-15T12:17:23.294Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -728,7 +728,249 @@ const routes = [
 这些复杂的应用场景就需要依靠 Vuex 来解决<br>
 <img src="https://AriesSK.github.io/post-images/1657809816279.png" alt="" loading="lazy"><br>
 虚线框中的部分就是 Vuex 生效的部分，Vue 组件通过 Dispatch 关键字触发 Actions，再通过 Commit 调用 Mutation 里的方法修改 State 数据，组件中如果有依赖 Store 里的数据，就触发 Render 重绘，形成了一个闭环</p>
-<p><strong>State</strong></p>
+<p><strong>State</strong><br>
+所有状态都被存放在 State 中，类似 Vue 组件中的 data 属性，State 面向整个应用，data 针对单个组件。在 Vue 入口页构造 Vue 实例的时候引入 store，就可以在组件中通过 this.$store.state 拿到</p>
+<p><strong>Getter</strong><br>
+类似于 Vue 组件中的 computed 属性，计算一些需要二次改造的数据，比如使用 filter 过滤，可以在 store 中定义 getter 属性，state 数据作为参数传入：</p>
+<pre><code class="language-js">const store = new Vuex.Store({
+    state: {
+        todos: [
+            { id: 1, text: '...', done: true },
+            { id: 2, text: '...', done: false }
+        ]
+    },
+    getters: {
+        doneTodos: state =&gt; {
+            return state.todos.filter(todo =&gt; todo.done);
+        },
+        // 还可以接收其他 getters 作为参数
+        doneTodesCount: (state, getters) =&gt; {
+            return getters.doneTodos.length; // 1
+        }
+    }
+})
+</code></pre>
+<p>在组件中通过如下访问：</p>
+<pre><code class="language-js">this.$store.getters.doneTodos; // [{ id: 1, text: '...', done: true }]
+</code></pre>
+<p><strong>Mutation</strong><br>
+修改 State 状态需要触发一些方法，这些方法放在 mutations 属性中，mutations 属性中的方法能够接收两个参数，第一个是 state，包含所有的状态值；第二个是提交载荷 Playload，在外部通过 store.commit 方法触发 mutations 时额外带入的值：</p>
+<pre><code class="language-js">const store = new Vuex.Store({
+    state: {
+        count: 1
+    },
+    mutations: {
+        increment (state) {
+            state.count++;
+        }
+    }
+})
+store.commit('increment'); // 无载荷触发
+
+const store = new Vuex.Store({
+    state: {
+        count: 1
+    },
+    mutations: {
+        increment (state, n) {
+            state.count += n;
+        }
+    }
+})
+store.commit('increment', 10); // 带载荷触发
+</code></pre>
+<p><strong>Action</strong><br>
+与 Mutation 类似，不过 Action 是提交 mutation 而不是直接修改 State。Action 有异步的能力，能够在请求异步数据后再触发状态的更新：</p>
+<pre><code class="language-js">const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state, data) {
+      state.count += data.length;
+    }
+  },
+  actions: {
+    // 定义一个异步函数，等待 getData 获值后继续执行 commit
+    async increment (ctx) {
+      const data = await getData();
+      ctx.commit('increment', data);
+    }
+  }
+})
+store.dispatch('increment'); // 分发 Action
+</code></pre>
+<p><strong>Module</strong><br>
+给状态分模块管理：</p>
+<pre><code class="language-js">// 模块 A 的状态及触发更新的方法
+const moduleA = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}           
+// 模块 B 的状态及触发更新的方法
+const moduleB = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+}
+// modules 方法可以将 store 分割成模块，每个模块可以定义自己的 state、getter、mutation、action
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+})
+store.state.a // moduleA 的状态
+store.state.b // moduleB 的状态
+</code></pre>
+<p><strong>实例</strong><br>
+引入静态资源时，Vuex 要在 Vue 的<strong>后面</strong>，否则会报错，这是因为 Vuex 内部依赖 Vue<br>
+通过 Vuex.Store 生成实例建议使用<code>strict: true</code>严格模式，减少代码紊乱<br>
+使用 Mutation 直接修改状态：</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue/2.6.11/vue.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vuex/3.1.3/vuex.min.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;Vuex&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;div&gt;{{ $store.state.count }}&lt;/div&gt;
+    &lt;button @click=&quot;add&quot;&gt;加1&lt;/button&gt;
+    &lt;button @click=&quot;dec&quot;&gt;减1&lt;/button&gt;
+  &lt;div&gt;
+  &lt;script&gt;
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      // 开启严格模式，开启严格模式后，必须通过 mutation 来修改状态。
+      strict: true,
+      // 触发 state 中的 count 加减运算的方法
+      mutations: {
+        add(state) {
+          state.count += 1
+        },
+        dec(state) {
+          state.count -= 1
+        }
+      },
+      getters: {
+        // 过滤偶数的 getter，没用到
+        filterEven: state =&gt; {
+          return !(state.count % 2)
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+      store, // 将 Vuex 生成的实例作为 Vue 生成实例的参数
+      data: {
+        message: 'Hello Vue!'
+      },
+      methods: {
+        add() {
+          this.$store.commit('add')
+        },
+        dec() {
+          this.$store.commit('dec')
+        }
+      }
+    }).$mount('#app');
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>使用 Action 异步改变状态：</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vue/2.6.11/vue.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdn.bootcss.com/vuex/3.1.3/vuex.min.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;Vuex&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;div&gt;{{ $store.state.count }}&lt;/div&gt;
+    &lt;button @click=&quot;asyncAdd&quot;&gt;异步加1&lt;/button&gt;
+    &lt;button @click=&quot;asyncDec&quot;&gt;异步减1&lt;/button&gt;
+  &lt;div&gt;
+  &lt;script&gt;
+    // 模拟请求数据，延迟 2 秒返回数据
+    function AsyncData() {
+        // Promise.resolve(x) 用于将字面量或对象封装成 Promise 实例
+      return new Promise((resolve, reject) =&gt; {
+        setTimeout(() =&gt; {
+          resolve(1)
+        }, 2000)
+      })
+    }
+
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      // 开启严格模式，开启严格模式后,必须通过 mutation 来修改状态
+      strict: true,
+      mutations: {
+        add(state, num) {
+          state.count += num
+        },
+        dec(state, num) {
+          state.count -= num
+        }
+      },
+      actions: {
+        // async await 异步获取
+        // async 函数返回一个 Promise 对象
+        // 参数 ctx 是 context 的缩写，代表着上下文
+        async add(ctx) {
+            // await 是个运算符，await 表达式的结果取决于后面的内容
+            // 如果后面不是 Promise 对象，则表达式结果就是后面的内容
+            // 如果后面是 Promise 对象，则阻塞后面的代码，等待 Promise 对象 resolve，得到其值作为表达式的结果
+            // AsyncData() 返回一个 Promise 对象，因此 await 会等待
+          const num = await AsyncData()
+          ctx.commit('add', num)
+        },
+        async dec(ctx) {
+          const num = await AsyncData()
+          ctx.commit('dec', num)
+        }
+      },
+      getters: {
+        filterOdd: state =&gt; {
+          return !(state.count % 2)
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+      store,
+      data: {
+        message: 'Hello Vue!'
+      },
+      methods: {
+        asyncAdd() {
+            // 注意使用 Action 调用的是 dispatch
+          this.$store.dispatch('add')
+        },
+        asyncDec() {
+          this.$store.dispatch('dec')
+        }
+      }
+    }).$mount('#app');
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>不是所有项目都要用 Vuex，对于小型的项目反而会使项目变得繁琐</p>
 ]]></content>
     </entry>
     <entry>
