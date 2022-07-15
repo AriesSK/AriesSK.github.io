@@ -197,118 +197,73 @@
     
             <div class="main">
                 <div class="container">
-                    <article class="post-wrap">
-                        <header class="post-header">
-                            <h1 class="post-title">
-                                64. 求1+2+...+n
-                            </h1>
+                    <div class="post-wrap archive">
+                        
                             
-                                <!--en-->
-                                <div class="post-meta en">
-                                    Author:
-                                    <a itemprop="author" rel="author" href="/">
-                                        🐧AriesSK
-                                    </a>
-                                    <span class="post-time">
-                                Date: <a href="#">2022-06-27</a>
-                            </span>
-                                    <span class="post-readtime">Reading Time:<a
-                                    href="#">0.8
-                                    mins</a></span>
-                                    <span class="post-words">words:<a href="#">210</a></span>
+                                <h3>
+                                    2022
+                                </h3>
+                                
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://AriesSK.github.io/tag/mHlERrHpb/">递归</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
-                                
-                            </span>
-                                        
-                                </div>
-                                
-                        </header>
-                        
-                        <div class="post-content">
-                            <h2 id="知识点">知识点</h2>
-<h3 id="逻辑运算符的短路特性">逻辑运算符的短路特性</h3>
-<p><code>&amp;&amp;</code>：对于表达式<code>A &amp;&amp; B</code>，如果<code>A</code>为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">false</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span>，则整个表达式已经可以被确定为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">false</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span>，就不会执行<code>B</code>；<br>
-<code>||</code>：对于表达式<code>A || B</code>，如果<code>A</code>为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>，则整个表达式已经可以被确定为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>，就不会执行<code>B</code>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="逻辑符短路">逻辑符短路</h3>
-<p>该题的常规解法有三种：平均计算、迭代和递归。第一种需要乘除法，第二种需要循环，第三种需要判断语句。前两种无法替代，因此需要一种能够替代判断语句用来终止递归的方法，可以使用<strong>逻辑运算符的短路特性</strong>，将递归出口作为<code>A &amp;&amp; B</code>中的<code>A</code>，函数主体作为<code>B</code>：</p>
-<pre><code class="language-js">ar sumNums = function(n) {
-    n &amp;&amp; (n += sumNums(n - 1));
-    return n;
-};
-</code></pre>
 
-                        </div>
-                        
-                                
-                                                    
-                                                        <!-- Share-->
-                                                        <span style="margin-right:15px">
-                                                    <i class="post-share"></i>
-                                                    <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_64/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_64/&sharesource=qzone&title=64. 求1+2+...+n&pics=https://AriesSK.github.io/images/avatar.png?v=1657868130288&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_64/&sharesource=weibo&title=64. 求1+2+...+n + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657868130288 "><i class="fa fa-weibo "></i></a>
-                                                        
-                                                                </span>
-                                                                <!--en-->
-                                                                <section class="post-tags en ">
-                                                                    <div>
-                                                                        <span>Tag(s):</span>
-                                                                        <span class="tag ">
-                        
-                        
-                        <a href="https://AriesSK.github.io/tag/mHlERrHpb/">#
-                                                递归
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
-                                                算法
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
-                                                剑指offer
-                                                    </a>
-                                                    
-                                                        
-                                                            </span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="javascript:window.history.back();">back</a>
-                                                                        <span>&dot;</span>
-                                                                        <a href="#">home</a>
-                                                                    </div>
-                                                                </section>
-                                                                
-                                                                                <!---->
-                                                                                <section class="post-nav">
-                                                                                    
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_68_i/">
-                                                                                            68 - I. 二叉搜索树的最近公共祖先
-                                                                                        </a>
-                                                                                        
-                                                                                            
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_55_ii/">
-                                                                                                    55 - II. 平衡二叉树
-                                                                                                </a>
-                                                                                                
-                                                                                </section>
-                    </article>
-                </div>
-                
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/zhishidian/">
+                                                #每日更新# 知识点导航
+                                            </a>
+                                            <span class="archive-item-date">2022-12-31 </span>
+                                        </article>
+                                        
                                             
+                                    
+
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/vue/">
+                                                Vue
+                                            </a>
+                                            <span class="archive-item-date">2022-12-31 </span>
+                                        </article>
+                                        
+                                            
+                                    
+
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/less/">
+                                                Less
+                                            </a>
+                                            <span class="archive-item-date">2022-12-31 </span>
+                                        </article>
+                                        
+                                            
+                                    
+
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/html-css/">
+                                                HTML + CSS
+                                            </a>
+                                            <span class="archive-item-date">2022-12-24 </span>
+                                        </article>
+                                        
+                                            
+                                    
+
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+                                                前端面试
+                                            </a>
+                                            <span class="archive-item-date">2022-07-31 </span>
+                                        </article>
+                                        
+                                            
+                                                
+                    </div>
+                    <div class="pagination-container">
+                        
+                                                
+                                                        
+                                                                
+                    </div>
+                </div>
             </div>
-    </div>
-    </div>
     </div>
     
     <div id="player"></div>
@@ -395,8 +350,5 @@
                 </script>
         </div>
 </body>
-<script>
-    scroll();
-</script>
 
 </html>

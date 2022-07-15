@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657810065437" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1657868130288" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657810065437" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1657868130288" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,10 +213,17 @@
                                 Date: <a href="#">2022-07-31</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">4.3
+                                    href="#">5.9
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">1147</a></span>
+                                    <span class="post-words">words:<a href="#">1589</a></span>
                                     
+                                        <span class="post-category">
+                                Category:
+                                
+                                <a href="https://AriesSK.github.io/tag/DBC_JaLfQ/">前端</a>
+                                
+                            </span>
+                                        
                                 </div>
                                 
                         </header>
@@ -250,6 +257,15 @@
 <li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
 <li>许多移动端设备不兼容</li>
 <li>增加服务器的 http 请求，大型网站不可取</li>
+</ul>
+<p><strong>Web Components</strong><br>
+提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
+包含四部分：</p>
+<ul>
+<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
+<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
+<li>HTML Templates：模板</li>
+<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
 </ul>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
@@ -300,16 +316,27 @@ js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态
 searchValue 不设置会查找字符串 'undefined'<br>
 fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
 <strong>严格区分大小写</strong></p>
-<p><strong>Web Components</strong><br>
-提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
-包含四部分：</p>
+<p><strong>变量提升</strong><br>
+js 是单线程语言，是按顺序执行，但是一段一段地分析执行，代码执行前的编译阶段会检测到所有的变量和函数声明，添加到叫做 Lexical Environment 的 js 数据结构的内存中，所以能够在真正被声明前使用</p>
+<p><strong>HashMap 和 Array</strong><br>
+HashMap 散列表 是 数组 + 链表</p>
 <ul>
-<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
-<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
-<li>HTML Templates：模板</li>
-<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
+<li>查找效率：HashMap 根据 hashcode 直接算出 index，在数组每个下标的链表只有一个元素的时候，能达到 O(1)；Array 二分查找，受数组长度影响较大</li>
+<li>扩容数量：HashMap 初始长度 16，每次扩容申请双倍，扩容次数少；Array 小于 4 申请 4，小于 8 申请 8，大于 8 申请 size * 1.5，申请空间少</li>
+<li>扩容效率：HashMap 扩容重新计算每个元素的位置，然后放到新的位置；Array 直接赋值数组，效率更高</li>
+<li>内存消耗：Array 使用了独特的方式重复利用因为数组扩容遗留的数组空间，HashMap 没有</li>
 </ul>
-<hr>
+<p>总的来说，数据量小且使用频繁使用 Array，数据量大使用 HashMap</p>
+<p><strong>HashMap 和 Object</strong><br>
+两者累次允许按键存取值，删除键，检测键是否有值，不过 Map 有些优势：</p>
+<ul>
+<li>意外的键：Map 默认不包含任何键；Object 有原型，可能与插入的键名冲突</li>
+<li>键的类型：Map 键可以是任意值；Object 只能是 String 或 Symbol</li>
+<li>键的顺序：Map 键是有序的，迭代时以<strong>插入顺序</strong>返回；Object 无序</li>
+<li>Size：Map 通过 size 容易获取键值对个数；Object 手动计算</li>
+<li>迭代：Map 可直接迭代；获取 Object 的键值后才能迭代</li>
+<li>性能：Map 在频繁增删时性能更优；Object 无优化</li>
+</ul>
 
                         </div>
                         
@@ -320,8 +347,8 @@ fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/qian-duan-mian-shi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1657810065437&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657810065437 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1657868130288&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657868130288 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -330,6 +357,12 @@ fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度
                                                                         <span>Tag(s):</span>
                                                                         <span class="tag ">
                         
+                        
+                        <a href="https://AriesSK.github.io/tag/DBC_JaLfQ/">#
+                                                前端
+                                                    </a>
+                                                    
+                                                        
                                                             </span>
                                                                     </div>
                                                                     <div>
@@ -439,7 +472,7 @@ fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657810065437);
+                    newDate.setTime(1657868130288);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
