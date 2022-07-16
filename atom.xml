@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-15T12:17:23.294Z</updated>
+    <updated>2022-07-16T04:30:45.077Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -136,6 +136,10 @@
 <li>递归总结 —— <a href="https://ariessk.github.io/post/jianzhi_24/">24. 反转链表</a></li>
 <li>迭代与递归的空间复杂度 —— <a href="https://ariessk.github.io/post/jianzhi_68_i/">68 - I. 二叉搜索树的最近公共祖先</a></li>
 </ul>
+<p><strong>双指针</strong></p>
+<ul>
+<li>双指针 剪枝 —— <a href="https://ariessk.github.io/post/top_11/">11. 盛水最多的容器</a></li>
+</ul>
 <p><strong>二分法</strong></p>
 <ul>
 <li>二分法总结 —— <a href="https://ariessk.github.io/post/jianzhi_53_i/">53 - I. 在排序数组中查找数字 I</a></li>
@@ -210,6 +214,10 @@
 <p><strong>回文串</strong></p>
 <ul>
 <li>中心扩散法 —— <a href="https://ariessk.github.io/post/top_5/">5. 最长回文子串</a></li>
+</ul>
+<p><strong>模拟</strong></p>
+<ul>
+<li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
 ]]></content>
     </entry>
@@ -1655,6 +1663,90 @@ HashMap 散列表 是 数组 + 链表</p>
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[13. 罗马数字转整数]]></title>
+        <id>https://AriesSK.github.io/post/13-luo-ma-shu-zi-zhuan-zheng-shu/</id>
+        <link href="https://AriesSK.github.io/post/13-luo-ma-shu-zi-zhuan-zheng-shu/">
+        </link>
+        <updated>2022-07-16T04:22:32.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="模拟">模拟</h3>
+<p>根据题目表述进行筛选提取关键要素，按需求书写代码解决实际问题。<br>
+简单来说就是<strong>照着葫芦画瓢</strong>，按着题目意思来。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="模拟-2">模拟</h3>
+<p>模拟读取的过程即可，正常是大数在前小数在后，加上每一个字符代表的数值，若发现逆序则改加为减：</p>
+<pre><code class="language-js">var romanToInt = function(s) {
+    let res = 0;
+    const table = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000]]);
+    for (let i = 0; i &lt; s.length - 1; ++i) {
+        const m = table.get(s.charAt(i)), n = table.get(s.charAt(i + 1));
+        res += m &gt;= n ? m : -m; 
+    }
+    res += table.get(s.charAt(s.length - 1));
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[13. 罗马数字转整数]]></title>
+        <id>https://AriesSK.github.io/post/top_13/</id>
+        <link href="https://AriesSK.github.io/post/top_13/">
+        </link>
+        <updated>2022-07-16T04:22:32.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中">JavaScript 中</h3>
+<p>方法如下：</p>
+<pre><code class="language-js">
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="模拟">模拟</h3>
+<p>法一：</p>
+<pre><code class="language-js">var romanToInt = function(s) {
+    let res = 0;
+    const table = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000]]);
+    for (let i = 0; i &lt; s.length - 1; ++i) {
+        const m = table.get(s.charAt(i)), n = table.get(s.charAt(i + 1));
+        res += m &gt;= n ? m : -m; 
+    }
+    res += table.get(s.charAt(s.length - 1));
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[11. 盛水最多的容器]]></title>
+        <id>https://AriesSK.github.io/post/top_11/</id>
+        <link href="https://AriesSK.github.io/post/top_11/">
+        </link>
+        <updated>2022-07-16T03:13:58.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="双指针-剪枝">双指针 剪枝</h3>
+<p>双指针的解法，加上剪枝的思想。<br>
+对于本题，暴力解法遍历考虑每两块板构成的方案，而这些方案中有许多不可能成为最大值的方案，所以全多遍历造成了时间复杂度的提升。<br>
+而双指针移动短板的方法就是在不断排除不可能成为最大值的方案，剪去了考虑这些方案的时间复杂度，获取可能的方案中的最大值，得到最终解。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="双指针">双指针</h3>
+<p>设定左右指针 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，由于短板决定盛水面积，得到面积公式：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mo>(</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>)</mo><mo>=</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo separator="true">,</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>r</mi><mo>]</mo><mo>)</mo><mo>∗</mo><mo>(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">S(l, r) = min(height[l], height[r]) * (r - l)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span></span></span></span></span></p>
+<p>使 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 分别从两端开始向内遍历至相遇，排除不可能成为最大值的方案，记录可能方案中的最大值即为所求结果。<br>
+在遍历过程中应当移动<strong>短板</strong>，也就是指向高度较低的指针。因为短板决定盛水面积，移动长板只会使盛水的长度变小导致面积变小；而短板在移动过程中可能变大使盛水面积变大。</p>
+<pre><code class="language-js">var maxArea = function(height) {
+    let l = 0, r = height.length - 1, res = 0;
+    while (l &lt; r) {
+        res = height[l] &lt; height[r] ? Math.max(res, (r - l) * height[l++]) : Math.max(res, (r - l) * height[r--]);
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[10. 正则表达式匹配]]></title>
         <id>https://AriesSK.github.io/post/top_10/</id>
         <link href="https://AriesSK.github.io/post/top_10/">
@@ -1791,138 +1883,6 @@ HashMap 散列表 是 数组 + 链表</p>
     }
     res *= sym;
     return res &gt;= 0 ? Math.min(res, 2**31 - 1) : Math.max(res, -(2**31));
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[7. 整数反转]]></title>
-        <id>https://AriesSK.github.io/post/top_7/</id>
-        <link href="https://AriesSK.github.io/post/top_7/">
-        </link>
-        <updated>2022-07-12T04:40:35.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>对于大数的问题往往可以通过转化为字符串来解决。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="字符串">字符串</h3>
-<p>由于题目要求不能存储超过上限的数字，所以不能直接反转后判断是否超过上限，只能转成字符串后逐位判断：</p>
-<ul>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi><mo>&lt;</mo><mi mathvariant="normal">上</mi><mi mathvariant="normal">限</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">数字位数 &lt; 上限位数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">限</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span></span></span></span>，不会越界，直接反转；</li>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi><mo>=</mo><mi mathvariant="normal">上</mi><mi mathvariant="normal">限</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">数字位数 = 上限位数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">限</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span></span></span></span>，从数字的最后一位和上限的第一位开始逐个比较：数字大则越界，返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>；否则不越界，反转数字。</li>
-</ul>
-<pre><code class="language-js">var reverse = function(x) {
-    let sym = 1, num = &quot;&quot;;
-    if (x &lt; 0) {
-        sym = -1;
-        x = -x;
-        num += 2**31;
-    }
-    else num += 2**31 - 1;
-    const n = num.length; 
-    x += &quot;&quot;; 
-    if (x.length === n) {
-        for (let i = 0; i &lt; n; ++i) {
-            if (x.charAt(n - 1 - i) === num.charAt(i)) continue;
-            else if (x.charAt(n - 1 - i) &gt; num.charAt(i)) return 0;
-            else break;
-        }
-    }
-    return x.split(&quot;&quot;).reverse().join(&quot;&quot;) * sym;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[5. 最长回文子串]]></title>
-        <id>https://AriesSK.github.io/post/top_5/</id>
-        <link href="https://AriesSK.github.io/post/top_5/">
-        </link>
-        <updated>2022-07-12T02:30:56.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="回文串的判断">回文串的判断</h3>
-<p><strong>重要性质：<strong>对于一个回文串，如果其长度大于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>，那么删去其首尾两个字符，它仍是回文串。<br>
-<strong>回文中心：<strong>回文串的中心字符，可以是</strong>一个字符</strong>或者</strong>两个相同的字符</strong>。<br>
-可以设定回文中心，然后对其进行扩展，在两端个新增一个字符，若两个字符相同则扩展成功，到无法扩展后就得到了该回文中心的最长回文串。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一动态规划">法一：动态规划</h3>
-<p>根据<strong>重要性质</strong>，不难推出状态转移方程：<br>
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i, j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span> 表示 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">s[i, j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span> 是否是回文串，则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>]</mo><mo>=</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo><mi mathvariant="normal">且</mi><mo>(</mo><mi>s</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>s</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">dp[i, j] = dp[i + 1, j - 1] 且 (s[i] = s[j])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mord cjk_fallback">且</span><span class="mopen">(</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></p>
-<h3 id="法二中心扩散法">法二：中心扩散法</h3>
-<p>遍历字符串，把每个字符作为回文串的<strong>回文中心</strong>尝试扩散，记录最长的回文串：</p>
-<pre><code class="language-js">var longestPalindrome = function(s) {
-    let res = &quot;&quot;;
-    for (let i = 0; i &lt; s.length; ++i) {
-        // 回文中心有两种：单字符 和 相同双字符，每次遍历两种均考虑，取长的
-        const s1 = helper(i, i), s2 = helper(i, i + 1);
-        const s = s1.length &gt; s2.length ? s1 : s2;
-        res = s.length &gt; res.length ? s: res;
-    }
-    return res;
-
-    function helper(l, r) {
-        while (l &gt;= 0 &amp;&amp; r &lt; s.length &amp;&amp; s.charAt(l) === s.charAt(r)) {
-            --l;
-            ++r;
-        }
-        return s.slice(l + 1, r);
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[4. 寻找两个正序数组的中位数]]></title>
-        <id>https://AriesSK.github.io/post/top_4/</id>
-        <link href="https://AriesSK.github.io/post/top_4/">
-        </link>
-        <updated>2022-07-11T03:46:07.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="中位数的小技巧">中位数的小技巧</h3>
-<p>求中位数一般需要分奇偶两种情况，对于长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">nums</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span>：</p>
-<ul>
-<li>若 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 为奇数，则中位数为第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(n + 1) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 个；</li>
-<li>若 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 为偶数，则中位数为第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 个和第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(n + 2) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 个数的平均值；<br>
-事实上可以<strong>不分奇偶</strong>计算第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(n + 1) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(n + 2) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 个数（均向下取整）的平均值，对于奇数这两个是同一个数，对于偶数则是对应的两个数，与上面的等价。<br>
-这样写的好处是转换为代码后比较精简。</li>
-</ul>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一合并有序数组">法一：合并有序数组</h3>
-<p>简单，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m + n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，不满足题目要求。</p>
-<h3 id="法二二分法">法二：二分法</h3>
-<p>这题的二分法很难理解，量力而行吧。<br>
-题目要求时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(log(m + n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，这个时间复杂度就容易想到要用二分法。<br>
-根据<strong>小技巧</strong>，需要在两个数组中找到第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(m+n+1) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 个和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>+</mo><mn>2</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(m+n+2) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 个数并求平均值，因此转换为了求第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span> 小个数的问题。<br>
-本题二分法的条件是（所有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">/</mi></mrow><annotation encoding="application/x-tex">/</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span></span></span></span> 均表示整数除法）：</p>
-<ul>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn><mo>]</mo><mo>&lt;</mo><mo>=</mo><mi>B</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">A[k / 2 − 1] &lt;= B[k / 2 − 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，则比 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">A[k / 2−1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 小的数<strong>最多</strong>只有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span> 的前 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k / 2 − 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span></span></span></span> 个数和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span> 的前 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k / 2 − 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span></span></span></span> 个数，即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi mathvariant="normal">−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">k−2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">−</span><span class="mord">2</span></span></span></span> 个，因此 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">A[k / 2 − 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 不可能是第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 个数，它之前的也都可以全部排除；</li>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn><mo>]</mo><mo>&gt;</mo><mi>B</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">A[k / 2 − 1] &gt; B[k / 2 − 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，则排除 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi><mo>[</mo><mn>0</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">B[0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">B[k / 2 - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>。</li>
-</ul>
-<p>三种特殊情况，后两种是递归出口：</p>
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mi mathvariant="normal">−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k / 2 − 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mord">−</span><span class="mord">1</span></span></span></span> 超过了某一个数组的长度，则另一个数组的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>k</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[k / 2 - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">/</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 和前面的数均可以排除，因为比其小的数不可能达到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个；</li>
-<li>一个数组为空，则返回另一个数组的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 小元素；</li>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 为一，即找最小的数，返回两个数组首元素的最小值即可。</li>
-</ul>
-<pre><code class="language-js">var findMedianSortedArrays = function(nums1, nums2) {
-    const m = nums1.length, n = nums2.length, l = m + n + 1 &gt;&gt; 1, r = m + n + 2 &gt;&gt; 1;
-    return (findKth(nums1, 0, nums2, 0, l) + findKth(nums1, 0, nums2, 0, r)) / 2;
-
-    function findKth(nums1, i, nums2, j, k) {
-        // 其一为空，返回另一个的第 k 小
-        if (i &gt;= nums1.length) return nums2[j + k - 1];
-        if (j &gt;= nums2.length) return nums1[i + k - 1];
-        // 为 1，返回最小首元素
-        if (k === 1) return Math.min(nums1[i], nums2[j]);
-        // 超过数组长度，则赋最大值以保证排除另一个数组的前 k / 2 个元素
-        const mid1 = (i + k / 2 - 1 &lt; nums1.length) ? nums1[i + (k &gt;&gt; 1) - 1] : Number.MAX_SAFE_INTEGER;
-        const mid2 = (j + k / 2 - 1 &lt; nums2.length) ? nums2[j + (k &gt;&gt; 1) - 1] : Number.MAX_SAFE_INTEGER;
-        // 小的数组的前 k / 2 个元素均可以排除，递归排除剩余的
-        if (mid1 &lt; mid2) return findKth(nums1, i + (k &gt;&gt; 1), nums2, j, k - (k &gt;&gt; 1));
-        else return findKth(nums1, i, nums2, j + (k &gt;&gt; 1), k - (k &gt;&gt; 1));
-    }
 };
 </code></pre>
 ]]></content>
