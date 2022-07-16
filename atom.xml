@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-16T04:30:45.077Z</updated>
+    <updated>2022-07-16T13:54:53.433Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -69,6 +69,7 @@
 <li>数字数组赋值 —— <a href="https://ariessk.github.io/post/jianzhi_56_ii/">56 - II. 数组中数字出现的次数 II</a></li>
 <li>创建二维数组的问题 —— <a href="https://ariessk.github.io/post/jianzhi_29/">29. 顺时针打印矩阵</a></li>
 <li>字符数组的 join —— <a href="https://ariessk.github.io/post/jianzhi_38/">38. 字符串的排列</a></li>
+<li>判断数组是否包含某元素 —— <a href="https://ariessk.github.io/post/top_2/">2. 两数相加</a></li>
 </ul>
 <p><strong>栈</strong></p>
 <ul>
@@ -1664,8 +1665,8 @@ HashMap 散列表 是 数组 + 链表</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[13. 罗马数字转整数]]></title>
-        <id>https://AriesSK.github.io/post/13-luo-ma-shu-zi-zhuan-zheng-shu/</id>
-        <link href="https://AriesSK.github.io/post/13-luo-ma-shu-zi-zhuan-zheng-shu/">
+        <id>https://AriesSK.github.io/post/top_13/</id>
+        <link href="https://AriesSK.github.io/post/top_13/">
         </link>
         <updated>2022-07-16T04:22:32.000Z</updated>
         <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
@@ -1676,34 +1677,6 @@ HashMap 散列表 是 数组 + 链表</p>
 <h2 id="题解">题解</h2>
 <h3 id="模拟-2">模拟</h3>
 <p>模拟读取的过程即可，正常是大数在前小数在后，加上每一个字符代表的数值，若发现逆序则改加为减：</p>
-<pre><code class="language-js">var romanToInt = function(s) {
-    let res = 0;
-    const table = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000]]);
-    for (let i = 0; i &lt; s.length - 1; ++i) {
-        const m = table.get(s.charAt(i)), n = table.get(s.charAt(i + 1));
-        res += m &gt;= n ? m : -m; 
-    }
-    res += table.get(s.charAt(s.length - 1));
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[13. 罗马数字转整数]]></title>
-        <id>https://AriesSK.github.io/post/top_13/</id>
-        <link href="https://AriesSK.github.io/post/top_13/">
-        </link>
-        <updated>2022-07-16T04:22:32.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中">JavaScript 中</h3>
-<p>方法如下：</p>
-<pre><code class="language-js">
-</code></pre>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟">模拟</h3>
-<p>法一：</p>
 <pre><code class="language-js">var romanToInt = function(s) {
     let res = 0;
     const table = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000]]);
@@ -1883,6 +1856,44 @@ HashMap 散列表 是 数组 + 链表</p>
     }
     res *= sym;
     return res &gt;= 0 ? Math.min(res, 2**31 - 1) : Math.max(res, -(2**31));
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[7. 整数反转]]></title>
+        <id>https://AriesSK.github.io/post/top_7/</id>
+        <link href="https://AriesSK.github.io/post/top_7/">
+        </link>
+        <updated>2022-07-12T04:40:35.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>对于大数的问题往往可以通过转化为字符串来解决。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="字符串">字符串</h3>
+<p>由于题目要求不能存储超过上限的数字，所以不能直接反转后判断是否超过上限，只能转成字符串后逐位判断：</p>
+<ul>
+<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi><mo>&lt;</mo><mi mathvariant="normal">上</mi><mi mathvariant="normal">限</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">数字位数 &lt; 上限位数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">限</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span></span></span></span>，不会越界，直接反转；</li>
+<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi><mo>=</mo><mi mathvariant="normal">上</mi><mi mathvariant="normal">限</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">数字位数 = 上限位数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">限</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span></span></span></span>，从数字的最后一位和上限的第一位开始逐个比较：数字大则越界，返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>；否则不越界，反转数字。</li>
+</ul>
+<pre><code class="language-js">var reverse = function(x) {
+    let sym = 1, num = &quot;&quot;;
+    if (x &lt; 0) {
+        sym = -1;
+        x = -x;
+        num += 2**31;
+    }
+    else num += 2**31 - 1;
+    const n = num.length; 
+    x += &quot;&quot;; 
+    if (x.length === n) {
+        for (let i = 0; i &lt; n; ++i) {
+            if (x.charAt(n - 1 - i) === num.charAt(i)) continue;
+            else if (x.charAt(n - 1 - i) &gt; num.charAt(i)) return 0;
+            else break;
+        }
+    }
+    return x.split(&quot;&quot;).reverse().join(&quot;&quot;) * sym;
 };
 </code></pre>
 ]]></content>
