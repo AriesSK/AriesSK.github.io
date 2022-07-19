@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-16T13:54:53.433Z</updated>
+    <updated>2022-07-19T03:28:26.702Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -89,6 +89,7 @@
 <p><strong>链表</strong></p>
 <ul>
 <li>对象模拟链表 —— <a href="https://ariessk.github.io/post/jianzhi_35/">35. 复杂链表的复制</a></li>
+<li>链表删除 —— <a href="https://ariessk.github.io/post/top_19/">19. 删除链表的倒数第 N 个节点</a></li>
 </ul>
 <p><strong>树</strong></p>
 <ul>
@@ -105,6 +106,7 @@
 <li>slice substr 补充说明 字符 ASCII 范围 —— <a href="https://ariessk.github.io/post/jianzhi_48/">48. 最长不含重复字符的子字符串</a></li>
 <li>操作函数的时间复杂度 split 说明 —— <a href="https://ariessk.github.io/post/jianzhi_58_i/">58 - I. 翻转字符单词顺序</a></li>
 <li>判断数字字符 —— <a href="https://ariessk.github.io/post/jianzhi_67/">67. 把字符串转换为整数</a></li>
+<li>charAt 越界 —— <a href="https://ariessk.github.io/post/top_14/">14. 最长公共前缀</a></li>
 </ul>
 <p><strong>哈希表</strong></p>
 <ul>
@@ -140,6 +142,7 @@
 <p><strong>双指针</strong></p>
 <ul>
 <li>双指针 剪枝 —— <a href="https://ariessk.github.io/post/top_11/">11. 盛水最多的容器</a></li>
+<li>双指针 去重 —— <a href="https://ariessk.github.io/post/top_15/">15. 三数之和</a></li>
 </ul>
 <p><strong>二分法</strong></p>
 <ul>
@@ -158,6 +161,7 @@
 <li>前序 中序 后序遍历 —— <a href="https://ariessk.github.io/post/jianzhi_36/">36. 二叉搜索树与双向链表</a></li>
 <li>自顶向下与自底向上 —— <a href="https://ariessk.github.io/post/jianzhi_55_ii/">55 - II. 平衡二叉树</a></li>
 <li>前序 中序 后序遍历序列 —— <a href="https://ariessk.github.io/post/jianzhi_33/">33. 二叉搜索树的后序遍历序列</a></li>
+<li>字符串排列 —— <a href="https://ariessk.github.io/post/top_17/">17. 电话号码的字母组合</a></li>
 </ul>
 <p><strong>动态规划</strong></p>
 <ul>
@@ -980,6 +984,12 @@ store.state.b // moduleB 的状态
 &lt;/html&gt;
 </code></pre>
 <p>不是所有项目都要用 Vuex，对于小型的项目反而会使项目变得繁琐</p>
+<h2 id="前端鉴权">前端鉴权</h2>
+<p>前端鉴权，处理用户的鉴权信息的两种方式：<br>
+<strong>cookie</strong><br>
+cookie 用于存储变量，在前端请求网络资源或者后端接口时，请求头 Header 里都会带上当前域下的 cookie 信息，服务端通过检测请求头内的 cookie 判断当前用户的登录状态是否过期（或者 cookie是否错误），来判断当前用户能否成功地返回响应<br>
+<strong>token</strong><br>
+token 是服务器生成的一串随机字符串或 json 串，作为客户端进行资源请求的令牌。调用登录接口后，服务端返回给前端一个 token，之后将 token 存储到本地环境，每次前端请求接口的时候，都需要在请求头里带上 token 信息，并且 token 还可以在服务端设置过期时间，过期后返回前后端商量好的错误码，跳转到登录节点重新鉴权</p>
 ]]></content>
     </entry>
     <entry>
@@ -1664,6 +1674,165 @@ HashMap 散列表 是 数组 + 链表</p>
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[19. 删除链表的倒数第 N 个节点]]></title>
+        <id>https://AriesSK.github.io/post/top_19/</id>
+        <link href="https://AriesSK.github.io/post/top_19/">
+        </link>
+        <updated>2022-07-19T03:12:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="链表删除">链表删除</h3>
+<p>链表删除有两个要注意的点：</p>
+<ol>
+<li>要删除链表的一个节点，需要知道它的<strong>前一个</strong>节点，才能进行删除操作；</li>
+<li>根据上面这一点，可以发现删除头节点与删除别的节点不同，因为头节点没有前一个节点，这种情况可以设置一个**头指针（哑巴节点）**指向头节点，这样就可以不用单独处理头节点。</li>
+</ol>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="双指针">双指针</h3>
+<p>使用双指针，根据 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的值设置双指针的间距，然后保持该间距遍历链表至右指针为空，再进行删除操作，思路很简单，就要注意上面说的两个点：</p>
+<pre><code class="language-js">var removeNthFromEnd = function(head, n) {
+    const hptr = new ListNode(0, head);
+    let l = hptr, r = head;
+    while (n--) r = r.next;
+    while (r) {
+        l = l.next;
+        r = r.next;
+    }
+    const tmp = l.next;
+    l.next = tmp.next;
+    tmp.next = null;
+    return hptr.next;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[17. 电话号码的字母组合]]></title>
+        <id>https://AriesSK.github.io/post/top_17/</id>
+        <link href="https://AriesSK.github.io/post/top_17/">
+        </link>
+        <updated>2022-07-19T02:53:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="字符串排列的深度优先搜索">字符串排列的深度优先搜索</h3>
+<p>每次只考虑当前位的一种情况，然后考虑下一位直到形成一个完整的字符串，再回溯上来考虑上一位的其他情况，最终完成所有情况的遍历。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-回溯">深度优先搜索 回溯</h3>
+<p>每次固定一位，深度优先遍历，然后回溯上来考虑别的情况。<br>
+需要注意的就是回溯的时候要把字符串末尾的字符删除：</p>
+<pre><code class="language-js">var letterCombinations = function(digits) {
+    if (digits === &quot;&quot;) return [];
+    const res = [];
+    let str = &quot;&quot;;
+    const map = new Map([
+        [&quot;2&quot;, &quot;abc&quot;], [&quot;3&quot;, &quot;def&quot;], [&quot;4&quot;, &quot;ghi&quot;], [&quot;5&quot;, &quot;jkl&quot;], 
+        [&quot;6&quot;, &quot;mno&quot;], [&quot;7&quot;, &quot;pqrs&quot;], [&quot;8&quot;, &quot;tuv&quot;], [&quot;9&quot;, &quot;wxyz&quot;]
+    ]);
+    dfs(0);
+    return res;
+    
+    function dfs(x) {
+        if (x === digits.length) {
+            res.push(str);
+            return;
+        }
+        const s = map.get(digits.charAt(x));
+        for (let i = 0; i &lt; s.length; ++i) {
+            str += s.charAt(i);
+            dfs(x + 1);
+            str = str.slice(0, -1);
+        }
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[15. 三数之和]]></title>
+        <id>https://AriesSK.github.io/post/top_15/</id>
+        <link href="https://AriesSK.github.io/post/top_15/">
+        </link>
+        <updated>2022-07-18T03:53:11.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="双指针">双指针</h3>
+<p>在排序的前提下使用双指针，能够将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 的遍历时间复杂度降低至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="排序-双指针">排序 + 双指针</h3>
+<p>这道题的难点是要输出所有的解，并且要保证解不能重复：</p>
+<ul>
+<li>首先可以对数组进行排序，使最终的输出中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>≤</mo><mi>b</mi><mo>≤</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">a \leq b \leq c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>，这样可以保证对<strong>同样下标</strong>的数不会重复输出；</li>
+<li>但是不同下标但是值相同的情况仍有重复的可能，因此在遍历过程中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 在遍历时，要保证与之前的自己值不同，而保证了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 不同，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 必然不同。</li>
+</ul>
+<pre><code class="language-js">var threeSum = function(nums) {
+    if (nums.length &lt; 3) return [];
+    const res = [];
+    nums.sort((a, b) =&gt; a - b);
+    for (let i = 0; i &lt; nums.length - 2; ++i) {
+        // 最小数大于 0，后面无可能，终止
+        if (nums[i] &gt; 0) break;
+        // 排除 a 重复
+        if (i &amp;&amp; nums[i] === nums[i - 1]) continue;
+        let l = i + 1, r = nums.length - 1;
+        while (l &lt; r) {
+            if (nums[l] + nums[r] === -nums[i]) {
+				res.push([nums[i], nums[l], nums[r]]);
+                ++l;
+                // 排除 b 重复
+                while (nums[l] === nums[l - 1]) ++l;
+			}
+            else if (nums[l] + nums[r] &lt; -nums[i]) ++l;
+            else --r;
+        }
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[14. 最长公共前缀]]></title>
+        <id>https://AriesSK.github.io/post/top_14/</id>
+        <link href="https://AriesSK.github.io/post/top_14/">
+        </link>
+        <updated>2022-07-18T01:52:06.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="charat越界"><code>charAt()</code>越界</h3>
+<p>js 字符串中的<code>charAt()</code>函数中的值若是超过了字符串的长度，也就是越界，并不会报错，而是返回一个空字符串<code>&quot;&quot;</code>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一纵向对比">法一：纵向对比</h3>
+<p>逐个比较每个字符串相同位的字符：</p>
+<pre><code class="language-js">var longestCommonPrefix = function(strs) {
+    for (let i = 0; i &lt; strs[0].length; ++i) {
+        const s = strs[0].charAt(i);
+        for (const str of strs) {
+            if (str.charAt(i) !== s) return strs[0].slice(0, i);
+        }
+    }
+    return strs[0];
+};
+</code></pre>
+<h2 id="题解-2">题解</h2>
+<h3 id="法二纵向对比">法二：纵向对比</h3>
+<p>把第一个字符串作为最长公共前缀，与后一个字符串比较，更新最长公共前缀，再与下一个字符串比较，以此类推至遍历完或最长公共前缀为空字符串：</p>
+<pre><code class="language-js">var longestCommonPrefix = function(strs) {
+    let res = strs[0];
+    for (let i = 1; i &lt; strs.length; ++i) {
+        for (let j = 0; j &lt; res.length; ++j) {
+            if (res.charAt(j) !== strs[i].charAt(j)) {
+                res = res.slice(0, j);
+                break;
+            }
+        }
+        if (res === &quot;&quot;) break;
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[13. 罗马数字转整数]]></title>
         <id>https://AriesSK.github.io/post/top_13/</id>
         <link href="https://AriesSK.github.io/post/top_13/">
@@ -1686,214 +1855,6 @@ HashMap 散列表 是 数组 + 链表</p>
     }
     res += table.get(s.charAt(s.length - 1));
     return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[11. 盛水最多的容器]]></title>
-        <id>https://AriesSK.github.io/post/top_11/</id>
-        <link href="https://AriesSK.github.io/post/top_11/">
-        </link>
-        <updated>2022-07-16T03:13:58.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="双指针-剪枝">双指针 剪枝</h3>
-<p>双指针的解法，加上剪枝的思想。<br>
-对于本题，暴力解法遍历考虑每两块板构成的方案，而这些方案中有许多不可能成为最大值的方案，所以全多遍历造成了时间复杂度的提升。<br>
-而双指针移动短板的方法就是在不断排除不可能成为最大值的方案，剪去了考虑这些方案的时间复杂度，获取可能的方案中的最大值，得到最终解。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="双指针">双指针</h3>
-<p>设定左右指针 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，由于短板决定盛水面积，得到面积公式：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mo>(</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>)</mo><mo>=</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo separator="true">,</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>r</mi><mo>]</mo><mo>)</mo><mo>∗</mo><mo>(</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">S(l, r) = min(height[l], height[r]) * (r - l)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span></span></span></span></span></p>
-<p>使 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 分别从两端开始向内遍历至相遇，排除不可能成为最大值的方案，记录可能方案中的最大值即为所求结果。<br>
-在遍历过程中应当移动<strong>短板</strong>，也就是指向高度较低的指针。因为短板决定盛水面积，移动长板只会使盛水的长度变小导致面积变小；而短板在移动过程中可能变大使盛水面积变大。</p>
-<pre><code class="language-js">var maxArea = function(height) {
-    let l = 0, r = height.length - 1, res = 0;
-    while (l &lt; r) {
-        res = height[l] &lt; height[r] ? Math.max(res, (r - l) * height[l++]) : Math.max(res, (r - l) * height[r--]);
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[10. 正则表达式匹配]]></title>
-        <id>https://AriesSK.github.io/post/top_10/</id>
-        <link href="https://AriesSK.github.io/post/top_10/">
-        </link>
-        <updated>2022-07-14T02:29:17.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题与剑指offer的19题相同，具体思路请移步<a href="https://ariessk.github.io/post/jianzhi_19/">19. 正则表达式匹配</a>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="动态规划">动态规划</h3>
-<p>这道题新做了一遍，对代码进行了一些优化，并且有了些新的理解：</p>
-<pre><code class="language-js">var isMatch = function(s, p) {
-    const m = s.length, n = p.length;
-    const dp = new Array(m + 1);
-    for (let i = 0; i &lt; m + 1; ++i) dp[i] = new Array(n + 1).fill(false);
-    dp[0][0] = true;
-    // i 不能从 1 开始，因为 a 为空串可以匹配 p 的单字符和 * 的组合
-    for (let i = 0; i &lt; m + 1; ++i) {
-        // j 可以直接从 1 开始，因为 p 为空串无法匹配 a 的串
-        for (let j = 1; j &lt; n + 1; ++j) {
-            // 能够匹配的情况下尝试多匹配一个字符直到完全匹配或无法匹配，无法匹配就扔掉
-            if (p.charAt(j - 1) === &quot;*&quot;) dp[i][j] = helper(i, j - 1) ? dp[i][j] = dp[i - 1][j] || dp[i][j - 2] : dp[i][j - 2];
-            else dp[i][j] = helper(i, j) ? dp[i - 1][j - 1] : false;
-        }
-    }
-    return dp[m][n];
-
-    function helper(i, j) {
-        // 空串不能和任何字符匹配
-        if(!i) return false;
-        if (s.charAt(i - 1) === p.charAt(j - 1) || p.charAt(j - 1) === &quot;.&quot;) return true;
-        return false;
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[8. 字符串转换整数]]></title>
-        <id>https://AriesSK.github.io/post/top_8/</id>
-        <link href="https://AriesSK.github.io/post/top_8/">
-        </link>
-        <updated>2022-07-13T02:25:40.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="有限状态自动机">有限状态自动机</h3>
-<p>对于字符串处理的问题，往往有着复杂的流程和条件，这时候可以使用<strong>有限状态自动机</strong>来解决覆盖所有情况。<br>
-有限状态机使程序在每个时刻有一个状态 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>，每次从序列中输入一个字符 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>，并根据字符 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 转移到下一个状态 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>s</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">s&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>。这样，我们只需要建立一个覆盖所有情况的从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 映射到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>s</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">s&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> 的表格即可解决题目中的问题。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一模拟">法一：模拟</h3>
-<p>逐个字符处理，分情况讨论即可：</p>
-<pre><code class="language-js">var myAtoi = function(s) {
-    let i = 0;
-    // 跳过空格
-    while (s.charAt(i) === &quot; &quot;) ++i;
-    // 记录数字起始位置
-    const j = i;
-    // 跳过符号
-    if (s.charAt(i) === &quot;+&quot; || s.charAt(i) === &quot;-&quot;) ++i;
-    // 符号后非数字
-    if (s.charAt(i) &lt; &quot;0&quot; || s.charAt(i) &gt; &quot;9&quot;) return 0;
-    // 找到数字结束位置
-    while (s.charAt(i) &gt;= &quot;0&quot; &amp;&amp; s.charAt(i) &lt;= &quot;9&quot;) ++i;
-    const res = +s.slice(j, i);
-    return res &gt;= 0 ? Math.min(res, 2**31 - 1) : Math.max(res, -(2**31));
-};
-</code></pre>
-<h3 id="法二有限状态自动机">法二：有限状态自动机</h3>
-<p>定义状态，使用哈希表存储状态转移表，然后遍历字符串，进行状态转移和处理：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>空格</th>
-<th>符号(+/-)</th>
-<th>数字</th>
-<th>其他</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>起始空格的（状态 0）</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr>
-<td>数字前的符号（状态 1）</td>
-<td>3</td>
-<td>3</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr>
-<td>数字（状态 2）</td>
-<td>3</td>
-<td>3</td>
-<td>2</td>
-<td>3</td>
-</tr>
-<tr>
-<td>数字结束后的其他字符（状态 3）</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<p>对于本题来说一旦转移到状态 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 即可停止遍历字符串。</p>
-<pre><code class="language-js">var myAtoi = function(s) {
-    let res = 0, sym = 1;
-    const state = [
-        new Map([[&quot; &quot;, 0], [&quot;s&quot;, 1], [&quot;n&quot;, 2], [&quot;?&quot;, 3]]),
-        new Map([[&quot; &quot;, 3], [&quot;s&quot;, 3], [&quot;n&quot;, 2], [&quot;?&quot;, 3]]),
-        new Map([[&quot; &quot;, 3], [&quot;s&quot;, 3], [&quot;n&quot;, 2], [&quot;?&quot;, 3]])
-    ];
-    let p = 0, t = &quot; &quot;;
-    for (let c of s.split(&quot;&quot;)) {
-        if (c === &quot; &quot;) t = &quot; &quot;;
-        else if (c === &quot;+&quot; || c === &quot;-&quot;) {
-            t = &quot;s&quot;;
-            // 注意这里只有空格后面的 +/- 才代表数字的符号，比如 &quot;-1+2&quot; 中 + 不应当修改数组的符号
-            if (p === 0) sym = c === &quot;+&quot; ? 1 : -1;
-        }
-        else if (c &gt;= &quot;0&quot; &amp;&amp; c &lt;= &quot;9&quot;) {
-            t = &quot;n&quot;;
-            res = res * 10 + Number(c);
-        }
-        else t = &quot;?&quot;;
-        p = state[p].get(t);
-        if (p === 3) break;
-    }
-    res *= sym;
-    return res &gt;= 0 ? Math.min(res, 2**31 - 1) : Math.max(res, -(2**31));
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[7. 整数反转]]></title>
-        <id>https://AriesSK.github.io/post/top_7/</id>
-        <link href="https://AriesSK.github.io/post/top_7/">
-        </link>
-        <updated>2022-07-12T04:40:35.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>对于大数的问题往往可以通过转化为字符串来解决。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="字符串">字符串</h3>
-<p>由于题目要求不能存储超过上限的数字，所以不能直接反转后判断是否超过上限，只能转成字符串后逐位判断：</p>
-<ul>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi><mo>&lt;</mo><mi mathvariant="normal">上</mi><mi mathvariant="normal">限</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">数字位数 &lt; 上限位数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">限</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span></span></span></span>，不会越界，直接反转；</li>
-<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">数</mi><mi mathvariant="normal">字</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi><mo>=</mo><mi mathvariant="normal">上</mi><mi mathvariant="normal">限</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">数</mi></mrow><annotation encoding="application/x-tex">数字位数 = 上限位数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">字</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">限</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">数</span></span></span></span>，从数字的最后一位和上限的第一位开始逐个比较：数字大则越界，返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>；否则不越界，反转数字。</li>
-</ul>
-<pre><code class="language-js">var reverse = function(x) {
-    let sym = 1, num = &quot;&quot;;
-    if (x &lt; 0) {
-        sym = -1;
-        x = -x;
-        num += 2**31;
-    }
-    else num += 2**31 - 1;
-    const n = num.length; 
-    x += &quot;&quot;; 
-    if (x.length === n) {
-        for (let i = 0; i &lt; n; ++i) {
-            if (x.charAt(n - 1 - i) === num.charAt(i)) continue;
-            else if (x.charAt(n - 1 - i) &gt; num.charAt(i)) return 0;
-            else break;
-        }
-    }
-    return x.split(&quot;&quot;).reverse().join(&quot;&quot;) * sym;
 };
 </code></pre>
 ]]></content>

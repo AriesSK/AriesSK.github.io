@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1657979683721" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1658201299361" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1657979683721" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1658201299361" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-12-31</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">29.3
+                                    href="#">30.1
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">6584</a></span>
+                                    <span class="post-words">words:<a href="#">6826</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -981,6 +981,12 @@ store.state.b // moduleB 的状态
 &lt;/html&gt;
 </code></pre>
 <p>不是所有项目都要用 Vuex，对于小型的项目反而会使项目变得繁琐</p>
+<h2 id="前端鉴权">前端鉴权</h2>
+<p>前端鉴权，处理用户的鉴权信息的两种方式：<br>
+<strong>cookie</strong><br>
+cookie 用于存储变量，在前端请求网络资源或者后端接口时，请求头 Header 里都会带上当前域下的 cookie 信息，服务端通过检测请求头内的 cookie 判断当前用户的登录状态是否过期（或者 cookie是否错误），来判断当前用户能否成功地返回响应<br>
+<strong>token</strong><br>
+token 是服务器生成的一串随机字符串或 json 串，作为客户端进行资源请求的令牌。调用登录接口后，服务端返回给前端一个 token，之后将 token 存储到本地环境，每次前端请求接口的时候，都需要在请求头里带上 token 信息，并且 token 还可以在服务端设置过期时间，过期后返回前后端商量好的错误码，跳转到登录节点重新鉴权</p>
 
                         </div>
                         
@@ -991,8 +997,8 @@ store.state.b // moduleB 的状态
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/vue/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1657979683721&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1657979683721 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1658201299361&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1658201299361 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -1116,7 +1122,7 @@ store.state.b // moduleB 的状态
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1657979683721);
+                    newDate.setTime(1658201299361);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
