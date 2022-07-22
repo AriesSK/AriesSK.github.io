@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1658201299361" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1658468118967" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1658201299361" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1658468118967" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-12-31</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">30.1
+                                    href="#">31.0
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">6826</a></span>
+                                    <span class="post-words">words:<a href="#">7051</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -245,6 +245,23 @@ Vue 实现响应式<strong>不是在数据变化后 DOM 立即变化</strong>，
 <li>一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&quot;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行</li>
 <li>主线程不断重复上面的第三步</li>
 </ol>
+<p><strong>Vue 的渲染过程</strong><br>
+Vue 加载时文件的执行顺序：</p>
+<ol>
+<li>执行 index.html 文件</li>
+<li>执行 main.js 文件</li>
+<li>main.js 挂载 app.vue，用 app.vue 的 templete 替换 index.html 中的<code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code></li>
+<li>main.js 注入路由文件<code>router/index.js</code>，通过路由文件路由到相关组件并将其渲染到 router-view 中</li>
+<li>router-view 加载 Layout 文件<br>
+Vue 内部页面的执行顺序：</li>
+<li>将模板编译为 render 函数</li>
+<li>实例挂载，根据根节点 render 函数调用，递归生成虚拟 DOM</li>
+<li>将虚拟 DOM 转化为真实 DOM</li>
+<li>组件内 data 发生变化，组件重新调用 render 函数生成虚拟 DOM，返回步骤 3</li>
+</ol>
+<p><strong>render</strong><br>
+渲染函数，返回值是 VNode 虚拟节点，使用 render 函数允许使用 js 构建 DOM<br>
+createElement 是 render 的参数，也是一个函数，用于构建虚拟 DOM，该函数简写 h</p>
 <p><strong>$ 的作用</strong><br>
 用于区分 Vue 中自带的实例和用户自定义的属性，有 $ 前缀的是自带的</p>
 <p><strong>this</strong><br>
@@ -997,8 +1014,8 @@ token 是服务器生成的一串随机字符串或 json 串，作为客户端�
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/vue/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1658201299361&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1658201299361 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/vue/&sharesource=qzone&title=Vue&pics=https://AriesSK.github.io/images/avatar.png?v=1658468118967&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/vue/&sharesource=weibo&title=Vue + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1658468118967 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -1122,7 +1139,7 @@ token 是服务器生成的一串随机字符串或 json 串，作为客户端�
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1658201299361);
+                    newDate.setTime(1658468118967);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>

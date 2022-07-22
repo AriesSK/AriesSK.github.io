@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-19T03:28:26.702Z</updated>
+    <updated>2022-07-22T05:35:30.893Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -76,6 +76,7 @@
 <li>数组模拟栈 —— <a href="https://ariessk.github.io/post/jianzhi_30/">30. 包含min函数的栈</a></li>
 <li>栈相关的数组操作 —— <a href="https://ariessk.github.io/post/jianzhi_06/">06. 从头到尾打印链表</a></li>
 <li>快速判断出栈序列合法 —— <a href="https://ariessk.github.io/post/jianzhi_31/">31. 栈的压入、弹出序列</a></li>
+<li>括号匹配 —— <a href="https://ariessk.github.io/post/top_20/">20. 有效的括号</a></li>
 </ul>
 <p><strong>队列</strong></p>
 <ul>
@@ -138,6 +139,7 @@
 <ul>
 <li>递归总结 —— <a href="https://ariessk.github.io/post/jianzhi_24/">24. 反转链表</a></li>
 <li>迭代与递归的空间复杂度 —— <a href="https://ariessk.github.io/post/jianzhi_68_i/">68 - I. 二叉搜索树的最近公共祖先</a></li>
+<li>归并的递归与迭代 —— <a href="https://ariessk.github.io/post/top_23/">23. 合并K个升序链表</a></li>
 </ul>
 <p><strong>双指针</strong></p>
 <ul>
@@ -162,6 +164,7 @@
 <li>自顶向下与自底向上 —— <a href="https://ariessk.github.io/post/jianzhi_55_ii/">55 - II. 平衡二叉树</a></li>
 <li>前序 中序 后序遍历序列 —— <a href="https://ariessk.github.io/post/jianzhi_33/">33. 二叉搜索树的后序遍历序列</a></li>
 <li>字符串排列 —— <a href="https://ariessk.github.io/post/top_17/">17. 电话号码的字母组合</a></li>
+<li>深度优先搜索代码优化 —— <a href="https://ariessk.github.io/post/top_22/">22. 括号生成</a></li>
 </ul>
 <p><strong>动态规划</strong></p>
 <ul>
@@ -248,6 +251,23 @@ Vue 实现响应式<strong>不是在数据变化后 DOM 立即变化</strong>，
 <li>一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&quot;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行</li>
 <li>主线程不断重复上面的第三步</li>
 </ol>
+<p><strong>Vue 的渲染过程</strong><br>
+Vue 加载时文件的执行顺序：</p>
+<ol>
+<li>执行 index.html 文件</li>
+<li>执行 main.js 文件</li>
+<li>main.js 挂载 app.vue，用 app.vue 的 templete 替换 index.html 中的<code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code></li>
+<li>main.js 注入路由文件<code>router/index.js</code>，通过路由文件路由到相关组件并将其渲染到 router-view 中</li>
+<li>router-view 加载 Layout 文件<br>
+Vue 内部页面的执行顺序：</li>
+<li>将模板编译为 render 函数</li>
+<li>实例挂载，根据根节点 render 函数调用，递归生成虚拟 DOM</li>
+<li>将虚拟 DOM 转化为真实 DOM</li>
+<li>组件内 data 发生变化，组件重新调用 render 函数生成虚拟 DOM，返回步骤 3</li>
+</ol>
+<p><strong>render</strong><br>
+渲染函数，返回值是 VNode 虚拟节点，使用 render 函数允许使用 js 构建 DOM<br>
+createElement 是 render 的参数，也是一个函数，用于构建虚拟 DOM，该函数简写 h</p>
 <p><strong>$ 的作用</strong><br>
 用于区分 Vue 中自带的实例和用户自定义的属性，有 $ 前缀的是自带的</p>
 <p><strong>this</strong><br>
@@ -1674,7 +1694,268 @@ HashMap 散列表 是 数组 + 链表</p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[19. 删除链表的倒数第 N 个节点]]></title>
+        <title type="html"><![CDATA[23. 合并K个升序链表]]></title>
+        <id>https://AriesSK.github.io/post/top_23/</id>
+        <link href="https://AriesSK.github.io/post/top_23/">
+        </link>
+        <updated>2022-07-22T02:37:54.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="归并的递归与迭代">归并的递归与迭代</h3>
+<p>递归思路：先从上向下递，将数组拆分；再从下向上归，将数组逐渐合并；<br>
+迭代思路：直接从下向上进行合并，需要设置步长表示迭代的次数，步长初始为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，每次翻倍，直到将超过数组长度时停止。<br>
+具体实现见下面法二。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<p>本题相对于<a href="https://ariessk.github.io/post/jianzhi_25/">25. 合并两个排序的链表</a>将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>个列表升级为了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span> 个，因此在其方法的基础上进行拓展，有三种解法。</p>
+<h3 id="法一遍历合并">法一：遍历合并</h3>
+<p>最朴实无华的思路，遍历数组，合并前两个链表后将结果与下一个链表合并，直到全部合并。<br>
+设最长链表长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，则第一次合并后链表长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，第二次为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">n</span></span></span></span>，直到最终的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">kn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">n</span></span></span></span>，因此时间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>k</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(k^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h3 id="法二归并">法二：归并</h3>
+<p>法一的优化思路，采用归并的思想，两两合并直至完全合并，将时间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>k</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>k</mi><mo>×</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(klogk \times n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>：</p>
+<pre><code class="language-js">var mergeKLists = function(lists) {
+    return merge(0, lists.length - 1);
+
+    function merge(l, r) {
+        if (l === r) return lists[l];
+        // 这种情况用来处理输入空数组的情况，此时 r 为 -1
+        if (l &gt; r) return null;
+        const m = l + r &gt;&gt; 1;
+        return mergeTwo(merge(l, m), merge(m + 1, r));
+    }
+
+    function mergeTwo(l1, l2) {
+        let curr = new ListNode();
+        const res = curr;
+        while (l1 &amp;&amp; l2) {
+            if (l1.val &lt; l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                l2 = l2.next;
+            }
+            curr = curr.next;
+        }
+        curr.next = l1 ? l1 : l2;
+        return res.next;
+    }
+};
+</code></pre>
+<p>上面这种<code>merge</code>使用了递归，而递归需要额外的栈空间执行，可以改成迭代，成为原地算法：</p>
+<pre><code class="language-js">var mergeKLists = function(lists) {
+    const k = lists.length;
+    let n = k;
+    if (!k) return null;
+    for (let step = 1; step &lt; k; step *= 2) {
+		let i = 0;
+        for (i; i &lt; n + 1 &gt;&gt; 1; ++i) {
+            // 改动原数组保存结果，做到原地算法
+            lists[i] = mergeTwo(lists[i * 2], lists[i * 2 + 1]);
+        }
+        // 注意需要将原数组中已经被合并的链表设为 null，否则在合并过程中容易重复合并某个链表从而出现环，进入死循环
+		while (lists[i]) lists[i++] = null;
+        n = n + 1 &gt;&gt; 1;
+    }
+    return lists[0];
+
+    function mergeTwo(l1, l2) {
+        let curr = new ListNode();
+        const res = curr;
+        while (l1 &amp;&amp; l2) {
+            if (l1.val &lt; l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                l2 = l2.next;
+            }
+            curr = curr.next;
+        }
+        curr.next = l1 ? l1 : l2;
+        return res.next;
+    }
+};
+</code></pre>
+<h3 id="法三优先队列">法三：优先队列</h3>
+<p>使用小顶堆维护每个链表中没有被合并的首个元素，然后每次将堆顶元素合并至链表，再将堆顶元素的下一个节点入堆即可，然而 js 的堆数据结构需要自己写，非常麻烦。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[22. 括号生成]]></title>
+        <id>https://AriesSK.github.io/post/top_22/</id>
+        <link href="https://AriesSK.github.io/post/top_22/">
+        </link>
+        <updated>2022-07-21T02:18:58.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="深度优先搜索代码优化">深度优先搜索代码优化</h3>
+<ul>
+<li>对于终止条件可以设置为最后一位之后，到达后直接 return；</li>
+<li>在进入下一层递归需要修改，而回溯回该层时又需要恢复的参数可以放到递归参数中；</li>
+<li>对于某一位有多种情况的可以使用多个<code>if</code>而不是<code>if else</code>就可以遍历所有情况。</li>
+</ul>
+<p><strong>注意：</strong> 回溯时恢复初始状态很重要。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-回溯">深度优先搜索 回溯</h3>
+<p>与<a href="https://ariessk.github.io/post/top_17">17. 电话号码的字母组合</a>的思想类似，只不过多了一个判断，设剩余左括号数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>，剩余右括号数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>：</p>
+<ul>
+<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l = r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，只能放置左括号；</li>
+<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l &lt; r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，两种括号均可以放。</li>
+</ul>
+<p>下面是我一开始写的，为了防止左括号使用超出上限，考虑了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 是否等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 的情况：</p>
+<pre><code class="language-js">var generateParenthesis = function(n) {
+    let l = n, r = n, s = &quot;&quot;;
+    const res = [];
+    dfs(0);
+    return res;
+
+    function dfs(x) {
+        // 终止条件设在要放置的最后一位之后，不需要对该位进行操作，记录结果后返回即可
+        if (x === 2 * n) {
+            res.push(s);
+            return;
+        }
+        if (!l) {
+            s += &quot;)&quot;;
+            --r;
+            dfs(x + 1);
+            ++r;
+            // 注意一定要对 s 赋新值，slice 不修改原值！！！
+            s = s.slice(0, -1);
+        }
+        else if (l &lt; r) {
+            for (let i = 0; i &lt; 2; ++i) {
+                if (!i) {
+                    s += &quot;(&quot;;
+                    --l;
+                    dfs(x + 1);
+                    ++l;
+                    s = s.slice(0, -1);
+                }
+                else {
+                    s += &quot;)&quot;;
+                    --r; 
+                    dfs(x + 1);
+                    ++r;
+                    s = s.slice(0, -1);
+                }
+            }
+        }
+        else {
+            s += &quot;(&quot;; 
+            --l;
+            dfs(x + 1);
+            ++l;
+            s = s.slice(0, -1);
+        }
+    }
+};
+</code></pre>
+<p>上面的代码重复部分很多，可以进行简化：</p>
+<ul>
+<li>将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 放入递归的参数中，可以不用对其进行增减；</li>
+<li>将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 放入递归的参数中，可以不用在回溯时手动删除末尾字符；</li>
+<li>还可以将原先的<code>if else</code>加上循环的操作简化为多个<code>if</code>。</li>
+</ul>
+<pre><code class="language-js">var generateParenthesis = function(n) {
+    const res = [];
+    dfs(&quot;&quot;, 0, n, n);
+    return res;
+
+    function dfs(s, x, l, r) {
+        if (x === 2 * n) {
+            res.push(s);
+            return;
+        }
+        if (l &gt; 0) dfs(s + &quot;(&quot;, x + 1, l - 1, r);
+        if (l &lt; r) dfs(s + &quot;)&quot;, x + 1, l, r - 1);
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[21. 合并两个有序链表]]></title>
+        <id>https://AriesSK.github.io/post/21-he-bing-liang-ge-you-xu-lian-biao/</id>
+        <link href="https://AriesSK.github.io/post/21-he-bing-liang-ge-you-xu-lian-biao/">
+        </link>
+        <updated>2022-07-20T03:37:16.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>本题与剑指offer的25题相同，由于递归方法需要用栈，因此迭代方法较优，具体请移步<a href="https://ariessk.github.io/post/jianzhi_25/">25. 合并两个排序的链表</a>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一迭代">法一：迭代</h3>
+<p>设置一个空的新头节点：</p>
+<pre><code class="language-js">var mergeTwoLists = function(list1, list2) {
+    let l1 = list1, l2 = list2, curr = new ListNode();
+    const res = curr;
+    while (l1 || l2) {
+        if (!l1) {
+            curr.next = l2;
+            break;
+        }
+        if (!l2) {
+            curr.next = l1;
+            break;
+        }
+        if (l1.val &lt; l2.val) {
+            curr.next = l1;
+            l1 = l1.next;
+        } else {
+            curr.next = l2;
+            l2 = l2.next;
+        }
+        curr = curr.next;
+    }
+    return res.next;
+};
+</code></pre>
+<h3 id="法二递归">法二：递归</h3>
+<pre><code class="language-js">var mergeTwoLists = function(list1, list2) {
+    if (!list1) return list2;
+    else if (!list2) return list1;
+    else if (list1.val &lt; list2.val) {
+        list1.next = mergeTwoLists(list1.next, list2);
+        return list1;
+    } else {
+        list2.next = mergeTwoLists(list1, list2.next);
+        return list2;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[20. 有效的括号]]></title>
+        <id>https://AriesSK.github.io/post/top_20/</id>
+        <link href="https://AriesSK.github.io/post/top_20/">
+        </link>
+        <updated>2022-07-20T03:02:06.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>成对且顺序正确的括号匹配是栈的经典应用。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="栈">栈</h3>
+<p>用栈的先入后出特性能够匹配成对的括号：</p>
+<pre><code class="language-js">var isValid = function(s) {
+    if (s.length &amp; 1) return false;
+    const stack = [];
+    for (let i = 0; i &lt; s.length; ++i) {
+        if (s.charAt(i) === '(' || s.charAt(i) === '[' || s.charAt(i) === '{') stack.push(s.charAt(i));
+        else if (!helper(stack.pop(), s.charAt(i))) return false;
+    }
+    return !stack.length;
+
+    function helper(a, b) {
+        if (a === '(' &amp;&amp; b === ')' || a === '[' &amp;&amp; b === ']' || a === '{' &amp;&amp; b === '}') return true;
+        else return false;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[19. 删除链表的倒数第N个节点]]></title>
         <id>https://AriesSK.github.io/post/top_19/</id>
         <link href="https://AriesSK.github.io/post/top_19/">
         </link>
@@ -1702,159 +1983,6 @@ HashMap 散列表 是 数组 + 链表</p>
     l.next = tmp.next;
     tmp.next = null;
     return hptr.next;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[17. 电话号码的字母组合]]></title>
-        <id>https://AriesSK.github.io/post/top_17/</id>
-        <link href="https://AriesSK.github.io/post/top_17/">
-        </link>
-        <updated>2022-07-19T02:53:00.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="字符串排列的深度优先搜索">字符串排列的深度优先搜索</h3>
-<p>每次只考虑当前位的一种情况，然后考虑下一位直到形成一个完整的字符串，再回溯上来考虑上一位的其他情况，最终完成所有情况的遍历。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="深度优先搜索-回溯">深度优先搜索 回溯</h3>
-<p>每次固定一位，深度优先遍历，然后回溯上来考虑别的情况。<br>
-需要注意的就是回溯的时候要把字符串末尾的字符删除：</p>
-<pre><code class="language-js">var letterCombinations = function(digits) {
-    if (digits === &quot;&quot;) return [];
-    const res = [];
-    let str = &quot;&quot;;
-    const map = new Map([
-        [&quot;2&quot;, &quot;abc&quot;], [&quot;3&quot;, &quot;def&quot;], [&quot;4&quot;, &quot;ghi&quot;], [&quot;5&quot;, &quot;jkl&quot;], 
-        [&quot;6&quot;, &quot;mno&quot;], [&quot;7&quot;, &quot;pqrs&quot;], [&quot;8&quot;, &quot;tuv&quot;], [&quot;9&quot;, &quot;wxyz&quot;]
-    ]);
-    dfs(0);
-    return res;
-    
-    function dfs(x) {
-        if (x === digits.length) {
-            res.push(str);
-            return;
-        }
-        const s = map.get(digits.charAt(x));
-        for (let i = 0; i &lt; s.length; ++i) {
-            str += s.charAt(i);
-            dfs(x + 1);
-            str = str.slice(0, -1);
-        }
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[15. 三数之和]]></title>
-        <id>https://AriesSK.github.io/post/top_15/</id>
-        <link href="https://AriesSK.github.io/post/top_15/">
-        </link>
-        <updated>2022-07-18T03:53:11.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="双指针">双指针</h3>
-<p>在排序的前提下使用双指针，能够将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 的遍历时间复杂度降低至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="排序-双指针">排序 + 双指针</h3>
-<p>这道题的难点是要输出所有的解，并且要保证解不能重复：</p>
-<ul>
-<li>首先可以对数组进行排序，使最终的输出中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>≤</mo><mi>b</mi><mo>≤</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">a \leq b \leq c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>，这样可以保证对<strong>同样下标</strong>的数不会重复输出；</li>
-<li>但是不同下标但是值相同的情况仍有重复的可能，因此在遍历过程中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 在遍历时，要保证与之前的自己值不同，而保证了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 不同，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 必然不同。</li>
-</ul>
-<pre><code class="language-js">var threeSum = function(nums) {
-    if (nums.length &lt; 3) return [];
-    const res = [];
-    nums.sort((a, b) =&gt; a - b);
-    for (let i = 0; i &lt; nums.length - 2; ++i) {
-        // 最小数大于 0，后面无可能，终止
-        if (nums[i] &gt; 0) break;
-        // 排除 a 重复
-        if (i &amp;&amp; nums[i] === nums[i - 1]) continue;
-        let l = i + 1, r = nums.length - 1;
-        while (l &lt; r) {
-            if (nums[l] + nums[r] === -nums[i]) {
-				res.push([nums[i], nums[l], nums[r]]);
-                ++l;
-                // 排除 b 重复
-                while (nums[l] === nums[l - 1]) ++l;
-			}
-            else if (nums[l] + nums[r] &lt; -nums[i]) ++l;
-            else --r;
-        }
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[14. 最长公共前缀]]></title>
-        <id>https://AriesSK.github.io/post/top_14/</id>
-        <link href="https://AriesSK.github.io/post/top_14/">
-        </link>
-        <updated>2022-07-18T01:52:06.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="charat越界"><code>charAt()</code>越界</h3>
-<p>js 字符串中的<code>charAt()</code>函数中的值若是超过了字符串的长度，也就是越界，并不会报错，而是返回一个空字符串<code>&quot;&quot;</code>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一纵向对比">法一：纵向对比</h3>
-<p>逐个比较每个字符串相同位的字符：</p>
-<pre><code class="language-js">var longestCommonPrefix = function(strs) {
-    for (let i = 0; i &lt; strs[0].length; ++i) {
-        const s = strs[0].charAt(i);
-        for (const str of strs) {
-            if (str.charAt(i) !== s) return strs[0].slice(0, i);
-        }
-    }
-    return strs[0];
-};
-</code></pre>
-<h2 id="题解-2">题解</h2>
-<h3 id="法二纵向对比">法二：纵向对比</h3>
-<p>把第一个字符串作为最长公共前缀，与后一个字符串比较，更新最长公共前缀，再与下一个字符串比较，以此类推至遍历完或最长公共前缀为空字符串：</p>
-<pre><code class="language-js">var longestCommonPrefix = function(strs) {
-    let res = strs[0];
-    for (let i = 1; i &lt; strs.length; ++i) {
-        for (let j = 0; j &lt; res.length; ++j) {
-            if (res.charAt(j) !== strs[i].charAt(j)) {
-                res = res.slice(0, j);
-                break;
-            }
-        }
-        if (res === &quot;&quot;) break;
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[13. 罗马数字转整数]]></title>
-        <id>https://AriesSK.github.io/post/top_13/</id>
-        <link href="https://AriesSK.github.io/post/top_13/">
-        </link>
-        <updated>2022-07-16T04:22:32.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="模拟">模拟</h3>
-<p>根据题目表述进行筛选提取关键要素，按需求书写代码解决实际问题。<br>
-简单来说就是<strong>照着葫芦画瓢</strong>，按着题目意思来。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟-2">模拟</h3>
-<p>模拟读取的过程即可，正常是大数在前小数在后，加上每一个字符代表的数值，若发现逆序则改加为减：</p>
-<pre><code class="language-js">var romanToInt = function(s) {
-    let res = 0;
-    const table = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000]]);
-    for (let i = 0; i &lt; s.length - 1; ++i) {
-        const m = table.get(s.charAt(i)), n = table.get(s.charAt(i + 1));
-        res += m &gt;= n ? m : -m; 
-    }
-    res += table.get(s.charAt(s.length - 1));
-    return res;
 };
 </code></pre>
 ]]></content>
