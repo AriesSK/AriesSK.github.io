@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-22T05:35:30.893Z</updated>
+    <updated>2022-07-25T03:53:38.897Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -61,6 +61,7 @@
 <li>位运算获取每一位 为每一位赋值 —— <a href="https://ariessk.github.io/post/jianzhi_56_ii/">56 - II. 数组中数字出现的次数 II</a></li>
 <li>幂运算 —— <a href="https://ariessk.github.io/post/jianzhi_67/">67. 把字符串转换为整数</a></li>
 <li>正则表达式 —— <a href="https://ariessk.github.io/post/jianzhi_19/">19. 正则表达式匹配</a></li>
+<li>位运算替代加减乘除运算 —— <a href="https://ariessk.github.io/post/top_33/">29. 两数相除</a></li>
 </ul>
 <p><strong>数组</strong></p>
 <ul>
@@ -149,6 +150,8 @@
 <p><strong>二分法</strong></p>
 <ul>
 <li>二分法总结 —— <a href="https://ariessk.github.io/post/jianzhi_53_i/">53 - I. 在排序数组中查找数字 I</a></li>
+<li>二分法核心思想 —— <a href="https://ariessk.github.io/post/top_33/">33. 搜索旋转排序数组</a></li>
+<li>二分法的问题转化 —— <a href="https://ariessk.github.io/post/top_34/">34. 在排序数组中查找元素的第一个和最后一个位置</a></li>
 </ul>
 <p><strong>广度优先搜索</strong></p>
 <ul>
@@ -787,7 +790,7 @@ const routes = [
 <pre><code class="language-js">this.$store.getters.doneTodos; // [{ id: 1, text: '...', done: true }]
 </code></pre>
 <p><strong>Mutation</strong><br>
-修改 State 状态需要触发一些方法，这些方法放在 mutations 属性中，mutations 属性中的方法能够接收两个参数，第一个是 state，包含所有的状态值；第二个是提交载荷 Playload，在外部通过 store.commit 方法触发 mutations 时额外带入的值：</p>
+修改 State 状态需要触发一些方法，这些方法放在 mutations 属性中，mutations 属性中的方法能够接收两个参数，第一个是 state，包含所有的状态值；第二个是提交载荷 Payload，在外部通过 store.commit 方法触发 mutations 时额外带入的值：</p>
 <pre><code class="language-js">const store = new Vuex.Store({
     state: {
         count: 1
@@ -1694,295 +1697,166 @@ HashMap 散列表 是 数组 + 链表</p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[23. 合并K个升序链表]]></title>
-        <id>https://AriesSK.github.io/post/top_23/</id>
-        <link href="https://AriesSK.github.io/post/top_23/">
+        <title type="html"><![CDATA[34. 在排序数组中查找元素的第一个和最后一个位置]]></title>
+        <id>https://AriesSK.github.io/post/top_34/</id>
+        <link href="https://AriesSK.github.io/post/top_34/">
         </link>
-        <updated>2022-07-22T02:37:54.000Z</updated>
+        <updated>2022-07-25T03:00:35.000Z</updated>
         <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="归并的递归与迭代">归并的递归与迭代</h3>
-<p>递归思路：先从上向下递，将数组拆分；再从下向上归，将数组逐渐合并；<br>
-迭代思路：直接从下向上进行合并，需要设置步长表示迭代的次数，步长初始为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，每次翻倍，直到将超过数组长度时停止。<br>
-具体实现见下面法二。</p>
+<h3 id="二分法的问题转化">二分法的问题转化</h3>
+<p>查找位置的问题实际上可以转化为找目标元素在排序数组中的插入位置的问题，这种问题的解法模板请移步<a href="https://ariessk.github.io/post/jianzhi_53_i/">53 - I. 在排序数组中查找数字 I</a>。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<p>本题相对于<a href="https://ariessk.github.io/post/jianzhi_25/">25. 合并两个排序的链表</a>将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>个列表升级为了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span> 个，因此在其方法的基础上进行拓展，有三种解法。</p>
-<h3 id="法一遍历合并">法一：遍历合并</h3>
-<p>最朴实无华的思路，遍历数组，合并前两个链表后将结果与下一个链表合并，直到全部合并。<br>
-设最长链表长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，则第一次合并后链表长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，第二次为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">n</span></span></span></span>，直到最终的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">kn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">n</span></span></span></span>，因此时间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>k</mi><mn>2</mn></msup><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(k^2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
-<h3 id="法二归并">法二：归并</h3>
-<p>法一的优化思路，采用归并的思想，两两合并直至完全合并，将时间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>k</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>k</mi><mo>×</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(klogk \times n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>：</p>
-<pre><code class="language-js">var mergeKLists = function(lists) {
-    return merge(0, lists.length - 1);
+<h3 id="二分法">二分法</h3>
+<p>最后一个位置转化为<strong>目标元素在数组中的最右插入位置 - 1</strong>，第一个位置转化为<strong>比目标元素小 1 的数在数组中的最右插入位置</strong>。<br>
+需要注意的是找插入位置的问题中目标元素不存在于数组中同样能返回位置，而查找问题找不到应当返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">1</span></span></span></span>，故使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>l</mi><mi>a</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">flag</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span> 记录是否找到该元素。</p>
+<pre><code class="language-js">var searchRange = function(nums, target) {
+    return search(target) ? [search(target - 1), search(target) - 1] : [-1, -1];
 
-    function merge(l, r) {
-        if (l === r) return lists[l];
-        // 这种情况用来处理输入空数组的情况，此时 r 为 -1
-        if (l &gt; r) return null;
+    function search(tar) {
+        let l = 0, r = nums.length - 1, flag = false; 
+        while (l &lt;= r) {
+            const m = l + r &gt;&gt; 1;
+            if (nums[m] === tar) {
+                l = m + 1;
+                flag = true;
+            }
+            else if (nums[m] &lt; tar) l = m + 1;
+            else r = m - 1;
+        }
+        if (tar === target &amp;&amp; !flag) return false;
+        return l;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[33. 搜索旋转排序数组]]></title>
+        <id>https://AriesSK.github.io/post/top_33/</id>
+        <link href="https://AriesSK.github.io/post/top_33/">
+        </link>
+        <updated>2022-07-25T02:41:36.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="二分法核心思想">二分法核心思想</h3>
+<p>二分法的核心就是缩小查找的空间，每次排除部分不可能的空间，直到查找到目标元素。<br>
+对于这道题，缩小空间的方法是判断目标元素是否在有序部分中，在则排除无序部分，不在则排除有序部分。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="二分法">二分法</h3>
+<p>每次根据二分中点能够将数组划分为有序和无序两个部分，有序部分可以通过最小值和最大值判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span> 是否在该部分当中，从而进行查找空间的缩小，直到查找到目标元素。<br>
+对于无序部分，中点能够将其划分为一个有序部分和一个可能有序也可能无序的部分；对于有序部分，中点能够将其划分为两个有序部分，缩小空间的方式相同。</p>
+<pre><code class="language-js">var search = function(nums, target) {
+    let l = 0, r = nums.length - 1;
+    while (l &lt;= r) {
         const m = l + r &gt;&gt; 1;
-        return mergeTwo(merge(l, m), merge(m + 1, r));
-    }
-
-    function mergeTwo(l1, l2) {
-        let curr = new ListNode();
-        const res = curr;
-        while (l1 &amp;&amp; l2) {
-            if (l1.val &lt; l2.val) {
-                curr.next = l1;
-                l1 = l1.next;
-            } else {
-                curr.next = l2;
-                l2 = l2.next;
-            }
-            curr = curr.next;
-        }
-        curr.next = l1 ? l1 : l2;
-        return res.next;
-    }
-};
-</code></pre>
-<p>上面这种<code>merge</code>使用了递归，而递归需要额外的栈空间执行，可以改成迭代，成为原地算法：</p>
-<pre><code class="language-js">var mergeKLists = function(lists) {
-    const k = lists.length;
-    let n = k;
-    if (!k) return null;
-    for (let step = 1; step &lt; k; step *= 2) {
-		let i = 0;
-        for (i; i &lt; n + 1 &gt;&gt; 1; ++i) {
-            // 改动原数组保存结果，做到原地算法
-            lists[i] = mergeTwo(lists[i * 2], lists[i * 2 + 1]);
-        }
-        // 注意需要将原数组中已经被合并的链表设为 null，否则在合并过程中容易重复合并某个链表从而出现环，进入死循环
-		while (lists[i]) lists[i++] = null;
-        n = n + 1 &gt;&gt; 1;
-    }
-    return lists[0];
-
-    function mergeTwo(l1, l2) {
-        let curr = new ListNode();
-        const res = curr;
-        while (l1 &amp;&amp; l2) {
-            if (l1.val &lt; l2.val) {
-                curr.next = l1;
-                l1 = l1.next;
-            } else {
-                curr.next = l2;
-                l2 = l2.next;
-            }
-            curr = curr.next;
-        }
-        curr.next = l1 ? l1 : l2;
-        return res.next;
-    }
-};
-</code></pre>
-<h3 id="法三优先队列">法三：优先队列</h3>
-<p>使用小顶堆维护每个链表中没有被合并的首个元素，然后每次将堆顶元素合并至链表，再将堆顶元素的下一个节点入堆即可，然而 js 的堆数据结构需要自己写，非常麻烦。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[22. 括号生成]]></title>
-        <id>https://AriesSK.github.io/post/top_22/</id>
-        <link href="https://AriesSK.github.io/post/top_22/">
-        </link>
-        <updated>2022-07-21T02:18:58.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="深度优先搜索代码优化">深度优先搜索代码优化</h3>
-<ul>
-<li>对于终止条件可以设置为最后一位之后，到达后直接 return；</li>
-<li>在进入下一层递归需要修改，而回溯回该层时又需要恢复的参数可以放到递归参数中；</li>
-<li>对于某一位有多种情况的可以使用多个<code>if</code>而不是<code>if else</code>就可以遍历所有情况。</li>
-</ul>
-<p><strong>注意：</strong> 回溯时恢复初始状态很重要。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="深度优先搜索-回溯">深度优先搜索 回溯</h3>
-<p>与<a href="https://ariessk.github.io/post/top_17">17. 电话号码的字母组合</a>的思想类似，只不过多了一个判断，设剩余左括号数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span>，剩余右括号数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>：</p>
-<ul>
-<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l = r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，只能放置左括号；</li>
-<li>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l &lt; r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，两种括号均可以放。</li>
-</ul>
-<p>下面是我一开始写的，为了防止左括号使用超出上限，考虑了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 是否等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 的情况：</p>
-<pre><code class="language-js">var generateParenthesis = function(n) {
-    let l = n, r = n, s = &quot;&quot;;
-    const res = [];
-    dfs(0);
-    return res;
-
-    function dfs(x) {
-        // 终止条件设在要放置的最后一位之后，不需要对该位进行操作，记录结果后返回即可
-        if (x === 2 * n) {
-            res.push(s);
-            return;
-        }
-        if (!l) {
-            s += &quot;)&quot;;
-            --r;
-            dfs(x + 1);
-            ++r;
-            // 注意一定要对 s 赋新值，slice 不修改原值！！！
-            s = s.slice(0, -1);
-        }
-        else if (l &lt; r) {
-            for (let i = 0; i &lt; 2; ++i) {
-                if (!i) {
-                    s += &quot;(&quot;;
-                    --l;
-                    dfs(x + 1);
-                    ++l;
-                    s = s.slice(0, -1);
-                }
-                else {
-                    s += &quot;)&quot;;
-                    --r; 
-                    dfs(x + 1);
-                    ++r;
-                    s = s.slice(0, -1);
-                }
-            }
-        }
-        else {
-            s += &quot;(&quot;; 
-            --l;
-            dfs(x + 1);
-            ++l;
-            s = s.slice(0, -1);
-        }
-    }
-};
-</code></pre>
-<p>上面的代码重复部分很多，可以进行简化：</p>
-<ul>
-<li>将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 放入递归的参数中，可以不用对其进行增减；</li>
-<li>将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 放入递归的参数中，可以不用在回溯时手动删除末尾字符；</li>
-<li>还可以将原先的<code>if else</code>加上循环的操作简化为多个<code>if</code>。</li>
-</ul>
-<pre><code class="language-js">var generateParenthesis = function(n) {
-    const res = [];
-    dfs(&quot;&quot;, 0, n, n);
-    return res;
-
-    function dfs(s, x, l, r) {
-        if (x === 2 * n) {
-            res.push(s);
-            return;
-        }
-        if (l &gt; 0) dfs(s + &quot;(&quot;, x + 1, l - 1, r);
-        if (l &lt; r) dfs(s + &quot;)&quot;, x + 1, l, r - 1);
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[21. 合并两个有序链表]]></title>
-        <id>https://AriesSK.github.io/post/21-he-bing-liang-ge-you-xu-lian-biao/</id>
-        <link href="https://AriesSK.github.io/post/21-he-bing-liang-ge-you-xu-lian-biao/">
-        </link>
-        <updated>2022-07-20T03:37:16.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题与剑指offer的25题相同，由于递归方法需要用栈，因此迭代方法较优，具体请移步<a href="https://ariessk.github.io/post/jianzhi_25/">25. 合并两个排序的链表</a>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一迭代">法一：迭代</h3>
-<p>设置一个空的新头节点：</p>
-<pre><code class="language-js">var mergeTwoLists = function(list1, list2) {
-    let l1 = list1, l2 = list2, curr = new ListNode();
-    const res = curr;
-    while (l1 || l2) {
-        if (!l1) {
-            curr.next = l2;
-            break;
-        }
-        if (!l2) {
-            curr.next = l1;
-            break;
-        }
-        if (l1.val &lt; l2.val) {
-            curr.next = l1;
-            l1 = l1.next;
+        if (nums[m] === target) return m;
+        // 如果 m 左侧有序，右侧无序
+        if (nums[0] &lt;= nums[m]) {
+            // 因为 m 左侧是有序的，所以可以判断 target 在不在该区间内
+            if (nums[0] &lt;= target &amp;&amp; target &lt; nums[m]) r = m - 1;
+            else l = m  + 1;
         } else {
-            curr.next = l2;
-            l2 = l2.next;
+            if (nums[m] &lt; target &amp;&amp; target &lt;= nums[nums.length - 1]) l = m + 1;
+            else r = m - 1;
         }
-        curr = curr.next;
     }
-    return res.next;
-};
-</code></pre>
-<h3 id="法二递归">法二：递归</h3>
-<pre><code class="language-js">var mergeTwoLists = function(list1, list2) {
-    if (!list1) return list2;
-    else if (!list2) return list1;
-    else if (list1.val &lt; list2.val) {
-        list1.next = mergeTwoLists(list1.next, list2);
-        return list1;
-    } else {
-        list2.next = mergeTwoLists(list1, list2.next);
-        return list2;
-    }
+    return -1;
 };
 </code></pre>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[20. 有效的括号]]></title>
-        <id>https://AriesSK.github.io/post/top_20/</id>
-        <link href="https://AriesSK.github.io/post/top_20/">
+        <title type="html"><![CDATA[29. 两数相除]]></title>
+        <id>https://AriesSK.github.io/post/top_29/</id>
+        <link href="https://AriesSK.github.io/post/top_29/">
         </link>
-        <updated>2022-07-20T03:02:06.000Z</updated>
+        <updated>2022-07-24T02:39:22.000Z</updated>
         <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>成对且顺序正确的括号匹配是栈的经典应用。</p>
+<h3 id="位运算替代加减乘除运算">位运算替代加减乘除运算</h3>
+<p><strong>加减：</strong> 使用按位异或和按位与运算能够替代，具体见<a href="https://ariessk.github.io/post/jianzhi_65">65. 不用加减乘除做加法</a>；<br>
+<strong>乘：</strong> 可以用加法和二分法（位移运算）进行快速乘；<br>
+<strong>除：</strong> 可以使用加减法和二分法（位移运算）替代。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="栈">栈</h3>
-<p>用栈的先入后出特性能够匹配成对的括号：</p>
-<pre><code class="language-js">var isValid = function(s) {
-    if (s.length &amp; 1) return false;
-    const stack = [];
-    for (let i = 0; i &lt; s.length; ++i) {
-        if (s.charAt(i) === '(' || s.charAt(i) === '[' || s.charAt(i) === '{') stack.push(s.charAt(i));
-        else if (!helper(stack.pop(), s.charAt(i))) return false;
+<h3 id="位运算-二分法">位运算 + 二分法</h3>
+<p>位运算可以替代 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\times2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">×</span><span class="mord">2</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>÷</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\div2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">÷</span><span class="mord">2</span></span></span></span>，因此本题思路就是将 dividend 拆分成多个 divisor 的 二次幂倍，而二次幂倍的乘法可以用位移运算替代。<br>
+<strong>精髓</strong>是找到第一个最大的二次幂倍后，将 dividend 和其的差作为新的 dividend，就转化为了相同的问题，可以用同一段代码解决。</p>
+<pre><code class="language-js">var divide = function(dividend, divisor) {
+    // 排除特殊情况，并且均变为正数方便计算，用 flag 记录结果的符号
+    if (!dividend) return 0;
+    if (dividend === -(2 ** 31) &amp;&amp; divisor === -1) return 2 ** 31 - 1;
+    let res = 0, flag = 1;
+    if (dividend &lt; 0 &amp;&amp; divisor &gt; 0 || dividend &gt; 0 &amp;&amp; divisor &lt; 0) flag = -1;
+    dividend = Math.abs(dividend);
+    divisor = Math.abs(divisor);
+    while (dividend &gt;= divisor) {
+        let tmp = divisor, m = 1;
+        // tmp 是小于 dividend 的 divisor 的最大二次幂倍，m 记录倍数
+        while (tmp &lt;= dividend &gt;&gt; 1) {
+            tmp &lt;&lt;= 1;
+            m &lt;&lt;= 1;
+        }
+        // 更新 dividend，进入下一次循环，重置 tmp 和 m，重复上面步骤至 divisor 超过 dividend
+        dividend -= tmp;
+        res += m;
     }
-    return !stack.length;
-
-    function helper(a, b) {
-        if (a === '(' &amp;&amp; b === ')' || a === '[' &amp;&amp; b === ']' || a === '{' &amp;&amp; b === '}') return true;
-        else return false;
+    return flag * res;
+};
+</code></pre>
+<p>上面这种方法每次循环都重置 tmp，会有许多重复计算，可以在第一次循环时将 divisor 的每个二次幂倍数都记录到数组中，然后倒序遍历数组也可以实现，用空间换时间。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[28. 实现strStr()]]></title>
+        <id>https://AriesSK.github.io/post/top_28/</id>
+        <link href="https://AriesSK.github.io/post/top_28/">
+        </link>
+        <updated>2022-07-23T01:47:26.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>字符串匹配还有一种 KMP 算法能够将复杂度从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>∗</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m * n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m + n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="暴力">暴力</h3>
+<p>逐个匹配的方法：</p>
+<pre><code class="language-js">var strStr = function(haystack, needle) {
+    if (!needle.length) return 0;
+    for (let i = 0; i &lt; haystack.length; ++i) {
+        if (haystack.charAt(i) === needle.charAt(0)) {
+            for (let j = 0; j &lt; needle.length; ++j) {
+                if (haystack.charAt(i + j) !== needle.charAt(j)) break;
+                if (j === needle.length - 1) return i;
+            }
+        }
     }
+    return -1;
 };
 </code></pre>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[19. 删除链表的倒数第N个节点]]></title>
-        <id>https://AriesSK.github.io/post/top_19/</id>
-        <link href="https://AriesSK.github.io/post/top_19/">
+        <title type="html"><![CDATA[26. 删除有序数组中的重复项]]></title>
+        <id>https://AriesSK.github.io/post/top_26/</id>
+        <link href="https://AriesSK.github.io/post/top_26/">
         </link>
-        <updated>2022-07-19T03:12:38.000Z</updated>
+        <updated>2022-07-23T01:40:51.000Z</updated>
         <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="链表删除">链表删除</h3>
-<p>链表删除有两个要注意的点：</p>
-<ol>
-<li>要删除链表的一个节点，需要知道它的<strong>前一个</strong>节点，才能进行删除操作；</li>
-<li>根据上面这一点，可以发现删除头节点与删除别的节点不同，因为头节点没有前一个节点，这种情况可以设置一个**头指针（哑巴节点）**指向头节点，这样就可以不用单独处理头节点。</li>
-</ol>
+<p>做题要仔细看要求的输出！像这道题很简单，但要求的输出是最终数组的长度而不是直接输出数组，没看仔细就容易出错。</p>
 <hr>
 <h2 id="题解">题解</h2>
 <h3 id="双指针">双指针</h3>
-<p>使用双指针，根据 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的值设置双指针的间距，然后保持该间距遍历链表至右指针为空，再进行删除操作，思路很简单，就要注意上面说的两个点：</p>
-<pre><code class="language-js">var removeNthFromEnd = function(head, n) {
-    const hptr = new ListNode(0, head);
-    let l = hptr, r = head;
-    while (n--) r = r.next;
-    while (r) {
-        l = l.next;
-        r = r.next;
+<p>一个指针 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 指向该放元素的位置，另一个指针 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 遍历数组，每发现一个不同的元素将它放到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 处，然后 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 指向下一个位置，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 继续遍历，直到遍历完数组。<br>
+由于是<strong>升序序列</strong>，所以只需要判断相邻两个元素是否相同即可，但如果不是有序的数组，就需要用到额外空间了。</p>
+<pre><code class="language-js">var removeDuplicates = function(nums) {
+    if(!nums.length) return nums;
+    let i = 1;
+    for (let j = 1; j &lt; nums.length; ++j) {
+        if (nums[j] !== nums[j - 1]) {
+            nums[i] = nums[j];
+            ++i;
+        }
     }
-    const tmp = l.next;
-    l.next = tmp.next;
-    tmp.next = null;
-    return hptr.next;
+    return i;
 };
 </code></pre>
 ]]></content>
