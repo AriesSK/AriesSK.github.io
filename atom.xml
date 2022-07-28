@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-27T12:57:10.675Z</updated>
+    <updated>2022-07-28T06:24:43.684Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -141,6 +141,10 @@
 </ul>
 <hr>
 <h3 id="算法知识点">算法知识点</h3>
+<p><strong>思路</strong></p>
+<ul>
+<li>算法的优化思路 —— <a href="https://ariessk.github.io/post/top_42/">42. 接雨水</a></li>
+</ul>
 <p><strong>递归与迭代</strong></p>
 <ul>
 <li>递归总结 —— <a href="https://ariessk.github.io/post/jianzhi_24/">24. 反转链表</a></li>
@@ -1699,6 +1703,57 @@ HashMap 散列表 是 数组 + 链表</p>
 <li>迭代：Map 可直接迭代；获取 Object 的键值后才能迭代</li>
 <li>性能：Map 在频繁增删时性能更优；Object 无优化</li>
 </ul>
+<p><strong>原型与原型链</strong><br>
+js 每个构造函数都有 prototype 属性指向它的原型对象（实例原型），原型对象派生的子对象叫构造函数<br>
+每个构造函数的实例都包含一个指向原型对象的内部指针 _proto_，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
+每个原型对象有一个 constructor 指针指向其关联的构造函数<br>
+如果原型对象是另一个类型的实例，则该原型对象包含着指向另一个原型的指针，层层递进就会形成实例与原型的链条，称为原型链，是图中蓝色的箭头<br>
+<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[42. 接雨水]]></title>
+        <id>https://AriesSK.github.io/post/top_42/</id>
+        <link href="https://AriesSK.github.io/post/top_42/">
+        </link>
+        <updated>2022-07-28T01:23:37.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="算法的优化思路">算法的优化思路</h3>
+<p>做题的时候很难一开始就想到最优的解法，往往可以尝试对简单方法进行一步步优化，按照简单方法的思路，优化时间复杂度和空间复杂度，最终得到最优的解法。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>解题思路：求每一列装了多少水，实际上就要看能到达多高的水位，而看 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 列的水位就是看该列左边最高的墙 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">lmax</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span></span></span></span> 和右边最高的墙 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">rmax</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span></span></span></span> 之间较矮的那一个（注意最高墙可以是该列本身，防止某一侧高墙不如该列本身高的情况），而 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 列装的水就是：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo separator="true">,</mo><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>)</mo><mo>−</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">min(lmax, rmax) - height[i]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span></span></p>
+<p><img src="https://AriesSK.github.io/post-images/1658975772159.png" alt="" loading="lazy"><br>
+按照解题思路，最朴素的方法就是遍历每一列，对每一列都寻找这一列两边最高的墙，计算该列装水量，遍历完毕后计算总和输出。</p>
+<h3 id="法二动态规划">法二：动态规划</h3>
+<p>很明显暴力解法中每一次遍历都需要重新遍历一遍所有的高度，造成了许多重复遍历，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，可以进行优化，将时间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。<br>
+可以使用动态规划的方法，分别使用两个数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">lmax[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">rmax[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 记录 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 列左右侧最高墙的高度，则获得递推公式：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo separator="true">,</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">lmax[i] = max(lmax[i - 1], height[i])
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo separator="true">,</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">rmax[i] = max(rmax[i - 1], height[i])
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
+<p>所以只需要分别正向和反向遍历数组一次，获取 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">lmax</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">rmax</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span></span></span></span>，再遍历一遍数组计算雨水总量即可。</p>
+<h3 id="法三双指针">法三：双指针</h3>
+<p>可以发现法二仍有进步的空间，因为对于每个列 i，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">lmax[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">rmax[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 只会用到一次，所以可以使用双指针和两个变量替代数组，将空间复杂度降低至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>：</p>
+<pre><code class="language-js">var trap = function(height) {
+    let l = 0, r = height.length - 1, lmax = 0, rmax = 0, res = 0;
+    while (l &lt; r) {
+        lmax = Math.max(lmax, height[l]);
+        rmax = Math.max(rmax, height[r]);
+        if (height[l] &lt; height[r]) {
+            res += lmax - height[l];
+            ++l;
+        } else {
+            res += rmax - height[r];
+            --r;
+        }
+    }
+    return res;
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1907,47 +1962,6 @@ console.log(b);// {n: 1, x: {n : 2}}
     return -1;
 };
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[29. 两数相除]]></title>
-        <id>https://AriesSK.github.io/post/top_29/</id>
-        <link href="https://AriesSK.github.io/post/top_29/">
-        </link>
-        <updated>2022-07-24T02:39:22.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="位运算替代加减乘除运算">位运算替代加减乘除运算</h3>
-<p><strong>加减：</strong> 使用按位异或和按位与运算能够替代，具体见<a href="https://ariessk.github.io/post/jianzhi_65">65. 不用加减乘除做加法</a>；<br>
-<strong>乘：</strong> 可以用加法和二分法（位移运算）进行快速乘；<br>
-<strong>除：</strong> 可以使用加减法和二分法（位移运算）替代。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="位运算-二分法">位运算 + 二分法</h3>
-<p>位运算可以替代 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\times2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">×</span><span class="mord">2</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>÷</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\div2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">÷</span><span class="mord">2</span></span></span></span>，因此本题思路就是将 dividend 拆分成多个 divisor 的 二次幂倍，而二次幂倍的乘法可以用位移运算替代。<br>
-<strong>精髓</strong>是找到第一个最大的二次幂倍后，将 dividend 和其的差作为新的 dividend，就转化为了相同的问题，可以用同一段代码解决。</p>
-<pre><code class="language-js">var divide = function(dividend, divisor) {
-    // 排除特殊情况，并且均变为正数方便计算，用 flag 记录结果的符号
-    if (!dividend) return 0;
-    if (dividend === -(2 ** 31) &amp;&amp; divisor === -1) return 2 ** 31 - 1;
-    let res = 0, flag = 1;
-    if (dividend &lt; 0 &amp;&amp; divisor &gt; 0 || dividend &gt; 0 &amp;&amp; divisor &lt; 0) flag = -1;
-    dividend = Math.abs(dividend);
-    divisor = Math.abs(divisor);
-    while (dividend &gt;= divisor) {
-        let tmp = divisor, m = 1;
-        // tmp 是小于 dividend 的 divisor 的最大二次幂倍，m 记录倍数
-        while (tmp &lt;= dividend &gt;&gt; 1) {
-            tmp &lt;&lt;= 1;
-            m &lt;&lt;= 1;
-        }
-        // 更新 dividend，进入下一次循环，重置 tmp 和 m，重复上面步骤至 divisor 超过 dividend
-        dividend -= tmp;
-        res += m;
-    }
-    return flag * res;
-};
-</code></pre>
-<p>上面这种方法每次循环都重置 tmp，会有许多重复计算，可以在第一次循环时将 divisor 的每个二次幂倍数都记录到数组中，然后倒序遍历数组也可以实现，用空间换时间。</p>
 ]]></content>
     </entry>
 </feed>
