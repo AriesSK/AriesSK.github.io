@@ -197,103 +197,139 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                44. 通配符匹配
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-07-29</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.8
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">422</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_38/">
-                                                38. 字符串的排列
-                                            </a>
-                                            <span class="archive-item-date">2022-07-06 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/tMnqncTHL/">动态规划</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_62/">
-                                                62. 圆圈中最后剩下的数字
-                                            </a>
-                                            <span class="archive-item-date">2022-07-02 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_33/">
-                                                33. 二叉搜索树的后序遍历序列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-28 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_16/">
-                                                16. 数组的整数次方
-                                            </a>
-                                            <span class="archive-item-date">2022-06-28 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_64/">
-                                                64. 求1+2+...+n
-                                            </a>
-                                            <span class="archive-item-date">2022-06-27 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_25/">
-                                                25. 合并两个排序的链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-20 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_10_i/">
-                                                10 - I. 斐波那契数列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-16 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_24/">
-                                                24. 反转链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="consolelog打印值"><code>console.log()</code>打印值</h3>
+<p><code>console.log()</code>对于六种基本类型直接输出，对于引用类型则打印引用的快照，而在控制台点击展开时会从内存中加载数据，此时展示的是更新后的数据。<br>
+看看下面代码的打印结果：</p>
+<pre><code class="language-js">const dp = new Array(3).fill(false);
+console.log(dp); 
+dp[0] = true;
+</code></pre>
+<p><img src="https://AriesSK.github.io/post-images/1659074072964.png" alt="" loading="lazy"><br>
+在赋值前打印，打印的是快照，预览为 [false, false,false]，在控制台点击展开后加载数据，此时已经赋值完成，因此展示更改后的数据，并且由于缓存，之前的预览并不会更改。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="动态规划">动态规划</h3>
+<p>和<a href="https://ariessk.github.io/post/top_10/">10. 正则表达式匹配</a>类似，但本题中没有两个字符关联形成新匹配模式的情况，相对简单一些，不过本题的<strong>初始状态</strong>需要仔细考虑，并且同样要注意 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 代表空字符串而不是字符串的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 位：</p>
+<pre><code class="language-js">var isMatch = function(s, p) {
+    const m = s.length, n = p.length;
+    // 所有状态均初始化为 false，减少后续代码
+    const dp = new Array(m + 1).fill().map(() =&gt; new Array(n + 1).fill(false));
+    dp[0][0] = true;
+    // 对于 s 是空串，只有 p 前 i 的字符均为 * 才能匹配
+    for (let i = 1; i &lt;= n; ++i) {
+        if (p.charAt(i - 1) === &quot;*&quot;) dp[0][i] = true;
+        else break;
+    }
+    for (let i = 1; i &lt;= m; ++i) {
+        for (let j = 1; j &lt;= n; ++j) {
+            // 两种情况，使用星号则继续匹配 s 的下一个字符，不使用则换 p 的下一个字符
+            if (p.charAt(j - 1) === &quot;*&quot;) dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+            else if (s.charAt(i - 1) === p.charAt(j - 1) || p.charAt(j - 1) === &quot;?&quot;) dp[i][j] = dp[i - 1][j - 1];
+        }
+    }
+    return dp[m][n];
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_44/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_44/&sharesource=qzone&title=44. 通配符匹配&pics=https://AriesSK.github.io/images/avatar.png?v=1659076292353&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_44/&sharesource=weibo&title=44. 通配符匹配 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659076292353 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/tMnqncTHL/">#
+                                                动态规划
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/html-css/">
+                                                                                            HTML + CSS
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/less/">
+                                                                                                    Less
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -380,5 +416,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-28T06:24:43.684Z</updated>
+    <updated>2022-07-29T06:31:40.582Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-12-31T15:59:59.000Z</updated>
+        <updated>2022-07-29T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -242,11 +242,161 @@
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[前端面试]]></title>
+        <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
+        <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+        </link>
+        <updated>2022-07-29T09:29:44.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
+<h3 id="html">HTML</h3>
+<p><strong>h5 新特性</strong></p>
+<ul>
+<li>媒体播放 video 和 audio</li>
+<li>本地存储 localStorge 和 sessionStorage</li>
+<li>语义化标签 header、nav、article、section、footer</li>
+<li>历史管理 history API</li>
+<li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
+<li>拖拽释放 Drag and drop API</li>
+</ul>
+<p><strong>iframe</strong><br>
+内联框架，往网页中引入另一个网页<br>
+优点：</p>
+<ul>
+<li>把嵌入的网页原封不动展现</li>
+<li>可以将网页公用的部分携程一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
+<li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
+<li>可以解决加载缓慢的第三方内容</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>阻塞主页面的 onload 事件</li>
+<li>与主页面共享连接池，会影响页面的并行加载，并且产生的多个页面不容易管理</li>
+<li>可能出现上下左右滚动条，用户体验差</li>
+<li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
+<li>许多移动端设备不兼容</li>
+<li>增加服务器的 http 请求，大型网站不可取</li>
+</ul>
+<p><strong>Web Components</strong><br>
+提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
+包含四部分：</p>
+<ul>
+<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
+<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
+<li>HTML Templates：模板</li>
+<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
+</ul>
+<h3 id="javascript">JavaScript</h3>
+<p><strong>字面量</strong><br>
+字面量，和常量差不多，其表达的信息如字面所示</p>
+<p><strong>Object.assign(target, ...sources)</strong><br>
+将 source 中的可枚举属性复制给 target，重名属性后面的覆盖前面的<br>
+复制的是属性值，如果属性值是引用类型则复制引用地址，会出现引用共享的问题（修改其中的一个会影响到别的）</p>
+<p><strong>constructor</strong><br>
+constructor 属性是专门为 function 设计的，存在于每一个 function 函数的 prototype 原型属性中，是指向 prototype 所在函数的指针<br>
+当我们调用该函数作为构造函数创建一个新实例后，该实例中将包含一个指向构造函数中的 prototype 的指针 proto<br>
+如果以等于一个以<strong>对象字面量</strong>形式创建的新对象，constructor 不再指向该构造函数，比如</p>
+<pre><code class="language-js">var person={ 
+    name:&quot;Jack&quot;, 
+    age:10
+};
+</code></pre>
+<p><strong>map 和 forEach</strong></p>
+<pre><code class="language-js">const arr = [1,2,3];
+// map 遍历数组并给每个数翻倍
+const arr1 = arr.map(x=&gt;x*2); //[2,4,6]
+// forEach 遍历数组，有三个参数，分别是：当前遍历的数组元素 item、当前的元素下标 index、数组本身 arr
+let sum = 0;
+arr.forEach(function(item, index, arr) {
+    if (arr[index] &gt; 0) sum += item;
+})
+</code></pre>
+<p>相同点：</p>
+<ol>
+<li>均循环遍历数组每一项</li>
+<li>只能遍历数组</li>
+<li>匿名函数都支持三个参数 item、index、arr</li>
+<li>匿名函数中的 this 指向 window</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>map 创建新数组并返回，forEach 无返回</li>
+<li>forEach 可以修改原数组，map 不会</li>
+</ol>
+<p><strong>for of</strong><br>
+es6 的新增方法，只限于迭代器(iterator)，也就是<strong>可迭代</strong>对象，比如 Array、Map、Set、String、arguments、TyoedArray 等</p>
+<p><strong>js 静态类型检查</strong><br>
+静态类型语言：变量在定义的时候有类型声明，类型的检查发生在编译时，在运行的时候无法修改变量类型，编译器可以确定运行时需要的内存总量<br>
+动态类型语言：变量在定义的时候无类型声明，类型的检查发生在运行时，在运行的时候可以修改变量类型<br>
+对比：静态类型可以尽早发现错误，减少了复杂的错误处理，将数据和行为分离，也有利于代码重构；动态类型的代码比较精简，并且不需要花时间掌握类型<br>
+js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态类型检查工具，能够找出类型错误；<strong>TypeScript</strong> 在 js 的基础上添加静态类型定义，并且会被编译成 js</p>
+<p><strong>indexOf</strong><br>
+<code>str.indexOf(searchValue[, fromIndex])</code> 找到返回第一个匹配字串的起始下标，未找到返回 0<br>
+searchValue 不设置会查找字符串 'undefined'<br>
+fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
+<strong>严格区分大小写</strong></p>
+<p><strong>变量提升</strong><br>
+js 是单线程语言，是按顺序执行，但是一段一段地分析执行，代码执行前的编译阶段会检测到所有的变量和函数声明，添加到叫做 Lexical Environment 的 js 数据结构的内存中，所以能够在真正被声明前使用</p>
+<p><strong>HashMap 和 Array</strong><br>
+HashMap 散列表 是 数组 + 链表</p>
+<ul>
+<li>查找效率：HashMap 根据 hashcode 直接算出 index，在数组每个下标的链表只有一个元素的时候，能达到 O(1)；Array 二分查找，受数组长度影响较大</li>
+<li>扩容数量：HashMap 初始长度 16，每次扩容申请双倍，扩容次数少；Array 小于 4 申请 4，小于 8 申请 8，大于 8 申请 size * 1.5，申请空间少</li>
+<li>扩容效率：HashMap 扩容重新计算每个元素的位置，然后放到新的位置；Array 直接赋值数组，效率更高</li>
+<li>内存消耗：Array 使用了独特的方式重复利用因为数组扩容遗留的数组空间，HashMap 没有</li>
+</ul>
+<p>总的来说，数据量小且使用频繁使用 Array，数据量大使用 HashMap</p>
+<p><strong>HashMap 和 Object</strong><br>
+两者累次允许按键存取值，删除键，检测键是否有值，不过 Map 有些优势：</p>
+<ul>
+<li>意外的键：Map 默认不包含任何键；Object 有原型，可能与插入的键名冲突</li>
+<li>键的类型：Map 键可以是任意值；Object 只能是 String 或 Symbol</li>
+<li>键的顺序：Map 键是有序的，迭代时以<strong>插入顺序</strong>返回；Object 无序</li>
+<li>Size：Map 通过 size 容易获取键值对个数；Object 手动计算</li>
+<li>迭代：Map 可直接迭代；获取 Object 的键值后才能迭代</li>
+<li>性能：Map 在频繁增删时性能更优；Object 无优化</li>
+</ul>
+<p><strong>原型与原型链</strong><br>
+js 每个构造函数都有 prototype 属性指向它的原型对象（实例原型），原型对象派生的子对象叫构造函数<br>
+每个构造函数的实例都包含一个指向原型对象的内部指针 __proto__，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
+每个原型对象有一个 constructor 指针指向其关联的构造函数<br>
+如果原型对象是另一个类型的实例，则该原型对象包含着指向另一个原型的指针，层层递进就会形成实例与原型的链条，称为原型链，是图中蓝色的箭头<br>
+<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"><br>
+根据原型链，就可以实现 instanceOf，其原理就是判断右边变量的 prototype 是否在左边变量的原型链上即可：</p>
+<pre><code class="language-js">funcion instance_of(left, right) {
+    let rightProto = right.prototype;
+    left = left._proto_;
+    while (true) {
+        if (left === null) return false;
+        if (left === rightProto) return true;
+        left = left._proto_;
+    }
+}
+</code></pre>
+<p><strong>强弱引用</strong><br>
+对象的引用就是强引用，WeakMaps 和 WeakSets 是 js 弱引用的唯一途径，弱引用不能防止对象被垃圾回收</p>
+<p><strong>垃圾回收</strong><br>
+内存是临时存储变量等数据的位置，内存也有生命周期，从内存创建分配到内存读写再到内存销毁，当内存不再使用，则会被垃圾回收，防止内存泄露（在执行垃圾回收时，遗漏一些内存没有回收）<br>
+所以垃圾回收机制的<strong>核心</strong>就是判断内存是否不再使用，有两种方法：</p>
+<ul>
+<li>引用计数：早期浏览器方法，计算内存被引用的次数，被引用一次计数 +1，不被引用一次计数 -1，计数为 0 就将内存释放回收，该方法简单有效，但循环引用会导致内存泄漏</li>
+<li>标记清除：目前浏览器方法，标记所有从根节点开始能够访问到的对象，未被标记的对象就是未被强据引用的垃圾对象，被清除</li>
+</ul>
+<p><strong>内存泄漏</strong></p>
+<ul>
+<li>意外的全局变量：全局变量内存不会回收，若全局变量使用不当又没有手动回收（赋值 null），就发生内存泄漏</li>
+<li>未被清空的定时器：定时器的生命周期有专门的线程维护，不挂靠在页面上，所以在某个页面使用定时器，页面销毁而没有手动清空定时器，就发生内存泄漏</li>
+<li>使用不当的闭包：在一个函数内部定义一个子函数，并且子函数调用了在父函数内定义的变量，并且在父函数外部被调用，这就形成了闭包；通常函数使用完后申请的内存会被回收，但闭包会导致父函数执行完内存仍无法被回收，造成内存泄漏</li>
+<li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
+<li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Vue]]></title>
         <id>https://AriesSK.github.io/post/vue/</id>
         <link href="https://AriesSK.github.io/post/vue/">
         </link>
-        <updated>2022-12-31T07:01:12.000Z</updated>
+        <updated>2022-07-29T07:01:12.000Z</updated>
         <content type="html"><![CDATA[<h2 id="vue-知识">Vue 知识</h2>
 <p><strong>单向绑定 与 双向绑定</strong></p>
 <ul>
@@ -1025,183 +1175,11 @@ token 是服务器生成的一串随机字符串或 json 串，作为客户端�
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Less]]></title>
-        <id>https://AriesSK.github.io/post/less/</id>
-        <link href="https://AriesSK.github.io/post/less/">
-        </link>
-        <updated>2022-12-31T05:02:58.000Z</updated>
-        <content type="html"><![CDATA[<p>Less 是一门 CSS 预处理语言，扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展，简单来说就是能够提取大量的重复代码，使 CSS 更加规范。</p>
-<p><strong>注释</strong><br>
-单行 //<br>
-多行 /**/</p>
-<p><strong>变量</strong><br>
-使用 @ 声明变量，同名变量后面的会覆盖前面的</p>
-<pre><code class="language-less">@primary: red;
-
-.box {
-    color: @primary;
-}
-</code></pre>
-<p><strong>嵌套</strong><br>
-CSS 的预编译器嵌套规则大同小异：</p>
-<pre><code class="language-less">.a {
-    color: #fff;
-    .b {
-        width: 20px;
-    }
-}
-</code></pre>
-<p>编译后如下：</p>
-<pre><code class="language-css">.a {
-    color: #fff;
-}
-.a .b {
-    width: 20px;
-}
-</code></pre>
-<p>同级场景使用 &amp; 的情况，&amp; 表示当前节点的 CSS 样式，一般用于处理 CSS 样式的状态 hover、focus、active、link、visited等：</p>
-<pre><code class="language-less">.a {
-    color: blue;
-    &amp;:hover {
-        color: red;
-    }
-}
-</code></pre>
-<p><strong>混合（Mixin）</strong><br>
-Less 的混合有三种情况：</p>
-<ul>
-<li>不带参数，调用时可以不加括号，直接使用</li>
-</ul>
-<pre><code class="language-less">.center {
-    text-align: center;
-}
-.red {
-    color: red;
-}
-
-.box {
-    .one {
-        .center;
-        .red;
-    }
-}
-</code></pre>
-<ul>
-<li>带参数，没有默认值，调用需要加括号，并且括号中必须要传值</li>
-</ul>
-<pre><code class="language-less">.center {
-    text-align: center;
-}
-.color(@c) {
-    color: @c;
-}
-
-.box {
-    .one {
-        .center;
-        .color(green);
-    }
-}
-</code></pre>
-<ul>
-<li>带参数，有设置默认值，调用时要加括号，可以不传参数</li>
-</ul>
-<pre><code class="language-less">.center {
-    text-align: center;
-}
-.color(@c: red) {
-    color: @c;
-}
-
-.box {
-    .one {
-        .center;
-        .color;
-    }
-}
-</code></pre>
-<p><strong>运算</strong><br>
-+ - * / 可以对任何数字、颜色或变量运算，运算前会进行单位的换算，计算结果以最左侧的单位为准，如果单位无效或失去意义则忽略单位</p>
-<p><strong>转义字符</strong><br>
-Less 的转义字符为 ~&quot;&quot; 比如<code>~&quot;\&quot;</code></p>
-<p><strong>作用域</strong><br>
-现在当前作用域内查询，找不到则继续向上一级查询，类似 js</p>
-<p><strong>导入</strong><br>
-Less 文件可以使用 @import 引入另一个 Less 文件，并且还可以使用里面的变量，比如<code>@import './style.less'</code></p>
-<p><strong>应用实例</strong><br>
-实例一：画四种方向的三角形<br>
-可以使用通用匹配模式 @_ 无论同名的哪一个混合被匹配到，都要先执行通用匹配模式的代码</p>
-<pre><code class="language-less">// 通用匹配模式 下面四种方向的三角形都会先执行该代码
-.triangle(@_, @width, @color) {
-    width: 0;
-    height: 0;
-    border-style: solid;
-}
-.triangle(Bottom, @width, @color) {
-    border-width: @width;
-    border-color: @color transparent transparent transparent;
-}
-.triangle(Left, @width, @color) {
-    border-width: @width;
-    border-color: transparent @color transparent transparent;
-}
-.triangle(Top, @width, @color) {
-    border-width: @width;
-    border-color: transparent transparent @color transparent;
-}
-.triangle(Right, @width, @color) {
-    border-width: @width;
-    border-color: transparent transparent transparent @color;
-}
-// 使用左箭头
-.box {
-    .triangle(Left, 100px, red);
-}
-</code></pre>
-<p>这种方式画三角形是利用了 border 可以分别设置四边的属性，当 width 和 height 为 0，整个可见区就由 broder 填满，调整 border-width 可以改变三角形的大小，设置一边的颜色并将另外三边设为透明则可以出现三角形的效果（四分之一的矩形）<br>
-<strong>@arguments</strong> 能够替代 mixin 的所有参数</p>
-<pre><code class="language-less">.border(@width, @mode, @color) {
-    border: @arguments;
-}
-.one{
-    .border(1px, solid, red)
-}
-</code></pre>
-<p>实例二：文字垂直居中<br>
-由于将行高 line-height 和 height 设置成相同就能够让标签内的文字垂直居中，因此比较常用，就可以把它封装起来</p>
-<pre><code class="language-less">.line-text-h (@h: 0) {
-    height: @h;
-    line-height: @h;
-}
-
-.box {
-    .text {
-        .line-height-h(100px);
-        background: grey;
-        width: 200px;
-    }
-}
-</code></pre>
-<p>实例三：定位上下左右居中<br>
-绝对定位相对于已定位的父元素，相对定位相对于元素在文档中的初始位置</p>
-<pre><code class="language-less">.center {
-    // 设置绝对定位
-    position: absolute;
-    // 设置使元素左上顶点位于中心位置
-    top: 50%;
-    left: 50%;
-    // 向上和向左平移自身一半的高和宽，使元素中心点位于中心位置
-    transform: translate(-50%, -50%);
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[HTML + CSS]]></title>
         <id>https://AriesSK.github.io/post/html-css/</id>
         <link href="https://AriesSK.github.io/post/html-css/">
         </link>
-        <updated>2022-12-24T07:00:39.000Z</updated>
+        <updated>2022-07-29T07:00:39.000Z</updated>
         <content type="html"><![CDATA[<p><strong>操作快捷键</strong><br>
 Ctrl + Enter 换行，不改变光标后面代码<br>
 Alt + Shift + up/down 在上一行/下一行复制该行<br>
@@ -1590,125 +1568,217 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[前端面试]]></title>
-        <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
-        <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+        <title type="html"><![CDATA[44. 通配符匹配]]></title>
+        <id>https://AriesSK.github.io/post/top_44/</id>
+        <link href="https://AriesSK.github.io/post/top_44/">
         </link>
-        <updated>2022-07-31T09:29:44.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
-<h3 id="html">HTML</h3>
-<p><strong>h5 新特性</strong></p>
-<ul>
-<li>媒体播放 video 和 audio</li>
-<li>本地存储 localStorge 和 sessionStorage</li>
-<li>语义化标签 header、nav、article、section、footer</li>
-<li>历史管理 history API</li>
-<li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
-<li>拖拽释放 Drag and drop API</li>
-</ul>
-<p><strong>iframe</strong><br>
-内联框架，往网页中引入另一个网页<br>
-优点：</p>
-<ul>
-<li>把嵌入的网页原封不动展现</li>
-<li>可以将网页公用的部分携程一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
-<li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
-<li>可以解决加载缓慢的第三方内容</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>阻塞主页面的 onload 事件</li>
-<li>与主页面共享连接池，会影响页面的并行加载，并且产生的多个页面不容易管理</li>
-<li>可能出现上下左右滚动条，用户体验差</li>
-<li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
-<li>许多移动端设备不兼容</li>
-<li>增加服务器的 http 请求，大型网站不可取</li>
-</ul>
-<p><strong>Web Components</strong><br>
-提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
-包含四部分：</p>
-<ul>
-<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
-<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
-<li>HTML Templates：模板</li>
-<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
-</ul>
-<h3 id="javascript">JavaScript</h3>
-<p><strong>字面量</strong><br>
-字面量，和常量差不多，其表达的信息如字面所示</p>
-<p><strong>Object.assign(target, ...sources)</strong><br>
-将 source 中的可枚举属性复制给 target，重名属性后面的覆盖前面的<br>
-复制的是属性值，如果属性值是引用类型则复制引用地址，会出现引用共享的问题（修改其中的一个会影响到别的）</p>
-<p><strong>constructor</strong><br>
-constructor 属性是专门为 function 设计的，存在于每一个 function 函数的 prototype 原型属性中，是指向 prototype 所在函数的指针<br>
-当我们调用该函数作为构造函数创建一个新实例后，该实例中将包含一个指向构造函数中的 prototype 的指针 proto<br>
-如果以等于一个以<strong>对象字面量</strong>形式创建的新对象，constructor 不再指向该构造函数，比如</p>
-<pre><code class="language-js">var person={ 
-    name:&quot;Jack&quot;, 
-    age:10
+        <updated>2022-07-29T05:33:21.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="consolelog打印值"><code>console.log()</code>打印值</h3>
+<p><code>console.log()</code>对于六种基本类型直接输出，对于引用类型则打印引用的快照，而在控制台点击展开时会从内存中加载数据，此时展示的是更新后的数据。<br>
+看看下面代码的打印结果：</p>
+<pre><code class="language-js">const dp = new Array(3).fill(false);
+console.log(dp); 
+dp[0] = true;
+</code></pre>
+<p><img src="https://AriesSK.github.io/post-images/1659074072964.png" alt="" loading="lazy"><br>
+在赋值前打印，打印的是快照，预览为 [false, false,false]，在控制台点击展开后加载数据，此时已经赋值完成，因此展示更改后的数据，并且由于缓存，之前的预览并不会更改。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="动态规划">动态规划</h3>
+<p>和<a href="https://ariessk.github.io/post/top_10/">10. 正则表达式匹配</a>类似，但本题中没有两个字符关联形成新匹配模式的情况，相对简单一些，不过本题的<strong>初始状态</strong>需要仔细考虑，并且同样要注意 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 代表空字符串而不是字符串的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 位：</p>
+<pre><code class="language-js">var isMatch = function(s, p) {
+    const m = s.length, n = p.length;
+    // 所有状态均初始化为 false，减少后续代码
+    const dp = new Array(m + 1).fill().map(() =&gt; new Array(n + 1).fill(false));
+    dp[0][0] = true;
+    // 对于 s 是空串，只有 p 前 i 的字符均为 * 才能匹配
+    for (let i = 1; i &lt;= n; ++i) {
+        if (p.charAt(i - 1) === &quot;*&quot;) dp[0][i] = true;
+        else break;
+    }
+    for (let i = 1; i &lt;= m; ++i) {
+        for (let j = 1; j &lt;= n; ++j) {
+            // 两种情况，使用星号则继续匹配 s 的下一个字符，不使用则换 p 的下一个字符
+            if (p.charAt(j - 1) === &quot;*&quot;) dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+            else if (s.charAt(i - 1) === p.charAt(j - 1) || p.charAt(j - 1) === &quot;?&quot;) dp[i][j] = dp[i - 1][j - 1];
+        }
+    }
+    return dp[m][n];
 };
 </code></pre>
-<p><strong>map 和 forEach</strong></p>
-<pre><code class="language-js">const arr = [1,2,3];
-// map 遍历数组并给每个数翻倍
-const arr1 = arr.map(x=&gt;x*2); //[2,4,6]
-// forEach 遍历数组，有三个参数，分别是：当前遍历的数组元素 item、当前的元素下标 index、数组本身 arr
-let sum = 0;
-arr.forEach(function(item, index, arr) {
-    if (arr[index] &gt; 0) sum += item;
-})
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Less]]></title>
+        <id>https://AriesSK.github.io/post/less/</id>
+        <link href="https://AriesSK.github.io/post/less/">
+        </link>
+        <updated>2022-07-29T05:02:58.000Z</updated>
+        <content type="html"><![CDATA[<p>Less 是一门 CSS 预处理语言，扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展，简单来说就是能够提取大量的重复代码，使 CSS 更加规范。</p>
+<p><strong>注释</strong><br>
+单行 //<br>
+多行 /**/</p>
+<p><strong>变量</strong><br>
+使用 @ 声明变量，同名变量后面的会覆盖前面的</p>
+<pre><code class="language-less">@primary: red;
+
+.box {
+    color: @primary;
+}
 </code></pre>
-<p>相同点：</p>
-<ol>
-<li>均循环遍历数组每一项</li>
-<li>只能遍历数组</li>
-<li>匿名函数都支持三个参数 item、index、arr</li>
-<li>匿名函数中的 this 指向 window</li>
-</ol>
-<p>不同点：</p>
-<ol>
-<li>map 创建新数组并返回，forEach 无返回</li>
-<li>forEach 可以修改原数组，map 不会</li>
-</ol>
-<p><strong>for of</strong><br>
-es6 的新增方法，只限于迭代器(iterator)，也就是<strong>可迭代</strong>对象，比如 Array、Map、Set、String、arguments、TyoedArray 等</p>
-<p><strong>js 静态类型检查</strong><br>
-静态类型语言：变量在定义的时候有类型声明，类型的检查发生在编译时，在运行的时候无法修改变量类型，编译器可以确定运行时需要的内存总量<br>
-动态类型语言：变量在定义的时候无类型声明，类型的检查发生在运行时，在运行的时候可以修改变量类型<br>
-对比：静态类型可以尽早发现错误，减少了复杂的错误处理，将数据和行为分离，也有利于代码重构；动态类型的代码比较精简，并且不需要花时间掌握类型<br>
-js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态类型检查工具，能够找出类型错误；<strong>TypeScript</strong> 在 js 的基础上添加静态类型定义，并且会被编译成 js</p>
-<p><strong>indexOf</strong><br>
-<code>str.indexOf(searchValue[, fromIndex])</code> 找到返回第一个匹配字串的起始下标，未找到返回 0<br>
-searchValue 不设置会查找字符串 'undefined'<br>
-fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
-<strong>严格区分大小写</strong></p>
-<p><strong>变量提升</strong><br>
-js 是单线程语言，是按顺序执行，但是一段一段地分析执行，代码执行前的编译阶段会检测到所有的变量和函数声明，添加到叫做 Lexical Environment 的 js 数据结构的内存中，所以能够在真正被声明前使用</p>
-<p><strong>HashMap 和 Array</strong><br>
-HashMap 散列表 是 数组 + 链表</p>
+<p><strong>嵌套</strong><br>
+CSS 的预编译器嵌套规则大同小异：</p>
+<pre><code class="language-less">.a {
+    color: #fff;
+    .b {
+        width: 20px;
+    }
+}
+</code></pre>
+<p>编译后如下：</p>
+<pre><code class="language-css">.a {
+    color: #fff;
+}
+.a .b {
+    width: 20px;
+}
+</code></pre>
+<p>同级场景使用 &amp; 的情况，&amp; 表示当前节点的 CSS 样式，一般用于处理 CSS 样式的状态 hover、focus、active、link、visited等：</p>
+<pre><code class="language-less">.a {
+    color: blue;
+    &amp;:hover {
+        color: red;
+    }
+}
+</code></pre>
+<p><strong>混合（Mixin）</strong><br>
+Less 的混合有三种情况：</p>
 <ul>
-<li>查找效率：HashMap 根据 hashcode 直接算出 index，在数组每个下标的链表只有一个元素的时候，能达到 O(1)；Array 二分查找，受数组长度影响较大</li>
-<li>扩容数量：HashMap 初始长度 16，每次扩容申请双倍，扩容次数少；Array 小于 4 申请 4，小于 8 申请 8，大于 8 申请 size * 1.5，申请空间少</li>
-<li>扩容效率：HashMap 扩容重新计算每个元素的位置，然后放到新的位置；Array 直接赋值数组，效率更高</li>
-<li>内存消耗：Array 使用了独特的方式重复利用因为数组扩容遗留的数组空间，HashMap 没有</li>
+<li>不带参数，调用时可以不加括号，直接使用</li>
 </ul>
-<p>总的来说，数据量小且使用频繁使用 Array，数据量大使用 HashMap</p>
-<p><strong>HashMap 和 Object</strong><br>
-两者累次允许按键存取值，删除键，检测键是否有值，不过 Map 有些优势：</p>
+<pre><code class="language-less">.center {
+    text-align: center;
+}
+.red {
+    color: red;
+}
+
+.box {
+    .one {
+        .center;
+        .red;
+    }
+}
+</code></pre>
 <ul>
-<li>意外的键：Map 默认不包含任何键；Object 有原型，可能与插入的键名冲突</li>
-<li>键的类型：Map 键可以是任意值；Object 只能是 String 或 Symbol</li>
-<li>键的顺序：Map 键是有序的，迭代时以<strong>插入顺序</strong>返回；Object 无序</li>
-<li>Size：Map 通过 size 容易获取键值对个数；Object 手动计算</li>
-<li>迭代：Map 可直接迭代；获取 Object 的键值后才能迭代</li>
-<li>性能：Map 在频繁增删时性能更优；Object 无优化</li>
+<li>带参数，没有默认值，调用需要加括号，并且括号中必须要传值</li>
 </ul>
-<p><strong>原型与原型链</strong><br>
-js 每个构造函数都有 prototype 属性指向它的原型对象（实例原型），原型对象派生的子对象叫构造函数<br>
-每个构造函数的实例都包含一个指向原型对象的内部指针 _proto_，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
-每个原型对象有一个 constructor 指针指向其关联的构造函数<br>
-如果原型对象是另一个类型的实例，则该原型对象包含着指向另一个原型的指针，层层递进就会形成实例与原型的链条，称为原型链，是图中蓝色的箭头<br>
-<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"></p>
+<pre><code class="language-less">.center {
+    text-align: center;
+}
+.color(@c) {
+    color: @c;
+}
+
+.box {
+    .one {
+        .center;
+        .color(green);
+    }
+}
+</code></pre>
+<ul>
+<li>带参数，有设置默认值，调用时要加括号，可以不传参数</li>
+</ul>
+<pre><code class="language-less">.center {
+    text-align: center;
+}
+.color(@c: red) {
+    color: @c;
+}
+
+.box {
+    .one {
+        .center;
+        .color;
+    }
+}
+</code></pre>
+<p><strong>运算</strong><br>
++ - * / 可以对任何数字、颜色或变量运算，运算前会进行单位的换算，计算结果以最左侧的单位为准，如果单位无效或失去意义则忽略单位</p>
+<p><strong>转义字符</strong><br>
+Less 的转义字符为 ~&quot;&quot; 比如<code>~&quot;\&quot;</code></p>
+<p><strong>作用域</strong><br>
+现在当前作用域内查询，找不到则继续向上一级查询，类似 js</p>
+<p><strong>导入</strong><br>
+Less 文件可以使用 @import 引入另一个 Less 文件，并且还可以使用里面的变量，比如<code>@import './style.less'</code></p>
+<p><strong>应用实例</strong><br>
+实例一：画四种方向的三角形<br>
+可以使用通用匹配模式 @_ 无论同名的哪一个混合被匹配到，都要先执行通用匹配模式的代码</p>
+<pre><code class="language-less">// 通用匹配模式 下面四种方向的三角形都会先执行该代码
+.triangle(@_, @width, @color) {
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+.triangle(Bottom, @width, @color) {
+    border-width: @width;
+    border-color: @color transparent transparent transparent;
+}
+.triangle(Left, @width, @color) {
+    border-width: @width;
+    border-color: transparent @color transparent transparent;
+}
+.triangle(Top, @width, @color) {
+    border-width: @width;
+    border-color: transparent transparent @color transparent;
+}
+.triangle(Right, @width, @color) {
+    border-width: @width;
+    border-color: transparent transparent transparent @color;
+}
+// 使用左箭头
+.box {
+    .triangle(Left, 100px, red);
+}
+</code></pre>
+<p>这种方式画三角形是利用了 border 可以分别设置四边的属性，当 width 和 height 为 0，整个可见区就由 broder 填满，调整 border-width 可以改变三角形的大小，设置一边的颜色并将另外三边设为透明则可以出现三角形的效果（四分之一的矩形）<br>
+<strong>@arguments</strong> 能够替代 mixin 的所有参数</p>
+<pre><code class="language-less">.border(@width, @mode, @color) {
+    border: @arguments;
+}
+.one{
+    .border(1px, solid, red)
+}
+</code></pre>
+<p>实例二：文字垂直居中<br>
+由于将行高 line-height 和 height 设置成相同就能够让标签内的文字垂直居中，因此比较常用，就可以把它封装起来</p>
+<pre><code class="language-less">.line-text-h (@h: 0) {
+    height: @h;
+    line-height: @h;
+}
+
+.box {
+    .text {
+        .line-height-h(100px);
+        background: grey;
+        width: 200px;
+    }
+}
+</code></pre>
+<p>实例三：定位上下左右居中<br>
+绝对定位相对于已定位的父元素，相对定位相对于元素在文档中的初始位置</p>
+<pre><code class="language-less">.center {
+    // 设置绝对定位
+    position: absolute;
+    // 设置使元素左上顶点位于中心位置
+    top: 50%;
+    left: 50%;
+    // 向上和向左平移自身一半的高和宽，使元素中心点位于中心位置
+    transform: translate(-50%, -50%);
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1925,41 +1995,6 @@ console.log(b);// {n: 1, x: {n : 2}}
         if (tar === target &amp;&amp; !flag) return false;
         return l;
     }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[33. 搜索旋转排序数组]]></title>
-        <id>https://AriesSK.github.io/post/top_33/</id>
-        <link href="https://AriesSK.github.io/post/top_33/">
-        </link>
-        <updated>2022-07-25T02:41:36.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="二分法核心思想">二分法核心思想</h3>
-<p>二分法的核心就是缩小查找的空间，每次排除部分不可能的空间，直到查找到目标元素。<br>
-对于这道题，缩小空间的方法是判断目标元素是否在有序部分中，在则排除无序部分，不在则排除有序部分。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="二分法">二分法</h3>
-<p>每次根据二分中点能够将数组划分为有序和无序两个部分，有序部分可以通过最小值和最大值判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span> 是否在该部分当中，从而进行查找空间的缩小，直到查找到目标元素。<br>
-对于无序部分，中点能够将其划分为一个有序部分和一个可能有序也可能无序的部分；对于有序部分，中点能够将其划分为两个有序部分，缩小空间的方式相同。</p>
-<pre><code class="language-js">var search = function(nums, target) {
-    let l = 0, r = nums.length - 1;
-    while (l &lt;= r) {
-        const m = l + r &gt;&gt; 1;
-        if (nums[m] === target) return m;
-        // 如果 m 左侧有序，右侧无序
-        if (nums[0] &lt;= nums[m]) {
-            // 因为 m 左侧是有序的，所以可以判断 target 在不在该区间内
-            if (nums[0] &lt;= target &amp;&amp; target &lt; nums[m]) r = m - 1;
-            else l = m  + 1;
-        } else {
-            if (nums[m] &lt; target &amp;&amp; target &lt;= nums[nums.length - 1]) l = m + 1;
-            else r = m - 1;
-        }
-    }
-    return -1;
 };
 </code></pre>
 ]]></content>

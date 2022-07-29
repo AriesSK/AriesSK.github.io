@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1658989477414" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1659076292353" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1658989477414" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1659076292353" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -210,12 +210,12 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-07-31</a>
+                                Date: <a href="#">2022-07-29</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">6.5
+                                    href="#">8.8
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">1774</a></span>
+                                    <span class="post-words">words:<a href="#">2413</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -339,10 +339,38 @@ HashMap 散列表 是 数组 + 链表</p>
 </ul>
 <p><strong>原型与原型链</strong><br>
 js 每个构造函数都有 prototype 属性指向它的原型对象（实例原型），原型对象派生的子对象叫构造函数<br>
-每个构造函数的实例都包含一个指向原型对象的内部指针 _proto_，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
+每个构造函数的实例都包含一个指向原型对象的内部指针 __proto__，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
 每个原型对象有一个 constructor 指针指向其关联的构造函数<br>
 如果原型对象是另一个类型的实例，则该原型对象包含着指向另一个原型的指针，层层递进就会形成实例与原型的链条，称为原型链，是图中蓝色的箭头<br>
-<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"></p>
+<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"><br>
+根据原型链，就可以实现 instanceOf，其原理就是判断右边变量的 prototype 是否在左边变量的原型链上即可：</p>
+<pre><code class="language-js">funcion instance_of(left, right) {
+    let rightProto = right.prototype;
+    left = left._proto_;
+    while (true) {
+        if (left === null) return false;
+        if (left === rightProto) return true;
+        left = left._proto_;
+    }
+}
+</code></pre>
+<p><strong>强弱引用</strong><br>
+对象的引用就是强引用，WeakMaps 和 WeakSets 是 js 弱引用的唯一途径，弱引用不能防止对象被垃圾回收</p>
+<p><strong>垃圾回收</strong><br>
+内存是临时存储变量等数据的位置，内存也有生命周期，从内存创建分配到内存读写再到内存销毁，当内存不再使用，则会被垃圾回收，防止内存泄露（在执行垃圾回收时，遗漏一些内存没有回收）<br>
+所以垃圾回收机制的<strong>核心</strong>就是判断内存是否不再使用，有两种方法：</p>
+<ul>
+<li>引用计数：早期浏览器方法，计算内存被引用的次数，被引用一次计数 +1，不被引用一次计数 -1，计数为 0 就将内存释放回收，该方法简单有效，但循环引用会导致内存泄漏</li>
+<li>标记清除：目前浏览器方法，标记所有从根节点开始能够访问到的对象，未被标记的对象就是未被强据引用的垃圾对象，被清除</li>
+</ul>
+<p><strong>内存泄漏</strong></p>
+<ul>
+<li>意外的全局变量：全局变量内存不会回收，若全局变量使用不当又没有手动回收（赋值 null），就发生内存泄漏</li>
+<li>未被清空的定时器：定时器的生命周期有专门的线程维护，不挂靠在页面上，所以在某个页面使用定时器，页面销毁而没有手动清空定时器，就发生内存泄漏</li>
+<li>使用不当的闭包：在一个函数内部定义一个子函数，并且子函数调用了在父函数内定义的变量，并且在父函数外部被调用，这就形成了闭包；通常函数使用完后申请的内存会被回收，但闭包会导致父函数执行完内存仍无法被回收，造成内存泄漏</li>
+<li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
+<li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
+</ul>
 
                         </div>
                         
@@ -353,8 +381,8 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/qian-duan-mian-shi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1658989477414&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1658989477414 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1659076292353&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659076292353 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -381,13 +409,13 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/html-css/">
-                                                                                            HTML + CSS
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_42/">
-                                                                                                    42. 接雨水
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/vue/">
+                                                                                                    Vue
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
@@ -478,7 +506,7 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1658989477414);
+                    newDate.setTime(1659076292353);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
