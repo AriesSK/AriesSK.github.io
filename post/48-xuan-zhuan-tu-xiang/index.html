@@ -197,35 +197,124 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                48. 旋转图像
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
-                                
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-07-30</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.8
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">394</a></span>
                                     
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                                06. 从头到尾打印链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
-                                                    <a href="https://AriesSK.github.io/tag/2UcFUw72z" class="prev"><i class="icon-arrow-ios-back-outline"></i> Prev</a>
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="二维矩阵翻转替代旋转">二维矩阵翻转替代旋转</h3>
+<p>二维矩阵的翻转问题和旋转问题在很多情况下可以相互转换。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一原地旋转">法一：原地旋转</h3>
+<p>每个元素旋转后的位置与原位置的关系还是很好找的，但难点就在如何保证<strong>不重复</strong>旋转。<br>
+仔细观察后发现规律：对于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n \times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的二维数组，只需要保证对第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 行的从第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 个元素开始的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>2</mn><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n - 2i - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个元素进行旋转，即可保证不重复旋转。</p>
+<pre><code class="language-js">var rotate = function(matrix) {
+    const n = matrix.length;
+    for (let i = 0; i &lt; n &gt;&gt; 1; ++i) {
+        for (let j = i; j &lt; n - i - 1; ++j) {
+            const tmp = matrix[i][j];
+            matrix[i][j] = matrix[n - j - 1][i];
+            matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+            matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+            matrix[j][n - i - 1] = tmp;
+        }
+    }
+    return matrix;
+};
+</code></pre>
+<h3 id="法二翻转替代旋转">法二：翻转替代旋转</h3>
+<p>法一的规律还是有一些难度的，比较容易出错，还有更巧妙的办法：<br>
+先将数组沿水平的中心轴翻转，再将数组沿主对角线翻转，即可起到要求的旋转效果，因为这两步翻转的公式合并起来与法一的公式是相同的：</p>
+<pre><code class="language-js">var rotate = function(matrix) {
+    const n = matrix.length;
+    for (let i = 0; i &lt; n &gt;&gt; 1; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            const tmp = matrix[i][j];
+            matrix[i][j] = matrix[n - i - 1][j];
+            matrix[n - i - 1][j] = tmp;
+        }
+    }
+    for (let i = 0; i &lt; n; ++i) {
+        for (let j = 0; j &lt; i; ++j) {
+            const tmp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = tmp;
+        }
+    }
+    return matrix;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
                                                     
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/48-xuan-zhuan-tu-xiang/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/48-xuan-zhuan-tu-xiang/&sharesource=qzone&title=48. 旋转图像&pics=https://AriesSK.github.io/images/avatar.png?v=1659163115146&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/48-xuan-zhuan-tu-xiang/&sharesource=weibo&title=48. 旋转图像 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659163115146 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+                                                                                            前端面试
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_46/">
+                                                                                                    46. 全排列
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -312,5 +401,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
