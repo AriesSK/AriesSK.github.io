@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-30T06:38:52.014Z</updated>
+    <updated>2022-07-31T07:27:19.343Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,41 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[49. 字母异位词分组]]></title>
+        <id>https://AriesSK.github.io/post/top_49/</id>
+        <link href="https://AriesSK.github.io/post/top_49/">
+        </link>
+        <updated>2022-07-31T06:27:37.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中">JavaScript 中</h3>
+<p>方法如下：</p>
+<pre><code class="language-js">
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一排序">法一：排序</h3>
+<p>将每个字符串拆分成字符数组，然后进行排序，再恢复成字符串。异位词在排序后应当是相同的，因此可以将排序后的字符串作为键，其对应的字符串数组作为值存入哈希表中，实现分组：</p>
+<pre><code class="language-js">var groupAnagrams = function(strs) {
+    const map = new Map();
+    for (const str of strs) {
+        const arr = Array.from(str);
+        // 这里用 toString() 替代 join() 也可以，前者中间有逗号，后者没有，只要保证唯一即可
+        const key = arr.sort().join(&quot;&quot;); 
+        // 有则获取字符串数组，无则创建空数组
+        const tmp = map.has(key) ? map.get(key) : new Array();
+        tmp.push(str);
+        map.set(key, tmp);
+    }
+    return Array.from(map.values());
+};
+</code></pre>
+<h3 id="法二计数">法二：计数</h3>
+<p>法二其实也是排序，只不过将法一的排序换为计数排序，由于小写字母只有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>26</mn></mrow><annotation encoding="application/x-tex">26</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">6</span></span></span></span> 个，所以可以用长度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>26</mn></mrow><annotation encoding="application/x-tex">26</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">6</span></span></span></span> 的数组空间来降低排序算法的时间复杂度，关于计数排序详见<a href="https://ariessk.github.io/post/jianzhi_40/">40. 最小的k个数</a>：</p>
+<pre><code class="language-js">
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
         <id>https://AriesSK.github.io/post/zhishidian/</id>
@@ -394,8 +429,8 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
     </entry>
     <entry>
         <title type="html"><![CDATA[48. 旋转图像]]></title>
-        <id>https://AriesSK.github.io/post/48-xuan-zhuan-tu-xiang/</id>
-        <link href="https://AriesSK.github.io/post/48-xuan-zhuan-tu-xiang/">
+        <id>https://AriesSK.github.io/post/top_48/</id>
+        <link href="https://AriesSK.github.io/post/top_48/">
         </link>
         <updated>2022-07-30T05:31:53.000Z</updated>
         <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
@@ -1914,59 +1949,6 @@ Less 文件可以使用 @import 引入另一个 Less 文件，并且还可以使
         }
     }
     return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[41. 缺失的第一个正数]]></title>
-        <id>https://AriesSK.github.io/post/top_41/</id>
-        <link href="https://AriesSK.github.io/post/top_41/">
-        </link>
-        <updated>2022-07-27T02:27:15.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="for-in与for-of遍历的坑"><code>for in</code>与<code>for of</code>遍历的坑</h3>
-<p>之前踩过的坑今天居然又踩了一遍，以后还是老老实实用<strong>常规</strong>的遍历方法吧！<br>
-<code>for of</code>遍历不提供索引，是<strong>不能修改原数组</strong>的！</p>
-<pre><code class="language-js">const nums = [0,1,2];
-for (let num of nums) {
-    num = num + 1;
-}
-console.log(nums); // [0,1,2]
-</code></pre>
-<p><code>for in</code>遍历提供的索引是<strong>字符串</strong>形式的！</p>
-<pre><code class="language-js">const nums = [0,1,2];
-for (const i in nums) {
-    console.log(i + 1); // &quot;01&quot;,&quot;11&quot;,&quot;21&quot;
-}
-</code></pre>
-<h3 id="原地哈希表">原地哈希表</h3>
-<p>原地哈希表的方法往往是修改原数组实现的，原理就是将数组的下标作为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mi>e</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">key</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>，数组的值作为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">value</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>，然后以特定关系将两者关联起来（通常需要保证一一对应，最简单的是将值直接作为键），最终起到哈希表的作用。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="原地哈希表-2">原地哈希表</h3>
-<p>本题在允许修改原数组的前提下可以做到原地算法，将原数组进行改造起到哈希表的作用：<br>
-首先要清楚对于长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数组，缺失的第一个正数的范围是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1, n + 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，因为如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1, n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span> 都出现了，那么答案是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，否则答案是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1, n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span> 中没有出现的最小正整数。<br>
-所以只需要记录 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[1, n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span> 内的所有数即可获得答案，而原数组长度正好为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，因此可以改造数组为哈希表，对于出现过的数可以标记其对应下标的数来表示其出现过。<br>
-这时候又遇到一个问题，标记会修改数组影响后续的遍历，要保证又能记录又不影响数组的原值，设计标记为<strong>负号</strong>，且不允许重复标记，流程如下：</p>
-<ol>
-<li>遍历数组，先将所有非正数修改为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，保证不影响实验结果；</li>
-<li>再次遍历数组每个数 num，因为可能已经被标记成为负数，因此需要取绝对值，然后将数组下标为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>n</mi><mi>u</mi><mi>m</mi><mi mathvariant="normal">∣</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">| num| - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 的数进行标记（不重复标记）；</li>
-<li>第三次遍历数组，找到第一个整数，返回其下标 + 1，均为负数则返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</li>
-</ol>
-<pre><code class="language-js">var firstMissingPositive = function(nums) {
-    const n = nums.length;
-    for (let i = 0; i &lt; n; ++i) {
-        if (nums[i] &lt;= 0) nums[i] = n + 1;
-    }
-    for (let num of nums) {
-        num = Math.abs(num);
-        if (num &lt;= n &amp;&amp; nums[num - 1] &gt; 0) nums[num - 1] *= -1;
-    }
-    for (let i = 0; i &lt; n; ++i) {
-        if (nums[i] &gt; 0) return i + 1;
-    }
-    return n + 1;
 };
 </code></pre>
 ]]></content>
