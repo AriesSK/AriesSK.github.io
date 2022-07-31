@@ -197,45 +197,129 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                50. Pow(x, n)
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-07-31</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">0.6
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">137</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_03/">
-                                                03. 数组中重复的数字
-                                            </a>
-                                            <span class="archive-item-date">2022-06-12 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/mHlERrHpb/">递归</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_35/">
-                                                35. 复杂链表的复制
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
-                                                    <a href="https://AriesSK.github.io/tag/HE-O8lUlV" class="prev"><i class="icon-arrow-ios-back-outline"></i> Prev</a>
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<p>本题与剑指offer<a href="https://ariessk.github.io/post/jianzhi_16/">16. 数值的整数次方</a>相同，使用快速幂 + 迭代解决，比递归空间复杂度低。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="快速幂-迭代">快速幂 + 迭代</h3>
+<p>每次对幂的值进行二分，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 次幂为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>：</p>
+<pre><code class="language-js">var myPow = function(x, n) {
+    if (!n) return 1;
+    if (!x) return 0;
+    let res = 1;
+    if (n &lt; 0) {
+        x = 1 / x;
+        n = -n;
+    }
+    while (n) {
+        // 目的将 n 拆分成 2 的整数次幂的和
+        // 比如 x^10，res = x^2 * x^8；x^15，res = x^1 * x^2 * x^4 * x^8 
+        if (n &amp; 1) res *= x;
+        x *= x;
+        n &gt;&gt;&gt;= 1;
+    }
+    return res;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_50/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_50/&sharesource=qzone&title=50. Pow(x, n)&pics=https://AriesSK.github.io/images/avatar.png?v=1659271570013&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_50/&sharesource=weibo&title=50. Pow(x, n) + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659271570013 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/mHlERrHpb/">#
+                                                递归
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
                                                     
                                                         
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_49/">
+                                                                                                    49. 字母异位词分组
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -322,5 +406,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
