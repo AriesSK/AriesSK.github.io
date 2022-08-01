@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-07-31T13:14:53.648Z</updated>
+    <updated>2022-08-01T01:59:13.930Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,36 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[54. 螺旋矩阵]]></title>
+        <id>https://AriesSK.github.io/post/top_54/</id>
+        <link href="https://AriesSK.github.io/post/top_54/">
+        </link>
+        <updated>2022-08-01T01:46:54.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>这道题与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_29/">29. 顺时针打印矩阵</a>相同，第二次做成功做出来了。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="模拟">模拟</h3>
+<p>设置四个边界，每次沿着一条边界遍历后该边界向内收缩，直到全部元素遍历完，模拟整个过程即可：</p>
+<pre><code class="language-js">var spiralOrder = function(matrix) {
+    const res = [];
+    let l = 0, t = 0, r = matrix[0].length - 1, b = matrix.length - 1;
+    while (true) {
+        for (let i = l; i &lt;= r; ++i) res.push(matrix[t][i]);
+        if (++t &gt; b) break;
+        for (let i = t; i &lt;= b; ++i) res.push(matrix[i][r]);
+        if (--r &lt; l) break;
+        for (let i = r; i &gt;= l; --i) res.push(matrix[b][i]);
+        if (--b &lt; t) break;
+        for (let i = b; i &gt;= t; --i) res.push(matrix[i][l]);
+        if (++l &gt; r) break;
+    }
+    return res;   
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
         <id>https://AriesSK.github.io/post/zhishidian/</id>
@@ -1791,178 +1821,6 @@ dp[0] = true;
     }
     return dp[m][n];
 };
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Less]]></title>
-        <id>https://AriesSK.github.io/post/less/</id>
-        <link href="https://AriesSK.github.io/post/less/">
-        </link>
-        <updated>2022-07-29T05:02:58.000Z</updated>
-        <content type="html"><![CDATA[<p>Less 是一门 CSS 预处理语言，扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展，简单来说就是能够提取大量的重复代码，使 CSS 更加规范。</p>
-<p><strong>注释</strong><br>
-单行 //<br>
-多行 /**/</p>
-<p><strong>变量</strong><br>
-使用 @ 声明变量，同名变量后面的会覆盖前面的</p>
-<pre><code class="language-less">@primary: red;
-
-.box {
-    color: @primary;
-}
-</code></pre>
-<p><strong>嵌套</strong><br>
-CSS 的预编译器嵌套规则大同小异：</p>
-<pre><code class="language-less">.a {
-    color: #fff;
-    .b {
-        width: 20px;
-    }
-}
-</code></pre>
-<p>编译后如下：</p>
-<pre><code class="language-css">.a {
-    color: #fff;
-}
-.a .b {
-    width: 20px;
-}
-</code></pre>
-<p>同级场景使用 &amp; 的情况，&amp; 表示当前节点的 CSS 样式，一般用于处理 CSS 样式的状态 hover、focus、active、link、visited等：</p>
-<pre><code class="language-less">.a {
-    color: blue;
-    &amp;:hover {
-        color: red;
-    }
-}
-</code></pre>
-<p><strong>混合（Mixin）</strong><br>
-Less 的混合有三种情况：</p>
-<ul>
-<li>不带参数，调用时可以不加括号，直接使用</li>
-</ul>
-<pre><code class="language-less">.center {
-    text-align: center;
-}
-.red {
-    color: red;
-}
-
-.box {
-    .one {
-        .center;
-        .red;
-    }
-}
-</code></pre>
-<ul>
-<li>带参数，没有默认值，调用需要加括号，并且括号中必须要传值</li>
-</ul>
-<pre><code class="language-less">.center {
-    text-align: center;
-}
-.color(@c) {
-    color: @c;
-}
-
-.box {
-    .one {
-        .center;
-        .color(green);
-    }
-}
-</code></pre>
-<ul>
-<li>带参数，有设置默认值，调用时要加括号，可以不传参数</li>
-</ul>
-<pre><code class="language-less">.center {
-    text-align: center;
-}
-.color(@c: red) {
-    color: @c;
-}
-
-.box {
-    .one {
-        .center;
-        .color;
-    }
-}
-</code></pre>
-<p><strong>运算</strong><br>
-+ - * / 可以对任何数字、颜色或变量运算，运算前会进行单位的换算，计算结果以最左侧的单位为准，如果单位无效或失去意义则忽略单位</p>
-<p><strong>转义字符</strong><br>
-Less 的转义字符为 ~&quot;&quot; 比如<code>~&quot;\&quot;</code></p>
-<p><strong>作用域</strong><br>
-现在当前作用域内查询，找不到则继续向上一级查询，类似 js</p>
-<p><strong>导入</strong><br>
-Less 文件可以使用 @import 引入另一个 Less 文件，并且还可以使用里面的变量，比如<code>@import './style.less'</code></p>
-<p><strong>应用实例</strong><br>
-实例一：画四种方向的三角形<br>
-可以使用通用匹配模式 @_ 无论同名的哪一个混合被匹配到，都要先执行通用匹配模式的代码</p>
-<pre><code class="language-less">// 通用匹配模式 下面四种方向的三角形都会先执行该代码
-.triangle(@_, @width, @color) {
-    width: 0;
-    height: 0;
-    border-style: solid;
-}
-.triangle(Bottom, @width, @color) {
-    border-width: @width;
-    border-color: @color transparent transparent transparent;
-}
-.triangle(Left, @width, @color) {
-    border-width: @width;
-    border-color: transparent @color transparent transparent;
-}
-.triangle(Top, @width, @color) {
-    border-width: @width;
-    border-color: transparent transparent @color transparent;
-}
-.triangle(Right, @width, @color) {
-    border-width: @width;
-    border-color: transparent transparent transparent @color;
-}
-// 使用左箭头
-.box {
-    .triangle(Left, 100px, red);
-}
-</code></pre>
-<p>这种方式画三角形是利用了 border 可以分别设置四边的属性，当 width 和 height 为 0，整个可见区就由 broder 填满，调整 border-width 可以改变三角形的大小，设置一边的颜色并将另外三边设为透明则可以出现三角形的效果（四分之一的矩形）<br>
-<strong>@arguments</strong> 能够替代 mixin 的所有参数</p>
-<pre><code class="language-less">.border(@width, @mode, @color) {
-    border: @arguments;
-}
-.one{
-    .border(1px, solid, red)
-}
-</code></pre>
-<p>实例二：文字垂直居中<br>
-由于将行高 line-height 和 height 设置成相同就能够让标签内的文字垂直居中，因此比较常用，就可以把它封装起来</p>
-<pre><code class="language-less">.line-text-h (@h: 0) {
-    height: @h;
-    line-height: @h;
-}
-
-.box {
-    .text {
-        .line-height-h(100px);
-        background: grey;
-        width: 200px;
-    }
-}
-</code></pre>
-<p>实例三：定位上下左右居中<br>
-绝对定位相对于已定位的父元素，相对定位相对于元素在文档中的初始位置</p>
-<pre><code class="language-less">.center {
-    // 设置绝对定位
-    position: absolute;
-    // 设置使元素左上顶点位于中心位置
-    top: 50%;
-    left: 50%;
-    // 向上和向左平移自身一半的高和宽，使元素中心点位于中心位置
-    transform: translate(-50%, -50%);
-}
 </code></pre>
 ]]></content>
     </entry>

@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                03. 数组中重复的数字
+                                54. 螺旋矩阵
                             </h1>
                             
                                 <!--en-->
@@ -210,25 +210,21 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-06-12</a>
+                                Date: <a href="#">2022-08-01</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.1
+                                    href="#">0.8
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">493</a></span>
+                                    <span class="post-words">words:<a href="#">171</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
+                                
                                 <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
                                 
                                 <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">哈希表</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/o97gtgaiy/">排序</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
                             </span>
                                         
@@ -238,68 +234,25 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的map对象与set对象">JavaScript 中的<code>Map</code>对象与<code>Set</code>对象</h3>
-<p><code>Map</code>对象存储键值对，键值是唯一的，重复赋值会覆盖，一些常用的方法如下：</p>
-<pre><code class="language-js">set(key, value)
-get(key)
-has(key)
-delete(key)
-entries() keys() values() // 返回值的数组，分别返回键值对、键名、键值
-</code></pre>
-<p><code>Set</code>对象是唯一值的集合，一些常用的方法如下：</p>
-<pre><code class="language-js">add(key)
-clear() // 删除所有
-delete(key)
-entries() keys() values() // 返回值的数组，分别返回键值对、键名、键值，在 Set 中结果相同
-has(key)
-size()
-</code></pre>
-<p><code>Map</code>和<code>Set</code>的 key 可以是任何数据类型。</p>
+<p>这道题与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_29/">29. 顺时针打印矩阵</a>相同，第二次做成功做出来了。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="法一哈希表">法一：哈希表</h3>
-<p>我一开始想到的是使用<code>Map</code>：</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let hash = new Map();
-    for (let i = 0; i &lt; nums.length; ++i) {
-        // 这里需要使用 has()，而不是 get()，防止 get() 取到 0 导致判断出错
-        if (!hash.has(nums[i])) hash.set(nums[i], i);
-        else return nums[i];
+<h3 id="模拟">模拟</h3>
+<p>设置四个边界，每次沿着一条边界遍历后该边界向内收缩，直到全部元素遍历完，模拟整个过程即可：</p>
+<pre><code class="language-js">var spiralOrder = function(matrix) {
+    const res = [];
+    let l = 0, t = 0, r = matrix[0].length - 1, b = matrix.length - 1;
+    while (true) {
+        for (let i = l; i &lt;= r; ++i) res.push(matrix[t][i]);
+        if (++t &gt; b) break;
+        for (let i = t; i &lt;= b; ++i) res.push(matrix[i][r]);
+        if (--r &lt; l) break;
+        for (let i = r; i &gt;= l; --i) res.push(matrix[b][i]);
+        if (--b &lt; t) break;
+        for (let i = b; i &gt;= t; --i) res.push(matrix[i][l]);
+        if (++l &gt; r) break;
     }
-};
-</code></pre>
-<p>后来发现<code>Map</code>存储的是键值对，但在这题中只需要存 key，不需要存 value，因此用<code>Set</code>更好：</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let set = new Set();
-    for (let i = 0; i &lt; nums.length; ++i) {
-        if (!set.has(nums[i])) set.add(nums[i]);
-        else return nums[i];
-    }
-};
-</code></pre>
-<h3 id="法二原地算法">法二：原地算法</h3>
-<p>遍历数组<code>nums</code>，设索引初始值为<code>i = 0</code>：</p>
-<ul>
-<li>若<code>nums[i] = i</code>：说明此数字已在对应索引位置，无需交换，因此跳过；</li>
-<li>若<code>nums[nums[i]] = nums[i]</code>：代表索引<code>nums[i]</code>处和索引<code>i</code>处的元素值都为<code>nums[i]</code>，即找到一组重复值，返回此值<code>nums[i]</code>；</li>
-<li>否则：交换索引为<code>i</code>和<code>nums[i]</code>的元素值，将此数字交换至对应索引位置。</li>
-</ul>
-<p>若遍历完毕尚未返回，则返回 -1。</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let i = 0;
-    while (i &lt; nums.length) {
-        if (nums[i] === i) {
-            // 直到该位置已放置正确数字再处理下一个位置，以保证数组被完全遍历
-            ++i;
-            continue;
-        }
-        if (nums[nums[i]] === nums[i]) return nums[i];
-        let tmp = nums[i];
-        nums[i] = nums[nums[i]];
-        // 注意这里 num[i] 已经被修改了值，因此不能用 nums[nums[i]]
-        nums[tmp] = tmp;
-    }
-    return -1;
+    return res;   
 };
 </code></pre>
 
@@ -311,9 +264,9 @@ size()
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_03/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_03/&sharesource=qzone&title=03. 数组中重复的数字&pics=https://AriesSK.github.io/images/avatar.png?v=1659319147931&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_03/&sharesource=weibo&title=03. 数组中重复的数字 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659319147931 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_54/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_54/&sharesource=qzone&title=54. 螺旋矩阵&pics=https://AriesSK.github.io/images/avatar.png?v=1659319147931&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_54/&sharesource=weibo&title=54. 螺旋矩阵 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659319147931 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -323,24 +276,16 @@ size()
                                                                         <span class="tag ">
                         
                         
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
                         <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
                                                 算法
                                                     </a>
                                                     
                         <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
                                                 数组
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">#
-                                                哈希表
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/o97gtgaiy/">#
-                                                排序
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
-                                                剑指offer
                                                     </a>
                                                     
                                                         
@@ -356,13 +301,9 @@ size()
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_53_i/">
-                                                                                            53 - I. 在排序数组中查找数字 I
-                                                                                        </a>
-                                                                                        
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_58_ii/">
-                                                                                                    58 - II. 左旋字符串
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                                    #每日更新# 知识点导航
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
