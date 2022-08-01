@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-01T04:00:44.129Z</updated>
+    <updated>2022-08-01T04:38:54.114Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -1513,7 +1513,7 @@ content 指定的数据的内容</p>
 <strong>HTML负责网页的结构</strong><br>
 在使用html标签时，应该关注的是标签的语义，而不是样式</p>
 <p><strong>块元素</strong><br>
-在页面中独占一行的元素称为块元素（block element） 网页布局主要用块元素 块元素内能放块元素和行内元素 但<code>&lt;p&gt;</code>元素内能放块元素<br>
+在页面中独占一行的元素称为块元素（block element） 网页布局主要用块元素 块元素内能放块元素和行内元素 但<code>&lt;p&gt;</code>元素内不能放块元素<br>
 <code>&lt;h1&gt;</code> h1~h6 h1最重要 仅次于title 一般一个页面只有一个h1 一般只会用h1~h3<br>
 相关的标题可以放标题组里</p>
 <pre><code class="language-html">&lt;hgroup&gt;
