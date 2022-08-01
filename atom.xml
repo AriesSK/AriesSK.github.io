@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-01T01:59:13.930Z</updated>
+    <updated>2022-08-01T04:00:44.129Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -11,41 +11,11 @@
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
     <entry>
-        <title type="html"><![CDATA[54. 螺旋矩阵]]></title>
-        <id>https://AriesSK.github.io/post/top_54/</id>
-        <link href="https://AriesSK.github.io/post/top_54/">
-        </link>
-        <updated>2022-08-01T01:46:54.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>这道题与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_29/">29. 顺时针打印矩阵</a>相同，第二次做成功做出来了。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟">模拟</h3>
-<p>设置四个边界，每次沿着一条边界遍历后该边界向内收缩，直到全部元素遍历完，模拟整个过程即可：</p>
-<pre><code class="language-js">var spiralOrder = function(matrix) {
-    const res = [];
-    let l = 0, t = 0, r = matrix[0].length - 1, b = matrix.length - 1;
-    while (true) {
-        for (let i = l; i &lt;= r; ++i) res.push(matrix[t][i]);
-        if (++t &gt; b) break;
-        for (let i = t; i &lt;= b; ++i) res.push(matrix[i][r]);
-        if (--r &lt; l) break;
-        for (let i = r; i &gt;= l; --i) res.push(matrix[b][i]);
-        if (--b &lt; t) break;
-        for (let i = b; i &gt;= t; --i) res.push(matrix[i][l]);
-        if (++l &gt; r) break;
-    }
-    return res;   
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-07-31T15:59:59.000Z</updated>
+        <updated>2022-08-01T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -225,6 +195,10 @@
 <ul>
 <li>TopK 问题两种解法及比较 —— <a href="https://ariessk.github.io/post/jianzhi_40/">40. 最小的k个数</a></li>
 </ul>
+<p><strong>贪心算法</strong></p>
+<ul>
+<li>贪心算法 —— <a href="https://ariessk.github.io/post/top_55/">55. 跳跃游戏</a></li>
+</ul>
 <p><strong>超过一半的数</strong></p>
 <ul>
 <li>摩尔投票法 —— <a href="https://ariessk.github.io/post/jianzhi_39/">39. 数组中出现次数超过一半的数字</a></li>
@@ -271,6 +245,86 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[55. 跳跃游戏]]></title>
+        <id>https://AriesSK.github.io/post/top_55/</id>
+        <link href="https://AriesSK.github.io/post/top_55/">
+        </link>
+        <updated>2022-08-01T03:12:43.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="贪心算法">贪心算法</h3>
+<p>贪心算法是指在对问题求解时，总是作出当前最好的选择，即不从整体最优上加以考虑，而是考虑局部最优解。<br>
+所求问题的<strong>整体最优解</strong>可以通过一系列**局部最优的选择（贪心选择）**来达到。<br>
+贪心算法不能保证求得的解是最佳的。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一暴力">法一：暴力</h3>
+<p>一个数组中只有跳转到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 才会无法到达最后一个下标，所以对每个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 进行前面的数进行判断，看能不能越过这个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>：</p>
+<pre><code class="language-js">var canJump = function(nums) {
+    // 只有一个元素，一定能到达
+    if (nums.length === 1) return true;
+    // 数组最后一个下标不用判断
+    for (let i = 0; i &lt; nums.length - 1; ++i) {
+        if (!nums[i]) {
+            // 如果第一个元素就是 $0$，不可能到达
+            if (!i) return false;
+            // 对每个 0 判断能否越过
+            for (let j = i - 1, k = 1; j &gt;= 0; --j, ++k) {
+                if (nums[j] &gt; k) break;
+                if (!j) return false;
+            }
+        }
+    }
+    return true;
+};
+</code></pre>
+<h3 id="法二贪心">法二：贪心</h3>
+<p>暴力解法明显要对数组进行多次遍历，时间复杂度较高，这道题可以使用贪心的方法解决。<br>
+依次遍历数组的每一个位置，实时维护<strong>最远可以到达的位置</strong>，在白能力过程中若该位置大于等于数组的最后一个位置，则可以返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>，若遍历结束仍不可达，则返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">false</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span>：</p>
+<pre><code class="language-js">var canJump = function(nums) {
+    let max = 0;
+    for (let i = 0; i &lt; nums.length; ++i) {
+        // 可达
+        if (max &gt;= nums.length - 1) return true;
+        // 当前位置不可达
+        if (max &lt; i) break;
+        max = Math.max(i + nums[i], max);
+    }
+    return false;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[54. 螺旋矩阵]]></title>
+        <id>https://AriesSK.github.io/post/top_54/</id>
+        <link href="https://AriesSK.github.io/post/top_54/">
+        </link>
+        <updated>2022-08-01T01:46:54.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>这道题与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_29/">29. 顺时针打印矩阵</a>相同，第二次做成功做出来了。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="模拟">模拟</h3>
+<p>设置四个边界，每次沿着一条边界遍历后该边界向内收缩，直到全部元素遍历完，模拟整个过程即可：</p>
+<pre><code class="language-js">var spiralOrder = function(matrix) {
+    const res = [];
+    let l = 0, t = 0, r = matrix[0].length - 1, b = matrix.length - 1;
+    while (true) {
+        for (let i = l; i &lt;= r; ++i) res.push(matrix[t][i]);
+        if (++t &gt; b) break;
+        for (let i = t; i &lt;= b; ++i) res.push(matrix[i][r]);
+        if (--r &lt; l) break;
+        for (let i = r; i &gt;= l; --i) res.push(matrix[b][i]);
+        if (--b &lt; t) break;
+        for (let i = b; i &gt;= t; --i) res.push(matrix[i][l]);
+        if (++l &gt; r) break;
+    }
+    return res;   
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1780,48 +1834,6 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
 </ul>
 <p><strong>默认样式</strong><br>
 通常情况浏览器都会为元素设置一些默认样式，会影响到页面的布局，因此需要去除浏览器的默认样式（PC端），可以使用别人的<strong>重置样式表</strong>，引入 css 文件</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[44. 通配符匹配]]></title>
-        <id>https://AriesSK.github.io/post/top_44/</id>
-        <link href="https://AriesSK.github.io/post/top_44/">
-        </link>
-        <updated>2022-07-29T05:33:21.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="consolelog打印值"><code>console.log()</code>打印值</h3>
-<p><code>console.log()</code>对于六种基本类型直接输出，对于引用类型则打印引用的快照，而在控制台点击展开时会从内存中加载数据，此时展示的是更新后的数据。<br>
-看看下面代码的打印结果：</p>
-<pre><code class="language-js">const dp = new Array(3).fill(false);
-console.log(dp); 
-dp[0] = true;
-</code></pre>
-<p><img src="https://AriesSK.github.io/post-images/1659074072964.png" alt="" loading="lazy"><br>
-在赋值前打印，打印的是快照，预览为 [false, false,false]，在控制台点击展开后加载数据，此时已经赋值完成，因此展示更改后的数据，并且由于缓存，之前的预览并不会更改。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="动态规划">动态规划</h3>
-<p>和<a href="https://ariessk.github.io/post/top_10/">10. 正则表达式匹配</a>类似，但本题中没有两个字符关联形成新匹配模式的情况，相对简单一些，不过本题的<strong>初始状态</strong>需要仔细考虑，并且同样要注意 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 代表空字符串而不是字符串的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 位：</p>
-<pre><code class="language-js">var isMatch = function(s, p) {
-    const m = s.length, n = p.length;
-    // 所有状态均初始化为 false，减少后续代码
-    const dp = new Array(m + 1).fill().map(() =&gt; new Array(n + 1).fill(false));
-    dp[0][0] = true;
-    // 对于 s 是空串，只有 p 前 i 的字符均为 * 才能匹配
-    for (let i = 1; i &lt;= n; ++i) {
-        if (p.charAt(i - 1) === &quot;*&quot;) dp[0][i] = true;
-        else break;
-    }
-    for (let i = 1; i &lt;= m; ++i) {
-        for (let j = 1; j &lt;= n; ++j) {
-            // 两种情况，使用星号则继续匹配 s 的下一个字符，不使用则换 p 的下一个字符
-            if (p.charAt(j - 1) === &quot;*&quot;) dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
-            else if (s.charAt(i - 1) === p.charAt(j - 1) || p.charAt(j - 1) === &quot;?&quot;) dp[i][j] = dp[i - 1][j - 1];
-        }
-    }
-    return dp[m][n];
-};
-</code></pre>
 ]]></content>
     </entry>
 </feed>

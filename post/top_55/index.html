@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                22. 链表中的倒数第k个节点
+                                55. 跳跃游戏
                             </h1>
                             
                                 <!--en-->
@@ -210,23 +210,21 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-06-19</a>
+                                Date: <a href="#">2022-08-01</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">0.4
+                                    href="#">1.6
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">89</a></span>
+                                    <span class="post-words">words:<a href="#">408</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
-                                <a href="https://AriesSK.github.io/tag/uepLNcTpN/">双指针</a>
+                                <a href="https://AriesSK.github.io/tag/aS34ubJSm/">贪心</a>
                                 
-                                <a href="https://AriesSK.github.io/tag/2UcFUw72z/">链表</a>
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
                                 
                                 <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
                             </span>
                                         
@@ -236,22 +234,45 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<p>此类题目对头节点并不需要特殊的处理 因此可以不另设头指针。</p>
+<h3 id="贪心算法">贪心算法</h3>
+<p>贪心算法是指在对问题求解时，总是作出当前最好的选择，即不从整体最优上加以考虑，而是考虑局部最优解。<br>
+所求问题的<strong>整体最优解</strong>可以通过一系列**局部最优的选择（贪心选择）**来达到。<br>
+贪心算法不能保证求得的解是最佳的。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="双指针">双指针</h3>
-<p>两指针减保持 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> 距离，直到右指针为空时，左指针即为目标节点：</p>
-<pre><code class="language-js">var getKthFromEnd = function(head, k) {
-    let left = head, right = left;
-    while (k &gt; 0) {
-        right = right.next;
-        --k;
+<h3 id="法一暴力">法一：暴力</h3>
+<p>一个数组中只有跳转到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 才会无法到达最后一个下标，所以对每个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 进行前面的数进行判断，看能不能越过这个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>：</p>
+<pre><code class="language-js">var canJump = function(nums) {
+    // 只有一个元素，一定能到达
+    if (nums.length === 1) return true;
+    // 数组最后一个下标不用判断
+    for (let i = 0; i &lt; nums.length - 1; ++i) {
+        if (!nums[i]) {
+            // 如果第一个元素就是 $0$，不可能到达
+            if (!i) return false;
+            // 对每个 0 判断能否越过
+            for (let j = i - 1, k = 1; j &gt;= 0; --j, ++k) {
+                if (nums[j] &gt; k) break;
+                if (!j) return false;
+            }
+        }
     }
-    while (right) {
-        left = left.next;
-        right = right.next;
+    return true;
+};
+</code></pre>
+<h3 id="法二贪心">法二：贪心</h3>
+<p>暴力解法明显要对数组进行多次遍历，时间复杂度较高，这道题可以使用贪心的方法解决。<br>
+依次遍历数组的每一个位置，实时维护<strong>最远可以到达的位置</strong>，在白能力过程中若该位置大于等于数组的最后一个位置，则可以返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>，若遍历结束仍不可达，则返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">false</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span>：</p>
+<pre><code class="language-js">var canJump = function(nums) {
+    let max = 0;
+    for (let i = 0; i &lt; nums.length; ++i) {
+        // 可达
+        if (max &gt;= nums.length - 1) return true;
+        // 当前位置不可达
+        if (max &lt; i) break;
+        max = Math.max(i + nums[i], max);
     }
-    return left;
+    return false;
 };
 </code></pre>
 
@@ -263,9 +284,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_22/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_22/&sharesource=qzone&title=22. 链表中的倒数第k个节点&pics=https://AriesSK.github.io/images/avatar.png?v=1659326438689&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_22/&sharesource=weibo&title=22. 链表中的倒数第k个节点 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659326438689 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_55/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_55/&sharesource=qzone&title=55. 跳跃游戏&pics=https://AriesSK.github.io/images/avatar.png?v=1659326438689&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_55/&sharesource=weibo&title=55. 跳跃游戏 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659326438689 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -275,20 +296,16 @@
                                                                         <span class="tag ">
                         
                         
-                        <a href="https://AriesSK.github.io/tag/uepLNcTpN/">#
-                                                双指针
+                        <a href="https://AriesSK.github.io/tag/aS34ubJSm/">#
+                                                贪心
                                                     </a>
                                                     
-                        <a href="https://AriesSK.github.io/tag/2UcFUw72z/">#
-                                                链表
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
                                                     </a>
                                                     
                         <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
                                                 算法
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
-                                                剑指offer
                                                     </a>
                                                     
                                                         
@@ -304,13 +321,13 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_25/">
-                                                                                            25. 合并两个排序的链表
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_18/">
-                                                                                                    18. 删除链表的节点
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_54/">
+                                                                                                    54. 螺旋矩阵
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
