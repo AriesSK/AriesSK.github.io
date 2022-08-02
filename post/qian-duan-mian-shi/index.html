@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1659423225010" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1659448352898" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1659423225010" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1659448352898" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-08-02</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">13.6
+                                    href="#">15.4
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">3774</a></span>
+                                    <span class="post-words">words:<a href="#">4270</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -336,6 +336,34 @@ web 标准是多个标准的集合，主要有结构标准、表现标准、行�
 <li>尽量把 js 脚本放在 body 结束标签前或使用 defer、async，避免脚本加载和执行阻塞页面渲染</li>
 <li>压缩 js 和 css 文件大小，减小文件体积，比如使用 webpack</li>
 </ol>
+<h3 id="css">CSS</h3>
+<p><strong>水平居中</strong></p>
+<ol>
+<li>给 div 设置宽度，然后 margin: 0 auto; （margin 上下为 0，左右根据宽度自适应相同值，就实现了居中，注意 div 一定要设置宽度</li>
+<li>父容器设置 text-align: center;</li>
+</ol>
+<p><strong>水平垂直居中</strong></p>
+<ol>
+<li>绝对定位，top、left、bottom、right 均设为 0，margin 设为 auto</li>
+<li>绝对定位，top、left 设置为 50%，margin-left、margin-top 设置为负的宽高的一半（也可以将长宽的一半直接在 top 、left 中减掉；或者使用 transform: translate(-50%, -50%); 向左上角移动一半的宽和高）</li>
+<li>父容器设置 flex 布局，并设置 align-item: center; 垂直居中和 justify-content: center; 水平居中</li>
+</ol>
+<p><strong>浮动高度坍塌</strong><br>
+在文档流中，父元素的高度默认被子元素撑开，但当子元素设置为浮动后，就会脱离文档流，导致无法撑起父元素的高度，使父元素高度塌陷，会导致父元素下面的所有元素向上移动，使页面布局混乱。</p>
+<p><strong>清除浮动</strong></p>
+<ol>
+<li>固定父元素的高度，但会导致父元素无法自适应子元素高度（不推荐使用）</li>
+<li>触发父元素 BFC，副作用最小的方式是将父元素的 overflow 设置为 hidden，缺点是内容增多时容易造成超出尺寸的内容隐藏</li>
+<li>zoom 属性，设置对象缩放比例，触发 hasLayout，清除浮动，是 ie 的专有属性</li>
+<li>使用 clear 属性，可以清除浮动元素对该元素的影响，而不是清除浮动，可以在要清除浮动的元素后面加一个空白 div 设置 clear: both;，缺点是会产生很多无意义的标签</li>
+<li>根据 3 的思路使用伪元素 after 替代空白标签，注意要设置内容为空，设置为块级元素，设置 clear 属性，因为 clear 属性只有块级元素才有效，而伪元素默认是内联元素（最推荐）</li>
+</ol>
+<pre><code class="language-js">.clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+</code></pre>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
 字面量，和常量差不多，其表达的信息如字面所示</p>
@@ -450,8 +478,8 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/qian-duan-mian-shi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1659423225010&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659423225010 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1659448352898&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659448352898 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -478,8 +506,8 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
-                                                                                            #每日更新# 知识点导航
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/html-css/">
+                                                                                            HTML + CSS
                                                                                         </a>
                                                                                         
                                                                                             
@@ -571,7 +599,7 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1659423225010);
+                    newDate.setTime(1659448352898);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
