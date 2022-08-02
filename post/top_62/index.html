@@ -197,73 +197,144 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                62. 不同路径
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-08-02</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.9
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">447</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/zhishidian/">
-                                                #每日更新# 知识点导航
-                                            </a>
-                                            <span class="archive-item-date">2022-08-01 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/tMnqncTHL/">动态规划</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
-                                                前端面试
-                                            </a>
-                                            <span class="archive-item-date">2022-08-01 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/vue/">
-                                                Vue
-                                            </a>
-                                            <span class="archive-item-date">2022-07-29 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/html-css/">
-                                                HTML + CSS
-                                            </a>
-                                            <span class="archive-item-date">2022-07-29 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/less/">
-                                                Less
-                                            </a>
-                                            <span class="archive-item-date">2022-07-29 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="动态规划优化">动态规划优化</h3>
+<p>对于当前状态只与前一状态有关的动态规划，往往可以使用<strong>滚动数组</strong>的方式降低空间复杂度。<br>
+像这道题就是经典的动态规划题，基础的做法空间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的，使用滚动数组替代二维数组就可以将空间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。<br>
+该题的法一的优化方法值得多思考！！！</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一动态规划">法一：动态规划</h3>
+<p>简单的动态规划：</p>
+<pre><code class="language-js">var uniquePaths = function(m, n) {
+    const dp = new Array(m).fill().map(() =&gt; new Array(n).fill(1));
+    for (let i = 1; i &lt; m; ++i) {
+        for (let j = 1; j &lt; n; ++j) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[m - 1][n - 1];
+};
+</code></pre>
+<p>该方法还能优化，因为当前状态只和该行和上一行有关，可以用一维数组替代二维数组：</p>
+<pre><code class="language-js">var uniquePaths = function(m, n) {
+    const dp = new Array(n).fill(1);
+    for (let i = 1; i &lt; m; ++i) {
+        for (let j = 1; j &lt; n; ++j) {
+            // dp[j] 在未更新前等于上一行同列的值，dp[j - 1] 已更新是上一列同行的值，更新获得所求值
+            dp[j] += dp[j - 1];
+        }
+    }
+    return dp[n - 1];
+};
+</code></pre>
+<p>还可以让 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span> 数组长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo separator="true">,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m, n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span></span></span></span> 中较小的那一个，进一步降低空间复杂度。</p>
+<h3 id="法二数学">法二：数学</h3>
+<p>数学的方法只要能想到就简单粗暴，时空复杂度均很低。<br>
+从左上角到右下角，共移动 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m + n - 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 次，只需要在其中选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 次向下移动的即可，排雷组合问题，总的方案数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>C</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">C_{m + n - 2}^{m - 1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.178878em;vertical-align:-0.324639em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.854239em;"><span style="top:-2.433692em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.324639em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+<pre><code class="language-js">var uniquePaths = function(m, n) {
+    let res = 1;
+    for (let x = n, y = 1; y &lt; m; ++x, ++y) {
+        res = res * x / y;
+    }
+    return res;
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_62/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_62/&sharesource=qzone&title=62. 不同路径&pics=https://AriesSK.github.io/images/avatar.png?v=1659410133316&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_62/&sharesource=weibo&title=62. 不同路径 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659410133316 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/tMnqncTHL/">#
+                                                动态规划
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_56/">
+                                                                                                    56. 合并区间
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -346,5 +417,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

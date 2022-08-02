@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1659328727902" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1659410133316" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1659328727902" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1659410133316" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -210,12 +210,12 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-07-30</a>
+                                Date: <a href="#">2022-08-01</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">8.8
+                                    href="#">11.8
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">2413</a></span>
+                                    <span class="post-words">words:<a href="#">3270</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -245,7 +245,7 @@
 优点：</p>
 <ul>
 <li>把嵌入的网页原封不动展现</li>
-<li>可以将网页公用的部分携程一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
+<li>可以将网页公用的部分写成一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
 <li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
 <li>可以解决加载缓慢的第三方内容</li>
 </ul>
@@ -267,6 +267,47 @@
 <li>HTML Templates：模板</li>
 <li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
 </ul>
+<p><strong>浏览器渲染</strong><br>
+总体流程：</p>
+<ol>
+<li>解析文档生成 DOM 树；解析 CSS 生成 CSS 规则树；解析 JavaScript 操作前面两种树</li>
+<li>完成解析后通过 DOM 树和 CSS 规则树构造 Rendering Tree (渲染树)；然后计算树中每个渲染对象的位置，叫做回流(布局)</li>
+<li>调用 UI 组件绘制(重绘)，将渲染树中的渲染对象内容显示在屏幕上</li>
+</ol>
+<p>构建 DOM 树：</p>
+<ol>
+<li>浏览器从磁盘或网络读取原始字节数据，通过指定编码转换为字符串</li>
+<li>将字符串转换为 Token，其中会表示出当前 Token 是开始标签、结束标签或文本</li>
+<li>根据 Token 生成节点对象，构建 DOM 树</li>
+</ol>
+<p>构建 CSSOM 树：与构建 DOM 树流程类似。<br>
+构建渲染树：将两树组合为渲染树，只包含需要显示的节点及其样式信息(display: none; 的节点不会出现在渲染树中)<br>
+布局(回流)：生成渲染树后根据渲染树进行布局，计算个节点在页面中的确切位置和大小，也被称为自动重排，布局输出盒模型，所以的相对测量值都会转化为屏幕上的<strong>绝对像素</strong><br>
+绘制：布局完成后触发 Paint 事件，将渲染树转换为屏幕上的像素</p>
+<p>渲染遇到 JS 文件：JS 的加载、解析和执行都会阻塞 DOM 的执行，遇到 JS 会暂停构建 DOM，等 JS 引擎运行完后再从中断的地方恢复 DOM 构建。所以想让首批渲染快就不应该在首屏加载 JS 文件，建议将 script 标签放在 body 标签底部。JS 不只是阻塞 DOM 构建，会导致 CSSOM 阻塞 DOM 构建，本来样式不改变 DOM，两者互不影响，但因为 JS 不仅能够更改 DOM，还能更改 CSSOM，而 JS 访问需要完整的 CSSOM，所以这种情况下，浏览器<strong>先下载构建 CSSOM，再执行 JS，再构建 DOM</strong></p>
+<p>回流：渲染树中出现元素尺寸、布局、隐藏等改变，需要重新构建<br>
+重绘：渲染树中元素更改外观，不影响布局<br>
+回流必定重绘，重绘不一定回流<br>
+减少回流、重绘：使用 transform 替代 top 做动画；使用 visibility 替换 display，opacity替代 visibility；不使用 table 布局；将频繁重绘或回流的节点设置为图层，避免影响别的节点</p>
+<p><strong>首次渲染</strong><br>
+为了尽快完成首次渲染，需要最大限度减少以下三种可变因素：</p>
+<ol>
+<li>关键资源数量：可能阻止网页首次渲染的资源</li>
+<li>关键路径长度：受关键资源和字节大小一级依赖关系影响</li>
+<li>关键字节数量</li>
+</ol>
+<p>优化关键渲染路径步骤：</p>
+<ol>
+<li>分析关键路径的资源数、字节数、长度</li>
+<li>最大限度减少关键资源的数量：延迟下载，标记为异步等</li>
+<li>优化关键字节数，缩短下载时间</li>
+<li>优化关键资源加载顺序：尽早下载所有关键资源</li>
+</ol>
+<p><strong>web 标准的理解</strong><br>
+web 标准是多个标准的集合，主要有结构标准、表现标准、行为标准<br>
+结构标准：文档的结构与组织，对应 HTML 和 XML<br>
+表现标准：文档的表现效果，对应 CSS<br>
+行为标准：对网页的逻辑操作，网页的交互，对应 ECMA Script</p>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
 字面量，和常量差不多，其表达的信息如字面所示</p>
@@ -381,8 +422,8 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/qian-duan-mian-shi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1659328727902&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659328727902 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1659410133316&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659410133316 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -409,13 +450,13 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/top_49/">
-                                                                                            49. 字母异位词分组
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_48/">
-                                                                                                    48. 旋转图像
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_55/">
+                                                                                                    55. 跳跃游戏
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
@@ -502,7 +543,7 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1659328727902);
+                    newDate.setTime(1659410133316);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
