@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-02T03:42:01.702Z</updated>
+    <updated>2022-08-02T06:54:40.736Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -337,6 +337,30 @@ web 标准是多个标准的集合，主要有结构标准、表现标准、行�
 结构标准：文档的结构与组织，对应 HTML 和 XML<br>
 表现标准：文档的表现效果，对应 CSS<br>
 行为标准：对网页的逻辑操作，网页的交互，对应 ECMA Script</p>
+<p><strong>前端优化</strong><br>
+目的：提高页面的加载速度，优化用户的访问体验<br>
+可以从三方面优化：<br>
+页面内容方面：</p>
+<ol>
+<li>通过文件合并、css sprite（雪碧图，将页面中涉及到的图都包含到一张大图中）、将图片打包成 base64 格式等方式减少 HTTP 请求数，避免过多的请求造成等待</li>
+<li>通过 DNS 缓存机制减少 DNS 的查询次数</li>
+<li>通过设置缓存策略，对常用的不变资源进行缓存</li>
+<li>使用延迟加载方式减少首屏加载需要请求的资源，延迟加载的资源等需要访问时在请求加载</li>
+<li>通过用户行为，对某些资源使用预加载的方式，提高用户需要访问资源时的响应速度</li>
+</ol>
+<p>服务器方面：</p>
+<ol>
+<li>使用 CDN(Content Delivery Network，内容分发网络，利用最靠近用户的服务器将用户请求的资源更快更稳定地传输过去) 服务，提高用户对于资源请求时的响应速度</li>
+<li>服务器启用 Gzip 对传输资源进行压缩，减小文件体积</li>
+<li>尽可能减小 cookie 的大小，并且将静态资源分配到其他域名下，避免请求静态资源时携带不必要的 cookie</li>
+</ol>
+<p>CSS 和 JS 方面：</p>
+<ol>
+<li>样式表（外部，内联）放在 head 标签中而不是 body 底部</li>
+<li>避免使用 @import 标签</li>
+<li>尽量把 js 脚本放在 body 结束标签前或使用 defer、async，避免脚本加载和执行阻塞页面渲染</li>
+<li>压缩 js 和 css 文件大小，减小文件体积，比如使用 webpack</li>
+</ol>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
 字面量，和常量差不多，其表达的信息如字面所示</p>
