@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-02T03:15:47.983Z</updated>
+    <updated>2022-08-02T03:42:01.702Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -11,97 +11,11 @@
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
     <entry>
-        <title type="html"><![CDATA[62. 不同路径]]></title>
-        <id>https://AriesSK.github.io/post/top_62/</id>
-        <link href="https://AriesSK.github.io/post/top_62/">
-        </link>
-        <updated>2022-08-02T02:29:44.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="动态规划优化">动态规划优化</h3>
-<p>对于当前状态只与前一状态有关的动态规划，往往可以使用<strong>滚动数组</strong>的方式降低空间复杂度。<br>
-像这道题就是经典的动态规划题，基础的做法空间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的，使用滚动数组替代二维数组就可以将空间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。<br>
-该题的法一的优化方法值得多思考！！！</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一动态规划">法一：动态规划</h3>
-<p>简单的动态规划：</p>
-<pre><code class="language-js">var uniquePaths = function(m, n) {
-    const dp = new Array(m).fill().map(() =&gt; new Array(n).fill(1));
-    for (let i = 1; i &lt; m; ++i) {
-        for (let j = 1; j &lt; n; ++j) {
-            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-        }
-    }
-    return dp[m - 1][n - 1];
-};
-</code></pre>
-<p>该方法还能优化，因为当前状态只和该行和上一行有关，可以用一维数组替代二维数组：</p>
-<pre><code class="language-js">var uniquePaths = function(m, n) {
-    const dp = new Array(n).fill(1);
-    for (let i = 1; i &lt; m; ++i) {
-        for (let j = 1; j &lt; n; ++j) {
-            // dp[j] 在未更新前等于上一行同列的值，dp[j - 1] 已更新是上一列同行的值，更新获得所求值
-            dp[j] += dp[j - 1];
-        }
-    }
-    return dp[n - 1];
-};
-</code></pre>
-<p>还可以让 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span> 数组长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo separator="true">,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m, n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span></span></span></span> 中较小的那一个，进一步降低空间复杂度。</p>
-<h3 id="法二数学">法二：数学</h3>
-<p>数学的方法只要能想到就简单粗暴，时空复杂度均很低。<br>
-从左上角到右下角，共移动 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m + n - 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 次，只需要在其中选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 次向下移动的即可，排雷组合问题，总的方案数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>C</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">C_{m + n - 2}^{m - 1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.178878em;vertical-align:-0.324639em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.854239em;"><span style="top:-2.433692em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.324639em;"><span></span></span></span></span></span></span></span></span></span>。</p>
-<pre><code class="language-js">var uniquePaths = function(m, n) {
-    let res = 1;
-    for (let x = n, y = 1; y &lt; m; ++x, ++y) {
-        res = res * x / y;
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[56. 合并区间]]></title>
-        <id>https://AriesSK.github.io/post/top_56/</id>
-        <link href="https://AriesSK.github.io/post/top_56/">
-        </link>
-        <updated>2022-08-02T02:06:58.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题主要用到的知识点是自定义<code>sort()</code>函数，总体来说比较简单，有一点小坑。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="排序">排序</h3>
-<p>先根据 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">start</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> 排序数组，将第一个元素作为初始元素，从第二个元素开始尝试合并：</p>
-<ul>
-<li>若能合并则将合并区间作为初始元素，并则尝试合并下一个元素；</li>
-<li>若不能合并，则将初始元素存入结果数组，并将当前元素更新为初始元素；</li>
-<li>遍历完毕后需要将最终的初始元素存入结果数组。</li>
-</ul>
-<p><strong>特别</strong>需要注意的是：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">start</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> 较小的元素的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 不一定较小，因此在合并区间的时候，合并后的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 要取两个元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 的较大值。</p>
-<pre><code class="language-js">var merge = function(intervals) {
-    const res = [];
-    intervals.sort((a, b) =&gt; a[0] - b[0]);
-    let tmp = intervals[0];
-    for (let i = 1; i &lt; intervals.length; ++i) {
-        if (tmp[1] &gt;= intervals[i][0]) tmp = [tmp[0], Math.max(tmp[1], intervals[i][1])];
-        else {
-            res.push(tmp)
-            tmp = intervals[i];
-        }
-    }
-    res.push(tmp);
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-01T15:59:59.000Z</updated>
+        <updated>2022-08-02T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -339,7 +253,7 @@
         <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
         <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
         </link>
-        <updated>2022-08-01T06:15:18.000Z</updated>
+        <updated>2022-08-02T06:15:18.000Z</updated>
         <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
 <h3 id="html">HTML</h3>
 <p><strong>h5 新特性</strong></p>
@@ -351,6 +265,10 @@
 <li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
 <li>拖拽释放 Drag and drop API</li>
 </ul>
+<p><strong>h5 新增加的表单元素</strong><br>
+datalist：初始化是一个输入框，点击后出现下拉选项列表，下拉选项通过 option 标签创建<br>
+keygen：密钥对生成器，提供验证用户的可靠方法，提交表单生成私钥存在客户端，公钥发到服务器<br>
+output：用于不同类型的输出</p>
 <p><strong>iframe</strong><br>
 内联框架，往网页中引入另一个网页<br>
 优点：</p>
@@ -523,6 +441,92 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
 <li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
 <li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[62. 不同路径]]></title>
+        <id>https://AriesSK.github.io/post/top_62/</id>
+        <link href="https://AriesSK.github.io/post/top_62/">
+        </link>
+        <updated>2022-08-02T02:29:44.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="动态规划优化">动态规划优化</h3>
+<p>对于当前状态只与前一状态有关的动态规划，往往可以使用<strong>滚动数组</strong>的方式降低空间复杂度。<br>
+像这道题就是经典的动态规划题，基础的做法空间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的，使用滚动数组替代二维数组就可以将空间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。<br>
+该题的法一的优化方法值得多思考！！！</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一动态规划">法一：动态规划</h3>
+<p>简单的动态规划：</p>
+<pre><code class="language-js">var uniquePaths = function(m, n) {
+    const dp = new Array(m).fill().map(() =&gt; new Array(n).fill(1));
+    for (let i = 1; i &lt; m; ++i) {
+        for (let j = 1; j &lt; n; ++j) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[m - 1][n - 1];
+};
+</code></pre>
+<p>该方法还能优化，因为当前状态只和该行和上一行有关，可以用一维数组替代二维数组：</p>
+<pre><code class="language-js">var uniquePaths = function(m, n) {
+    const dp = new Array(n).fill(1);
+    for (let i = 1; i &lt; m; ++i) {
+        for (let j = 1; j &lt; n; ++j) {
+            // dp[j] 在未更新前等于上一行同列的值，dp[j - 1] 已更新是上一列同行的值，更新获得所求值
+            dp[j] += dp[j - 1];
+        }
+    }
+    return dp[n - 1];
+};
+</code></pre>
+<p>还可以让 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span> 数组长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo separator="true">,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m, n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span></span></span></span> 中较小的那一个，进一步降低空间复杂度。</p>
+<h3 id="法二数学">法二：数学</h3>
+<p>数学的方法只要能想到就简单粗暴，时空复杂度均很低。<br>
+从左上角到右下角，共移动 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m + n - 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> 次，只需要在其中选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 次向下移动的即可，排雷组合问题，总的方案数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>C</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">C_{m + n - 2}^{m - 1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.178878em;vertical-align:-0.324639em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.854239em;"><span style="top:-2.433692em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.324639em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+<pre><code class="language-js">var uniquePaths = function(m, n) {
+    let res = 1;
+    for (let x = n, y = 1; y &lt; m; ++x, ++y) {
+        res = res * x / y;
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[56. 合并区间]]></title>
+        <id>https://AriesSK.github.io/post/top_56/</id>
+        <link href="https://AriesSK.github.io/post/top_56/">
+        </link>
+        <updated>2022-08-02T02:06:58.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>本题主要用到的知识点是自定义<code>sort()</code>函数，总体来说比较简单，有一点小坑。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="排序">排序</h3>
+<p>先根据 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">start</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> 排序数组，将第一个元素作为初始元素，从第二个元素开始尝试合并：</p>
+<ul>
+<li>若能合并则将合并区间作为初始元素，并则尝试合并下一个元素；</li>
+<li>若不能合并，则将初始元素存入结果数组，并将当前元素更新为初始元素；</li>
+<li>遍历完毕后需要将最终的初始元素存入结果数组。</li>
+</ul>
+<p><strong>特别</strong>需要注意的是：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">start</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> 较小的元素的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 不一定较小，因此在合并区间的时候，合并后的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 要取两个元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 的较大值。</p>
+<pre><code class="language-js">var merge = function(intervals) {
+    const res = [];
+    intervals.sort((a, b) =&gt; a[0] - b[0]);
+    let tmp = intervals[0];
+    for (let i = 1; i &lt; intervals.length; ++i) {
+        if (tmp[1] &gt;= intervals[i][0]) tmp = [tmp[0], Math.max(tmp[1], intervals[i][1])];
+        else {
+            res.push(tmp)
+            tmp = intervals[i];
+        }
+    }
+    res.push(tmp);
+    return res;
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
