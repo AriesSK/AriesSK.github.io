@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-02T13:54:26.087Z</updated>
+    <updated>2022-08-03T12:42:20.379Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-02T15:59:59.000Z</updated>
+        <updated>2022-08-03T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -233,6 +233,7 @@
 <ul>
 <li>大数处理 —— <a href="https://ariessk.github.io/post/jianzhi_17/">17. 打印从1到最大的n位数</a></li>
 <li>大数越界的求余 —— <a href="https://ariessk.github.io/post/jianzhi_14_ii/">14 - II. 剪绳子 II</a></li>
+<li>大数的溢出问题 —— <a href="https://ariessk.github.io/post/top_66/">66. 加一</a></li>
 </ul>
 <p><strong>中位数</strong></p>
 <ul>
@@ -246,6 +247,332 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[前端面试]]></title>
+        <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
+        <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+        </link>
+        <updated>2022-08-03T06:15:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
+<h3 id="html">HTML</h3>
+<p><strong>h5 新特性</strong></p>
+<ul>
+<li>媒体播放 video 和 audio</li>
+<li>本地存储 localStorge 和 sessionStorage</li>
+<li>语义化标签 header、nav、article、section、footer</li>
+<li>历史管理 history API</li>
+<li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
+<li>拖拽释放 Drag and drop API</li>
+</ul>
+<p><strong>h5 新增加的表单元素</strong><br>
+datalist：初始化是一个输入框，点击后出现下拉选项列表，下拉选项通过 option 标签创建<br>
+keygen：密钥对生成器，提供验证用户的可靠方法，提交表单生成私钥存在客户端，公钥发到服务器<br>
+output：用于不同类型的输出</p>
+<p><strong>iframe</strong><br>
+内联框架，往网页中引入另一个网页<br>
+优点：</p>
+<ul>
+<li>把嵌入的网页原封不动展现</li>
+<li>可以将网页公用的部分写成一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
+<li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
+<li>可以解决加载缓慢的第三方内容</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>阻塞主页面的 onload 事件</li>
+<li>与主页面共享连接池，会影响页面的并行加载，并且产生的多个页面不容易管理</li>
+<li>可能出现上下左右滚动条，用户体验差</li>
+<li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
+<li>许多移动端设备不兼容</li>
+<li>增加服务器的 http 请求，大型网站不可取</li>
+</ul>
+<p><strong>Web Components</strong><br>
+提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
+包含四部分：</p>
+<ul>
+<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
+<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
+<li>HTML Templates：模板</li>
+<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
+</ul>
+<p><strong>浏览器渲染</strong><br>
+总体流程：</p>
+<ol>
+<li>解析文档生成 DOM 树；解析 CSS 生成 CSS 规则树；解析 JavaScript 操作前面两种树</li>
+<li>完成解析后通过 DOM 树和 CSS 规则树构造 Rendering Tree (渲染树)；然后计算树中每个渲染对象的位置，叫做回流(布局)</li>
+<li>调用 UI 组件绘制(重绘)，将渲染树中的渲染对象内容显示在屏幕上</li>
+</ol>
+<p>构建 DOM 树：</p>
+<ol>
+<li>浏览器从磁盘或网络读取原始字节数据，通过指定编码转换为字符串</li>
+<li>将字符串转换为 Token，其中会表示出当前 Token 是开始标签、结束标签或文本</li>
+<li>根据 Token 生成节点对象，构建 DOM 树</li>
+</ol>
+<p>构建 CSSOM 树：与构建 DOM 树流程类似。<br>
+构建渲染树：将两树组合为渲染树，只包含需要显示的节点及其样式信息(display: none; 的节点不会出现在渲染树中)<br>
+布局(回流)：生成渲染树后根据渲染树进行布局，计算个节点在页面中的确切位置和大小，也被称为自动重排，布局输出盒模型，所以的相对测量值都会转化为屏幕上的<strong>绝对像素</strong><br>
+绘制：布局完成后触发 Paint 事件，将渲染树转换为屏幕上的像素</p>
+<p>渲染遇到 JS 文件：JS 的加载、解析和执行都会阻塞 DOM 的执行，遇到 JS 会暂停构建 DOM，等 JS 引擎运行完后再从中断的地方恢复 DOM 构建。所以想让首批渲染快就不应该在首屏加载 JS 文件，建议将 script 标签放在 body 标签底部。JS 不只是阻塞 DOM 构建，会导致 CSSOM 阻塞 DOM 构建，本来样式不改变 DOM，两者互不影响，但因为 JS 不仅能够更改 DOM，还能更改 CSSOM，而 JS 访问需要完整的 CSSOM，所以这种情况下，浏览器<strong>先下载构建 CSSOM，再执行 JS，再构建 DOM</strong></p>
+<p>回流：渲染树中出现元素尺寸、布局、隐藏等改变，需要重新构建<br>
+重绘：渲染树中元素更改外观，不影响布局<br>
+回流必定重绘，重绘不一定回流<br>
+减少回流、重绘：使用 transform 替代 top 做动画；使用 visibility 替换 display，opacity替代 visibility；不使用 table 布局；将频繁重绘或回流的节点设置为图层，避免影响别的节点</p>
+<p><strong>首次渲染</strong><br>
+为了尽快完成首次渲染，需要最大限度减少以下三种可变因素：</p>
+<ol>
+<li>关键资源数量：可能阻止网页首次渲染的资源</li>
+<li>关键路径长度：受关键资源和字节大小一级依赖关系影响</li>
+<li>关键字节数量</li>
+</ol>
+<p>优化关键渲染路径步骤：</p>
+<ol>
+<li>分析关键路径的资源数、字节数、长度</li>
+<li>最大限度减少关键资源的数量：延迟下载，标记为异步等</li>
+<li>优化关键字节数，缩短下载时间</li>
+<li>优化关键资源加载顺序：尽早下载所有关键资源</li>
+</ol>
+<p><strong>web 标准的理解</strong><br>
+web 标准是多个标准的集合，主要有结构标准、表现标准、行为标准<br>
+结构标准：文档的结构与组织，对应 HTML 和 XML<br>
+表现标准：文档的表现效果，对应 CSS<br>
+行为标准：对网页的逻辑操作，网页的交互，对应 ECMA Script</p>
+<p><strong>前端优化</strong><br>
+目的：提高页面的加载速度，优化用户的访问体验<br>
+可以从三方面优化：<br>
+页面内容方面：</p>
+<ol>
+<li>通过文件合并、css sprite（雪碧图，将页面中涉及到的图都包含到一张大图中）、将图片打包成 base64 格式等方式减少 HTTP 请求数，避免过多的请求造成等待</li>
+<li>通过 DNS 缓存机制减少 DNS 的查询次数</li>
+<li>通过设置缓存策略，对常用的不变资源进行缓存</li>
+<li>使用延迟加载方式减少首屏加载需要请求的资源，延迟加载的资源等需要访问时在请求加载</li>
+<li>通过用户行为，对某些资源使用预加载的方式，提高用户需要访问资源时的响应速度</li>
+</ol>
+<p>服务器方面：</p>
+<ol>
+<li>使用 CDN(Content Delivery Network，内容分发网络，利用最靠近用户的服务器将用户请求的资源更快更稳定地传输过去) 服务，提高用户对于资源请求时的响应速度</li>
+<li>服务器启用 Gzip 对传输资源进行压缩，减小文件体积</li>
+<li>尽可能减小 cookie 的大小，并且将静态资源分配到其他域名下，避免请求静态资源时携带不必要的 cookie</li>
+</ol>
+<p>CSS 和 JS 方面：</p>
+<ol>
+<li>样式表（外部，内联）放在 head 标签中而不是 body 底部</li>
+<li>避免使用 @import 标签</li>
+<li>尽量把 js 脚本放在 body 结束标签前或使用 defer、async，避免脚本加载和执行阻塞页面渲染</li>
+<li>压缩 js 和 css 文件大小，减小文件体积，比如使用 webpack</li>
+</ol>
+<h3 id="css">CSS</h3>
+<p><strong>水平居中</strong></p>
+<ol>
+<li>给 div 设置宽度，然后 margin: 0 auto; （margin 上下为 0，左右根据宽度自适应相同值，就实现了居中，注意 div 一定要设置宽度</li>
+<li>父容器设置 text-align: center;</li>
+</ol>
+<p><strong>水平垂直居中</strong></p>
+<ol>
+<li>绝对定位，top、left、bottom、right 均设为 0，margin 设为 auto</li>
+<li>绝对定位，top、left 设置为 50%，margin-left、margin-top 设置为负的宽高的一半（也可以将长宽的一半直接在 top 、left 中减掉；或者使用 transform: translate(-50%, -50%); 向左上角移动一半的宽和高）</li>
+<li>父容器设置 flex 布局，并设置 align-item: center; 垂直居中和 justify-content: center; 水平居中</li>
+</ol>
+<p><strong>浮动高度坍塌</strong><br>
+在文档流中，父元素的高度默认被子元素撑开，但当子元素设置为浮动后，就会脱离文档流，导致无法撑起父元素的高度，使父元素高度塌陷，会导致父元素下面的所有元素向上移动，使页面布局混乱。</p>
+<p><strong>清除浮动</strong></p>
+<ol>
+<li>固定父元素的高度，但会导致父元素无法自适应子元素高度（不推荐使用）</li>
+<li>触发父元素 BFC，副作用最小的方式是将父元素的 overflow 设置为 hidden，缺点是内容增多时容易造成超出尺寸的内容隐藏</li>
+<li>zoom 属性，设置对象缩放比例，触发 hasLayout，清除浮动，是 ie 的专有属性</li>
+<li>使用 clear 属性，可以清除浮动元素对该元素的影响，而不是清除浮动，可以在要清除浮动的元素后面加一个空白 div 设置 clear: both;，缺点是会产生很多无意义的标签</li>
+<li>根据 3 的思路使用伪元素 after 替代空白标签，注意要设置内容为空，设置为块级元素，设置 clear 属性，因为 clear 属性只有块级元素才有效，而伪元素默认是内联元素（最推荐）</li>
+</ol>
+<pre><code class="language-css">.clear::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+</code></pre>
+<p><strong>transition 和 animation 的区别</strong><br>
+transition 只有开始和结束状态，需要借助别的方式触发<br>
+animation 可以有多个状态，有帧的概念，并且可以自动触发</p>
+<h3 id="javascript">JavaScript</h3>
+<p><strong>字面量</strong><br>
+字面量，和常量差不多，其表达的信息如字面所示</p>
+<p><strong>Object.assign(target, ...sources)</strong><br>
+将 source 中的可枚举属性复制给 target，重名属性后面的覆盖前面的<br>
+复制的是属性值，如果属性值是引用类型则复制引用地址，会出现引用共享的问题（修改其中的一个会影响到别的）</p>
+<p><strong>constructor</strong><br>
+constructor 属性是专门为 function 设计的，存在于每一个 function 函数的 prototype 原型属性中，是指向 prototype 所在函数的指针<br>
+当我们调用该函数作为构造函数创建一个新实例后，该实例中将包含一个指向构造函数中的 prototype 的指针 proto<br>
+如果以等于一个以<strong>对象字面量</strong>形式创建的新对象，constructor 不再指向该构造函数，比如</p>
+<pre><code class="language-js">var person={ 
+    name:&quot;Jack&quot;, 
+    age:10
+};
+</code></pre>
+<p><strong>map 和 forEach</strong></p>
+<pre><code class="language-js">const arr = [1,2,3];
+// map 遍历数组并给每个数翻倍
+const arr1 = arr.map(x=&gt;x*2); //[2,4,6]
+// forEach 遍历数组，有三个参数，分别是：当前遍历的数组元素 item、当前的元素下标 index、数组本身 arr
+let sum = 0;
+arr.forEach(function(item, index, arr) {
+    if (arr[index] &gt; 0) sum += item;
+})
+</code></pre>
+<p>相同点：</p>
+<ol>
+<li>均循环遍历数组每一项</li>
+<li>只能遍历数组</li>
+<li>匿名函数都支持三个参数 item、index、arr</li>
+<li>匿名函数中的 this 指向 window</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>map 创建新数组并返回，forEach 无返回</li>
+<li>forEach 可以修改原数组，map 不会</li>
+</ol>
+<p><strong>for of</strong><br>
+es6 的新增方法，只限于迭代器(iterator)，也就是<strong>可迭代</strong>对象，比如 Array、Map、Set、String、arguments、TyoedArray 等</p>
+<p><strong>js 静态类型检查</strong><br>
+静态类型语言：变量在定义的时候有类型声明，类型的检查发生在编译时，在运行的时候无法修改变量类型，编译器可以确定运行时需要的内存总量<br>
+动态类型语言：变量在定义的时候无类型声明，类型的检查发生在运行时，在运行的时候可以修改变量类型<br>
+对比：静态类型可以尽早发现错误，减少了复杂的错误处理，将数据和行为分离，也有利于代码重构；动态类型的代码比较精简，并且不需要花时间掌握类型<br>
+js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态类型检查工具，能够找出类型错误；<strong>TypeScript</strong> 在 js 的基础上添加静态类型定义，并且会被编译成 js</p>
+<p><strong>indexOf</strong><br>
+<code>str.indexOf(searchValue[, fromIndex])</code> 找到返回第一个匹配字串的起始下标，未找到返回 0<br>
+searchValue 不设置会查找字符串 'undefined'<br>
+fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
+<strong>严格区分大小写</strong></p>
+<p><strong>变量提升</strong><br>
+js 是单线程语言，是按顺序执行，但是一段一段地分析执行，代码执行前的编译阶段会检测到所有的变量和函数声明，添加到叫做 Lexical Environment 的 js 数据结构的内存中，所以能够在真正被声明前使用</p>
+<p><strong>HashMap 和 Array</strong><br>
+HashMap 散列表 是 数组 + 链表</p>
+<ul>
+<li>查找效率：HashMap 根据 hashcode 直接算出 index，在数组每个下标的链表只有一个元素的时候，能达到 O(1)；Array 二分查找，受数组长度影响较大</li>
+<li>扩容数量：HashMap 初始长度 16，每次扩容申请双倍，扩容次数少；Array 小于 4 申请 4，小于 8 申请 8，大于 8 申请 size * 1.5，申请空间少</li>
+<li>扩容效率：HashMap 扩容重新计算每个元素的位置，然后放到新的位置；Array 直接赋值数组，效率更高</li>
+<li>内存消耗：Array 使用了独特的方式重复利用因为数组扩容遗留的数组空间，HashMap 没有</li>
+</ul>
+<p>总的来说，数据量小且使用频繁使用 Array，数据量大使用 HashMap</p>
+<p><strong>HashMap 和 Object</strong><br>
+两者累次允许按键存取值，删除键，检测键是否有值，不过 Map 有些优势：</p>
+<ul>
+<li>意外的键：Map 默认不包含任何键；Object 有原型，可能与插入的键名冲突</li>
+<li>键的类型：Map 键可以是任意值；Object 只能是 String 或 Symbol</li>
+<li>键的顺序：Map 键是有序的，迭代时以<strong>插入顺序</strong>返回；Object 无序</li>
+<li>Size：Map 通过 size 容易获取键值对个数；Object 手动计算</li>
+<li>迭代：Map 可直接迭代；获取 Object 的键值后才能迭代</li>
+<li>性能：Map 在频繁增删时性能更优；Object 无优化</li>
+</ul>
+<p><strong>原型与原型链</strong><br>
+js 每个构造函数都有 prototype 属性指向它的原型对象（实例原型），原型对象派生的子对象叫构造函数<br>
+每个构造函数的实例都包含一个指向原型对象的内部指针 __proto__，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
+每个原型对象有一个 constructor 指针指向其关联的构造函数<br>
+如果原型对象是另一个类型的实例，则该原型对象包含着指向另一个原型的指针，层层递进就会形成实例与原型的链条，称为原型链，是图中蓝色的箭头<br>
+<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"><br>
+根据原型链，就可以实现 instanceOf，其原理就是判断右边变量的 prototype 是否在左边变量的原型链上即可：</p>
+<pre><code class="language-js">funcion instance_of(left, right) {
+    let rightProto = right.prototype;
+    left = left._proto_;
+    while (true) {
+        if (left === null) return false;
+        if (left === rightProto) return true;
+        left = left._proto_;
+    }
+}
+</code></pre>
+<p><strong>强弱引用</strong><br>
+对象的引用就是强引用，WeakMaps 和 WeakSets 是 js 弱引用的唯一途径，弱引用不能防止对象被垃圾回收</p>
+<p><strong>垃圾回收</strong><br>
+内存是临时存储变量等数据的位置，内存也有生命周期，从内存创建分配到内存读写再到内存销毁，当内存不再使用，则会被垃圾回收，防止内存泄露（在执行垃圾回收时，遗漏一些内存没有回收）<br>
+所以垃圾回收机制的<strong>核心</strong>就是判断内存是否不再使用，有两种方法：</p>
+<ul>
+<li>引用计数：早期浏览器方法，计算内存被引用的次数，被引用一次计数 +1，不被引用一次计数 -1，计数为 0 就将内存释放回收，该方法简单有效，但循环引用会导致内存泄漏</li>
+<li>标记清除：目前浏览器方法，标记所有从根节点开始能够访问到的对象，未被标记的对象就是未被强据引用的垃圾对象，被清除</li>
+</ul>
+<p><strong>内存泄漏</strong></p>
+<ul>
+<li>意外的全局变量：全局变量内存不会回收，若全局变量使用不当又没有手动回收（赋值 null），就发生内存泄漏</li>
+<li>未被清空的定时器：定时器的生命周期有专门的线程维护，不挂靠在页面上，所以在某个页面使用定时器，页面销毁而没有手动清空定时器，就发生内存泄漏</li>
+<li>使用不当的闭包：在一个函数内部定义一个子函数，并且子函数调用了在父函数内定义的变量，并且在父函数外部被调用，这就形成了闭包；通常函数使用完后申请的内存会被回收，但闭包会导致父函数执行完内存仍无法被回收，造成内存泄漏</li>
+<li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
+<li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[70. 爬楼梯]]></title>
+        <id>https://AriesSK.github.io/post/top_70/</id>
+        <link href="https://AriesSK.github.io/post/top_70/">
+        </link>
+        <updated>2022-08-03T03:27:58.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_10_ii/">10 - II. 青蛙跳台阶问题</a>相同。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="动态规划">动态规划</h3>
+<p>类似斐波那契数列，当前状态只与前两个状态相关，使用滚动数组替代 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span> 数组：</p>
+<pre><code class="language-js">var climbStairs = function(n) {
+    let p = 0, q = 0, r = 1;
+    while (n--) {
+        p = q;
+        q = r;
+        r = p + q;
+    }
+    return r;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[69. x的平方根]]></title>
+        <id>https://AriesSK.github.io/post/top_69/</id>
+        <link href="https://AriesSK.github.io/post/top_69/">
+        </link>
+        <updated>2022-08-03T03:08:07.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>经典的二分查找题，关键点是找到题目要求的结果的满足条件。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="二分法">二分法</h3>
+<p>二分查找，找到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>2</mn></msup><mo>≤</mo><mi>x</mi><mo>&lt;</mo><mo>(</mo><mi>m</mi><mo>+</mo><mn>1</mn><msup><mo>)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">m^2 \leq x &lt; (m + 1)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.950078em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>，输出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>：</p>
+<pre><code class="language-js">var mySqrt = function(x) {
+    let l = 0, r = x;
+    while (l &lt;= r) {
+        const m = l + r &gt;&gt; 1;
+        if ((m + 1) * (m + 1) &lt;= x) l = m + 1;
+        else if (m * m &gt; x) r = m - 1;
+        else return m;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[66. 加一]]></title>
+        <id>https://AriesSK.github.io/post/top_66/</id>
+        <link href="https://AriesSK.github.io/post/top_66/">
+        </link>
+        <updated>2022-08-03T02:20:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="大数溢出问题">大数溢出问题</h3>
+<p>这道题本来还想了一种方法，是将数组转为数字加一后再转回数组，事实上这是错位的做法，因为数字存储是有上限的，会出现溢出的问题，所以对于大数问题我们常常转化为字符串处理，而这道题里我却想把数组转为数字，就会造成溢出的问题。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="数组">数组</h3>
+<p>主要就是进位的问题，在数组中找 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>9</mn></mrow><annotation encoding="application/x-tex">9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span></span></span></span> 即可：</p>
+<pre><code class="language-js">var plusOne = function(digits) {
+    const n = digits.length - 1;
+    for (let i = n; i &gt;= 0; --i) {
+        if (digits[i] === 9)  digits[i] = 0;
+        else {
+            digits[i] += 1;
+            break;
+        }
+        if (!i) digits.unshift(1);
+    }
+    return digits;
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -645,253 +972,6 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[前端面试]]></title>
-        <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
-        <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
-        </link>
-        <updated>2022-08-02T06:15:18.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
-<h3 id="html">HTML</h3>
-<p><strong>h5 新特性</strong></p>
-<ul>
-<li>媒体播放 video 和 audio</li>
-<li>本地存储 localStorge 和 sessionStorage</li>
-<li>语义化标签 header、nav、article、section、footer</li>
-<li>历史管理 history API</li>
-<li>新增选择器 document.querySelector()、document.querySelectorAll()，可以方便地获取 DOM 元素，前者返回第一个，后者返回所有，参数为字符串类型的 &quot;选择器语法&quot;</li>
-<li>拖拽释放 Drag and drop API</li>
-</ul>
-<p><strong>h5 新增加的表单元素</strong><br>
-datalist：初始化是一个输入框，点击后出现下拉选项列表，下拉选项通过 option 标签创建<br>
-keygen：密钥对生成器，提供验证用户的可靠方法，提交表单生成私钥存在客户端，公钥发到服务器<br>
-output：用于不同类型的输出</p>
-<p><strong>iframe</strong><br>
-内联框架，往网页中引入另一个网页<br>
-优点：</p>
-<ul>
-<li>把嵌入的网页原封不动展现</li>
-<li>可以将网页公用的部分写成一个页面使用 iframe 来嵌套，有利于网页统一风格，增加代码可重用</li>
-<li>多网页引用时只需修改 iframe 内容就可以更改调用它的每一个页面</li>
-<li>可以解决加载缓慢的第三方内容</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>阻塞主页面的 onload 事件</li>
-<li>与主页面共享连接池，会影响页面的并行加载，并且产生的多个页面不容易管理</li>
-<li>可能出现上下左右滚动条，用户体验差</li>
-<li>不利于 SEO 搜索引擎优化，爬虫难处理 iframe 中的内容</li>
-<li>许多移动端设备不兼容</li>
-<li>增加服务器的 http 请求，大型网站不可取</li>
-</ul>
-<p><strong>Web Components</strong><br>
-提供一套完善的封装机制使 Web 组件化能够标准化，每种框架的组件都统一标准，推动组件的复用<br>
-包含四部分：</p>
-<ul>
-<li>Custom Elements：让开发者自定义 HTML 元素，包括组成、样式和行为</li>
-<li>HTML Imports：在 HTML 中引用和复用其他 HTML 文档的方式</li>
-<li>HTML Templates：模板</li>
-<li>Shadow DOM：提供更好的组织页面元素的方式，类似 DOM 中的 DOM，其元素和样式独立于原始 DOM</li>
-</ul>
-<p><strong>浏览器渲染</strong><br>
-总体流程：</p>
-<ol>
-<li>解析文档生成 DOM 树；解析 CSS 生成 CSS 规则树；解析 JavaScript 操作前面两种树</li>
-<li>完成解析后通过 DOM 树和 CSS 规则树构造 Rendering Tree (渲染树)；然后计算树中每个渲染对象的位置，叫做回流(布局)</li>
-<li>调用 UI 组件绘制(重绘)，将渲染树中的渲染对象内容显示在屏幕上</li>
-</ol>
-<p>构建 DOM 树：</p>
-<ol>
-<li>浏览器从磁盘或网络读取原始字节数据，通过指定编码转换为字符串</li>
-<li>将字符串转换为 Token，其中会表示出当前 Token 是开始标签、结束标签或文本</li>
-<li>根据 Token 生成节点对象，构建 DOM 树</li>
-</ol>
-<p>构建 CSSOM 树：与构建 DOM 树流程类似。<br>
-构建渲染树：将两树组合为渲染树，只包含需要显示的节点及其样式信息(display: none; 的节点不会出现在渲染树中)<br>
-布局(回流)：生成渲染树后根据渲染树进行布局，计算个节点在页面中的确切位置和大小，也被称为自动重排，布局输出盒模型，所以的相对测量值都会转化为屏幕上的<strong>绝对像素</strong><br>
-绘制：布局完成后触发 Paint 事件，将渲染树转换为屏幕上的像素</p>
-<p>渲染遇到 JS 文件：JS 的加载、解析和执行都会阻塞 DOM 的执行，遇到 JS 会暂停构建 DOM，等 JS 引擎运行完后再从中断的地方恢复 DOM 构建。所以想让首批渲染快就不应该在首屏加载 JS 文件，建议将 script 标签放在 body 标签底部。JS 不只是阻塞 DOM 构建，会导致 CSSOM 阻塞 DOM 构建，本来样式不改变 DOM，两者互不影响，但因为 JS 不仅能够更改 DOM，还能更改 CSSOM，而 JS 访问需要完整的 CSSOM，所以这种情况下，浏览器<strong>先下载构建 CSSOM，再执行 JS，再构建 DOM</strong></p>
-<p>回流：渲染树中出现元素尺寸、布局、隐藏等改变，需要重新构建<br>
-重绘：渲染树中元素更改外观，不影响布局<br>
-回流必定重绘，重绘不一定回流<br>
-减少回流、重绘：使用 transform 替代 top 做动画；使用 visibility 替换 display，opacity替代 visibility；不使用 table 布局；将频繁重绘或回流的节点设置为图层，避免影响别的节点</p>
-<p><strong>首次渲染</strong><br>
-为了尽快完成首次渲染，需要最大限度减少以下三种可变因素：</p>
-<ol>
-<li>关键资源数量：可能阻止网页首次渲染的资源</li>
-<li>关键路径长度：受关键资源和字节大小一级依赖关系影响</li>
-<li>关键字节数量</li>
-</ol>
-<p>优化关键渲染路径步骤：</p>
-<ol>
-<li>分析关键路径的资源数、字节数、长度</li>
-<li>最大限度减少关键资源的数量：延迟下载，标记为异步等</li>
-<li>优化关键字节数，缩短下载时间</li>
-<li>优化关键资源加载顺序：尽早下载所有关键资源</li>
-</ol>
-<p><strong>web 标准的理解</strong><br>
-web 标准是多个标准的集合，主要有结构标准、表现标准、行为标准<br>
-结构标准：文档的结构与组织，对应 HTML 和 XML<br>
-表现标准：文档的表现效果，对应 CSS<br>
-行为标准：对网页的逻辑操作，网页的交互，对应 ECMA Script</p>
-<p><strong>前端优化</strong><br>
-目的：提高页面的加载速度，优化用户的访问体验<br>
-可以从三方面优化：<br>
-页面内容方面：</p>
-<ol>
-<li>通过文件合并、css sprite（雪碧图，将页面中涉及到的图都包含到一张大图中）、将图片打包成 base64 格式等方式减少 HTTP 请求数，避免过多的请求造成等待</li>
-<li>通过 DNS 缓存机制减少 DNS 的查询次数</li>
-<li>通过设置缓存策略，对常用的不变资源进行缓存</li>
-<li>使用延迟加载方式减少首屏加载需要请求的资源，延迟加载的资源等需要访问时在请求加载</li>
-<li>通过用户行为，对某些资源使用预加载的方式，提高用户需要访问资源时的响应速度</li>
-</ol>
-<p>服务器方面：</p>
-<ol>
-<li>使用 CDN(Content Delivery Network，内容分发网络，利用最靠近用户的服务器将用户请求的资源更快更稳定地传输过去) 服务，提高用户对于资源请求时的响应速度</li>
-<li>服务器启用 Gzip 对传输资源进行压缩，减小文件体积</li>
-<li>尽可能减小 cookie 的大小，并且将静态资源分配到其他域名下，避免请求静态资源时携带不必要的 cookie</li>
-</ol>
-<p>CSS 和 JS 方面：</p>
-<ol>
-<li>样式表（外部，内联）放在 head 标签中而不是 body 底部</li>
-<li>避免使用 @import 标签</li>
-<li>尽量把 js 脚本放在 body 结束标签前或使用 defer、async，避免脚本加载和执行阻塞页面渲染</li>
-<li>压缩 js 和 css 文件大小，减小文件体积，比如使用 webpack</li>
-</ol>
-<h3 id="css">CSS</h3>
-<p><strong>水平居中</strong></p>
-<ol>
-<li>给 div 设置宽度，然后 margin: 0 auto; （margin 上下为 0，左右根据宽度自适应相同值，就实现了居中，注意 div 一定要设置宽度</li>
-<li>父容器设置 text-align: center;</li>
-</ol>
-<p><strong>水平垂直居中</strong></p>
-<ol>
-<li>绝对定位，top、left、bottom、right 均设为 0，margin 设为 auto</li>
-<li>绝对定位，top、left 设置为 50%，margin-left、margin-top 设置为负的宽高的一半（也可以将长宽的一半直接在 top 、left 中减掉；或者使用 transform: translate(-50%, -50%); 向左上角移动一半的宽和高）</li>
-<li>父容器设置 flex 布局，并设置 align-item: center; 垂直居中和 justify-content: center; 水平居中</li>
-</ol>
-<p><strong>浮动高度坍塌</strong><br>
-在文档流中，父元素的高度默认被子元素撑开，但当子元素设置为浮动后，就会脱离文档流，导致无法撑起父元素的高度，使父元素高度塌陷，会导致父元素下面的所有元素向上移动，使页面布局混乱。</p>
-<p><strong>清除浮动</strong></p>
-<ol>
-<li>固定父元素的高度，但会导致父元素无法自适应子元素高度（不推荐使用）</li>
-<li>触发父元素 BFC，副作用最小的方式是将父元素的 overflow 设置为 hidden，缺点是内容增多时容易造成超出尺寸的内容隐藏</li>
-<li>zoom 属性，设置对象缩放比例，触发 hasLayout，清除浮动，是 ie 的专有属性</li>
-<li>使用 clear 属性，可以清除浮动元素对该元素的影响，而不是清除浮动，可以在要清除浮动的元素后面加一个空白 div 设置 clear: both;，缺点是会产生很多无意义的标签</li>
-<li>根据 3 的思路使用伪元素 after 替代空白标签，注意要设置内容为空，设置为块级元素，设置 clear 属性，因为 clear 属性只有块级元素才有效，而伪元素默认是内联元素（最推荐）</li>
-</ol>
-<pre><code class="language-js">.clear::after {
-    content: '';
-    display: block;
-    clear: both;
-}
-</code></pre>
-<h3 id="javascript">JavaScript</h3>
-<p><strong>字面量</strong><br>
-字面量，和常量差不多，其表达的信息如字面所示</p>
-<p><strong>Object.assign(target, ...sources)</strong><br>
-将 source 中的可枚举属性复制给 target，重名属性后面的覆盖前面的<br>
-复制的是属性值，如果属性值是引用类型则复制引用地址，会出现引用共享的问题（修改其中的一个会影响到别的）</p>
-<p><strong>constructor</strong><br>
-constructor 属性是专门为 function 设计的，存在于每一个 function 函数的 prototype 原型属性中，是指向 prototype 所在函数的指针<br>
-当我们调用该函数作为构造函数创建一个新实例后，该实例中将包含一个指向构造函数中的 prototype 的指针 proto<br>
-如果以等于一个以<strong>对象字面量</strong>形式创建的新对象，constructor 不再指向该构造函数，比如</p>
-<pre><code class="language-js">var person={ 
-    name:&quot;Jack&quot;, 
-    age:10
-};
-</code></pre>
-<p><strong>map 和 forEach</strong></p>
-<pre><code class="language-js">const arr = [1,2,3];
-// map 遍历数组并给每个数翻倍
-const arr1 = arr.map(x=&gt;x*2); //[2,4,6]
-// forEach 遍历数组，有三个参数，分别是：当前遍历的数组元素 item、当前的元素下标 index、数组本身 arr
-let sum = 0;
-arr.forEach(function(item, index, arr) {
-    if (arr[index] &gt; 0) sum += item;
-})
-</code></pre>
-<p>相同点：</p>
-<ol>
-<li>均循环遍历数组每一项</li>
-<li>只能遍历数组</li>
-<li>匿名函数都支持三个参数 item、index、arr</li>
-<li>匿名函数中的 this 指向 window</li>
-</ol>
-<p>不同点：</p>
-<ol>
-<li>map 创建新数组并返回，forEach 无返回</li>
-<li>forEach 可以修改原数组，map 不会</li>
-</ol>
-<p><strong>for of</strong><br>
-es6 的新增方法，只限于迭代器(iterator)，也就是<strong>可迭代</strong>对象，比如 Array、Map、Set、String、arguments、TyoedArray 等</p>
-<p><strong>js 静态类型检查</strong><br>
-静态类型语言：变量在定义的时候有类型声明，类型的检查发生在编译时，在运行的时候无法修改变量类型，编译器可以确定运行时需要的内存总量<br>
-动态类型语言：变量在定义的时候无类型声明，类型的检查发生在运行时，在运行的时候可以修改变量类型<br>
-对比：静态类型可以尽早发现错误，减少了复杂的错误处理，将数据和行为分离，也有利于代码重构；动态类型的代码比较精简，并且不需要花时间掌握类型<br>
-js 的静态类型检查方法：<strong>Flow</strong>是 Facebook 的 js 静态类型检查工具，能够找出类型错误；<strong>TypeScript</strong> 在 js 的基础上添加静态类型定义，并且会被编译成 js</p>
-<p><strong>indexOf</strong><br>
-<code>str.indexOf(searchValue[, fromIndex])</code> 找到返回第一个匹配字串的起始下标，未找到返回 0<br>
-searchValue 不设置会查找字符串 'undefined'<br>
-fromIndex 是可选的，不填默认 0，负数等同 0，大于字符串长度等同于字符串长度<br>
-<strong>严格区分大小写</strong></p>
-<p><strong>变量提升</strong><br>
-js 是单线程语言，是按顺序执行，但是一段一段地分析执行，代码执行前的编译阶段会检测到所有的变量和函数声明，添加到叫做 Lexical Environment 的 js 数据结构的内存中，所以能够在真正被声明前使用</p>
-<p><strong>HashMap 和 Array</strong><br>
-HashMap 散列表 是 数组 + 链表</p>
-<ul>
-<li>查找效率：HashMap 根据 hashcode 直接算出 index，在数组每个下标的链表只有一个元素的时候，能达到 O(1)；Array 二分查找，受数组长度影响较大</li>
-<li>扩容数量：HashMap 初始长度 16，每次扩容申请双倍，扩容次数少；Array 小于 4 申请 4，小于 8 申请 8，大于 8 申请 size * 1.5，申请空间少</li>
-<li>扩容效率：HashMap 扩容重新计算每个元素的位置，然后放到新的位置；Array 直接赋值数组，效率更高</li>
-<li>内存消耗：Array 使用了独特的方式重复利用因为数组扩容遗留的数组空间，HashMap 没有</li>
-</ul>
-<p>总的来说，数据量小且使用频繁使用 Array，数据量大使用 HashMap</p>
-<p><strong>HashMap 和 Object</strong><br>
-两者累次允许按键存取值，删除键，检测键是否有值，不过 Map 有些优势：</p>
-<ul>
-<li>意外的键：Map 默认不包含任何键；Object 有原型，可能与插入的键名冲突</li>
-<li>键的类型：Map 键可以是任意值；Object 只能是 String 或 Symbol</li>
-<li>键的顺序：Map 键是有序的，迭代时以<strong>插入顺序</strong>返回；Object 无序</li>
-<li>Size：Map 通过 size 容易获取键值对个数；Object 手动计算</li>
-<li>迭代：Map 可直接迭代；获取 Object 的键值后才能迭代</li>
-<li>性能：Map 在频繁增删时性能更优；Object 无优化</li>
-</ul>
-<p><strong>原型与原型链</strong><br>
-js 每个构造函数都有 prototype 属性指向它的原型对象（实例原型），原型对象派生的子对象叫构造函数<br>
-每个构造函数的实例都包含一个指向原型对象的内部指针 __proto__，该属性可以访问原型，但不存在于 Person.prototype 中，而是来自 Object.prototype，使用了 getter 方法<br>
-每个原型对象有一个 constructor 指针指向其关联的构造函数<br>
-如果原型对象是另一个类型的实例，则该原型对象包含着指向另一个原型的指针，层层递进就会形成实例与原型的链条，称为原型链，是图中蓝色的箭头<br>
-<img src="https://AriesSK.github.io/post-images/1658986531078.png" alt="" loading="lazy"><br>
-根据原型链，就可以实现 instanceOf，其原理就是判断右边变量的 prototype 是否在左边变量的原型链上即可：</p>
-<pre><code class="language-js">funcion instance_of(left, right) {
-    let rightProto = right.prototype;
-    left = left._proto_;
-    while (true) {
-        if (left === null) return false;
-        if (left === rightProto) return true;
-        left = left._proto_;
-    }
-}
-</code></pre>
-<p><strong>强弱引用</strong><br>
-对象的引用就是强引用，WeakMaps 和 WeakSets 是 js 弱引用的唯一途径，弱引用不能防止对象被垃圾回收</p>
-<p><strong>垃圾回收</strong><br>
-内存是临时存储变量等数据的位置，内存也有生命周期，从内存创建分配到内存读写再到内存销毁，当内存不再使用，则会被垃圾回收，防止内存泄露（在执行垃圾回收时，遗漏一些内存没有回收）<br>
-所以垃圾回收机制的<strong>核心</strong>就是判断内存是否不再使用，有两种方法：</p>
-<ul>
-<li>引用计数：早期浏览器方法，计算内存被引用的次数，被引用一次计数 +1，不被引用一次计数 -1，计数为 0 就将内存释放回收，该方法简单有效，但循环引用会导致内存泄漏</li>
-<li>标记清除：目前浏览器方法，标记所有从根节点开始能够访问到的对象，未被标记的对象就是未被强据引用的垃圾对象，被清除</li>
-</ul>
-<p><strong>内存泄漏</strong></p>
-<ul>
-<li>意外的全局变量：全局变量内存不会回收，若全局变量使用不当又没有手动回收（赋值 null），就发生内存泄漏</li>
-<li>未被清空的定时器：定时器的生命周期有专门的线程维护，不挂靠在页面上，所以在某个页面使用定时器，页面销毁而没有手动清空定时器，就发生内存泄漏</li>
-<li>使用不当的闭包：在一个函数内部定义一个子函数，并且子函数调用了在父函数内定义的变量，并且在父函数外部被调用，这就形成了闭包；通常函数使用完后申请的内存会被回收，但闭包会导致父函数执行完内存仍无法被回收，造成内存泄漏</li>
-<li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
-<li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[62. 不同路径]]></title>
         <id>https://AriesSK.github.io/post/top_62/</id>
         <link href="https://AriesSK.github.io/post/top_62/">
@@ -1053,150 +1133,6 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
         if (++l &gt; r) break;
     }
     return res;   
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[50. Pow(x, n)]]></title>
-        <id>https://AriesSK.github.io/post/top_50/</id>
-        <link href="https://AriesSK.github.io/post/top_50/">
-        </link>
-        <updated>2022-07-31T08:20:40.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题与剑指offer<a href="https://ariessk.github.io/post/jianzhi_16/">16. 数值的整数次方</a>相同，使用快速幂 + 迭代解决，比递归空间复杂度低。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="快速幂-迭代">快速幂 + 迭代</h3>
-<p>每次对幂的值进行二分，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 次幂为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>：</p>
-<pre><code class="language-js">var myPow = function(x, n) {
-    if (!n) return 1;
-    if (!x) return 0;
-    let res = 1;
-    if (n &lt; 0) {
-        x = 1 / x;
-        n = -n;
-    }
-    while (n) {
-        // 目的将 n 拆分成 2 的整数次幂的和
-        // 比如 x^10，res = x^2 * x^8；x^15，res = x^1 * x^2 * x^4 * x^8 
-        if (n &amp; 1) res *= x;
-        x *= x;
-        n &gt;&gt;&gt;= 1;
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[49. 字母异位词分组]]></title>
-        <id>https://AriesSK.github.io/post/top_49/</id>
-        <link href="https://AriesSK.github.io/post/top_49/">
-        </link>
-        <updated>2022-07-31T06:27:37.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中字符和-ascii-码转化">JavaScript 中字符和 ASCII 码转化</h3>
-<p>方法如下：</p>
-<pre><code class="language-js">// 字符转 ASCII 码
-&quot;a&quot;.charCodeAt(); // 97
-// ASCII 码转字符
-String.fromCharCode(97); // a
-</code></pre>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一排序">法一：排序</h3>
-<p>将每个字符串拆分成字符数组，然后进行排序，再恢复成字符串。异位词在排序后应当是相同的，因此可以将排序后的字符串作为键，其对应的字符串数组作为值存入哈希表中，实现分组：</p>
-<pre><code class="language-js">var groupAnagrams = function(strs) {
-    const map = new Map();
-    for (const str of strs) {
-        const arr = Array.from(str);
-        // 这里用 toString() 替代 join() 也可以，前者中间有逗号，后者没有，只要保证唯一即可
-        const key = arr.sort().join(&quot;&quot;); 
-        // 有则获取字符串数组，无则创建空数组
-        const tmp = map.has(key) ? map.get(key) : new Array();
-        tmp.push(str);
-        map.set(key, tmp);
-    }
-    return Array.from(map.values());
-};
-</code></pre>
-<h3 id="法二计数">法二：计数</h3>
-<p>法二其实也是排序，只不过将法一的排序换为计数排序，由于小写字母只有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>26</mn></mrow><annotation encoding="application/x-tex">26</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">6</span></span></span></span> 个，所以可以用长度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>26</mn></mrow><annotation encoding="application/x-tex">26</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">6</span></span></span></span> 的数组空间来降低排序算法的时间复杂度，关于计数排序详见<a href="https://ariessk.github.io/post/jianzhi_40/">40. 最小的k个数</a>：</p>
-<pre><code class="language-js">var groupAnagrams = function(strs) {
-    const map = new Map();
-    for (const str of strs) {
-        const arr = Array.from(str);
-        const key = helper(arr);
-        const tmp = map.has(key) ? map.get(key) : new Array();
-        tmp.push(str);
-        map.set(key, tmp);
-    }
-    return Array.from(map.values());
-
-    function helper(arr) {
-        const count = new Array(26).fill(0);
-        let str = &quot;&quot;;
-        for (const c of arr) count[c.charCodeAt() - &quot;a&quot;.charCodeAt()]++;
-        for (let i = 0; i &lt; 26; ++i) {
-            if (count[i]) {
-                while (count[i]--) str += String.fromCharCode(&quot;a&quot;.charCodeAt() + i);
-            }
-        }
-        return str;
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[48. 旋转图像]]></title>
-        <id>https://AriesSK.github.io/post/top_48/</id>
-        <link href="https://AriesSK.github.io/post/top_48/">
-        </link>
-        <updated>2022-07-30T05:31:53.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="二维矩阵翻转替代旋转">二维矩阵翻转替代旋转</h3>
-<p>二维矩阵的翻转问题和旋转问题在很多情况下可以相互转换。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一原地旋转">法一：原地旋转</h3>
-<p>每个元素旋转后的位置与原位置的关系还是很好找的，但难点就在如何保证<strong>不重复</strong>旋转。<br>
-仔细观察后发现规律：对于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n \times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的二维数组，只需要保证对第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 行的从第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 个元素开始的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>2</mn><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n - 2i - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个元素进行旋转，即可保证不重复旋转。</p>
-<pre><code class="language-js">var rotate = function(matrix) {
-    const n = matrix.length;
-    for (let i = 0; i &lt; n &gt;&gt; 1; ++i) {
-        for (let j = i; j &lt; n - i - 1; ++j) {
-            const tmp = matrix[i][j];
-            matrix[i][j] = matrix[n - j - 1][i];
-            matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
-            matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
-            matrix[j][n - i - 1] = tmp;
-        }
-    }
-    return matrix;
-};
-</code></pre>
-<h3 id="法二翻转替代旋转">法二：翻转替代旋转</h3>
-<p>法一的规律还是有一些难度的，比较容易出错，还有更巧妙的办法：<br>
-先将数组沿水平的中心轴翻转，再将数组沿主对角线翻转，即可起到要求的旋转效果，因为这两步翻转的公式合并起来与法一的公式是相同的：</p>
-<pre><code class="language-js">var rotate = function(matrix) {
-    const n = matrix.length;
-    for (let i = 0; i &lt; n &gt;&gt; 1; ++i) {
-        for (let j = 0; j &lt; n; ++j) {
-            const tmp = matrix[i][j];
-            matrix[i][j] = matrix[n - i - 1][j];
-            matrix[n - i - 1][j] = tmp;
-        }
-    }
-    for (let i = 0; i &lt; n; ++i) {
-        for (let j = 0; j &lt; i; ++j) {
-            const tmp = matrix[i][j];
-            matrix[i][j] = matrix[j][i];
-            matrix[j][i] = tmp;
-        }
-    }
-    return matrix;
 };
 </code></pre>
 ]]></content>
