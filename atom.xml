@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-03T12:42:20.379Z</updated>
+    <updated>2022-08-04T07:43:23.351Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-03T15:59:59.000Z</updated>
+        <updated>2022-08-04T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -74,6 +74,7 @@
 <li>判断数组是否包含某元素 —— <a href="https://ariessk.github.io/post/top_2/">2. 两数相加</a></li>
 <li>使用 map 创建二维数组 —— <a href="https://ariessk.github.io/post/top_36/">36. 有效的数独</a></li>
 <li>二维数组翻转替代旋转 —— <a href="https://ariessk.github.io/post/top_48/">48. 旋转图像</a></li>
+<li>数组的原地算法 —— <a href="https://ariessk.github.io/post/top_73/">73. 矩阵置零</a></li>
 </ul>
 <p><strong>栈</strong></p>
 <ul>
@@ -250,6 +251,173 @@
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[75. 颜色分类]]></title>
+        <id>https://AriesSK.github.io/post/top_75/</id>
+        <link href="https://AriesSK.github.io/post/top_75/">
+        </link>
+        <updated>2022-08-04T02:59:53.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中">JavaScript 中</h3>
+<p>方法如下：</p>
+<pre><code class="language-js">
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一计数排序">法一：计数排序</h3>
+<p>很简单的思路，需要遍历两次数组：</p>
+<pre><code class="language-js">var sortColors = function(nums) {
+    let a = 0, b = 0, c = 0;
+    for (const num of nums) {
+        if (num === 0) ++a;
+        if (num === 1) ++b;
+        if (num === 2) ++c;
+    }
+    let i = 0;
+    while(a--) nums[i++] = 0;
+    while(b--) nums[i++] = 1;
+    while(c--) nums[i++] = 2;
+}; 
+</code></pre>
+<h3 id="法二单指针">法二：单指针</h3>
+<p>同样两次遍历，第一次将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 换到数组头部，第二次遍历将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 换到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 之后：</p>
+<pre><code class="language-js">var sortColors = function(nums) {
+    let ptr = 0;
+    for (let i = 0; i &lt; nums.length; ++i) {
+        if (nums[i] === 0) swap(i, ptr++);
+    }
+    for (let i = ptr; i &lt; nums.length; ++i) {
+        if (nums[i] === 1) swap(i, ptr++);
+    }
+
+    function swap(a, b) {
+        const tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
+    }
+}; 
+</code></pre>
+<h3 id="法三双指针">法三：双指针</h3>
+<p>使用两个指针分别交换 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，只需要遍历<strong>一次</strong>。<br>
+需要注意的是，要保证 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 指针始终指向 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 区间的下一位，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 指针始终指向 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 区间的下一位，所以当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 区间变长一位，两个指针都需要右移一位，而 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 区间变长一位，只需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 指针右移一位即可。<br>
+而当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 指针在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 指针之前时，说明 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 指针指的位置是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，这时候若要将后面的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 换到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 指针位置，则需要将换出去的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 再换到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 指针的位置：</p>
+<pre><code class="language-js">var sortColors = function(nums) {
+    let p0 = 0, p1 = 0;
+    for (let i = 0; i &lt; nums.length; ++i) {
+        if (nums[i] === 0) {
+            swap(i, p0);
+            if (p0 &lt; p1) swap(i, p1);
+            ++p0;
+            ++p1;
+        }
+        else if (nums[i] === 1) {
+            swap(i, p1);
+            ++p1;
+        }
+    }
+
+    function swap(a, b) {
+        const tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
+    }
+}; 
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[73. 矩阵置零]]></title>
+        <id>https://AriesSK.github.io/post/top_73/</id>
+        <link href="https://AriesSK.github.io/post/top_73/">
+        </link>
+        <updated>2022-08-04T01:27:21.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="数组的原地算法">数组的原地算法</h3>
+<p>要实现数组的原地算法，则只能尝试通过原数组中的空间来替代额外的标记空间，然而这样会导致原数组的这部分空间被修改，在本题中，因为只需要记录该部分被修改的空间中是否有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> ，因此额外的标记就与数组大小无关，就可以实现原地算法。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一额外数组">法一：额外数组</h3>
+<p>最简单的方法就是使用一个同样的小的二维数组记录原数组中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 出现的位置，然后实现置零，空间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>∗</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m * n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。<br>
+然后又想了想，发现用来记录的二维数组可以使用两个一维数组替代，空间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m + n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>：</p>
+<pre><code class="language-js">var setZeroes = function(matrix) {
+    const m = matrix.length, n = matrix[0].length;
+    const x = new Array(m).fill(0), y = new Array(n).fill(0);
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (!matrix[i][j]) {
+                x[i] = 1;
+                y[j] = 1;
+            }
+        }
+    }
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (x[i] || y[j]) matrix[i][j] = 0;
+        }
+    }
+};
+</code></pre>
+<h3 id="法二原地算法">法二：原地算法</h3>
+<p>使用矩阵的第一行和第一列替代法一的两个额外数组，先使用两个标记记录第一行和第一列是否有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，然后使用第一行和第一列进行标记，若矩阵剩余部分出现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，则将其对于的行列标记为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，其余则保持原值以保证第一行和第一列的正确性，最后再通过两个标记置零第一行和第一列：</p>
+<pre><code class="language-js">var setZeroes = function(matrix) {
+    const m = matrix.length, n = matrix[0].length;
+    let x = false, y = false;
+    for (let i = 0; i &lt; m; ++i) {
+        if (!matrix[i][0]) {
+            x = true;
+            break;
+        }
+    }
+    for (let j = 0; j &lt; n; ++j) {
+        if (!matrix[0][j]) {
+            y = true;
+            break;
+        }
+    }
+    for (let i = 1; i &lt; m; ++i) {
+        for (let j = 1; j &lt; n; ++j) {
+            if (!matrix[i][j]) {
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }
+    for (let i = 1; i &lt; m; ++i) {
+        for (let j = 1; j &lt; n; ++j) {
+            if (!matrix[i][0] || !matrix[0][j]) matrix[i][j] = 0;
+        }
+    }
+    if (x) {
+        for (let i = 0; i &lt; m; i++) matrix[i][0] = 0;
+    }
+    if (y) {
+        for (let j = 0; j &lt; n; j++) matrix[0][j] = 0;
+    }
+};
+</code></pre>
+<p>还可以优化至只用一个变量标记第一列原本是否存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，再使用第一列的第一个元素元素记录第一行是否存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，要注意这种情况下要从最后一行向上处理矩阵，因为第一行作为标记数组需要最后被处理：</p>
+<pre><code class="language-js">var setZeroes = function(matrix) {
+    const m = matrix.length, n = matrix[0].length;
+    let x = false;
+    for (let i = 0; i &lt; m; ++i) {
+        if (!matrix[i][0]) x = true;
+        for (let j = 1; j &lt; n; ++j) {
+            if (!matrix[i][j]) {
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }
+    for (let i = m - 1; i &gt;= 0; --i) {
+        for (let j = 1; j &lt; n; ++j) {
+            if (!matrix[i][0] || !matrix[0][j]) matrix[i][j] = 0;
+        }
+        if (x) matrix[i][0] = 0;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[前端面试]]></title>
         <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
         <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
@@ -393,6 +561,9 @@ web 标准是多个标准的集合，主要有结构标准、表现标准、行�
 <p><strong>transition 和 animation 的区别</strong><br>
 transition 只有开始和结束状态，需要借助别的方式触发<br>
 animation 可以有多个状态，有帧的概念，并且可以自动触发</p>
+<p>**height: 100%; 失效 **<br>
+百分比高度要生效需要父级有一个生效的高度值<br>
+所以给父元素设置高度，或者给该元素设置绝对定位（绝对定位的元素会有计算值）</p>
 <h3 id="javascript">JavaScript</h3>
 <p><strong>字面量</strong><br>
 字面量，和常量差不多，其表达的信息如字面所示</p>
@@ -1053,86 +1224,6 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
     }
     res.push(tmp);
     return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[55. 跳跃游戏]]></title>
-        <id>https://AriesSK.github.io/post/top_55/</id>
-        <link href="https://AriesSK.github.io/post/top_55/">
-        </link>
-        <updated>2022-08-01T03:12:43.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="贪心算法">贪心算法</h3>
-<p>贪心算法是指在对问题求解时，总是作出当前最好的选择，即不从整体最优上加以考虑，而是考虑局部最优解。<br>
-所求问题的<strong>整体最优解</strong>可以通过一系列**局部最优的选择（贪心选择）**来达到。<br>
-贪心算法不能保证求得的解是最佳的。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一暴力">法一：暴力</h3>
-<p>一个数组中只有跳转到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 才会无法到达最后一个下标，所以对每个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 进行前面的数进行判断，看能不能越过这个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>：</p>
-<pre><code class="language-js">var canJump = function(nums) {
-    // 只有一个元素，一定能到达
-    if (nums.length === 1) return true;
-    // 数组最后一个下标不用判断
-    for (let i = 0; i &lt; nums.length - 1; ++i) {
-        if (!nums[i]) {
-            // 如果第一个元素就是 $0$，不可能到达
-            if (!i) return false;
-            // 对每个 0 判断能否越过
-            for (let j = i - 1, k = 1; j &gt;= 0; --j, ++k) {
-                if (nums[j] &gt; k) break;
-                if (!j) return false;
-            }
-        }
-    }
-    return true;
-};
-</code></pre>
-<h3 id="法二贪心">法二：贪心</h3>
-<p>暴力解法明显要对数组进行多次遍历，时间复杂度较高，这道题可以使用贪心的方法解决。<br>
-依次遍历数组的每一个位置，实时维护<strong>最远可以到达的位置</strong>，在白能力过程中若该位置大于等于数组的最后一个位置，则可以返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>，若遍历结束仍不可达，则返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">false</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span>：</p>
-<pre><code class="language-js">var canJump = function(nums) {
-    let max = 0;
-    for (let i = 0; i &lt; nums.length; ++i) {
-        // 可达
-        if (max &gt;= nums.length - 1) return true;
-        // 当前位置不可达
-        if (max &lt; i) break;
-        max = Math.max(i + nums[i], max);
-    }
-    return false;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[54. 螺旋矩阵]]></title>
-        <id>https://AriesSK.github.io/post/top_54/</id>
-        <link href="https://AriesSK.github.io/post/top_54/">
-        </link>
-        <updated>2022-08-01T01:46:54.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>这道题与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_29/">29. 顺时针打印矩阵</a>相同，第二次做成功做出来了。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="模拟">模拟</h3>
-<p>设置四个边界，每次沿着一条边界遍历后该边界向内收缩，直到全部元素遍历完，模拟整个过程即可：</p>
-<pre><code class="language-js">var spiralOrder = function(matrix) {
-    const res = [];
-    let l = 0, t = 0, r = matrix[0].length - 1, b = matrix.length - 1;
-    while (true) {
-        for (let i = l; i &lt;= r; ++i) res.push(matrix[t][i]);
-        if (++t &gt; b) break;
-        for (let i = t; i &lt;= b; ++i) res.push(matrix[i][r]);
-        if (--r &lt; l) break;
-        for (let i = r; i &gt;= l; --i) res.push(matrix[b][i]);
-        if (--b &lt; t) break;
-        for (let i = b; i &gt;= t; --i) res.push(matrix[i][l]);
-        if (++l &gt; r) break;
-    }
-    return res;   
 };
 </code></pre>
 ]]></content>
