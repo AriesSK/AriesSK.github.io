@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                14. 最长公共前缀
+                                76. 最小覆盖子串
                             </h1>
                             
                                 <!--en-->
@@ -210,19 +210,19 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-07-18</a>
+                                Date: <a href="#">2022-08-05</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.0
+                                    href="#">2.7
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">230</a></span>
+                                    <span class="post-words">words:<a href="#">645</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
                                 <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
                                 
-                                <a href="https://AriesSK.github.io/tag/g8zS_VaN8/">字符串</a>
+                                <a href="https://AriesSK.github.io/tag/rBTYBqe6w/">滑动窗口</a>
                                 
                                 <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
                                 
@@ -234,35 +234,49 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<h3 id="charat越界"><code>charAt()</code>越界</h3>
-<p>js 字符串中的<code>charAt()</code>函数中的值若是超过了字符串的长度，也就是越界，并不会报错，而是返回一个空字符串<code>&quot;&quot;</code>。</p>
+<h3 id="复杂的滑动窗口移动">复杂的滑动窗口移动</h3>
+<p>滑动窗口的题需要想清楚左右边界的移动条件，保证不会漏过可能是答案的区间，再转化为代码。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="法一纵向对比">法一：纵向对比</h3>
-<p>逐个比较每个字符串相同位的字符：</p>
-<pre><code class="language-js">var longestCommonPrefix = function(strs) {
-    for (let i = 0; i &lt; strs[0].length; ++i) {
-        const s = strs[0].charAt(i);
-        for (const str of strs) {
-            if (str.charAt(i) !== s) return strs[0].slice(0, i);
-        }
+<h3 id="滑动窗口">滑动窗口</h3>
+<p>这道题算是一道经典的滑动窗口题，看到时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 还是比较容易想到要用滑动窗口的。<br>
+这道题的难点在于如何判断滑动窗口中包含了字符串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中的所有字符。<br>
+方法是使用两个哈希表，一个记录滑动窗口中字符和次数，一个记录 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中的字符和次数，在滑动窗口扩张时，使用变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span> 记录满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中字符和个数的字符数，当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span> 等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的长度时，就说明滑动窗口中包含了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中的所有字符。<br>
+具体算法流程：</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 右移，同时 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 右移，直到遇到第一个属于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的字符，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 停下；</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 继续右移，直到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span> 等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的长度时，更新最小子串；</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 继续右移，直到遇见与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 相同的字符，此时可以收缩滑动窗口，将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 右移至下一个属于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的字符停下，此时滑动窗口又是一个满足条件的子串，判断是否更新最小字串；</li>
+<li>重复第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 步至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 遍历完 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>。</li>
+</ol>
+<pre><code class="language-js">var minWindow = function(s, t) {
+    // smap 维护滑动窗口中各字符的出现次数，tmap 维护 t 中各字符出现的次数
+    const smap = new Map(), tmap = new Map();
+    for (let i = 0; i &lt; t.length; ++i) {
+        const c = t.charAt(i);
+        if (tmap.has(c)) tmap.set(c, tmap.get(c) + 1);
+        else tmap.set(c, 1);
     }
-    return strs[0];
-};
-</code></pre>
-<h2 id="题解-2">题解</h2>
-<h3 id="法二纵向对比">法二：纵向对比</h3>
-<p>把第一个字符串作为最长公共前缀，与后一个字符串比较，更新最长公共前缀，再与下一个字符串比较，以此类推至遍历完或最长公共前缀为空字符串：</p>
-<pre><code class="language-js">var longestCommonPrefix = function(strs) {
-    let res = strs[0];
-    for (let i = 1; i &lt; strs.length; ++i) {
-        for (let j = 0; j &lt; res.length; ++j) {
-            if (res.charAt(j) !== strs[i].charAt(j)) {
-                res = res.slice(0, j);
-                break;
-            }
+    // cnt 记录滑动窗口中属于 t 的字符总数
+    let res = &quot;&quot;, len = Number.MAX_SAFE_INTEGER, cnt = 0;
+    // 扩张滑动窗口
+    for (let l = 0, r = 0; r &lt; s.length; ++r) {
+        const c = s.charAt(r);
+        if (smap.has(c)) smap.set(c, smap.get(c) + 1);
+        else smap.set(c, 1);
+        // 如果该字符属于 t 并且未超过 t 拥有的个数，计数增加
+        if (smap.get(c) &lt;= tmap.get(c)) ++cnt;
+        // 收缩滑动窗口，保证窗口不为空
+        while (l &lt; r &amp;&amp; (!tmap.has(s.charAt(l)) || smap.get(s.charAt(l)) &gt; tmap.get(s.charAt(l)))) {
+            // l 在遇见属于 t 的字符并且该字符在滑动窗口中出现的次数未超过 t 中次数时停止右移
+            smap.set(s.charAt(l), smap.get(s.charAt(l)) - 1);
+            ++l;
         }
-        if (res === &quot;&quot;) break;
+        // 滑动窗口内包含 t 全部字符，更新最短区间
+        if (cnt === t.length &amp;&amp; r - l + 1 &lt; len) {
+            len = r - l + 1;
+            res = s.slice(l, r + 1);
+        }
     }
     return res;
 };
@@ -276,9 +290,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_14/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_14/&sharesource=qzone&title=14. 最长公共前缀&pics=https://AriesSK.github.io/images/avatar.png?v=1659686103808&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_14/&sharesource=weibo&title=14. 最长公共前缀 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659686103808 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_76/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_76/&sharesource=qzone&title=76. 最小覆盖子串&pics=https://AriesSK.github.io/images/avatar.png?v=1659686103808&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_76/&sharesource=weibo&title=76. 最小覆盖子串 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659686103808 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -292,8 +306,8 @@
                                                 TOP面试
                                                     </a>
                                                     
-                        <a href="https://AriesSK.github.io/tag/g8zS_VaN8/">#
-                                                字符串
+                        <a href="https://AriesSK.github.io/tag/rBTYBqe6w/">#
+                                                滑动窗口
                                                     </a>
                                                     
                         <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
@@ -313,13 +327,13 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/top_15/">
-                                                                                            15. 三数之和
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_13/">
-                                                                                                    13. 罗马数字转整数
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_75/">
+                                                                                                    75. 颜色分类
                                                                                                 </a>
                                                                                                 
                                                                                 </section>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-04T07:43:23.351Z</updated>
+    <updated>2022-08-05T07:55:11.634Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-04T15:59:59.000Z</updated>
+        <updated>2022-08-05T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -212,6 +212,7 @@
 <p><strong>滑动窗口</strong></p>
 <ul>
 <li>重要性质 —— <a href="https://ariessk.github.io/post/jianzhi_57_ii/">57 - II. 和为s的连续正数序列</a></li>
+<li>复杂的滑动窗口移动 —— <a href="https://ariessk.github.io/post/top_76/">76. 最小覆盖子串</a></li>
 </ul>
 <p><strong>约瑟夫环</strong></p>
 <ul>
@@ -248,6 +249,62 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[76. 最小覆盖子串]]></title>
+        <id>https://AriesSK.github.io/post/top_76/</id>
+        <link href="https://AriesSK.github.io/post/top_76/">
+        </link>
+        <updated>2022-08-05T02:55:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="复杂的滑动窗口移动">复杂的滑动窗口移动</h3>
+<p>滑动窗口的题需要想清楚左右边界的移动条件，保证不会漏过可能是答案的区间，再转化为代码。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="滑动窗口">滑动窗口</h3>
+<p>这道题算是一道经典的滑动窗口题，看到时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 还是比较容易想到要用滑动窗口的。<br>
+这道题的难点在于如何判断滑动窗口中包含了字符串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中的所有字符。<br>
+方法是使用两个哈希表，一个记录滑动窗口中字符和次数，一个记录 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中的字符和次数，在滑动窗口扩张时，使用变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span> 记录满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中字符和个数的字符数，当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span> 等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的长度时，就说明滑动窗口中包含了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 中的所有字符。<br>
+具体算法流程：</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 右移，同时 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 右移，直到遇到第一个属于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的字符，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 停下；</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 继续右移，直到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span> 等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的长度时，更新最小子串；</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 继续右移，直到遇见与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 相同的字符，此时可以收缩滑动窗口，将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span></span></span> 右移至下一个属于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span> 的字符停下，此时滑动窗口又是一个满足条件的子串，判断是否更新最小字串；</li>
+<li>重复第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 步至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 遍历完 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>。</li>
+</ol>
+<pre><code class="language-js">var minWindow = function(s, t) {
+    // smap 维护滑动窗口中各字符的出现次数，tmap 维护 t 中各字符出现的次数
+    const smap = new Map(), tmap = new Map();
+    for (let i = 0; i &lt; t.length; ++i) {
+        const c = t.charAt(i);
+        if (tmap.has(c)) tmap.set(c, tmap.get(c) + 1);
+        else tmap.set(c, 1);
+    }
+    // cnt 记录滑动窗口中属于 t 的字符总数
+    let res = &quot;&quot;, len = Number.MAX_SAFE_INTEGER, cnt = 0;
+    // 扩张滑动窗口
+    for (let l = 0, r = 0; r &lt; s.length; ++r) {
+        const c = s.charAt(r);
+        if (smap.has(c)) smap.set(c, smap.get(c) + 1);
+        else smap.set(c, 1);
+        // 如果该字符属于 t 并且未超过 t 拥有的个数，计数增加
+        if (smap.get(c) &lt;= tmap.get(c)) ++cnt;
+        // 收缩滑动窗口，保证窗口不为空
+        while (l &lt; r &amp;&amp; (!tmap.has(s.charAt(l)) || smap.get(s.charAt(l)) &gt; tmap.get(s.charAt(l)))) {
+            // l 在遇见属于 t 的字符并且该字符在滑动窗口中出现的次数未超过 t 中次数时停止右移
+            smap.set(s.charAt(l), smap.get(s.charAt(l)) - 1);
+            ++l;
+        }
+        // 滑动窗口内包含 t 全部字符，更新最短区间
+        if (cnt === t.length &amp;&amp; r - l + 1 &lt; len) {
+            len = r - l + 1;
+            res = s.slice(l, r + 1);
+        }
+    }
+    return res;
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1188,41 +1245,6 @@ overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
     for (let x = n, y = 1; y &lt; m; ++x, ++y) {
         res = res * x / y;
     }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[56. 合并区间]]></title>
-        <id>https://AriesSK.github.io/post/top_56/</id>
-        <link href="https://AriesSK.github.io/post/top_56/">
-        </link>
-        <updated>2022-08-02T02:06:58.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题主要用到的知识点是自定义<code>sort()</code>函数，总体来说比较简单，有一点小坑。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="排序">排序</h3>
-<p>先根据 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">start</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> 排序数组，将第一个元素作为初始元素，从第二个元素开始尝试合并：</p>
-<ul>
-<li>若能合并则将合并区间作为初始元素，并则尝试合并下一个元素；</li>
-<li>若不能合并，则将初始元素存入结果数组，并将当前元素更新为初始元素；</li>
-<li>遍历完毕后需要将最终的初始元素存入结果数组。</li>
-</ul>
-<p><strong>特别</strong>需要注意的是：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">start</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> 较小的元素的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 不一定较小，因此在合并区间的时候，合并后的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 要取两个元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">end</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span></span></span></span> 的较大值。</p>
-<pre><code class="language-js">var merge = function(intervals) {
-    const res = [];
-    intervals.sort((a, b) =&gt; a[0] - b[0]);
-    let tmp = intervals[0];
-    for (let i = 1; i &lt; intervals.length; ++i) {
-        if (tmp[1] &gt;= intervals[i][0]) tmp = [tmp[0], Math.max(tmp[1], intervals[i][1])];
-        else {
-            res.push(tmp)
-            tmp = intervals[i];
-        }
-    }
-    res.push(tmp);
     return res;
 };
 </code></pre>
