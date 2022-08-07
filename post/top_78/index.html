@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                63. 股票的最大利润
+                                78. 子集
                             </h1>
                             
                                 <!--en-->
@@ -210,23 +210,23 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-06-16</a>
+                                Date: <a href="#">2022-08-07</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">1.4
+                                    href="#">1.9
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">297</a></span>
+                                    <span class="post-words">words:<a href="#">475</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
-                                <a href="https://AriesSK.github.io/tag/tMnqncTHL/">动态规划</a>
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/o4ubGXrPr/">位运算</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/mHlERrHpb/">递归</a>
                                 
                                 <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
                             </span>
                                         
@@ -236,39 +236,53 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<p>动态规划需要<strong>解决所有的子问题</strong>并且把它们的解<strong>记录</strong>下来。</p>
+<h3 id="javascript-浅拷贝和深拷贝">JavaScript 浅拷贝和深拷贝</h3>
+<p>浅拷贝和深拷贝是针对<strong>引用数据类型</strong>的，浅拷贝复制对象的第一层，深拷贝递归复制每一层。<br>
+<strong>注意：</strong> 如果浅拷贝复制的第一层是基本数据类型，那就是直接复制，原数组修改<strong>不影响</strong>新数组，如果第一次是引用数据类型，则拷贝地址，原数组修改<strong>影响</strong>新数组。<br>
+对于本道题中的<code>tmp.slice()</code>实现的就是浅拷贝，但是由于<code>tmp</code>的第一层是基本数据类型，所以直接复制。</p>
+<h3 id="slice和扩展运算符"><code>slice()</code>和扩展运算符<code>...</code></h3>
+<p><code>slice()</code>实现的是浅拷贝，当不传参数时实现浅拷贝<strong>整个</strong>数组。<br>
+扩展运算符对于<strong>第一层是深拷贝</strong>，对于<strong>更深层是浅拷贝</strong>。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="法一暴力">法一：暴力</h3>
-<p>全遍历一遍，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>：</p>
-<pre><code class="language-js">var maxProfit = function(prices) {
-    // 设置最低利润为 0
-    let max = 0;
-    for (let i = 0; i &lt; prices.length - 1; ++i) {
-        for (let j = i + 1; j &lt; prices.length; ++j) {
-            if (max &lt; prices[j] - prices[i]) max = prices[j] - prices[i];
+<h3 id="法一递归回溯">法一：递归回溯</h3>
+<p>与<a href="https://ariessk.github.io/post/jianzhi_38/">38. 字符串的排列</a>的方法相似，不过对于这道题，每一位可以选择加入或不加入<strong>两种</strong>情况：</p>
+<pre><code class="language-js">var subsets = function(nums) {
+    const tmp = [], res = [];
+    dfs(0);
+    return res;
+
+    function dfs(x) {
+        if (x === nums.length) {
+            res.push(tmp.slice());
+            return;
         }
+        // 将当前位元素加入结果中，注意回溯时复原
+        tmp.push(nums[x]);
+        dfs(x + 1);
+        tmp.pop();
+        // 不将当前元素加入结果中
+        dfs(x + 1);
     }
-    return max;
 };
 </code></pre>
-<h3 id="法二动态规划">法二：动态规划</h3>
-<p>由于必须得<strong>先买后卖</strong>，因此花费是到目前为止的最低买入价格。<br>
-<strong>步骤：</strong></p>
-<ol>
-<li><strong>状态定义：</strong> 设动态规划列表 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 代表以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">prices[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span> 结尾的子数组的最大利润，即前 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 日的最大利润；</li>
-<li><strong>转移方程：</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo separator="true">,</mo><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo>[</mo><mn>0</mn><mo>:</mo><mi>i</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">dp[i] = max(dp[i - 1], prices[i] - min(prices[0 : i])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span>；</li>
-<li><strong>初始状态：</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mn>0</mn><mo>]</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">dp[0] = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>；</li>
-<li><strong>返回结果：</strong> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">dp[n - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 为列表长度。</li>
-</ol>
-<pre><code class="language-js">var maxProfit = function(prices) {
-    let cost = Number.MAX_VALUE, maxProfit = 0;
-    for (const price of prices) {
-        cost = Math.min(price, cost);
-        // 第 n 天的价格减去目前为止最低的买入价
-        maxProfit = Math.max(price - cost, maxProfit)
+<h3 id="法二位运算">法二：位运算</h3>
+<p>因为长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数组有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span> 个子集，所以刚好可以使用二进制数来替代，二进制数中的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 代表不将该位加入结果中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 则表示加入：</p>
+<pre><code class="language-js">var subsets = function(nums) {
+    const res = [];
+    const n = nums.length;
+    // 1 左移 n 位(2^n)作为遍历上限，比如 n 为 3，则从 000 遍历到 111，也就是从 0 遍历到 7
+    for (let x = 0; x &lt; (1 &lt;&lt; n); ++x) {
+        const tmp = [];
+        for (let i = 0; i &lt; n; ++i) {
+            // 位与运算，判断该位值，为 1 加入结果，为 0 不加入
+            if (x &amp; (1 &lt;&lt; i)) {
+                tmp.push(nums[i]);
+            }
+        }
+        res.push(tmp);
     }
-    return maxProfit;
+    return res;
 };
 </code></pre>
 
@@ -280,9 +294,9 @@
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_63/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_63/&sharesource=qzone&title=63. 股票的最大利润&pics=https://AriesSK.github.io/images/avatar.png?v=1659844870462&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_63/&sharesource=weibo&title=63. 股票的最大利润 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659844870462 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_78/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_78/&sharesource=qzone&title=78. 子集&pics=https://AriesSK.github.io/images/avatar.png?v=1659844870462&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_78/&sharesource=weibo&title=78. 子集 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659844870462 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -292,20 +306,20 @@
                                                                         <span class="tag ">
                         
                         
-                        <a href="https://AriesSK.github.io/tag/tMnqncTHL/">#
-                                                动态规划
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/o4ubGXrPr/">#
+                                                位运算
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/mHlERrHpb/">#
+                                                递归
                                                     </a>
                                                     
                         <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
                                                 算法
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
-                                                数组
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
-                                                剑指offer
                                                     </a>
                                                     
                                                         
@@ -321,13 +335,13 @@
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_42/">
-                                                                                            42. 连续子数组的最大和
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_10_ii/">
-                                                                                                    10 - II. 青蛙跳台阶问题
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+                                                                                                    前端面试
                                                                                                 </a>
                                                                                                 
                                                                                 </section>

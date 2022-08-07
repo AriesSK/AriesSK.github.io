@@ -197,178 +197,35 @@
     
             <div class="main">
                 <div class="container">
-                    <article class="post-wrap">
-                        <header class="post-header">
-                            <h1 class="post-title">
-                                33. 二叉搜索树的后序遍历序列
-                            </h1>
+                    <div class="post-wrap archive">
+                        
                             
-                                <!--en-->
-                                <div class="post-meta en">
-                                    Author:
-                                    <a itemprop="author" rel="author" href="/">
-                                        🐧AriesSK
-                                    </a>
-                                    <span class="post-time">
-                                Date: <a href="#">2022-06-28</a>
-                            </span>
-                                    <span class="post-readtime">Reading Time:<a
-                                    href="#">2.0
-                                    mins</a></span>
-                                    <span class="post-words">words:<a href="#">507</a></span>
+                                <h3>
+                                    2022
+                                </h3>
+                                
                                     
-                                        <span class="post-category">
-                                Category:
-                                
-                                <a href="https://AriesSK.github.io/tag/MJIZdfbxM/">分治</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/1Yw1K_nEE/">树</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/mHlERrHpb/">递归</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">栈</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
-                                
-                            </span>
+
+                                        <article class="archive-item">
+                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/top_1/">
+                                                1. 两数之和
+                                            </a>
+                                            <span class="archive-item-date">2022-07-10 </span>
+                                        </article>
                                         
-                                </div>
-                                
-                        </header>
-                        
-                        <div class="post-content">
-                            <h2 id="知识点">知识点</h2>
-<h3 id="树的先序-中序-后序遍历序列">树的先序、中序、后序遍历序列</h3>
-<p>对于此类题目：</p>
-<ol>
-<li>首先要了解其根、左子树、右子树的在数组中的区间划分；</li>
-<li>其次根据题意找出对单个区间的操作；</li>
-<li>对每个区间递归处理。</li>
-</ol>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一递归分治">法一：递归分治</h3>
-<p>每判断一个都需要遍历数组区间，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。<br>
-判断是否是二叉搜索树的后序遍历：</p>
-<ol>
-<li>首先在数组区间中的最后一个节点是该树（子树）的根节点；</li>
-<li>随后根据根节点判断数组剩余是否分成了小于根节点和大于根节点两部分，并且小于部分位于大于部分左侧；</li>
-<li>递归判断每一子树的正确性。</li>
-</ol>
-<pre><code class="language-js">var verifyPostorder = function(postorder) {
-    return dfs(postorder, 0, postorder.length - 1);
-
-    function dfs(postorder, l, r) {
-        // 超过叶子节点，返回 true
-        if (l &gt; r) return true; 
-        // 从区间左侧开始遍历
-        let i = l; 
-        // 找到第一个大于等于根节点的数，可以保证其左侧是小于部分
-        while (postorder[i] &lt; postorder[r]) ++i;
-        let m = i;
-        // 判断其及其右侧是否是大于部分
-        while (postorder[i] &gt; postorder[r]) ++i;
-        return i === r &amp;&amp; dfs(postorder, l, m - 1) &amp;&amp; dfs(postorder, m, r - 1);
-    };
-};
-</code></pre>
-<h3 id="法二栈">法二：栈</h3>
-<p><img src="https://AriesSK.github.io/post-images/1656419512359.png" alt="" loading="lazy"><br>
-使用栈将遍历过的节点储存起来，当遇到递减的节点时，栈中最底下也是值最小的那个是它的父节点（递增才入栈，递减就出栈至空栈，栈底元素值最接近）。</p>
-<pre><code class="language-js">var verifyPostorder = function(postorder) {
-    const stack = [];
-    // 设置初始根节点，值为无限大，原根节点视作其左节点
-    let root = Number.MAX_VALUE;
-    // 将`preorder`倒序，入栈遍历的元素
-    for (let i = postorder.length - 1; i &gt;= 0; --i) {
-        // 遍历发现左子树有元素比根节点大，返回 false
-        if (postorder[i] &gt; root) return false;
-        // 发现递减元素，出栈至空，更新 root
-        while (stack.length &amp;&amp; stack[stack.length - 1] &gt; postorder[i])
-            root = stack.pop();
-        stack.push(postorder[i]);
-    }
-    // 遍历完毕，均满足规则，返回 true
-    return true;
-};
-</code></pre>
-
-                        </div>
-                        
-                                
-                                                    
-                                                        <!-- Share-->
-                                                        <span style="margin-right:15px">
-                                                    <i class="post-share"></i>
-                                                    <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_33/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_33/&sharesource=qzone&title=33. 二叉搜索树的后序遍历序列&pics=https://AriesSK.github.io/images/avatar.png?v=1659844870462&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_33/&sharesource=weibo&title=33. 二叉搜索树的后序遍历序列 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659844870462 "><i class="fa fa-weibo "></i></a>
-                                                        
-                                                                </span>
-                                                                <!--en-->
-                                                                <section class="post-tags en ">
-                                                                    <div>
-                                                                        <span>Tag(s):</span>
-                                                                        <span class="tag ">
-                        
-                        
-                        <a href="https://AriesSK.github.io/tag/MJIZdfbxM/">#
-                                                分治
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/1Yw1K_nEE/">#
-                                                树
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/mHlERrHpb/">#
-                                                递归
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">#
-                                                栈
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
-                                                算法
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
-                                                剑指offer
-                                                    </a>
-                                                    
-                                                        
-                                                            </span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="javascript:window.history.back();">back</a>
-                                                                        <span>&dot;</span>
-                                                                        <a href="#">home</a>
-                                                                    </div>
-                                                                </section>
-                                                                
-                                                                                <!---->
-                                                                                <section class="post-nav">
-                                                                                    
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_15/">
-                                                                                            15. 二进制中1的个数
-                                                                                        </a>
-                                                                                        
-                                                                                            
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_16/">
-                                                                                                    16. 数值的整数次方
-                                                                                                </a>
-                                                                                                
-                                                                                </section>
-                    </article>
-                </div>
-                
                                             
+                                                
+                    </div>
+                    <div class="pagination-container">
+                        
+                                                
+                                                    <a href="https://AriesSK.github.io/tag/LnU2CZdAh/page/4/" class="prev"><i class="icon-arrow-ios-back-outline"></i> Prev</a>
+                                                    
+                                                        
+                                                                
+                    </div>
+                </div>
             </div>
-    </div>
-    </div>
     </div>
     
     <div id="player"></div>
@@ -451,8 +308,5 @@
                 </script>
         </div>
 </body>
-<script>
-    scroll();
-</script>
 
 </html>
