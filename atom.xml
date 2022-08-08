@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-07T04:01:23.574Z</updated>
+    <updated>2022-08-08T05:53:21.973Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-07T15:59:59.000Z</updated>
+        <updated>2022-08-08T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -79,6 +79,7 @@
 <li>使用 map 创建二维数组 —— <a href="https://ariessk.github.io/post/top_36/">36. 有效的数独</a></li>
 <li>二维数组翻转替代旋转 —— <a href="https://ariessk.github.io/post/top_48/">48. 旋转图像</a></li>
 <li>数组的原地算法 —— <a href="https://ariessk.github.io/post/top_73/">73. 矩阵置零</a></li>
+<li>数组存放不同类型元素 —— <a href="https://ariessk.github.io/post/top_79/">79. 单词搜索</a></li>
 </ul>
 <p><strong>栈</strong></p>
 <ul>
@@ -253,6 +254,44 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[79. 单词搜索]]></title>
+        <id>https://AriesSK.github.io/post/top_79/</id>
+        <link href="https://AriesSK.github.io/post/top_79/">
+        </link>
+        <updated>2022-08-08T05:37:45.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>本题与剑指offer<a href="https://ariessk.github.io/post/jianzhi_12/">12. 矩阵中的路径</a>相同，使用<strong>深度优先搜索 + 回溯</strong> 的方法，第二遍做成功做出来了，不错。</p>
+<h3 id="javascript-数组特点">JavaScript 数组特点</h3>
+<p>相对于 Java 等语言，js 的数组中可以存放不同类型的数据。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-回溯">深度优先搜索 + 回溯</h3>
+<p>通常需要使用与原数组相同大小的数组来表示该元素的访问情况，但是在 js 中因为一个数组可以存放不同类型的数据，所以可以直接在原数组内修改为原数组中不可能出现的值，比如 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，然后在回溯的时候再将数组恢复为原数组即可，不影响后续遍历：</p>
+<pre><code class="language-js">var exist = function(board, word) {
+    const m = board.length, n = board[0].length;
+    // 设置二维数组记录访问的情况
+    const flag = new Array(m).fill().map(() =&gt; new Array(n).fill(0));
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (dfs(i ,j, 0)) return true;
+        }
+    }
+    return false;
+
+    function dfs(i, j, x) {
+        if (x === word.length) return true; // 未判断字符是否是所求字符，需到 word.length 才能返回
+        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || flag[i][j] || board[i][j] !== word.charAt(x)) return false;
+        // if (x === word.length - 1) return true; 未在在上一行返回说明字符是所求的，因此可以提前返回
+        flag[i][j] = 1;
+        const res =  dfs(i - 1, j, x + 1) || dfs(i, j + 1, x + 1) || dfs(i + 1, j, x + 1) || dfs(i, j - 1, x + 1);
+        flag[i][j] = 0; // 回溯后恢复原状，不影响后续遍历
+        return res;
+    }
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -988,402 +1027,6 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
     return digits;
 };
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTML + CSS]]></title>
-        <id>https://AriesSK.github.io/post/html-css/</id>
-        <link href="https://AriesSK.github.io/post/html-css/">
-        </link>
-        <updated>2022-08-02T07:00:39.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>操作快捷键</strong><br>
-Ctrl + Enter 换行，不改变光标后面代码<br>
-Alt + Shift + up/down 在上一行/下一行复制该行<br>
-选中词后 Ctrl + D，向下一次选择相同的词</p>
-<h2 id="网页">网页</h2>
-<p><strong>C/S和B/S</strong><br>
-C/S：Client/Sever<br>
-B/S：Browser/Sever</p>
-<p><strong>网页三要素：结构、表现、行为</strong><br>
-结构：HTML用于描述页面的结构<br>
-表现：CSS用于控制页面中元素的样式<br>
-行为：JavaScript用于响应用户操作</p>
-<hr>
-<h2 id="html">HTML</h2>
-<p><strong>超文本标记语言（Hypertext Markup Language, HTML)</strong><br>
-超文本指的是使用超链接的方法，将不同空间的文字信息组织在一起的网状文本</p>
-<pre><code class="language-html">&lt;!--HTML的注释--&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p>标签一般成对出现，单个出现的称为<strong>自结束标签</strong></p>
-<p><strong>标签的属性</strong><br>
-在开始标签或字节数标签中可以设置标签的属性，属性是一个名值对，属性应当根据文档中的规定编写，有些属性没有属性值</p>
-<pre><code class="language-html">&lt;font color=&quot;red&quot;&gt;红色&lt;/font&gt;
-</code></pre>
-<p><strong>文档声明（DOCTYPE）</strong><br>
-html5的文档声明：</p>
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-</code></pre>
-<p><strong>二进制与十六进制</strong><br>
-二进制作为计算机底层的进制使用，而一般显示二进制数使，会转换为十六进制</p>
-<p><strong>字符编码</strong><br>
-字符集（charset）是编码和解码所从用的规则<br>
-若编码和解码使用的字符集不同，则会出现乱码问题<br>
-UTF-8 万国码 开发时使用</p>
-<pre><code class="language-html">&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;/head&gt;
-</code></pre>
-<p><strong>实体</strong><br>
-在网页中编写的多个空格默认情况会自动被浏览器解析为一个空格<br>
-使用实体（转义字符） <code>&amp;实体的名字;</code><br>
-空格<code>&amp;nbsp;</code> 大于<code>&amp;gt;</code> 小于<code>&amp;lt;</code> 版权符<code>&amp;copy;</code></p>
-<p><strong>meta标签</strong><br>
-charset 指定网页的字符集<br>
-name 指定的数据的名称<br>
-content 指定的数据的内容</p>
-<pre><code class="language-html">&lt;!-- title 标签的内容会作为搜索引擎超链接上的文字显示 --&gt;
-&lt;!-- keywords 表示网站的关键字 搜索时的关键词 --&gt;
-&lt;meta name=&quot;keywords&quot; content=&quot;HTML5,CSS3&quot;&gt;
-&lt;!-- description 表示网站的描述 会显示在搜索引擎的搜索结果中 --&gt;
-&lt;meta name=&quot;description&quot; content=&quot;这是一个网站&quot;&gt;
-&lt;!-- refresh 将网页重定向到另一个网站 --&gt;
-&lt;meta http-equiv=&quot;refresh&quot; content=&quot;3;url=https://ariessk.github.io&quot;&gt;
-</code></pre>
-<p>###语义化标签<br>
-<strong>HTML负责网页的结构</strong><br>
-在使用html标签时，应该关注的是标签的语义，而不是样式</p>
-<p><strong>块元素</strong><br>
-在页面中独占一行的元素称为块元素（block element） 网页布局主要用块元素 块元素内能放块元素和行内元素 但<code>&lt;p&gt;</code>元素内不能放块元素<br>
-<code>&lt;h1&gt;</code> h1~h6 h1最重要 仅次于title 一般一个页面只有一个h1 一般只会用h1~h3<br>
-相关的标题可以放标题组里</p>
-<pre><code class="language-html">&lt;hgroup&gt;
-    &lt;h1&gt;&lt;/h1&gt;
-    &lt;h2&gt;&lt;/h2&gt;
-&lt;/hgroup&gt;
-</code></pre>
-<p><code>&lt;p&gt;&lt;/p&gt;</code>段落<br>
-<code>&lt;blockquote&gt;&lt;/blockquote&gt;</code>表长引用<br>
-<code>&lt;br&gt;</code>换行<br>
-<code>&lt;hr&gt;</code>分割线</p>
-<p><strong>行内元素</strong><br>
-在页面中不会独占一行的元素称为行内元素（inline element） 主要用于包裹元素<br>
-<code>&lt;em&gt;&lt;/em&gt;</code>表示语音语调的加重<br>
-<code>&lt;strong&gt;&lt;/strong&gt;</code>表强调<br>
-<code>&lt;q&gt;&lt;/q&gt;</code>短引用<br>
-<code>&lt;a href=&quot;&quot;&gt;&lt;/a&gt;</code> 超链接</p>
-<p><strong>浏览器修正</strong><br>
-浏览器在解析网页时，会对网页中不符合规范的内容进行修正 标签卸载了根元素<code>&lt;html&gt;</code>外面</p>
-<p><strong>网页主体</strong></p>
-<pre><code class="language-html">&lt;body&gt;
-    &lt;header&gt;&lt;/header&gt;
-    &lt;main&gt;&lt;/main&gt;
-    &lt;footer&gt;&lt;/footer&gt;
-    &lt;!-- 导航 --&gt;
-    &lt;nav&gt;&lt;/nav&gt;
-    &lt;!-- 与主体相关的内容（侧边栏） --&gt;
-    &lt;aside&gt;&lt;/aside&gt;
-    &lt;!-- 文章--&gt;
-    &lt;article&gt;&lt;/article&gt;
-
-&lt;/body&gt;
-</code></pre>
-<p><strong>列表</strong><br>
-列表之间可以互相嵌套<br>
-无序列表</p>
-<pre><code class="language-html">&lt;ul&gt;
-    &lt;li&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-<p>有序列表</p>
-<pre><code class="language-html">&lt;ol&gt;
-    &lt;li&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</code></pre>
-<p>定义列表，dt表示定义的内容，dd对内容进行解释说明</p>
-<pre><code class="language-html">&lt;dl&gt;
-    &lt;dt&gt;&lt;/dt&gt;
-    &lt;dd&gt;&lt;/dd&gt;
-&lt;/dl&gt;
-</code></pre>
-<p><strong>超链接</strong><br>
-<code>&lt;a href=&quot;&quot;&gt;&lt;/a&gt;</code>能够嵌套除它自身的任何元素<br>
-目标路径可以是<strong>外部网站</strong>或<strong>内部页面</strong><br>
-内部页面通常使用<strong>相对路径</strong>：<code>./</code>表示当前文件所在的目录（可省略），<code>../</code>表示上一级目录</p>
-<pre><code class="language-html">&lt;!-- 当前页面打开与新的页面打开 --&gt;
-&lt;a href=&quot;&quot; target=&quot;_self&quot;&gt;&lt;/a&gt;
-&lt;a href=&quot;&quot; target=&quot;_blank&quot;&gt;&lt;/a&gt;
-</code></pre>
-<p><strong>id 属性</strong><br>
-通过超链接到页面中的特定位置，要使用 id 属性<br>
-id 属性是唯一不重复的，每个标签可以添加一个 id 属性</p>
-<pre><code class="language-html">&lt;!-- 回到顶部 --&gt;
-&lt;a href=&quot;#&quot;&gt;&lt;/a&gt;
-&lt;!-- 回到 id 为bottom的标签处 --&gt;
-&lt;a href=&quot;#bottom&quot;&gt;&lt;/a&gt;
-&lt;!--未设置是可以用 javascript:; 占位 点击无反应 --&gt;
-&lt;a href=&quot;javascript:;&quot;&gt;1&lt;/a&gt;
-</code></pre>
-<p><strong>图片标签</strong><br>
-用于引入外部图片<br>
-<code>&lt;img width=&quot;&quot; height=&quot;&quot; src=&quot;&quot; alt=&quot;&quot;&gt;</code> 自结束标签 替换元素<br>
-alt 是图片的描述，有些浏览器会在图片无法加载时显示，搜索引擎会根据 alt 中的内容来识别图片<br>
-width height 只修改其中一个会等比例缩小<br>
-一般在 pc 端不建议修改图片的大小，而在移动端经常需要缩放图片（主要是大图缩小确保清晰度）<br>
-<strong>图片格式</strong><br>
-jpeg(jpg) 支持颜色比较丰富，不支持透明效果，不支持动图，一般显示照片<br>
-gif 支持颜色比较少，支持简单透明，支持动图，一般显示动图<br>
-png 支持颜色丰富，支持复杂透明，不支持动图，专为网页而生<br>
-webp 谷歌推出的专门用来表示网页中的图片的一种格式，具备其他图片的所有优点，并且文件特别小，但<strong>兼容性不好</strong><br>
-base64 将图片使用base64编码，将土拍你转换为字符，通过字符的形式来引入图片，一般用于需要和网页一起加载的图片</p>
-<p><strong>内联框架</strong><br>
-用于向当前页面中引入一个其他页面<br>
-<code>&lt;iframe src=&quot;&quot; width=&quot;&quot; height=&quot;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</code><br>
-frameborder 指定内联框架的边框，0无1有</p>
-<p><strong>音视频</strong><br>
-<code>&lt;audio src=&quot;&quot; controls autoplay loop&gt;&lt;/audio&gt;</code>controls 是否允许用户控制播放，autoplay 自动播放，但大部分浏览器不会自动播放，loop循环播放，都是无值的属性<br>
-下面这种写法能够解决<strong>浏览器不兼容</strong>的问题，不支持<code>&lt;audio&gt;</code>则显示文字，第一个音频无法播放则播放第二个<code>&lt;emobed&gt;</code>支持比较低的浏览器版本，需要设置文件类型以及宽和高，且比较丑。</p>
-<pre><code class="language-html">&lt;audio controls&gt;
-        &lt;!-- 文字和 embed 二选一即可 --&gt;
-        对不起，您的浏览器不支持播放音频，请升级浏览器！
-        &lt;source src=&quot;audio.mp3&quot;&gt;
-        &lt;source src=&quot;audio.ogg&quot;&gt;
-        &lt;embed src=&quot;&quot; type=&quot;audio/mp3&quot; width=&quot;&quot; height=&quot;&quot;&gt;
-    &lt;/audio&gt;
-</code></pre>
-<p>video 与 audio 使用方法基本相同</p>
-<pre><code class="language-html">&lt;video controls&gt;
-        &lt;source src=&quot;video.webm&quot;&gt;
-        &lt;source src=&quot;video.mp4&quot;&gt;
-        &lt;embed src=&quot;&quot; type=&quot;video/mp4&quot; width=&quot;&quot; height=&quot;&quot;&gt;
-&lt;/video&gt;
-</code></pre>
-<h2 id="css">CSS</h2>
-<p>层叠样式表 (Cascading Style Sheets)<br>
-网页实际上是一个多层的结构，通过css可以分别为网页的每一层来设置样式，而最终我们能看到的是最上边的一层</p>
-<p><strong>使用 css 修改元素样式</strong><br>
-法一：内联样式、行内样式<br>
-在标签内部通过 style 属性来设置元素的样式，只能对一个标签生效，修改很麻烦（不推荐使用）<br>
-<code>&lt;p style=&quot;color: red; font-size: 60px;&quot;&gt;</code><br>
-法二：内部样式表<br>
-将样式编写到 head 中的 style 标签里，同时设置多个标签，方便修改和复用，但只能对一个网页使用</p>
-<pre><code class="language-html">&lt;style&gt;
-    p{
-        color: red;
-        font-size: 60px
-    }
-&lt;/style&gt;
-</code></pre>
-<p>法三：外部样式表<br>
-将样式编写到外部的 css 文件中，然后在页面中通过 link 标签引入外部的 css 文件，方便多网页复用（最佳），多个网页引用同一个 css 时能够使用到浏览器的缓存机制，加块网站加载速度，提高用户体验</p>
-<pre><code class="language-css">p{
-    color: red;
-    font-size: 60px;
-}
-</code></pre>
-<pre><code class="language-html">&lt;head&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
-&lt;/head&gt;
-</code></pre>
-<p><strong>css 语法</strong><br>
-选择器，选择页面中的指定元素<br>
-声明块，为指定元素设置样式，声明是名值对结构，名和值以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>:</mo></mrow><annotation encoding="application/x-tex">:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span> 连接，以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo separator="true">;</mo></mrow><annotation encoding="application/x-tex">;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mpunct">;</span></span></span></span> 结尾</p>
-<h3 id="选择器">选择器</h3>
-<p>常用选择器：</p>
-<ul>
-<li>元素选择器，根据标签名选定元素，<code>标签名{}</code></li>
-<li>id 选择器，根据元素 id 选中元素，<code>#id属性值{}</code></li>
-<li>类选择器，根据元素 class 选中元素，<code>.class值{}</code>，class 和 id 类似，但 class 可重复使用，可以为一个元素指定多个 class，多个 class 之间使用<strong>空格</strong>分隔</li>
-<li>通配选择器，选中页面中的所有元素，<code>*{}</code></li>
-</ul>
-<p>复合选择器：</p>
-<ul>
-<li>交集选择器，选中同时复合多个条件的元素，<code>选择器1选择2选择器3{}</code>，有元素选择器则必须以<strong>元素选择器开头</strong></li>
-<li>选择器分组（并集选择器），同时选择多个选择器对于的元素，<code>选择器1,选择2,选择器3{}</code></li>
-</ul>
-<p>关系选择器：<br>
-父元素：直接包含子元素的元素<br>
-祖先元素：直接或间接包含后代元素的元素，父元素也是祖先元素<br>
-兄弟元素：拥有相同父元素的元素</p>
-<ul>
-<li>子元素选择器，选中父元素的指定子元素，<code>父元素 &gt; 子元素{}</code></li>
-<li>后代元素选择器，选中祖先元素内的指定后代元素，<code>祖先元素 后代元素{}</code></li>
-<li>兄弟选择器，选择下一个兄弟，<code>前一个 + 后一个{}</code>，需要<strong>直接相邻</strong>；选择下边所有兄弟，<code>兄 ~ 弟{}</code></li>
-</ul>
-<p>属性选择器：</p>
-<ul>
-<li>选择含有指定属性的元素，<code>[属性名]{}</code>，<code>*[属性名]{}</code>表示所有拥有该属性的标签(* 可省略)，<code>标签名[属性名]{}</code>表示拥有该属性的指定标签，比如<code>a[href]{}</code></li>
-<li>选择含有指定属性和属性值的元素，<code>[属性名=属性值]{}</code></li>
-<li>选择属性值以指定值开头的元素，<code>[属性名^=属性值]{}</code></li>
-<li>选择属性值以指定值结尾的元素，<code>[属性名$=属性值]{}</code></li>
-<li>选择属性值中含有指定值的元素，<code>[属性名*=属性值]{}</code></li>
-</ul>
-<p>伪类选择器：<br>
-伪类，特殊的类，用来描述一个元素的特殊状态，比如：第一个元素、被点击的元素、鼠标移入的元素<br>
-伪类一般用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>:</mo></mrow><annotation encoding="application/x-tex">:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span> 开头：</p>
-<ul>
-<li><code>elem:first-child</code>，选中父元素的第一个子元素，并且其标签名是 elem，若第一个标签不是 elem 则无选中</li>
-<li><code>elem:last-child</code>，选中父元素的最后一个子元素，并且其标签名是 elem</li>
-<li><code>elem:nth-child()</code>，选中父元素的第 n 个子元素，并且其标签名是 elem，括号内可填值表示第几个，其中有特殊值：n 表示选中所有（1~正无穷）；2n 或 even 表示选中偶数位的元素；2n+1 或 odd 表示奇数位的元素</li>
-</ul>
-<p>上述的伪类均根据<strong>所有的子元素</strong>进行排序</p>
-<ul>
-<li><code>elem:first-of-type</code></li>
-<li><code>elem:last-of-type</code></li>
-<li><code>elem:nth-of-type()</code></li>
-</ul>
-<p>上述这三个与前面的功能类似，但是是在<strong>相同元素</strong>中进行排序</p>
-<ul>
-<li><code>:not()</code>，否定选择器，将复合条件的元素从选择器中去除，比如``ul &gt; li:not(:nth-of-type(1)){}`是排除第一个</li>
-<li><code>elem:empty</code>，选中不包含子元素和内容的 elem 元素</li>
-<li><code>:checked</code>，单选或复选框被选中</li>
-</ul>
-<p>超链接的伪类：<br>
-其执行顺序是 <strong>LoVeHAte</strong>，原因如下：</p>
-<ul>
-<li>未访问的链接（正常的链接），<code>a:link</code>，专属于超链接标签，无操作便具有<code>:link</code>状态</li>
-<li>访问过的链接，<code>a:visited</code>，由于隐私的原因，这个伪类只能修改颜色，专属于超链接标签，访问后具备<code>:link</code>和<code>:visited</code>两种状态</li>
-<li>鼠标移入的状态，<code>:hover</code>，鼠标移入访问过的链接，同时具备<code>:link</code>、<code>:visited</code>和<code>:hover</code>三种状态</li>
-<li>鼠标点击的状态，<code>:active</code>，点击已访问链接未松开，同时具备<code>:link</code>、<code>:visited</code>、<code>:hover</code>和<code>:active</code>四种状态</li>
-</ul>
-<p>伪元素选择器：<br>
-伪元素，表示页面中一些特殊的不真实存在的元素（特殊的位置），一般用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>:</mo><mo>:</mo></mrow><annotation encoding="application/x-tex">::</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">:</span></span></span></span> 开头：</p>
-<ul>
-<li><code>::first-letter</code>，第一个字母</li>
-<li><code>::first-line</code>，第一行</li>
-<li><code>::selection</code>，选中的内容</li>
-<li><code>::before</code>，表示元素的开始，插入的内容是<strong>无法选中</strong>的，<strong>重要且常用</strong></li>
-<li><code>::after</code>，表示元素的结束，插入的内容是<strong>无法选中</strong>的，<strong>重要且常用</strong></li>
-</ul>
-<pre><code class="language-css">/* before 和 after 需要结合 content 属性使用才能看出效果 */
-/* 下面的例子是在元素的开头插入红色字符串 'abc' */
-div::before{
-    content: 'abc';
-    color: red;
-}
-</code></pre>
-<p><strong>选择器的权重</strong><br>
-样式的冲突，通过不同的选择器选中了相同的元素，并且为相同的样式设置了不同的值时，就发生了冲突<br>
-此时应用哪个样式有选择器的权重（优先级）决定，选择器越具体优先级越高<br>
-选择器的权重（数字仅是为了说明数量级）：</p>
-<ul>
-<li>内联样式 1,0,0,0</li>
-<li>id 选择器 0,1,0,0</li>
-<li>类和伪类选择器 0,0,1,0</li>
-<li>元素选择器 0,0,0,1</li>
-<li>通配选择器 0,0,0,0</li>
-<li>继承的样式 没有优先级，即优先级低于通配</li>
-</ul>
-<p>比较优先级是，需要将所有选择器的优先级相加后再比较优先级（除了<strong>分组选择器</strong>是单独计算的），而选择器的累加不会超过其最大的<strong>数量级</strong>，类选择器再多也不会超过 id 选择器<br>
-相同优先级，后面的会覆盖前面的<br>
-可以在某一个样式后边添加<code>!important</code>则会获取到最高的优先级（超过内联样式），需要<strong>慎用</strong></p>
-<pre><code class="language-css">.class{
-    background-color: red !important;
-}
-</code></pre>
-<p><strong>样式的继承</strong><br>
-继承发生在<strong>祖先与后代</strong>之间，为一个元素设置样式同时也会应用到它的<strong>后代元素</strong><br>
-继承的设计是为了方便开发，利用继承可以将一些通用的样式设置到共同的祖先元素上，这样只需设置一次<br>
-并不是<strong>所有</strong>的样式都会被继承，比如背景相关的，布局相关的样式等</p>
-<p><strong>长度单位</strong><br>
-像素（px）：不同屏幕的像素大小是不同的<br>
-百分比：能够将属性值设置为相对于其父元素属性的百分比，能够使子元素跟随父元素的改变而改变<br>
-em：相对于元素的字体大小来计算的，1em = 1font-size，会随着字体的大小改变<br>
-rem：相对于根元素的字体大小来计算</p>
-<p><strong>颜色单位</strong><br>
-颜色名：在 css 中可以直接使用颜色名来设置颜色，但不常用<br>
-RGB：通过三种颜色的不同浓度来调配出不同的颜色，每一种范围在 0 - 255(0% - 100%) 之间，是光的三原色，均为 0 则黑，均为 255 则黑</p>
-<pre><code class="language-css">.box{
-    background-color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-}
-</code></pre>
-<p>RGBA：在 RGB 的基础上多了一个透明度 A，1 表示不透明，0 表示全透明，.5 半透明<br>
-十六进制的 RGB 值：语法 #RGB，每种颜色用两位十六进制数表示，00 - ff<br>
-HSL：H 色相(0 - 360)，S 饱和度(0% - 100%)，L 亮度(0% - 100%)<br>
-HSLA：多一个透明度</p>
-<h3 id="布局">布局</h3>
-<p><strong>文档流</strong><br>
-网页是多层结构，最底下的一层称为文档流，是网页的基础，创建的元素默认都在文档流中进行排列<br>
-元素主要有两个状态：<strong>在文档流中</strong>和<strong>不在文档流中（脱离文档流）</strong><br>
-元素在文档流中的特点：</p>
-<ul>
-<li>块元素：在页面中独占一行（自上向下垂直排列）；默认宽度是父元素的全部（把父元素撑满）；默认高度是被内容（子元素）撑开</li>
-<li>行内元素：不会独占页面的一行，只占自身的大小；在页面中从左向右排列，如果在一行中不能容纳，则换到第二行；默认宽度和高度都被内容撑开</li>
-</ul>
-<p><strong>盒模型</strong><br>
-css 将页面中的所有元素都设置为了一个矩形的盒子，盒子的可见框大小由内容区、内边距和边框共同决定<br>
-每一个盒子都由以下击鼓部分组成：</p>
-<ul>
-<li>内容区(content)： 元素中的所有子元素和文本内容都在内容区中排列，内容区的大小由 width 和 height 两个属性来设置</li>
-<li>内边距(padding)，内容区和边框之间的距离，可以用 padding 简写，也可以用 padding-xxx (xxx 可以是 top right bottom left)，内边距的大小会影响到盒子的大小，背景颜色会延伸到内边距上</li>
-<li>边框(border)：属于盒子的边缘，需要设置三个样式
-<ol>
-<li>边框的宽度(border-width)，可以用来指定四个方向边框的宽度，四个值（上 右 下 左、顺时针），三个值（上 左右 下），两个值（上下 左右），一个值（上下左右）；或者使用 boder-xxx-width 单独指定某一个边框，默认 3px，边框的大小会直接影响盒子的大小</li>
-<li>边框的颜色(border-color)，同样可分别以指定四个边的颜色，规则同上，默认黑</li>
-<li>边框的样式(border-style)，实线(solid)，点状虚线(dotted)，虚线(dashed)，双线(double)，默认 none 表示没有边框<br>
-boder 还有简写属性，同时设置边框的所有相关样式，并且<strong>没有</strong>顺序要求<code>border: 10px red solid</code>，也可以使用<code>border-xxx</code>分别设置四个边</li>
-</ol>
-</li>
-<li>外边距(margin)，不影响可见框大小，但影响盒子的位置，有四个方向的外边距，可以用 margin 简写，也可以用 margin-xxx 设置（默认情况下设置 margin-right 不会产生效果，一般由浏览器调整），由于元素默认自左向右排列，因此设置左、上外边距会移动元素自身，而设置右、下外边距会移动其他元素。margin 设置负值则反向移动。margin 会影响盒子实际占用空间</li>
-</ul>
-<p><strong>盒模型的水平布局</strong><br>
-元素在其父元素中水平方向的位置由以下几个属性共同决定：margin-left，border-left，padding-left，width，padding-right，border-right，margin-right<br>
-它们的总和<strong>必须等于</strong>父元素内容区的宽度<br>
-如果等式不成立，称为过度约束，等式自动调整：</p>
-<ul>
-<li>若七个值没有 auto 的情况，则自动调整 margin-right 使等式成立；</li>
-<li>而 width，margin-left，margin-right能够设置 auto，设置后会自动调整该属性，其中 width 的默认值就是 auto；</li>
-<li>宽度和一个外边距设置为 auto，宽度会调整到最大值，外边距为 0</li>
-<li>三个都设置为 auto，则外边距都是 0，宽度最大</li>
-<li>外边距为 auto，宽度固定，则将外边距设计为相同值（常用于在父元素中水平居中）</li>
-</ul>
-<p><strong>盒模型的垂直布局</strong><br>
-子元素在父元素的内容区中排列，若子元素的大小超过了父元素，则子元素会从父元素中溢出<br>
-使用 overflow 属性来设置父元素如何处理溢出的子元素（在父元素中设置），可选值：</p>
-<ul>
-<li>visible，默认值，使子元素溢出，在父元素外显示</li>
-<li>hidden，溢出内容将被裁剪不会显示</li>
-<li>scroll，生成两个滚动条，通过滚动条来查看完整的内容</li>
-<li>auto，根据需要生成滚动条<br>
-overflow-x 和 overflow-y 可以分别设置横向和纵向的溢出</li>
-</ul>
-<p><strong>垂直外边距的重叠(折叠)</strong><br>
-相邻的垂直方向的外边距会发生重叠现象：</p>
-<ul>
-<li>兄弟元素间的相邻垂直外边距会取两者之间的绝对值较大的（都是正或负值），如果一正一副取两者和，对开发有利，不需要处理</li>
-<li>父子元素间的相邻垂直外边距，子元素的会传递给父元素（上外边距），会影响到页面的布局，需要进行处理</li>
-</ul>
-<p><strong>行内元素的盒模型</strong><br>
-行内元素不支持设置宽度和高度<br>
-行内元素可以设置 padding，但不会影响页面的布局<br>
-行内元素可以设置 border，垂直方向的 border 不会影响页面的布局<br>
-行内元素可以设置 margin，垂直方向的 margin 不会影响页面的布局</p>
-<p>display 用来设置元素的显示类型，可选值：</p>
-<ul>
-<li>inline 将元素设置为行元素</li>
-<li>block 将元素设置为块元素</li>
-<li>inline-block 将元素设置为行内块元素，可以设置宽高又不会独占一行</li>
-<li>table 将元素设置为一个表格</li>
-<li>none 元素不在页面中显示</li>
-</ul>
-<p>visibility 用来设置元素的显示状态，可选值：</p>
-<ul>
-<li>visible 默认值，元素在页面中正常显示</li>
-<li>hidden 元素在也页面中隐藏不显示，但依然占据页面的位置</li>
-</ul>
-<p><strong>默认样式</strong><br>
-通常情况浏览器都会为元素设置一些默认样式，会影响到页面的布局，因此需要去除浏览器的默认样式（PC端），可以使用别人的<strong>重置样式表</strong>，引入 css 文件</p>
 ]]></content>
     </entry>
 </feed>

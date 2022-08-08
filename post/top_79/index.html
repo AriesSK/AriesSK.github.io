@@ -196,185 +196,136 @@
     </script>
     
             <div class="main">
-                <div class="post-wrap archive">
-                    
-                        
-                            <h3>
-                                2022
-                            </h3>
+                <div class="container">
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                79. 单词搜索
+                            </h1>
                             
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_42/">
-                                            42. 连续子数组的最大和
-                                        </a><span class="archive-item-date">2022-06-17 </span></article>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-08-08</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">1.7
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">385</a></span>
                                     
-                                        
+                                        <span class="post-category">
+                                Category:
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_63/">
-                                            63. 股票的最大利润
-                                        </a><span class="archive-item-date">2022-06-16 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_10_ii/">
-                                            10 - II. 青蛙跳台阶问题
-                                        </a><span class="archive-item-date">2022-06-16 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">深度优先搜索</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_10_i/">
-                                            10 - I. 斐波那契数列
-                                        </a><span class="archive-item-date">2022-06-16 </span></article>
-                                    
-                                        
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_28/">
-                                            28. 对称的二叉树
-                                        </a><span class="archive-item-date">2022-06-15 </span></article>
-                                    
+                            </span>
                                         
+                                </div>
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_27/">
-                                            27. 二叉树的镜像
-                                        </a><span class="archive-item-date">2022-06-15 </span></article>
-                                    
-                                        
+                        </header>
+                        
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<p>本题与剑指offer<a href="https://ariessk.github.io/post/jianzhi_12/">12. 矩阵中的路径</a>相同，使用<strong>深度优先搜索 + 回溯</strong> 的方法，第二遍做成功做出来了，不错。</p>
+<h3 id="javascript-数组特点">JavaScript 数组特点</h3>
+<p>相对于 Java 等语言，js 的数组中可以存放不同类型的数据。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-回溯">深度优先搜索 + 回溯</h3>
+<p>通常需要使用与原数组相同大小的数组来表示该元素的访问情况，但是在 js 中因为一个数组可以存放不同类型的数据，所以可以直接在原数组内修改为原数组中不可能出现的值，比如 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，然后在回溯的时候再将数组恢复为原数组即可，不影响后续遍历：</p>
+<pre><code class="language-js">var exist = function(board, word) {
+    const m = board.length, n = board[0].length;
+    // 设置二维数组记录访问的情况
+    const flag = new Array(m).fill().map(() =&gt; new Array(n).fill(0));
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (dfs(i ,j, 0)) return true;
+        }
+    }
+    return false;
+
+    function dfs(i, j, x) {
+        if (x === word.length) return true; // 未判断字符是否是所求字符，需到 word.length 才能返回
+        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || flag[i][j] || board[i][j] !== word.charAt(x)) return false;
+        // if (x === word.length - 1) return true; 未在在上一行返回说明字符是所求的，因此可以提前返回
+        flag[i][j] = 1;
+        const res =  dfs(i - 1, j, x + 1) || dfs(i, j + 1, x + 1) || dfs(i + 1, j, x + 1) || dfs(i, j - 1, x + 1);
+        flag[i][j] = 0; // 回溯后恢复原状，不影响后续遍历
+        return res;
+    }
+};
+</code></pre>
+
+                        </div>
+                        
                                 
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_26/">
-                                            26. 树的子结构
-                                        </a><span class="archive-item-date">2022-06-15 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_32_iii/">
-                                            32 - III. 从上到下打印二叉树 III
-                                        </a><span class="archive-item-date">2022-06-14 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_32_ii/">
-                                            32 - II. 从上到下打印二叉树 II
-                                        </a><span class="archive-item-date">2022-06-14 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_32_i/">
-                                            32 - I. 从上到下打印二叉树 I
-                                        </a><span class="archive-item-date">2022-06-14 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_50/">
-                                            50. 第一个只出现一次的字符
-                                        </a><span class="archive-item-date">2022-06-13 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_11/">
-                                            11. 旋转数组的最小数字
-                                        </a><span class="archive-item-date">2022-06-13 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_04/">
-                                            04. 二维数组中的查找
-                                        </a><span class="archive-item-date">2022-06-13 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_53_ii/">
-                                            53 - II. 0~n-1中缺失的数字
-                                        </a><span class="archive-item-date">2022-06-12 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_53_i/">
-                                            53 - I. 在排序数组中查找数字 I
-                                        </a><span class="archive-item-date">2022-06-12 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_03/">
-                                            03. 数组中重复的数字
-                                        </a><span class="archive-item-date">2022-06-12 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_58_ii/">
-                                            58 - II. 左旋字符串
-                                        </a><span class="archive-item-date">2022-06-11 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_05/">
-                                            05. 替换空格
-                                        </a><span class="archive-item-date">2022-06-11 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_35/">
-                                            35. 复杂链表的复制
-                                        </a><span class="archive-item-date">2022-06-10 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_24/">
-                                            24. 反转链表
-                                        </a><span class="archive-item-date">2022-06-10 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                            06. 从头到尾打印链表
-                                        </a><span class="archive-item-date">2022-06-10 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_30/">
-                                            30. 包含min函数的栈
-                                        </a><span class="archive-item-date">2022-06-09 </span></article>
-                                    
-                                        
-                                
-                                    <article class="archive-item">
-                                        <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_09/">
-                                            09. 用两个栈实现队列
-                                        </a><span class="archive-item-date">2022-06-09 </span></article>
-                                    
-                                        
-                                            
-                </div>
-                <div class="pagination-container">
-                    
-                                            
-                                                <a href="https://AriesSK.github.io/archives/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> Prev</a>
-                                                
                                                     
-                                                            
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_79/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_79/&sharesource=qzone&title=79. 单词搜索&pics=https://AriesSK.github.io/images/avatar.png?v=1659937977843&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_79/&sharesource=weibo&title=79. 单词搜索 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659937977843 "><i class="fa fa-weibo "></i></a>
+                                                        
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/Vtne1cK0S/">#
+                                                深度优先搜索
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
+                                                                
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/top_78/">
+                                                                                                    78. 子集
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -457,5 +408,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>
