@@ -197,83 +197,112 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                EX01. 优惠券问题
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-08-09</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">0.8
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">189</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/top_20/">
-                                                20. 有效的括号
-                                            </a>
-                                            <span class="archive-item-date">2022-07-20 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/aS34ubJSm/">贪心</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_31/">
-                                                31. 栈的压入、弹出序列
-                                            </a>
-                                            <span class="archive-item-date">2022-07-03 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_33/">
-                                                33. 二叉搜索树的后序遍历序列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-28 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_06/">
-                                                06. 从头到尾打印链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_30/">
-                                                30. 包含min函数的栈
-                                            </a>
-                                            <span class="archive-item-date">2022-06-09 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_09/">
-                                                09. 用两个栈实现队列
-                                            </a>
-                                            <span class="archive-item-date">2022-06-09 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="题目">题目</h2>
+<p>近期某商场由于周年庆，开启了“0元购”活动。活动中，消费者可以通过组合手中的代金券，实现0元购买指定商品。消费券有不同的面额，对于指定价格的商品，使用代金券凑出其价格，但所使用的代金券总面额不可超过商品价格。请用算法来快速计算最少需要使用几张优惠券。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="贪心算法-动态规划">贪心算法 动态规划</h3>
+<pre><code class="language-js">function cal(amount, type) {
+    const dp = new Array(amount + 1).fill(0);
+    for (let i = 1; i &lt;= amount; ++i) {
+        dp[i] = Number.POSITIVE_INFINITY;
+        for (let j = 0; j &lt; type.length; ++j) {
+            // 状态转移方程
+            if (i &gt;= type[j]) dp[i] = Math.min(dp[i], dp[i - type[j]] + 1);
+        }
+    }
+    return dp[amount] === Infinity ? &quot;Impossible&quot; : dp[amount];
+}
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/algo_ex01/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/algo_ex01/&sharesource=qzone&title=EX01. 优惠券问题&pics=https://AriesSK.github.io/images/avatar.png?v=1660223026032&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/algo_ex01/&sharesource=weibo&title=EX01. 优惠券问题 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660223026032 "><i class="fa fa-weibo "></i></a>
                                                         
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/aS34ubJSm/">#
+                                                贪心
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                                    #每日更新# 知识点导航
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -356,5 +385,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

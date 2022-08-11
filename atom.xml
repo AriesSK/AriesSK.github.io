@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-08T05:53:21.973Z</updated>
+    <updated>2022-08-11T14:15:07.094Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://AriesSK.github.io/images/avatar.png</logo>
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
+    <entry>
+        <title type="html"><![CDATA[EX01. 优惠券问题]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex01/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex01/">
+        </link>
+        <updated>2022-08-09T01:36:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="题目">题目</h2>
+<p>近期某商场由于周年庆，开启了“0元购”活动。活动中，消费者可以通过组合手中的代金券，实现0元购买指定商品。消费券有不同的面额，对于指定价格的商品，使用代金券凑出其价格，但所使用的代金券总面额不可超过商品价格。请用算法来快速计算最少需要使用几张优惠券。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="贪心算法-动态规划">贪心算法 动态规划</h3>
+<pre><code class="language-js">function cal(amount, type) {
+    const dp = new Array(amount + 1).fill(0);
+    for (let i = 1; i &lt;= amount; ++i) {
+        dp[i] = Number.POSITIVE_INFINITY;
+        for (let j = 0; j &lt; type.length; ++j) {
+            // 状态转移方程
+            if (i &gt;= type[j]) dp[i] = Math.min(dp[i], dp[i - type[j]] + 1);
+        }
+    }
+    return dp[amount] === Infinity ? &quot;Impossible&quot; : dp[amount];
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
         <id>https://AriesSK.github.io/post/zhishidian/</id>
@@ -66,7 +91,7 @@
 <li>位运算获取每一位 为每一位赋值 —— <a href="https://ariessk.github.io/post/jianzhi_56_ii/">56 - II. 数组中数字出现的次数 II</a></li>
 <li>幂运算 —— <a href="https://ariessk.github.io/post/jianzhi_67/">67. 把字符串转换为整数</a></li>
 <li>正则表达式 —— <a href="https://ariessk.github.io/post/jianzhi_19/">19. 正则表达式匹配</a></li>
-<li>位运算替代加减乘除运算 —— <a href="https://ariessk.github.io/post/top_33/">29. 两数相除</a></li>
+<li>位运算替代加减乘除运算 —— <a href="https://ariessk.github.io/post/top_29/">29. 两数相除</a></li>
 </ul>
 <p><strong>数组</strong></p>
 <ul>
@@ -728,6 +753,20 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
 <li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
 <li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
 </ul>
+<p><strong><code>||</code>和<code>&amp;&amp;</code></strong><br>
+对于<code>||</code>，只要前面的表达式为值<code>false</code>，就返回后面表达式的值；只要前面的表达式为值<code>true</code>，就返回前面表达式的值<br>
+对于<code>&amp;&amp;</code>，只要前面的表达式为值<code>false</code>，就返回前面表达式的值；只要前面的表达式为值<code>true</code>，就返回后面表达式的值<br>
+js 中只有 undefined、null、0、-0、NaN、&quot;&quot; 这六个转换为布尔值时会被转换为 false，<code>[]</code>是对象，为 true</p>
+<pre><code class="language-js">console.log(null || undefined); // undefined
+console.log(true || undefined); // true
+console.log(null &amp;&amp; undefined); // null
+console.log(true &amp;&amp; undefined); // undefined
+</code></pre>
+<p><strong>构造函数</strong><br>
+对于构造函数，必定返回一个对象，若<code>return</code>不是对象，则返回空对象</p>
+<pre><code class="language-js">'foo' == new function(){ return String('foo'); }; // false，构造函数返回空对象
+'foo' == new function(){ return new String('foo'); }; // true，构造函数返回 String 对象
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -997,34 +1036,6 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
         else if (m * m &gt; x) r = m - 1;
         else return m;
     }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[66. 加一]]></title>
-        <id>https://AriesSK.github.io/post/top_66/</id>
-        <link href="https://AriesSK.github.io/post/top_66/">
-        </link>
-        <updated>2022-08-03T02:20:23.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="大数溢出问题">大数溢出问题</h3>
-<p>这道题本来还想了一种方法，是将数组转为数字加一后再转回数组，事实上这是错位的做法，因为数字存储是有上限的，会出现溢出的问题，所以对于大数问题我们常常转化为字符串处理，而这道题里我却想把数组转为数字，就会造成溢出的问题。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="数组">数组</h3>
-<p>主要就是进位的问题，在数组中找 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>9</mn></mrow><annotation encoding="application/x-tex">9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span></span></span></span> 即可：</p>
-<pre><code class="language-js">var plusOne = function(digits) {
-    const n = digits.length - 1;
-    for (let i = n; i &gt;= 0; --i) {
-        if (digits[i] === 9)  digits[i] = 0;
-        else {
-            digits[i] += 1;
-            break;
-        }
-        if (!i) digits.unshift(1);
-    }
-    return digits;
 };
 </code></pre>
 ]]></content>

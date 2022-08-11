@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1659937977843" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1660223026032" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1659937977843" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1660223026032" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-08-06</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">18.7
+                                    href="#">19.6
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">5125</a></span>
+                                    <span class="post-words">words:<a href="#">5337</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -599,6 +599,20 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
 <li>遗漏的 DOM 引用：DOM 元素的生命周期正常取决与是否挂载在 DOM 树上，但被 js 引用时，还由 js 决定，若未清理则发生内存泄露</li>
 <li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
 </ul>
+<p><strong><code>||</code>和<code>&amp;&amp;</code></strong><br>
+对于<code>||</code>，只要前面的表达式为值<code>false</code>，就返回后面表达式的值；只要前面的表达式为值<code>true</code>，就返回前面表达式的值<br>
+对于<code>&amp;&amp;</code>，只要前面的表达式为值<code>false</code>，就返回前面表达式的值；只要前面的表达式为值<code>true</code>，就返回后面表达式的值<br>
+js 中只有 undefined、null、0、-0、NaN、&quot;&quot; 这六个转换为布尔值时会被转换为 false，<code>[]</code>是对象，为 true</p>
+<pre><code class="language-js">console.log(null || undefined); // undefined
+console.log(true || undefined); // true
+console.log(null &amp;&amp; undefined); // null
+console.log(true &amp;&amp; undefined); // undefined
+</code></pre>
+<p><strong>构造函数</strong><br>
+对于构造函数，必定返回一个对象，若<code>return</code>不是对象，则返回空对象</p>
+<pre><code class="language-js">'foo' == new function(){ return String('foo'); }; // false，构造函数返回空对象
+'foo' == new function(){ return new String('foo'); }; // true，构造函数返回 String 对象
+</code></pre>
 
                         </div>
                         
@@ -609,8 +623,8 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/qian-duan-mian-shi/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1659937977843&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1659937977843 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=qzone&title=前端面试&pics=https://AriesSK.github.io/images/avatar.png?v=1660223026032&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/qian-duan-mian-shi/&sharesource=weibo&title=前端面试 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660223026032 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -730,7 +744,7 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1659937977843);
+                    newDate.setTime(1660223026032);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
