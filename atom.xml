@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-11T14:15:07.094Z</updated>
+    <updated>2022-08-12T04:12:23.541Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -11,36 +11,11 @@
     <icon>https://AriesSK.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, 🐧AriesSK</rights>
     <entry>
-        <title type="html"><![CDATA[EX01. 优惠券问题]]></title>
-        <id>https://AriesSK.github.io/post/algo_ex01/</id>
-        <link href="https://AriesSK.github.io/post/algo_ex01/">
-        </link>
-        <updated>2022-08-09T01:36:38.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="题目">题目</h2>
-<p>近期某商场由于周年庆，开启了“0元购”活动。活动中，消费者可以通过组合手中的代金券，实现0元购买指定商品。消费券有不同的面额，对于指定价格的商品，使用代金券凑出其价格，但所使用的代金券总面额不可超过商品价格。请用算法来快速计算最少需要使用几张优惠券。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="贪心算法-动态规划">贪心算法 动态规划</h3>
-<pre><code class="language-js">function cal(amount, type) {
-    const dp = new Array(amount + 1).fill(0);
-    for (let i = 1; i &lt;= amount; ++i) {
-        dp[i] = Number.POSITIVE_INFINITY;
-        for (let j = 0; j &lt; type.length; ++j) {
-            // 状态转移方程
-            if (i &gt;= type[j]) dp[i] = Math.min(dp[i], dp[i - type[j]] + 1);
-        }
-    }
-    return dp[amount] === Infinity ? &quot;Impossible&quot; : dp[amount];
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[#每日更新# 知识点导航]]></title>
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-08T15:59:59.000Z</updated>
+        <updated>2022-08-12T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -112,6 +87,7 @@
 <li>栈相关的数组操作 —— <a href="https://ariessk.github.io/post/jianzhi_06/">06. 从头到尾打印链表</a></li>
 <li>快速判断出栈序列合法 —— <a href="https://ariessk.github.io/post/jianzhi_31/">31. 栈的压入、弹出序列</a></li>
 <li>括号匹配 —— <a href="https://ariessk.github.io/post/top_20/">20. 有效的括号</a></li>
+<li>单调栈的应用 —— <a href="https://ariessk.github.io/post/top_84/">84. 柱状图中最大的矩形</a></li>
 </ul>
 <p><strong>队列</strong></p>
 <ul>
@@ -279,6 +255,69 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[84. 柱状图中最大的矩形]]></title>
+        <id>https://AriesSK.github.io/post/top_84/</id>
+        <link href="https://AriesSK.github.io/post/top_84/">
+        </link>
+        <updated>2022-08-12T03:20:10.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="单调栈的应用">单调栈的应用</h3>
+<p>单调栈分为单调递增栈和单调递减栈。<br>
+以单调递增栈为例：如果新元素比栈顶元素大，则将该元素入栈；如果新元素比栈顶元素小，则重复将栈内元素出栈直至栈顶元素比新元素小。<br>
+单调栈的作用是：以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的时间复杂度一次遍历找到数组中每个元素左右最近的比其小/大的元素。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="单调栈">单调栈</h3>
+<p>本题使用单调递增序列，当元素出栈时，新入栈的元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 是出栈元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">stack.pop()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span> 右侧第一个比它小的元素；新的栈顶元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">stack[stack.length - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 是出栈元素左侧第一个比它小的元素。此时出栈元素的高度下的最大面积为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>−</mo><mn>1</mn><mo>)</mo><mo>∗</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>s</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">i - stack[stack.length - 1] - 1) * heights[stack.pop()]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span>。<br>
+数组中的每个元素均会入栈出栈一次，就能够遍历每个高度的最大面积，最终得出真正的最大面积。<br>
+至于每种情况下的面积公式比较难想到的话，可以画出<strong>示意图</strong>来寻找正确的公式。</p>
+<pre><code class="language-js">var largestRectangleArea = function(heights) {
+    const stack = [];
+    let res = 0;
+    // 因为只有在出栈的时候才会计算并尝试更新最大的矩形，为了防止数组为递增序列而导致一直未更新，在数组末尾加入小于数组中元素的 0，确保更新
+    heights.push(0);
+    for (let i = 0; i &lt; heights.length; ++i) {
+        // 栈非空并且栈顶元素不小于新元素时出栈
+        while (stack.length &amp;&amp; heights[stack[stack.length - 1]] &gt;= heights[i]) {
+            // i 是 h 右侧第一个比它小的元素，栈顶元素 stack[stack.length - 1] 是 h 左侧第一个比它小的元素
+            let h = heights[stack.pop()];
+            // 空栈说明到目前均为递减序列，最大面积为 i * h
+            // 非空栈说明前面有过递增序列，持续出栈并计算面积
+            res = stack.length ? Math.max(res, (i - stack[stack.length - 1] - 1) * h) : Math.max(res, i * h);
+        }
+        stack.push(i);
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[EX01. 优惠券问题]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex01/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex01/">
+        </link>
+        <updated>2022-08-09T01:36:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="题目">题目</h2>
+<p>近期某商场由于周年庆，开启了“0元购”活动。活动中，消费者可以通过组合手中的代金券，实现0元购买指定商品。消费券有不同的面额，对于指定价格的商品，使用代金券凑出其价格，但所使用的代金券总面额不可超过商品价格。请用算法来快速计算最少需要使用几张优惠券。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="贪心算法-动态规划">贪心算法 动态规划</h3>
+<pre><code class="language-js">function cal(amount, type) {
+    const dp = new Array(amount + 1).fill(0);
+    for (let i = 1; i &lt;= amount; ++i) {
+        dp[i] = Number.POSITIVE_INFINITY;
+        for (let j = 0; j &lt; type.length; ++j) {
+            // 状态转移方程
+            if (i &gt;= type[j]) dp[i] = Math.min(dp[i], dp[i - type[j]] + 1);
+        }
+    }
+    return dp[amount] === Infinity ? &quot;Impossible&quot; : dp[amount];
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1012,30 +1051,6 @@ console.log(true &amp;&amp; undefined); // undefined
         r = p + q;
     }
     return r;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[69. x的平方根]]></title>
-        <id>https://AriesSK.github.io/post/top_69/</id>
-        <link href="https://AriesSK.github.io/post/top_69/">
-        </link>
-        <updated>2022-08-03T03:08:07.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>经典的二分查找题，关键点是找到题目要求的结果的满足条件。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="二分法">二分法</h3>
-<p>二分查找，找到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>m</mi><mn>2</mn></msup><mo>≤</mo><mi>x</mi><mo>&lt;</mo><mo>(</mo><mi>m</mi><mo>+</mo><mn>1</mn><msup><mo>)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">m^2 \leq x &lt; (m + 1)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.950078em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>，输出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>：</p>
-<pre><code class="language-js">var mySqrt = function(x) {
-    let l = 0, r = x;
-    while (l &lt;= r) {
-        const m = l + r &gt;&gt; 1;
-        if ((m + 1) * (m + 1) &lt;= x) l = m + 1;
-        else if (m * m &gt; x) r = m - 1;
-        else return m;
-    }
 };
 </code></pre>
 ]]></content>

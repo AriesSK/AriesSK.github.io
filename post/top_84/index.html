@@ -200,7 +200,7 @@
                     <article class="post-wrap">
                         <header class="post-header">
                             <h1 class="post-title">
-                                03. 数组中重复的数字
+                                84. 柱状图中最大的矩形
                             </h1>
                             
                                 <!--en-->
@@ -210,25 +210,21 @@
                                         🐧AriesSK
                                     </a>
                                     <span class="post-time">
-                                Date: <a href="#">2022-06-12</a>
+                                Date: <a href="#">2022-08-12</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.1
+                                    href="#">2.2
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">493</a></span>
+                                    <span class="post-words">words:<a href="#">550</a></span>
                                     
                                         <span class="post-category">
                                 Category:
                                 
+                                <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">TOP面试</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">栈</a>
+                                
                                 <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">数组</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">哈希表</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/o97gtgaiy/">排序</a>
-                                
-                                <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">剑指offer</a>
                                 
                             </span>
                                         
@@ -238,68 +234,33 @@
                         
                         <div class="post-content">
                             <h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的map对象与set对象">JavaScript 中的<code>Map</code>对象与<code>Set</code>对象</h3>
-<p><code>Map</code>对象存储键值对，键值是唯一的，重复赋值会覆盖，一些常用的方法如下：</p>
-<pre><code class="language-js">set(key, value)
-get(key)
-has(key)
-delete(key)
-entries() keys() values() // 返回值的数组，分别返回键值对、键名、键值
-</code></pre>
-<p><code>Set</code>对象是唯一值的集合，一些常用的方法如下：</p>
-<pre><code class="language-js">add(key)
-clear() // 删除所有
-delete(key)
-entries() keys() values() // 返回值的数组，分别返回键值对、键名、键值，在 Set 中结果相同
-has(key)
-size()
-</code></pre>
-<p><code>Map</code>和<code>Set</code>的 key 可以是任何数据类型。</p>
+<h3 id="单调栈的应用">单调栈的应用</h3>
+<p>单调栈分为单调递增栈和单调递减栈。<br>
+以单调递增栈为例：如果新元素比栈顶元素大，则将该元素入栈；如果新元素比栈顶元素小，则重复将栈内元素出栈直至栈顶元素比新元素小。<br>
+单调栈的作用是：以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的时间复杂度一次遍历找到数组中每个元素左右最近的比其小/大的元素。</p>
 <hr>
 <h2 id="题解">题解</h2>
-<h3 id="法一哈希表">法一：哈希表</h3>
-<p>我一开始想到的是使用<code>Map</code>：</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let hash = new Map();
-    for (let i = 0; i &lt; nums.length; ++i) {
-        // 这里需要使用 has()，而不是 get()，防止 get() 取到 0 导致判断出错
-        if (!hash.has(nums[i])) hash.set(nums[i], i);
-        else return nums[i];
-    }
-};
-</code></pre>
-<p>后来发现<code>Map</code>存储的是键值对，但在这题中只需要存 key，不需要存 value，因此用<code>Set</code>更好：</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let set = new Set();
-    for (let i = 0; i &lt; nums.length; ++i) {
-        if (!set.has(nums[i])) set.add(nums[i]);
-        else return nums[i];
-    }
-};
-</code></pre>
-<h3 id="法二原地算法">法二：原地算法</h3>
-<p>遍历数组<code>nums</code>，设索引初始值为<code>i = 0</code>：</p>
-<ul>
-<li>若<code>nums[i] = i</code>：说明此数字已在对应索引位置，无需交换，因此跳过；</li>
-<li>若<code>nums[nums[i]] = nums[i]</code>：代表索引<code>nums[i]</code>处和索引<code>i</code>处的元素值都为<code>nums[i]</code>，即找到一组重复值，返回此值<code>nums[i]</code>；</li>
-<li>否则：交换索引为<code>i</code>和<code>nums[i]</code>的元素值，将此数字交换至对应索引位置。</li>
-</ul>
-<p>若遍历完毕尚未返回，则返回 -1。</p>
-<pre><code class="language-js">var findRepeatNumber = function(nums) {
-    let i = 0;
-    while (i &lt; nums.length) {
-        if (nums[i] === i) {
-            // 直到该位置已放置正确数字再处理下一个位置，以保证数组被完全遍历
-            ++i;
-            continue;
+<h3 id="单调栈">单调栈</h3>
+<p>本题使用单调递增序列，当元素出栈时，新入栈的元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 是出栈元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">stack.pop()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span> 右侧第一个比它小的元素；新的栈顶元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">stack[stack.length - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 是出栈元素左侧第一个比它小的元素。此时出栈元素的高度下的最大面积为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>−</mo><mn>1</mn><mo>)</mo><mo>∗</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>s</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">i - stack[stack.length - 1] - 1) * heights[stack.pop()]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span>。<br>
+数组中的每个元素均会入栈出栈一次，就能够遍历每个高度的最大面积，最终得出真正的最大面积。<br>
+至于每种情况下的面积公式比较难想到的话，可以画出<strong>示意图</strong>来寻找正确的公式。</p>
+<pre><code class="language-js">var largestRectangleArea = function(heights) {
+    const stack = [];
+    let res = 0;
+    // 因为只有在出栈的时候才会计算并尝试更新最大的矩形，为了防止数组为递增序列而导致一直未更新，在数组末尾加入小于数组中元素的 0，确保更新
+    heights.push(0);
+    for (let i = 0; i &lt; heights.length; ++i) {
+        // 栈非空并且栈顶元素不小于新元素时出栈
+        while (stack.length &amp;&amp; heights[stack[stack.length - 1]] &gt;= heights[i]) {
+            // i 是 h 右侧第一个比它小的元素，栈顶元素 stack[stack.length - 1] 是 h 左侧第一个比它小的元素
+            let h = heights[stack.pop()];
+            // 空栈说明到目前均为递减序列，最大面积为 i * h
+            // 非空栈说明前面有过递增序列，持续出栈并计算面积
+            res = stack.length ? Math.max(res, (i - stack[stack.length - 1] - 1) * h) : Math.max(res, i * h);
         }
-        if (nums[nums[i]] === nums[i]) return nums[i];
-        let tmp = nums[i];
-        nums[i] = nums[nums[i]];
-        // 注意这里 num[i] 已经被修改了值，因此不能用 nums[nums[i]]
-        nums[tmp] = tmp;
+        stack.push(i);
     }
-    return -1;
+    return res;
 };
 </code></pre>
 
@@ -311,9 +272,9 @@ size()
                                                         <span style="margin-right:15px">
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
-                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/jianzhi_03/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/jianzhi_03/&sharesource=qzone&title=03. 数组中重复的数字&pics=https://AriesSK.github.io/images/avatar.png?v=1660277531695&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/jianzhi_03/&sharesource=weibo&title=03. 数组中重复的数字 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660277531695 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_84/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_84/&sharesource=qzone&title=84. 柱状图中最大的矩形&pics=https://AriesSK.github.io/images/avatar.png?v=1660277531695&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_84/&sharesource=weibo&title=84. 柱状图中最大的矩形 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660277531695 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -323,24 +284,16 @@ size()
                                                                         <span class="tag ">
                         
                         
+                        <a href="https://AriesSK.github.io/tag/LnU2CZdAh/">#
+                                                TOP面试
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/XJeBjSyzk/">#
+                                                栈
+                                                    </a>
+                                                    
                         <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
                                                 算法
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/5b4wbyLu-/">#
-                                                数组
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/HE-O8lUlV/">#
-                                                哈希表
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/o97gtgaiy/">#
-                                                排序
-                                                    </a>
-                                                    
-                        <a href="https://AriesSK.github.io/tag/7FSyZ2w4E/">#
-                                                剑指offer
                                                     </a>
                                                     
                                                         
@@ -356,13 +309,13 @@ size()
                                                                                 <!---->
                                                                                 <section class="post-nav">
                                                                                     
-                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/jianzhi_53_i/">
-                                                                                            53 - I. 在排序数组中查找数字 I
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
                                                                                         </a>
                                                                                         
                                                                                             
-                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/jianzhi_58_ii/">
-                                                                                                    58 - II. 左旋字符串
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/algo_ex01/">
+                                                                                                    EX01. 优惠券问题
                                                                                                 </a>
                                                                                                 
                                                                                 </section>
