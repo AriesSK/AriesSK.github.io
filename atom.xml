@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-12T04:12:23.541Z</updated>
+    <updated>2022-08-15T12:29:26.876Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-12T15:59:59.000Z</updated>
+        <updated>2022-08-15T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -258,170 +258,11 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[84. 柱状图中最大的矩形]]></title>
-        <id>https://AriesSK.github.io/post/top_84/</id>
-        <link href="https://AriesSK.github.io/post/top_84/">
-        </link>
-        <updated>2022-08-12T03:20:10.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="单调栈的应用">单调栈的应用</h3>
-<p>单调栈分为单调递增栈和单调递减栈。<br>
-以单调递增栈为例：如果新元素比栈顶元素大，则将该元素入栈；如果新元素比栈顶元素小，则重复将栈内元素出栈直至栈顶元素比新元素小。<br>
-单调栈的作用是：以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的时间复杂度一次遍历找到数组中每个元素左右最近的比其小/大的元素。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="单调栈">单调栈</h3>
-<p>本题使用单调递增序列，当元素出栈时，新入栈的元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 是出栈元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">stack.pop()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span> 右侧第一个比它小的元素；新的栈顶元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">stack[stack.length - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 是出栈元素左侧第一个比它小的元素。此时出栈元素的高度下的最大面积为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>−</mo><mn>1</mn><mo>)</mo><mo>∗</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>s</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">i - stack[stack.length - 1] - 1) * heights[stack.pop()]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span>。<br>
-数组中的每个元素均会入栈出栈一次，就能够遍历每个高度的最大面积，最终得出真正的最大面积。<br>
-至于每种情况下的面积公式比较难想到的话，可以画出<strong>示意图</strong>来寻找正确的公式。</p>
-<pre><code class="language-js">var largestRectangleArea = function(heights) {
-    const stack = [];
-    let res = 0;
-    // 因为只有在出栈的时候才会计算并尝试更新最大的矩形，为了防止数组为递增序列而导致一直未更新，在数组末尾加入小于数组中元素的 0，确保更新
-    heights.push(0);
-    for (let i = 0; i &lt; heights.length; ++i) {
-        // 栈非空并且栈顶元素不小于新元素时出栈
-        while (stack.length &amp;&amp; heights[stack[stack.length - 1]] &gt;= heights[i]) {
-            // i 是 h 右侧第一个比它小的元素，栈顶元素 stack[stack.length - 1] 是 h 左侧第一个比它小的元素
-            let h = heights[stack.pop()];
-            // 空栈说明到目前均为递减序列，最大面积为 i * h
-            // 非空栈说明前面有过递增序列，持续出栈并计算面积
-            res = stack.length ? Math.max(res, (i - stack[stack.length - 1] - 1) * h) : Math.max(res, i * h);
-        }
-        stack.push(i);
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[EX01. 优惠券问题]]></title>
-        <id>https://AriesSK.github.io/post/algo_ex01/</id>
-        <link href="https://AriesSK.github.io/post/algo_ex01/">
-        </link>
-        <updated>2022-08-09T01:36:38.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="题目">题目</h2>
-<p>近期某商场由于周年庆，开启了“0元购”活动。活动中，消费者可以通过组合手中的代金券，实现0元购买指定商品。消费券有不同的面额，对于指定价格的商品，使用代金券凑出其价格，但所使用的代金券总面额不可超过商品价格。请用算法来快速计算最少需要使用几张优惠券。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="贪心算法-动态规划">贪心算法 动态规划</h3>
-<pre><code class="language-js">function cal(amount, type) {
-    const dp = new Array(amount + 1).fill(0);
-    for (let i = 1; i &lt;= amount; ++i) {
-        dp[i] = Number.POSITIVE_INFINITY;
-        for (let j = 0; j &lt; type.length; ++j) {
-            // 状态转移方程
-            if (i &gt;= type[j]) dp[i] = Math.min(dp[i], dp[i - type[j]] + 1);
-        }
-    }
-    return dp[amount] === Infinity ? &quot;Impossible&quot; : dp[amount];
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[79. 单词搜索]]></title>
-        <id>https://AriesSK.github.io/post/top_79/</id>
-        <link href="https://AriesSK.github.io/post/top_79/">
-        </link>
-        <updated>2022-08-08T05:37:45.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>本题与剑指offer<a href="https://ariessk.github.io/post/jianzhi_12/">12. 矩阵中的路径</a>相同，使用<strong>深度优先搜索 + 回溯</strong> 的方法，第二遍做成功做出来了，不错。</p>
-<h3 id="javascript-数组特点">JavaScript 数组特点</h3>
-<p>相对于 Java 等语言，js 的数组中可以存放不同类型的数据。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="深度优先搜索-回溯">深度优先搜索 + 回溯</h3>
-<p>通常需要使用与原数组相同大小的数组来表示该元素的访问情况，但是在 js 中因为一个数组可以存放不同类型的数据，所以可以直接在原数组内修改为原数组中不可能出现的值，比如 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，然后在回溯的时候再将数组恢复为原数组即可，不影响后续遍历：</p>
-<pre><code class="language-js">var exist = function(board, word) {
-    const m = board.length, n = board[0].length;
-    // 设置二维数组记录访问的情况
-    const flag = new Array(m).fill().map(() =&gt; new Array(n).fill(0));
-    for (let i = 0; i &lt; m; ++i) {
-        for (let j = 0; j &lt; n; ++j) {
-            if (dfs(i ,j, 0)) return true;
-        }
-    }
-    return false;
-
-    function dfs(i, j, x) {
-        if (x === word.length) return true; // 未判断字符是否是所求字符，需到 word.length 才能返回
-        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || flag[i][j] || board[i][j] !== word.charAt(x)) return false;
-        // if (x === word.length - 1) return true; 未在在上一行返回说明字符是所求的，因此可以提前返回
-        flag[i][j] = 1;
-        const res =  dfs(i - 1, j, x + 1) || dfs(i, j + 1, x + 1) || dfs(i + 1, j, x + 1) || dfs(i, j - 1, x + 1);
-        flag[i][j] = 0; // 回溯后恢复原状，不影响后续遍历
-        return res;
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[78. 子集]]></title>
-        <id>https://AriesSK.github.io/post/top_78/</id>
-        <link href="https://AriesSK.github.io/post/top_78/">
-        </link>
-        <updated>2022-08-07T03:26:28.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-浅拷贝和深拷贝">JavaScript 浅拷贝和深拷贝</h3>
-<p>浅拷贝和深拷贝是针对<strong>引用数据类型</strong>的，浅拷贝复制对象的第一层，深拷贝递归复制每一层。<br>
-<strong>注意：</strong> 如果浅拷贝复制的第一层是基本数据类型，那就是直接复制，原数组修改<strong>不影响</strong>新数组，如果第一次是引用数据类型，则拷贝地址，原数组修改<strong>影响</strong>新数组。<br>
-对于本道题中的<code>tmp.slice()</code>实现的就是浅拷贝，但是由于<code>tmp</code>的第一层是基本数据类型，所以直接复制。</p>
-<h3 id="slice和扩展运算符"><code>slice()</code>和扩展运算符<code>...</code></h3>
-<p><code>slice()</code>实现的是浅拷贝，当不传参数时实现浅拷贝<strong>整个</strong>数组。<br>
-扩展运算符对于<strong>第一层是深拷贝</strong>，对于<strong>更深层是浅拷贝</strong>。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一递归回溯">法一：递归回溯</h3>
-<p>与<a href="https://ariessk.github.io/post/jianzhi_38/">38. 字符串的排列</a>的方法相似，不过对于这道题，每一位可以选择加入或不加入<strong>两种</strong>情况：</p>
-<pre><code class="language-js">var subsets = function(nums) {
-    const tmp = [], res = [];
-    dfs(0);
-    return res;
-
-    function dfs(x) {
-        if (x === nums.length) {
-            res.push(tmp.slice());
-            return;
-        }
-        // 将当前位元素加入结果中，注意回溯时复原
-        tmp.push(nums[x]);
-        dfs(x + 1);
-        tmp.pop();
-        // 不将当前元素加入结果中
-        dfs(x + 1);
-    }
-};
-</code></pre>
-<h3 id="法二位运算">法二：位运算</h3>
-<p>因为长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数组有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span> 个子集，所以刚好可以使用二进制数来替代，二进制数中的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 代表不将该位加入结果中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 则表示加入：</p>
-<pre><code class="language-js">var subsets = function(nums) {
-    const res = [];
-    const n = nums.length;
-    // 1 左移 n 位(2^n)作为遍历上限，比如 n 为 3，则从 000 遍历到 111，也就是从 0 遍历到 7
-    for (let x = 0; x &lt; (1 &lt;&lt; n); ++x) {
-        const tmp = [];
-        for (let i = 0; i &lt; n; ++i) {
-            // 位与运算，判断该位值，为 1 加入结果，为 0 不加入
-            if (x &amp; (1 &lt;&lt; i)) {
-                tmp.push(nums[i]);
-            }
-        }
-        res.push(tmp);
-    }
-    return res;
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[前端面试]]></title>
         <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
         <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
         </link>
-        <updated>2022-08-06T06:15:18.000Z</updated>
+        <updated>2022-08-15T06:15:18.000Z</updated>
         <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
 <h3 id="html">HTML</h3>
 <p><strong>h5 新特性</strong></p>
@@ -793,6 +634,7 @@ js 每个构造函数都有 prototype 属性指向它的原型对象（实例原
 <li>未被销毁的事件监听：垃圾回收机制不能判断事件是否需要被解除，需要手动解除，否则出现内存泄漏</li>
 </ul>
 <p><strong><code>||</code>和<code>&amp;&amp;</code></strong><br>
+返回的是其中一个操作数的值，而不是条件判断的结果<br>
 对于<code>||</code>，只要前面的表达式为值<code>false</code>，就返回后面表达式的值；只要前面的表达式为值<code>true</code>，就返回前面表达式的值<br>
 对于<code>&amp;&amp;</code>，只要前面的表达式为值<code>false</code>，就返回前面表达式的值；只要前面的表达式为值<code>true</code>，就返回后面表达式的值<br>
 js 中只有 undefined、null、0、-0、NaN、&quot;&quot; 这六个转换为布尔值时会被转换为 false，<code>[]</code>是对象，为 true</p>
@@ -805,6 +647,250 @@ console.log(true &amp;&amp; undefined); // undefined
 对于构造函数，必定返回一个对象，若<code>return</code>不是对象，则返回空对象</p>
 <pre><code class="language-js">'foo' == new function(){ return String('foo'); }; // false，构造函数返回空对象
 'foo' == new function(){ return new String('foo'); }; // true，构造函数返回 String 对象
+</code></pre>
+<p><strong>字符串和数字转化</strong><br>
+字符串到数字：</p>
+<ul>
+<li>Number() 字符串中有非数字即返回 NaN</li>
+<li>parseInt()、parseFloat() 提取<strong>首字母</strong>为数字的任意字符串，后面可以包含其他字符</li>
+</ul>
+<p>数字到字符串：</p>
+<ul>
+<li>与空字符串相加</li>
+<li>toString()</li>
+</ul>
+<p><strong>节流和防抖</strong><br>
+节流（throttle）：</p>
+<ol>
+<li>设置一个变量，限定为 true 时才允许进入函数，进入函数后该变量置为 false</li>
+<li>设置定时器 setTimeout 在规定时间后才能再次触发并执行函数</li>
+<li>使用闭包存储变量</li>
+</ol>
+<pre><code class="language-js">function throttle(fn, time) {
+    let flag = true;
+    return function() {
+        if (!flag) return;
+        flag = false;
+        // arguments 替代 fn 中的所有传入参数
+        fn.apply(this, arguments);
+        setTimeout(() =&gt; {
+            flag = true;
+        }, time);
+    }
+}
+const input = () =&gt; console.log(&quot;throttle&quot;);
+div.addEventListener(&quot;click&quot;, throttle(input, 1000));
+</code></pre>
+<p>防抖（debounce）：</p>
+<ol>
+<li>触发事件时设置定时器 setTimeout  延迟触发</li>
+<li>每次触发都会清除并重置定时器</li>
+<li>使用闭包存储定时器</li>
+</ol>
+<pre><code class="language-js">function debounce(fn, time) {
+    let timeout = null;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() =&gt; {
+            fn.apply(this, arguments);
+        })
+    }
+}
+const input = () =&gt; console.log(&quot;debounce&quot;);
+div.addEventListener(&quot;click&quot;, debounce(input, 1000));
+</code></pre>
+<p><strong>this 指向</strong></p>
+<ol>
+<li>在全局作用域下，this 始终指向全局对象 window</li>
+<li>函数中的 this 指向调用函数的对象，严格模式下必须写出调用函数的对象，非严格模式可以省略</li>
+<li>对象中的 this 指向 window，对象内部的方法的 this 同样指向调用的对象</li>
+<li>构造函数中的 this 指向创建的实例</li>
+<li>箭头函数中的 this 指向比较特殊，因为箭头函数<strong>没有 this</strong>，所以其 this 指向继承自父级的 this，并且在定义时被确定，之后不会改变，call()、apply()、bind() 均无法改变</li>
+</ol>
+<p><strong>箭头函数</strong></p>
+<ul>
+<li>是匿名函数</li>
+<li>不能作为构造函数，不能使用 new 关键字</li>
+<li>没有原型，没有 prototype</li>
+<li>没有 this，继承自父级，无法通过 call()、apply()、bind() 改变 this 指向</li>
+<li>没有 arguments 对象，若有外层函数则继承，否则报错，使用 rest 参数（形式为<code>…变量名</code>）替代 arguments</li>
+<li>没有 Generator，不能使用 yeild</li>
+</ul>
+<p><strong>Generator yeild</strong><br>
+Generator 函数就是一个封装的异步的任务，是一个异步容器，在 function 和函数名之间存在星号</p>
+<ul>
+<li>需要使用 .next() 方法进行启动，分阶段执行 Generator 函数</li>
+<li>每次调用 .next() 会返回一个对象表示当前阶段的信息</li>
+</ul>
+<pre><code class="language-js">function* foo(){
+    for(let i = 0;i&lt;2;i++){
+        yield i
+    }
+}
+let f = foo()
+// f.next() 返回yeild后面的表达式
+console.log(f.next()) // {value:0,done:false}
+console.log(f.next()) // {value:1,done:false}
+console.log(f.next()) // {value:undefind,done:true}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[84. 柱状图中最大的矩形]]></title>
+        <id>https://AriesSK.github.io/post/top_84/</id>
+        <link href="https://AriesSK.github.io/post/top_84/">
+        </link>
+        <updated>2022-08-12T03:20:10.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="单调栈的应用">单调栈的应用</h3>
+<p>单调栈分为单调递增栈和单调递减栈。<br>
+以单调递增栈为例：如果新元素比栈顶元素大，则将该元素入栈；如果新元素比栈顶元素小，则重复将栈内元素出栈直至栈顶元素比新元素小。<br>
+单调栈的作用是：以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的时间复杂度一次遍历找到数组中每个元素左右最近的比其小/大的元素。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="单调栈">单调栈</h3>
+<p>本题使用单调递增序列，当元素出栈时，新入栈的元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 是出栈元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">stack.pop()</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span></span></span></span> 右侧第一个比它小的元素；新的栈顶元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">stack[stack.length - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 是出栈元素左侧第一个比它小的元素。此时出栈元素的高度下的最大面积为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>−</mo><mn>1</mn><mo>)</mo><mo>∗</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>s</mi><mo>[</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi mathvariant="normal">.</mi><mi>p</mi><mi>o</mi><mi>p</mi><mo>(</mo><mo>)</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">i - stack[stack.length - 1] - 1) * heights[stack.pop()]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">h</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">.</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span>。<br>
+数组中的每个元素均会入栈出栈一次，就能够遍历每个高度的最大面积，最终得出真正的最大面积。<br>
+至于每种情况下的面积公式比较难想到的话，可以画出<strong>示意图</strong>来寻找正确的公式。</p>
+<pre><code class="language-js">var largestRectangleArea = function(heights) {
+    const stack = [];
+    let res = 0;
+    // 因为只有在出栈的时候才会计算并尝试更新最大的矩形，为了防止数组为递增序列而导致一直未更新，在数组末尾加入小于数组中元素的 0，确保更新
+    heights.push(0);
+    for (let i = 0; i &lt; heights.length; ++i) {
+        // 栈非空并且栈顶元素不小于新元素时出栈
+        while (stack.length &amp;&amp; heights[stack[stack.length - 1]] &gt;= heights[i]) {
+            // i 是 h 右侧第一个比它小的元素，栈顶元素 stack[stack.length - 1] 是 h 左侧第一个比它小的元素
+            let h = heights[stack.pop()];
+            // 空栈说明到目前均为递减序列，最大面积为 i * h
+            // 非空栈说明前面有过递增序列，持续出栈并计算面积
+            res = stack.length ? Math.max(res, (i - stack[stack.length - 1] - 1) * h) : Math.max(res, i * h);
+        }
+        stack.push(i);
+    }
+    return res;
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[EX01. 优惠券问题]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex01/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex01/">
+        </link>
+        <updated>2022-08-09T01:36:38.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="题目">题目</h2>
+<p>近期某商场由于周年庆，开启了“0元购”活动。活动中，消费者可以通过组合手中的代金券，实现0元购买指定商品。消费券有不同的面额，对于指定价格的商品，使用代金券凑出其价格，但所使用的代金券总面额不可超过商品价格。请用算法来快速计算最少需要使用几张优惠券。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="贪心算法-动态规划">贪心算法 动态规划</h3>
+<pre><code class="language-js">function cal(amount, type) {
+    const dp = new Array(amount + 1).fill(0);
+    for (let i = 1; i &lt;= amount; ++i) {
+        dp[i] = Number.POSITIVE_INFINITY;
+        for (let j = 0; j &lt; type.length; ++j) {
+            // 状态转移方程
+            if (i &gt;= type[j]) dp[i] = Math.min(dp[i], dp[i - type[j]] + 1);
+        }
+    }
+    return dp[amount] === Infinity ? &quot;Impossible&quot; : dp[amount];
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[79. 单词搜索]]></title>
+        <id>https://AriesSK.github.io/post/top_79/</id>
+        <link href="https://AriesSK.github.io/post/top_79/">
+        </link>
+        <updated>2022-08-08T05:37:45.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<p>本题与剑指offer<a href="https://ariessk.github.io/post/jianzhi_12/">12. 矩阵中的路径</a>相同，使用<strong>深度优先搜索 + 回溯</strong> 的方法，第二遍做成功做出来了，不错。</p>
+<h3 id="javascript-数组特点">JavaScript 数组特点</h3>
+<p>相对于 Java 等语言，js 的数组中可以存放不同类型的数据。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索-回溯">深度优先搜索 + 回溯</h3>
+<p>通常需要使用与原数组相同大小的数组来表示该元素的访问情况，但是在 js 中因为一个数组可以存放不同类型的数据，所以可以直接在原数组内修改为原数组中不可能出现的值，比如 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，然后在回溯的时候再将数组恢复为原数组即可，不影响后续遍历：</p>
+<pre><code class="language-js">var exist = function(board, word) {
+    const m = board.length, n = board[0].length;
+    // 设置二维数组记录访问的情况
+    const flag = new Array(m).fill().map(() =&gt; new Array(n).fill(0));
+    for (let i = 0; i &lt; m; ++i) {
+        for (let j = 0; j &lt; n; ++j) {
+            if (dfs(i ,j, 0)) return true;
+        }
+    }
+    return false;
+
+    function dfs(i, j, x) {
+        if (x === word.length) return true; // 未判断字符是否是所求字符，需到 word.length 才能返回
+        if (i &lt; 0 || i &gt;= m || j &lt; 0 || j &gt;= n || flag[i][j] || board[i][j] !== word.charAt(x)) return false;
+        // if (x === word.length - 1) return true; 未在在上一行返回说明字符是所求的，因此可以提前返回
+        flag[i][j] = 1;
+        const res =  dfs(i - 1, j, x + 1) || dfs(i, j + 1, x + 1) || dfs(i + 1, j, x + 1) || dfs(i, j - 1, x + 1);
+        flag[i][j] = 0; // 回溯后恢复原状，不影响后续遍历
+        return res;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[78. 子集]]></title>
+        <id>https://AriesSK.github.io/post/top_78/</id>
+        <link href="https://AriesSK.github.io/post/top_78/">
+        </link>
+        <updated>2022-08-07T03:26:28.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-浅拷贝和深拷贝">JavaScript 浅拷贝和深拷贝</h3>
+<p>浅拷贝和深拷贝是针对<strong>引用数据类型</strong>的，浅拷贝复制对象的第一层，深拷贝递归复制每一层。<br>
+<strong>注意：</strong> 如果浅拷贝复制的第一层是基本数据类型，那就是直接复制，原数组修改<strong>不影响</strong>新数组，如果第一次是引用数据类型，则拷贝地址，原数组修改<strong>影响</strong>新数组。<br>
+对于本道题中的<code>tmp.slice()</code>实现的就是浅拷贝，但是由于<code>tmp</code>的第一层是基本数据类型，所以直接复制。</p>
+<h3 id="slice和扩展运算符"><code>slice()</code>和扩展运算符<code>...</code></h3>
+<p><code>slice()</code>实现的是浅拷贝，当不传参数时实现浅拷贝<strong>整个</strong>数组。<br>
+扩展运算符对于<strong>第一层是深拷贝</strong>，对于<strong>更深层是浅拷贝</strong>。</p>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="法一递归回溯">法一：递归回溯</h3>
+<p>与<a href="https://ariessk.github.io/post/jianzhi_38/">38. 字符串的排列</a>的方法相似，不过对于这道题，每一位可以选择加入或不加入<strong>两种</strong>情况：</p>
+<pre><code class="language-js">var subsets = function(nums) {
+    const tmp = [], res = [];
+    dfs(0);
+    return res;
+
+    function dfs(x) {
+        if (x === nums.length) {
+            res.push(tmp.slice());
+            return;
+        }
+        // 将当前位元素加入结果中，注意回溯时复原
+        tmp.push(nums[x]);
+        dfs(x + 1);
+        tmp.pop();
+        // 不将当前元素加入结果中
+        dfs(x + 1);
+    }
+};
+</code></pre>
+<h3 id="法二位运算">法二：位运算</h3>
+<p>因为长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的数组有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span> 个子集，所以刚好可以使用二进制数来替代，二进制数中的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 代表不将该位加入结果中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 则表示加入：</p>
+<pre><code class="language-js">var subsets = function(nums) {
+    const res = [];
+    const n = nums.length;
+    // 1 左移 n 位(2^n)作为遍历上限，比如 n 为 3，则从 000 遍历到 111，也就是从 0 遍历到 7
+    for (let x = 0; x &lt; (1 &lt;&lt; n); ++x) {
+        const tmp = [];
+        for (let i = 0; i &lt; n; ++i) {
+            // 位与运算，判断该位值，为 1 加入结果，为 0 不加入
+            if (x &amp; (1 &lt;&lt; i)) {
+                tmp.push(nums[i]);
+            }
+        }
+        res.push(tmp);
+    }
+    return res;
+};
 </code></pre>
 ]]></content>
     </entry>
