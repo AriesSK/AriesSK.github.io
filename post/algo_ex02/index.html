@@ -197,125 +197,140 @@
     
             <div class="main">
                 <div class="container">
-                    <div class="post-wrap archive">
-                        
+                    <article class="post-wrap">
+                        <header class="post-header">
+                            <h1 class="post-title">
+                                EX02. N叉树的前序遍历
+                            </h1>
                             
-                                <h3>
-                                    2022
-                                </h3>
+                                <!--en-->
+                                <div class="post-meta en">
+                                    Author:
+                                    <a itemprop="author" rel="author" href="/">
+                                        🐧AriesSK
+                                    </a>
+                                    <span class="post-time">
+                                Date: <a href="#">2022-08-17</a>
+                            </span>
+                                    <span class="post-readtime">Reading Time:<a
+                                    href="#">0.9
+                                    mins</a></span>
+                                    <span class="post-words">words:<a href="#">217</a></span>
+                                    
+                                        <span class="post-category">
+                                Category:
                                 
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/top_23/">
-                                                23. 合并K个升序链表
-                                            </a>
-                                            <span class="archive-item-date">2022-07-22 </span>
-                                        </article>
+                                <a href="https://AriesSK.github.io/tag/1Yw1K_nEE/">树</a>
+                                
+                                <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">算法</a>
+                                
+                            </span>
                                         
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/top_21/">
-                                                21. 合并两个有序链表
-                                            </a>
-                                            <span class="archive-item-date">2022-07-20 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/top_19/">
-                                                19. 删除链表的倒数第N个节点
-                                            </a>
-                                            <span class="archive-item-date">2022-07-19 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/top_2/">
-                                                2. 两数相加
-                                            </a>
-                                            <span class="archive-item-date">2022-07-10 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_52/">
-                                                52. 两个链表的第一个公共节点
-                                            </a>
-                                            <span class="archive-item-date">2022-06-20 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_25/">
-                                                25. 合并两个排序的链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-20 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_22/">
-                                                22. 链表中的倒数第k个节点
-                                            </a>
-                                            <span class="archive-item-date">2022-06-19 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_18/">
-                                                18. 删除链表的节点
-                                            </a>
-                                            <span class="archive-item-date">2022-06-19 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_35/">
-                                                35. 复杂链表的复制
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                    
-
-                                        <article class="archive-item">
-                                            <a class="archive-item-link" href="https://AriesSK.github.io/post/jianzhi_24/">
-                                                24. 反转链表
-                                            </a>
-                                            <span class="archive-item-date">2022-06-10 </span>
-                                        </article>
-                                        
-                                            
-                                                
-                    </div>
-                    <div class="pagination-container">
+                                </div>
+                                
+                        </header>
                         
-                                                
+                        <div class="post-content">
+                            <h2 id="知识点">知识点</h2>
+<h3 id="多叉树">多叉树</h3>
+<p>多叉树相对于二叉树，它的孩子节点个数是不确定的，二叉树的节点中定义了左右孩子，而在多叉树中则需要一个数组来储存它的孩子节点：</p>
+<pre><code class="language-js">// 二叉树节点
+function Node(val, left, right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+}
+// 多叉树节点
+function Node(val, children) {
+    this.val = val;
+    this.children = children;
+}
+</code></pre>
+<h3 id="二叉树搜索">二叉树搜索</h3>
+<p>用到了剪枝，在找到目标节点后直接层层向上返回该节点：</p>
+<pre><code class="language-js">var searchBST = function(root, val) {
+    if (!root) return null;
+    if (root.val === val) return root;
+    return searchBST(root.left, val) || searchBST(root.right, val);
+};
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<p>与二叉树的搜索基本一致，需要注意的是多叉树的孩子节点是一个数组：</p>
+<pre><code class="language-js">var preorder = function(root) {
+    const res = [];
+    dfs(root);
+    return res;
+
+    function dfs(root) {
+        if (!root) return;
+        res.push(root.val);
+        for (const child of root.children) {
+            dfs(child);
+        }
+    }
+};
+</code></pre>
+
+                        </div>
+                        
+                                
+                                                    
+                                                        <!-- Share-->
+                                                        <span style="margin-right:15px">
+                                                    <i class="post-share"></i>
+                                                    <span>Share:</span>
+                                                        <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/algo_ex02/"><i class="fa fa-qrcode"></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/algo_ex02/&sharesource=qzone&title=EX02. N叉树的前序遍历&pics=https://AriesSK.github.io/images/avatar.png?v=1660708951586&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/algo_ex02/&sharesource=weibo&title=EX02. N叉树的前序遍历 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660708951586 "><i class="fa fa-weibo "></i></a>
                                                         
-                                                            <a href="https://AriesSK.github.io/tag/2UcFUw72z/page/2" class="next">Next <i class="icon-arrow-ios-forward-outline"></i></a>
-                                                            
+                                                                </span>
+                                                                <!--en-->
+                                                                <section class="post-tags en ">
+                                                                    <div>
+                                                                        <span>Tag(s):</span>
+                                                                        <span class="tag ">
+                        
+                        
+                        <a href="https://AriesSK.github.io/tag/1Yw1K_nEE/">#
+                                                树
+                                                    </a>
+                                                    
+                        <a href="https://AriesSK.github.io/tag/a_0GpSQnz/">#
+                                                算法
+                                                    </a>
+                                                    
+                                                        
+                                                            </span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <a href="javascript:window.history.back();">back</a>
+                                                                        <span>&dot;</span>
+                                                                        <a href="#">home</a>
+                                                                    </div>
+                                                                </section>
                                                                 
-                    </div>
+                                                                                <!---->
+                                                                                <section class="post-nav">
+                                                                                    
+                                                                                        <a class="prev" rel="prev" href="https://AriesSK.github.io/post/zhishidian/">
+                                                                                            #每日更新# 知识点导航
+                                                                                        </a>
+                                                                                        
+                                                                                            
+                                                                                                <a class="next" rel="next" href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
+                                                                                                    前端面试
+                                                                                                </a>
+                                                                                                
+                                                                                </section>
+                    </article>
                 </div>
+                
+                                            
             </div>
+    </div>
+    </div>
     </div>
     
     <div id="player"></div>
@@ -398,5 +413,8 @@
                 </script>
         </div>
 </body>
+<script>
+    scroll();
+</script>
 
 </html>

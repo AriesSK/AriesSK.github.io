@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-15T12:29:26.876Z</updated>
+    <updated>2022-08-17T04:02:40.748Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-15T15:59:59.000Z</updated>
+        <updated>2022-08-17T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -108,6 +108,7 @@
 <li>对象模拟树 树的比较 —— <a href="https://ariessk.github.io/post/jianzhi_28/">28. 对称的二叉树</a></li>
 <li>二叉搜索树 —— <a href="https://ariessk.github.io/post/jianzhi_36/">36. 二叉搜索树与双向链表</a></li>
 <li>最近公共祖先 —— <a href="https://ariessk.github.io/post/jianzhi_68_ii/">68 - II. 二叉树的最近公共祖先</a></li>
+<li>多叉树 二叉树搜索 —— <a href="https://ariessk.github.io/post/algo_ex02/">EX02. N叉树的前序遍历</a></li>
 </ul>
 <p><strong>字符串</strong></p>
 <ul>
@@ -255,6 +256,55 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[EX02. N叉树的前序遍历]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex02/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex02/">
+        </link>
+        <updated>2022-08-17T03:37:39.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="多叉树">多叉树</h3>
+<p>多叉树相对于二叉树，它的孩子节点个数是不确定的，二叉树的节点中定义了左右孩子，而在多叉树中则需要一个数组来储存它的孩子节点：</p>
+<pre><code class="language-js">// 二叉树节点
+function Node(val, left, right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+}
+// 多叉树节点
+function Node(val, children) {
+    this.val = val;
+    this.children = children;
+}
+</code></pre>
+<h3 id="二叉树搜索">二叉树搜索</h3>
+<p>用到了剪枝，在找到目标节点后直接层层向上返回该节点：</p>
+<pre><code class="language-js">var searchBST = function(root, val) {
+    if (!root) return null;
+    if (root.val === val) return root;
+    return searchBST(root.left, val) || searchBST(root.right, val);
+};
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<p>与二叉树的搜索基本一致，需要注意的是多叉树的孩子节点是一个数组：</p>
+<pre><code class="language-js">var preorder = function(root) {
+    const res = [];
+    dfs(root);
+    return res;
+
+    function dfs(root) {
+        if (!root) return;
+        res.push(root.val);
+        for (const child of root.children) {
+            dfs(child);
+        }
+    }
+};
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1113,30 +1163,6 @@ console.log(f.next()) // {value:undefind,done:true}
         }
         if (x) matrix[i][0] = 0;
     }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[70. 爬楼梯]]></title>
-        <id>https://AriesSK.github.io/post/top_70/</id>
-        <link href="https://AriesSK.github.io/post/top_70/">
-        </link>
-        <updated>2022-08-03T03:27:58.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<p>与剑指offer的<a href="https://ariessk.github.io/post/jianzhi_10_ii/">10 - II. 青蛙跳台阶问题</a>相同。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="动态规划">动态规划</h3>
-<p>类似斐波那契数列，当前状态只与前两个状态相关，使用滚动数组替代 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">dp</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span></span></span></span> 数组：</p>
-<pre><code class="language-js">var climbStairs = function(n) {
-    let p = 0, q = 0, r = 1;
-    while (n--) {
-        p = q;
-        q = r;
-        r = p + q;
-    }
-    return r;
 };
 </code></pre>
 ]]></content>
