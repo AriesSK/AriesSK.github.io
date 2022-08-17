@@ -82,7 +82,7 @@
                         <input id="switch_default" type="checkbox" class="switch_default">
                         <label for="switch_default" class="toggleBtn"></label>
             </div>
-            <form id="gridea-search-form" data-update="1660708951586" action="/search/index.html">
+            <form id="gridea-search-form" data-update="1660730429451" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
             </form>
         </div>
@@ -101,7 +101,7 @@
                         <!--zh-->
                         <a id="mobile-toggle-theme-zh" class="a zh">&nbsp;&#x6697;&#x9ED1;</a>
                     </div>
-                    <form id="gridea-search-form" data-update="1660708951586" action="/search/index.html">
+                    <form id="gridea-search-form" data-update="1660730429451" action="/search/index.html">
                         <input class="search-input" autocomplete="off" spellcheck="false" name="q" autofocus="true" placeholder="Search...">
                     </form>
                     <!--en-->
@@ -213,9 +213,9 @@
                                 Date: <a href="#">2022-07-10</a>
                             </span>
                                     <span class="post-readtime">Reading Time:<a
-                                    href="#">2.1
+                                    href="#">2.7
                                     mins</a></span>
-                                    <span class="post-words">words:<a href="#">441</a></span>
+                                    <span class="post-words">words:<a href="#">577</a></span>
                                     
                                         <span class="post-category">
                                 Category:
@@ -239,6 +239,15 @@
 <strong>JavaScript 判断数组是否包含某元素</strong></p>
 <pre><code class="language-js">const arr = [&quot;Aries&quot;, &quot;AriesSK&quot;];
 arr.includes(&quot;Aries&quot;); // true
+</code></pre>
+<p><strong>splice() 方法</strong><br>
+用于添加或删除数组中的元素，会修改原数组，会返回包含被删除元素的数组：</p>
+<pre><code class="language-js">// index 开始添加或删除的数组元素下标，howmany 规定删除几个元素（可以为 0 不写默认删除到结尾），item 表示要添加到数组的新元素
+array.splice(index,howmany,item1,.....,itemX);
+
+var fruits = [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Apple&quot;, &quot;Mango&quot;];
+fruits.splice(2,1,&quot;Lemon&quot;,&quot;Kiwi&quot;); // [&quot;Apple&quot;]
+console.log(fruits); //  [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Lemon&quot;, &quot;Kiwi&quot;, &quot;Mango&quot;]
 </code></pre>
 <hr>
 <h2 id="题解">题解</h2>
@@ -334,8 +343,8 @@ arr.includes(&quot;Aries&quot;); // true
                                                     <i class="post-share"></i>
                                                     <span>Share:</span>
                                                         <a title="QR Code" target="_blank" href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://AriesSK.github.io/post/top_2/"><i class="fa fa-qrcode"></i></a>
-                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_2/&sharesource=qzone&title=2. 两数相加&pics=https://AriesSK.github.io/images/avatar.png?v=1660708951586&summary="><i class="fa fa-qq"></i></a>
-                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_2/&sharesource=weibo&title=2. 两数相加 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660708951586 "><i class="fa fa-weibo "></i></a>
+                                                        <a title="QQ" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://AriesSK.github.io/post/top_2/&sharesource=qzone&title=2. 两数相加&pics=https://AriesSK.github.io/images/avatar.png?v=1660730429451&summary="><i class="fa fa-qq"></i></a>
+                                                        <a title="Weibo" target="_blank" href="https://service.weibo.com/share/share.php?url=https://AriesSK.github.io/post/top_2/&sharesource=weibo&title=2. 两数相加 + " - " + &pic="https://AriesSK.github.io/images/avatar.png?v=1660730429451 "><i class="fa fa-weibo "></i></a>
                                                         
                                                                 </span>
                                                                 <!--en-->
@@ -463,7 +472,7 @@ arr.includes(&quot;Aries&quot;); // true
                     CheckVersion();
                     
                     var newDate = new Date();
-                    newDate.setTime(1660708951586);
+                    newDate.setTime(1660730429451);
                     console.log(" Blog Update Time: " + newDate.toLocaleDateString());
                     console.log("\n %c \u26a1Theme:Chic Author's Blog:https://blog.itjoker.cn  Write By ITJoker  \n\n", "color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius:5px;");
                 </script>
