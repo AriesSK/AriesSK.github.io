@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-08-17T10:26:05.318Z</updated>
+    <updated>2022-08-24T02:38:10.455Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-08-17T15:59:59.000Z</updated>
+        <updated>2022-08-24T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -259,60 +259,11 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[EX02. N叉树的前序遍历]]></title>
-        <id>https://AriesSK.github.io/post/algo_ex02/</id>
-        <link href="https://AriesSK.github.io/post/algo_ex02/">
-        </link>
-        <updated>2022-08-17T03:37:39.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="多叉树">多叉树</h3>
-<p>多叉树相对于二叉树，它的孩子节点个数是不确定的，二叉树的节点中定义了左右孩子，而在多叉树中则需要一个数组来储存它的孩子节点：</p>
-<pre><code class="language-js">// 二叉树节点
-function Node(val, left, right) {
-    this.val = val;
-    this.left = left;
-    this.right = right;
-}
-// 多叉树节点
-function Node(val, children) {
-    this.val = val;
-    this.children = children;
-}
-</code></pre>
-<h3 id="二叉树搜索">二叉树搜索</h3>
-<p>用到了剪枝，在找到目标节点后直接层层向上返回该节点：</p>
-<pre><code class="language-js">var searchBST = function(root, val) {
-    if (!root) return null;
-    if (root.val === val) return root;
-    return searchBST(root.left, val) || searchBST(root.right, val);
-};
-</code></pre>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="深度优先搜索">深度优先搜索</h3>
-<p>与二叉树的搜索基本一致，需要注意的是多叉树的孩子节点是一个数组：</p>
-<pre><code class="language-js">var preorder = function(root) {
-    const res = [];
-    dfs(root);
-    return res;
-
-    function dfs(root) {
-        if (!root) return;
-        res.push(root.val);
-        for (const child of root.children) {
-            dfs(child);
-        }
-    }
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[前端面试]]></title>
         <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
         <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
         </link>
-        <updated>2022-08-15T06:15:18.000Z</updated>
+        <updated>2022-08-24T06:15:18.000Z</updated>
         <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
 <h3 id="html">HTML</h3>
 <p><strong>h5 新特性</strong></p>
@@ -765,7 +716,42 @@ div.addEventListener(&quot;click&quot;, debounce(input, 1000));
 <li>没有 this，继承自父级，无法通过 call()、apply()、bind() 改变 this 指向</li>
 <li>没有 arguments 对象，若有外层函数则继承，否则报错，使用 rest 参数（形式为<code>…变量名</code>）替代 arguments</li>
 <li>没有 Generator，不能使用 yeild</li>
+<li>对象方法、原型方法、构造函数、动态上下文中的回调函数不适合使用箭头函数</li>
 </ul>
+<pre><code class="language-js">// 对象方法
+const obj = {
+    name: '张三',
+    getName: () =&gt; {
+        return this.name; // this 指向 window 并且不会改变
+    }
+}
+console.log(obj.getName()); // window 没有定义 name，输出空值 &quot;&quot;
+
+// 原型方法
+const obj = {
+    name: '张三'
+}
+obj.__proto__.getName = () =&gt; {
+    return this.name;
+}
+console.log(obj.getName()); // 同上
+
+// 构造函数
+const Foo = (name, sex) =&gt; {
+    this.name = name;
+    this.sex = sex;
+}
+// 构造函数通过 new 关键字来生成对象实例，生成对象实例的过程也是通过构造函数给实例绑定 this 的过程，而箭头函数没有自己的 this，因此不能使用箭头作为构造函数
+console.log(new Foo1('张三', '男')); // 报错
+
+// 回调函数
+const btn = document.getElementById('btn');
+btn.addEventListener('click', () =&gt; {
+    // innerHTML 设置或返回开始和结束标签之间的 HTML
+    this.innerHTML = 'clicked'; // this 指向父作用域，这里使用 btn 则可以将按钮的文字替换为 clicked
+});
+// innnerHTML 不会导致页面全部重绘，document.write 会
+</code></pre>
 <p><strong>Generator yeild</strong><br>
 Generator 函数就是一个封装的异步的任务，是一个异步容器，在 function 和函数名之间存在星号</p>
 <ul>
@@ -782,6 +768,55 @@ let f = foo()
 console.log(f.next()) // {value:0,done:false}
 console.log(f.next()) // {value:1,done:false}
 console.log(f.next()) // {value:undefind,done:true}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[EX02. N叉树的前序遍历]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex02/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex02/">
+        </link>
+        <updated>2022-08-17T03:37:39.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="多叉树">多叉树</h3>
+<p>多叉树相对于二叉树，它的孩子节点个数是不确定的，二叉树的节点中定义了左右孩子，而在多叉树中则需要一个数组来储存它的孩子节点：</p>
+<pre><code class="language-js">// 二叉树节点
+function Node(val, left, right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+}
+// 多叉树节点
+function Node(val, children) {
+    this.val = val;
+    this.children = children;
+}
+</code></pre>
+<h3 id="二叉树搜索">二叉树搜索</h3>
+<p>用到了剪枝，在找到目标节点后直接层层向上返回该节点：</p>
+<pre><code class="language-js">var searchBST = function(root, val) {
+    if (!root) return null;
+    if (root.val === val) return root;
+    return searchBST(root.left, val) || searchBST(root.right, val);
+};
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<p>与二叉树的搜索基本一致，需要注意的是多叉树的孩子节点是一个数组：</p>
+<pre><code class="language-js">var preorder = function(root) {
+    const res = [];
+    dfs(root);
+    return res;
+
+    function dfs(root) {
+        if (!root) return;
+        res.push(root.val);
+        for (const child of root.children) {
+            dfs(child);
+        }
+    }
+};
 </code></pre>
 ]]></content>
     </entry>
