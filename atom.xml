@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-09-01T03:34:41.345Z</updated>
+    <updated>2022-09-04T07:14:30.672Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-09-01T15:59:59.000Z</updated>
+        <updated>2022-09-04T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -256,6 +256,72 @@
 <ul>
 <li>模拟概念 —— <a href="https://ariessk.github.io/post/top_13/">13. 罗马数字转整数</a></li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[EX03. 图的搜索]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex03/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex03/">
+        </link>
+        <updated>2022-09-04T03:00:48.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的图">JavaScript 中的图</h3>
+<p>最近笔试经常能碰到考图的题，这里记录一下 js 中图的构造。</p>
+<pre><code class="language-js">// 无向图
+function Graph(v) {
+    this.vertices = v; // 顶点数 v
+    this.edges = 0; // 边数
+    this.adj = new Array(v).fill(0).map(() =&gt; []); // 邻接矩阵
+    this.addEdge = addEdge; // 添加边
+}
+function addEdge(v,w) {
+    // 在邻接矩阵中添加对应边的关系，由于是无向图，在对应的两个顶点的邻接矩阵均需要添加
+    this.adj[v].push(w);
+    this.adj[w].push(v);
+    this.edges++;
+}
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<p>图中常见的两种遍历方法和树中的基本一致，需要注意的就是防止重复遍历。</p>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<pre><code class="language-js">function dfs(node) {
+    const flag = new Array(v).fill(0);
+    const res = [];
+    helper(node);
+    console.log(res);
+
+    function helper(node) {
+        res.push(node);
+        flag[node] = 1;
+        for (let i = 0; i &lt; graph.adj[node].length; ++i) {
+            const tmp = graph.adj[node][i];
+            if(!flag[tmp]) helper(tmp);
+        }
+    }
+}
+</code></pre>
+<h3 id="广度优先搜索">广度优先搜索</h3>
+<pre><code class="language-js">function bfs(node) {
+    // 记录已搜索节点，防止重复搜索
+    const flag = new Array(v).fill(0);
+    flag[node] = 1;
+    const res = [];
+    const queue = [node];
+    while (queue.length) {
+        const n = queue.shift();
+        res.push(n)
+        for (let i = 0; i &lt; graph.adj[n].length; ++i) {
+            const tmp = graph.adj[n][i];
+            if (!flag[tmp]) {
+                queue.push(tmp);
+                flag[tmp] = 1;
+            }
+        }
+    }
+    console.log(res);
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1119,99 +1185,6 @@ function Node(val, children) {
         nums[b] = tmp;
     }
 }; 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[73. 矩阵置零]]></title>
-        <id>https://AriesSK.github.io/post/top_73/</id>
-        <link href="https://AriesSK.github.io/post/top_73/">
-        </link>
-        <updated>2022-08-04T01:27:21.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="数组的原地算法">数组的原地算法</h3>
-<p>要实现数组的原地算法，则只能尝试通过原数组中的空间来替代额外的标记空间，然而这样会导致原数组的这部分空间被修改，在本题中，因为只需要记录该部分被修改的空间中是否有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> ，因此额外的标记就与数组大小无关，就可以实现原地算法。</p>
-<hr>
-<h2 id="题解">题解</h2>
-<h3 id="法一额外数组">法一：额外数组</h3>
-<p>最简单的方法就是使用一个同样的小的二维数组记录原数组中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 出现的位置，然后实现置零，空间复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>∗</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m * n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。<br>
-然后又想了想，发现用来记录的二维数组可以使用两个一维数组替代，空间复杂度降至 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m + n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>：</p>
-<pre><code class="language-js">var setZeroes = function(matrix) {
-    const m = matrix.length, n = matrix[0].length;
-    const x = new Array(m).fill(0), y = new Array(n).fill(0);
-    for (let i = 0; i &lt; m; ++i) {
-        for (let j = 0; j &lt; n; ++j) {
-            if (!matrix[i][j]) {
-                x[i] = 1;
-                y[j] = 1;
-            }
-        }
-    }
-    for (let i = 0; i &lt; m; ++i) {
-        for (let j = 0; j &lt; n; ++j) {
-            if (x[i] || y[j]) matrix[i][j] = 0;
-        }
-    }
-};
-</code></pre>
-<h3 id="法二原地算法">法二：原地算法</h3>
-<p>使用矩阵的第一行和第一列替代法一的两个额外数组，先使用两个标记记录第一行和第一列是否有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，然后使用第一行和第一列进行标记，若矩阵剩余部分出现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，则将其对于的行列标记为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，其余则保持原值以保证第一行和第一列的正确性，最后再通过两个标记置零第一行和第一列：</p>
-<pre><code class="language-js">var setZeroes = function(matrix) {
-    const m = matrix.length, n = matrix[0].length;
-    let x = false, y = false;
-    for (let i = 0; i &lt; m; ++i) {
-        if (!matrix[i][0]) {
-            x = true;
-            break;
-        }
-    }
-    for (let j = 0; j &lt; n; ++j) {
-        if (!matrix[0][j]) {
-            y = true;
-            break;
-        }
-    }
-    for (let i = 1; i &lt; m; ++i) {
-        for (let j = 1; j &lt; n; ++j) {
-            if (!matrix[i][j]) {
-                matrix[i][0] = 0;
-                matrix[0][j] = 0;
-            }
-        }
-    }
-    for (let i = 1; i &lt; m; ++i) {
-        for (let j = 1; j &lt; n; ++j) {
-            if (!matrix[i][0] || !matrix[0][j]) matrix[i][j] = 0;
-        }
-    }
-    if (x) {
-        for (let i = 0; i &lt; m; i++) matrix[i][0] = 0;
-    }
-    if (y) {
-        for (let j = 0; j &lt; n; j++) matrix[0][j] = 0;
-    }
-};
-</code></pre>
-<p>还可以优化至只用一个变量标记第一列原本是否存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，再使用第一列的第一个元素元素记录第一行是否存在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，要注意这种情况下要从最后一行向上处理矩阵，因为第一行作为标记数组需要最后被处理：</p>
-<pre><code class="language-js">var setZeroes = function(matrix) {
-    const m = matrix.length, n = matrix[0].length;
-    let x = false;
-    for (let i = 0; i &lt; m; ++i) {
-        if (!matrix[i][0]) x = true;
-        for (let j = 1; j &lt; n; ++j) {
-            if (!matrix[i][j]) {
-                matrix[i][0] = 0;
-                matrix[0][j] = 0;
-            }
-        }
-    }
-    for (let i = m - 1; i &gt;= 0; --i) {
-        for (let j = 1; j &lt; n; ++j) {
-            if (!matrix[i][0] || !matrix[0][j]) matrix[i][j] = 0;
-        }
-        if (x) matrix[i][0] = 0;
-    }
-};
 </code></pre>
 ]]></content>
     </entry>
