@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://AriesSK.github.io</id>
     <title>🐧AriesSK</title>
-    <updated>2022-09-04T07:24:54.917Z</updated>
+    <updated>2022-09-14T09:54:52.929Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://AriesSK.github.io"/>
     <link rel="self" href="https://AriesSK.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://AriesSK.github.io/post/zhishidian/</id>
         <link href="https://AriesSK.github.io/post/zhishidian/">
         </link>
-        <updated>2022-09-04T15:59:59.000Z</updated>
+        <updated>2022-09-14T15:59:59.000Z</updated>
         <content type="html"><![CDATA[<h3 id="javascript-知识点">JavaScript 知识点</h3>
 <p><strong>变量</strong></p>
 <ul>
@@ -263,77 +263,11 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[EX03. 图的搜索]]></title>
-        <id>https://AriesSK.github.io/post/algo_ex03/</id>
-        <link href="https://AriesSK.github.io/post/algo_ex03/">
-        </link>
-        <updated>2022-09-04T03:00:48.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
-<h3 id="javascript-中的图">JavaScript 中的图</h3>
-<p>最近笔试经常能碰到考图的题，这里记录一下 js 中图的构造。</p>
-<pre><code class="language-js">// 无向图
-function Graph(v) {
-    this.vertices = v; // 顶点数 v
-    this.edges = 0; // 边数
-    this.adj = new Array(v).fill(0).map(() =&gt; []); // 邻接矩阵
-    this.addEdge = addEdge; // 添加边
-}
-function addEdge(v,w) {
-    // 在邻接矩阵中添加对应边的关系，由于是无向图，在对应的两个顶点的邻接矩阵均需要添加
-    this.adj[v].push(w);
-    this.adj[w].push(v);
-    this.edges++;
-}
-</code></pre>
-<hr>
-<h2 id="题解">题解</h2>
-<p>图中常见的两种遍历方法和树中的基本一致，需要注意的就是防止重复遍历。</p>
-<h3 id="深度优先搜索">深度优先搜索</h3>
-<pre><code class="language-js">function dfs(node) {
-    const flag = new Array(v).fill(0);
-    const res = [];
-    helper(node);
-    console.log(res);
-
-    function helper(node) {
-        res.push(node);
-        flag[node] = 1;
-        for (let i = 0; i &lt; graph.adj[node].length; ++i) {
-            const tmp = graph.adj[node][i];
-            if(!flag[tmp]) helper(tmp);
-        }
-    }
-}
-</code></pre>
-<h3 id="广度优先搜索">广度优先搜索</h3>
-<pre><code class="language-js">function bfs(node) {
-    // 记录已搜索节点，防止重复搜索
-    const flag = new Array(v).fill(0);
-    flag[node] = 1;
-    const res = [];
-    const queue = [node];
-    while (queue.length) {
-        const n = queue.shift();
-        res.push(n)
-        for (let i = 0; i &lt; graph.adj[n].length; ++i) {
-            const tmp = graph.adj[n][i];
-            if (!flag[tmp]) {
-                queue.push(tmp);
-                flag[tmp] = 1;
-            }
-        }
-    }
-    console.log(res);
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[前端面试]]></title>
         <id>https://AriesSK.github.io/post/qian-duan-mian-shi/</id>
         <link href="https://AriesSK.github.io/post/qian-duan-mian-shi/">
         </link>
-        <updated>2022-09-01T06:15:18.000Z</updated>
+        <updated>2022-09-14T06:15:18.000Z</updated>
         <content type="html"><![CDATA[<h2 id="前端基础">前端基础</h2>
 <h3 id="html">HTML</h3>
 <p><strong>h5 新特性</strong></p>
@@ -851,6 +785,72 @@ let f = foo()
 console.log(f.next()) // {value:0,done:false}
 console.log(f.next()) // {value:1,done:false}
 console.log(f.next()) // {value:undefind,done:true}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[EX03. 图的搜索]]></title>
+        <id>https://AriesSK.github.io/post/algo_ex03/</id>
+        <link href="https://AriesSK.github.io/post/algo_ex03/">
+        </link>
+        <updated>2022-09-04T03:00:48.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="知识点">知识点</h2>
+<h3 id="javascript-中的图">JavaScript 中的图</h3>
+<p>最近笔试经常能碰到考图的题，这里记录一下 js 中图的构造。</p>
+<pre><code class="language-js">// 无向图
+function Graph(v) {
+    this.vertices = v; // 顶点数 v
+    this.edges = 0; // 边数
+    this.adj = new Array(v).fill(0).map(() =&gt; []); // 邻接矩阵
+    this.addEdge = addEdge; // 添加边
+}
+function addEdge(v,w) {
+    // 在邻接矩阵中添加对应边的关系，由于是无向图，在对应的两个顶点的邻接矩阵均需要添加
+    this.adj[v].push(w);
+    this.adj[w].push(v);
+    this.edges++;
+}
+</code></pre>
+<hr>
+<h2 id="题解">题解</h2>
+<p>图中常见的两种遍历方法和树中的基本一致，需要注意的就是防止重复遍历。</p>
+<h3 id="深度优先搜索">深度优先搜索</h3>
+<pre><code class="language-js">function dfs(node) {
+    const flag = new Array(v).fill(0);
+    const res = [];
+    helper(node);
+    console.log(res);
+
+    function helper(node) {
+        res.push(node);
+        flag[node] = 1;
+        for (let i = 0; i &lt; graph.adj[node].length; ++i) {
+            const tmp = graph.adj[node][i];
+            if(!flag[tmp]) helper(tmp);
+        }
+    }
+}
+</code></pre>
+<h3 id="广度优先搜索">广度优先搜索</h3>
+<pre><code class="language-js">function bfs(node) {
+    // 记录已搜索节点，防止重复搜索
+    const flag = new Array(v).fill(0);
+    flag[node] = 1;
+    const res = [];
+    const queue = [node];
+    while (queue.length) {
+        const n = queue.shift();
+        res.push(n)
+        for (let i = 0; i &lt; graph.adj[n].length; ++i) {
+            const tmp = graph.adj[n][i];
+            if (!flag[tmp]) {
+                queue.push(tmp);
+                flag[tmp] = 1;
+            }
+        }
+    }
+    console.log(res);
+}
 </code></pre>
 ]]></content>
     </entry>
